@@ -1,0 +1,3317 @@
+#######################################
+# Syntax Coloring Map LowPower
+#######################################
+
+
+#######################################
+# Library (KEYWORD3)
+#######################################
+
+TTGO_TWatch	KEYWORD3
+TWatch_MP3	KEYWORD3
+TridentTD_SQLite32	KEYWORD3
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+BlynkGO	KEYWORD1
+BlynkGOv2	KEYWORD1
+BlynkGOv3	KEYWORD1
+BeeNeXT	KEYWORD1
+TWatch	KEYWORD1
+GScreen	KEYWORD1
+Lcd	KEYWORD1
+SD	KEYWORD1
+TWatch	KEYWORD1
+RTC	KEYWORD1
+BMA423	KEYWORD1
+BATT	KEYWORD1
+GPS	KEYWORD1
+BTN	KEYWORD1
+MOTOR	KEYWORD1
+IR	KEYWORD1
+AUDIO	KEYWORD1
+MIC	KEYWORD1
+LINE	KEYWORD1
+
+MQTT	KEYWORD1
+GBPrimePay	KEYWORD1
+
+BTN1	KEYWORD1
+BTN2	KEYWORD1
+BTN	KEYWORD1
+BTN_A	KEYWORD1
+BTN_B	KEYWORD1
+BTN_C	KEYWORD1
+
+SQLite	KEYWORD1
+SQL	KEYWORD1
+
+BLYNK_VPIN	KEYWORD1
+
+LoRa	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+event_send	KEYWORD2
+event_data	KEYWORD2
+
+begin	KEYWORD2
+update	KEYWORD2
+run	KEYWORD2
+pause	KEYWORD2
+regist	KEYWORD2
+
+getActiveScreen	KEYWORD2
+isTouched	KEYWORD2
+getTouchPoint	KEYWORD2
+fillScreen	KEYWORD2
+initBacklight	KEYWORD2
+getBrightness	KEYWORD2
+setBrightness	KEYWORD2
+font_load	KEYWORD2
+font_free	KEYWORD2
+brightness	KEYWORD2
+backlight_ON	KEYWORD2
+backlight_OFF	KEYWORD2
+backlight_isON	KEYWORD2
+backlight_isOFF	KEYWORD2
+hasSD	KEYWORD2
+wakeup	KEYWORD2
+sleep	KEYWORD2
+isSleep	KEYWORD2
+screentime_update	KEYWORD2
+enableSpeaker	KEYWORD2
+capture	KEYWORD2
+touch_calibrate	KEYWORD2
+rotation	KEYWORD2
+flashMem	KEYWORD2
+flashMem_Int	KEYWORD2
+flashMem_Float	KEYWORD2
+flashMem_String	KEYWORD2
+flashMem_CharArray	KEYWORD2
+flashMem_Object	KEYWORD2
+flashMem_Array	KEYWORD2
+flashMem_exists	KEYWORD2
+flashMem_erase	KEYWORD2
+flashMem_eraseAll	KEYWORD2
+oled_threshold	KEYWORD2
+
+createPage	KEYWORD2
+
+configTzTime	KEYWORD2
+getLocalTime	KEYWORD2
+setRTCTime	KEYWORD2
+day	KEYWORD2
+mday	KEYWORD2
+weekday	KEYWORD2
+month	KEYWORD2
+mon	KEYWORD2
+year	KEYWORD2
+th_year	KEYWORD2
+hour	KEYWORD2
+minute	KEYWORD2
+second	KEYWORD2
+angle_hour	KEYWORD2
+angle_minute	KEYWORD2
+angle_second	KEYWORD2
+
+ConfigTzTime	KEYWORD2
+GetLocalTime	KEYWORD2
+
+getBattVoltage	KEYWORD2
+isChargeing	KEYWORD2
+getBattChargeCurrent	KEYWORD2
+getBattDischargeCurrent	KEYWORD2
+getBattPercentage	KEYWORD2
+
+hidden	KEYWORD2
+show	KEYWORD2
+visible	KEYWORD2
+align	KEYWORD2
+align_center	KEYWORD2
+c_align	KEYWORD2
+realign	KEYWORD2
+reset_align	KEYWORD2
+auto_realign	KEYWORD2
+
+offset	KEYWORD2
+offsetX	KEYWORD2
+offsetY	KEYWORD2
+width	KEYWORD2
+height	KEYWORD2
+width_fit	KEYWORD2
+height_fit	KEYWORD2
+centerpoint	KEYWORD2
+center	KEYWORD2
+position	KEYWORD2
+posX	KEYWORD2
+posY	KEYWORD2
+leftX	KEYWORD2
+rightX	KEYWORD2
+topY	KEYWORD2
+bottomY	KEYWORD2
+centerX	KEYWORD2
+centerY	KEYWORD2
+top_left	KEYWORD2
+top_right	KEYWORD2
+bottom_left	KEYWORD2
+bottom_right	KEYWORD2
+lock_position	KEYWORD2
+size	KEYWORD2
+size_fit	KEYWORD2
+coordinate	KEYWORD2
+base_dir	KEYWORD2
+clean	KEYWORD2
+raw	KEYWORD2
+link	KEYWORD2
+copy	KEYWORD2
+getStyle	KEYWORD2
+top	KEYWORD2
+toForeground	KEYWORD2
+toBackground	KEYWORD2
+setTextColor	KEYWORD2
+setTextSelectBGColor	KEYWORD2
+setBodyColor	KEYWORD2
+setBodyRadius	KEYWORD2
+reposition	KEYWORD2
+event_cb	KEYWORD2
+event_main	KEYWORD2
+signal_cb	KEYWORD2
+design_cb	KEYWORD2
+sendEvent	KEYWORD2
+event_parent	KEYWORD2
+parent_event	KEYWORD2
+user_data	KEYWORD2
+ext_attr	KEYWORD2
+alloc_ext_attr	KEYWORD2
+clickable	KEYWORD2
+clickableChilds	KEYWORD2
+dragable	KEYWORD2
+drag_throw	KEYWORD2
+drag_direction	KEYWORD2
+drag_parent	KEYWORD2
+isDraging	KEYWORD2
+gesture	KEYWORD2
+gesture_parent	KEYWORD2
+touch_gesture	KEYWORD2
+touch_point	KEYWORD2
+touch_vector	KEYWORD2
+finish_drag	KEYWORD2
+page_glue	KEYWORD2
+invalidate	KEYWORD2
+refreshStyle	KEYWORD2
+font	KEYWORD2
+font_height	KEYWORD2
+text_opa	KEYWORD2
+line_opa	KEYWORD2
+opa_scalable	KEYWORD2
+opa_scale	KEYWORD2
+setGParent	KEYWORD2
+getGParent	KEYWORD2
+protect	KEYWORD2
+isProtected	KEYWORD2
+child	KEYWORD2
+child_back	KEYWORD2
+child_num	KEYWORD2
+sameWith	KEYWORD2
+setTitle	KEYWORD2
+
+create	KEYWORD2
+isCreated	KEYWORD2
+createLocalStyle	KEYWORD2
+hasLocalStyle	KEYWORD2
+freeLocalStyle	KEYWORD2
+
+setFont	KEYWORD2
+setColor	KEYWORD2
+setSelectBGColor	KEYWORD2
+setOPA	KEYWORD2
+
+setToggle	KEYWORD2
+
+# GStyle
+grad_color	KEYWORD2
+grad_dir	KEYWORD2
+
+# GObject
+onClicked	KEYWORD2
+onPressed	KEYWORD2
+onPressing	KEYWORD2
+onReleased	KEYWORD2
+onLongPressed	KEYWORD2
+onLongPressedRepeat	KEYWORD2
+onValueChanged	KEYWORD2
+onDelete	KEYWORD2
+onGesture	KEYWORD2
+parent	KEYWORD2
+
+# GObject & GStyle
+setCircle	KEYWORD2
+corner_radius	KEYWORD2
+corner_mask	KEYWORD2
+shadow	KEYWORD2	KEYWORD2
+shadow_color	KEYWORD2
+shadow_opa	KEYWORD2
+shadow_offset	KEYWORD2
+shadow_spread	KEYWORD2
+line_width	KEYWORD2
+line_color	KEYWORD2
+line_opa	KEYWORD2
+line_rounded	KEYWORD2
+image_color	KEYWORD2
+image_intense	KEYWORD2
+image_opa	KEYWORD2
+image_filter	KEYWORD2
+image_reset	KEYWORD2
+font	KEYWORD2
+font_height	KEYWORD2
+text_color	KEYWORD2
+text_opa	KEYWORD2
+text_sel_color	KEYWORD2
+text_line_space	KEYWORD2
+text_letter_space	KEYWORD2
+text_blend_mode	KEYWORD2
+line_space	KEYWORD2
+letter_space	KEYWORD2
+font_color	KEYWORD2
+underline	KEYWORD2
+strikethrough	KEYWORD2
+
+# GObjectUI
+background	KEYWORD2
+transparent	KEYWORD2
+
+# GApp32
+app	KEYWORD2
+
+# GAqi
+aqi_type	KEYWORD2
+warning_hidden	KEYWORD2
+pm25	KEYWORD2
+pm10	KEYWORD2
+pm1	KEYWORD2
+aqi	KEYWORD2
+
+
+# GCheckBox
+checked	KEYWORD2
+
+# GLabel
+text	KEYWORD2
+raw_text	KEYWORD2
+color	KEYWORD2
+recolor	KEYWORD2
+colorful	KEYWORD2
+sel_color	KEYWORD2
+rolling	KEYWORD2
+rolling_width	KEYWORD2
+rolling_speed	KEYWORD2
+body_draw	KEYWORD2
+body_color	KEYWORD2
+body_opa	KEYWORD2
+editable	KEYWORD2
+wrapable	KEYWORD2
+long_mode	KEYWORD2
+text_align	KEYWORD2
+letter_position	KEYWORD2
+letter_on	KEYWORD2
+text_select_start	KEYWORD2
+text_select_end	KEYWORD2
+text_select	KEYWORD2
+insert	KEYWORD2
+cut	KEYWORD2
+encoded_length	KEYWORD2
+find	KEYWORD2
+printf	KEYWORD2
+split	KEYWORD2
+
+# GImage
+setImage	KEYWORD2
+setSource	KEYWORD2
+getSource	KEYWORD2
+zoom	KEYWORD2
+filter	KEYWORD2
+opa	KEYWORD2
+reset	KEYWORD2
+transparent	KEYWORD2
+resize	KEYWORD2
+getImageInfo	KEYWORD2
+gif_delay	KEYWORD2
+
+# GIcon
+getImage	KEYWORD2
+getLabel	KEYWORD2
+text_hidden	KEYWORD2
+
+# GButton
+font	KEYWORD2
+corner_radius	KEYWORD2
+cornet_mask	KEYWORD2
+text_color	KEYWORD2
+createButtonStyle	KEYWORD2
+deleteButton	KEYWORD2
+mode	KEYWORD2
+toggle	KEYWORD2
+onPressed	KEYWORD2
+onPressing	KEYWORD2
+onReleased	KEYWORD2
+onClicked	KEYWORD2
+onToggle	KEYWORD2
+ON	KEYWORD2
+OFF	KEYWORD2
+isON	KEYWORD2
+isOFF	KEYWORD2
+inactive	KEYWORD2
+round_design	KEYWORD2
+no_label	KEYWORD2
+
+# GButtonMatrix
+map	KEYWORD2
+control_map	KEYWORD2
+control_all	KEYWORD2
+active_button	KEYWORD2
+pressed_button_id	KEYWORD2
+one_toggle	KEYWORD2
+color	KEYWORD2
+bg_color	KEYWORD2
+radius	KEYWORD2
+border	KEYWORD2
+border_color	KEYWORD2
+border_part	KEYWORD2
+border_opa	KEYWORD2
+bg_color	KEYWORD2
+bg_radius	KEYWORD2
+bg_border	KEYWORD2
+bg_border_color	KEYWORD2
+font	KEYWORD2
+font_color	KEYWORD2
+padding	KEYWORD2
+padding_inner	KEYWORD2
+padding_top	KEYWORD2
+padding_bottom	KEYWORD2
+padding_left	KEYWORD2
+padding_right	KEYWORD2
+padding_left_right	KEYWORD2
+padding_top_bottom	KEYWORD2
+button_width	KEYWORD2
+
+# GSlider
+range	KEYWORD2
+max_value	KEYWORD2
+min_value	KEYWORD2
+value	KEYWORD2
+right_value	KEYWORD2
+left_value	KEYWORD2
+upper_value	KEYWORD2
+lower_value	KEYWORD2
+slider_type	KEYWORD2
+onValueChanged	KEYWORD2
+knob_image	KEYWORD2
+
+# GSliderV
+title	KEYWORD2
+unit	KEYWORD2
+
+# GLed
+ON	KEYWORD2
+OFF	KEYWORD2
+isON	KEYWORD2
+isOFF	KEYWORD2
+toggle	KEYWORD2
+state	KEYWORD2
+brightness	KEYWORD2
+
+# GSwitch
+ON	KEYWORD2
+OFF	KEYWORD2
+isON	KEYWORD2
+isOFF	KEYWORD2
+taggle	KEYWORD2
+state	KEYWORD2
+knob_color	KEYWORD2
+knob_grad_color	KEYWORD2
+
+# GSwitch3D
+ON	KEYWORD2
+OFF	KEYWORD2
+isON	KEYWORD2
+isOFF	KEYWORD2
+state	KEYWORD2
+toggle	KEYWORD2
+sw3d_type	KEYWORD2
+virtualPin	KEYWORD2
+gpio	KEYWORD2
+active_high	KEYWORD2
+
+# GRoller
+options	KEYWORD2
+visible_rows	KEYWORD2
+option_align	KEYWORD2
+selected	KEYWORD2
+selected_id	KEYWORD2
+
+# GMessageBox
+text	KEYWORD2
+addButtons	KEYWORD2
+auto_close	KEYWORD2
+anim_time	KEYWORD2
+recolor	KEYWORD2
+
+# GTextArea
+default_keyboard	KEYWORD2
+password_mode	KEYWORD2
+password_show_time	KEYWORD2
+text	KEYWORD2
+placeholder	KEYWORD2
+placeholder_color	KEYWORD2
+add	KEYWORD2
+del_forward	KEYWORD2
+backspace	KEYWORD2
+text_align	KEYWORD2
+accepted_chars	KEYWORD2
+max_length	KEYWORD2
+cursor_pos	KEYWORD2
+cursor_type	KEYWORD2
+cursor_click_pos	KEYWORD2
+cursor_left	KEYWORD2
+cursor_right	KEYWORD2
+oneline	KEYWORD2
+text_select	KEYWORD2
+text_isSelected	KEYWORD2
+
+# GKeyboard
+cursor_manage	KEYWORD2
+setTextArea	KEYWORD2
+getTextArea	KEYWORD2
+mode	KEYWORD2
+map	KEYWORD2
+control_map	KEYWORD2
+
+# GCalendar
+language	KEYWORD2
+today	KEYWORD2
+showed_date	KEYWORD2
+getShowedDate	KEYWORD2
+pressed_date	KEYWORD2
+highlighted_dates	KEYWORD2
+onDoubleClicked	KEYWORD2
+
+# GList
+font_color	KEYWORD2
+addItem	KEYWORD2
+removeItem	KEYWORD2
+item_name	KEYWORD2
+item_id	KEYWORD2
+item_selected	KEYWORD2
+item_selected_id	KEYWORD2
+item_img	KEYWORD2
+item_num	KEYWORD2
+tileview_element_mode	KEYWORD2
+item_color	KEYWORD2
+item_padding	KEYWORD2
+item_padding_top	KEYWORD2
+item_padding_bottom	KEYWORD2
+item_padding_left	KEYWORD2
+item_padding_right	KEYWORD2
+item_padding_inner	KEYWORD2
+single_mode	KEYWORD2
+
+# GPreloader
+start	KEYWORD2
+stop	KEYWORD2
+
+# GContainer
+layout	KEYWORD2
+fit	KEYWORD2
+fit2	KEYWORD2
+fit4	KEYWORD2
+fit_left	KEYWORD2
+fit_right	KEYWORD2
+fit_top	KEYWORD2
+fit_bottom	KEYWORD2
+
+# GPage
+clean	KEYWORD2
+scrollbar	KEYWORD2
+scroll_propagation	KEYWORD2
+fit_width	KEYWORD2
+fit_height	KEYWORD2
+edge_flash	KEYWORD2
+scrollTop	KEYWORD2
+scrollBottom	KEYWORD2
+scrollLeft	KEYWORD2
+scrollRight	KEYWORD2
+scroll_pos	KEYWORD2
+scroll_posX	KEYWORD2
+scroll_posY	KEYWORD2
+
+# GPreload
+arc_length	KEYWORD2
+spin_time	KEYWORD2
+preload_type	KEYWORD2
+
+# GLine
+setPoints	KEYWORD2
+rounded	KEYWORD2
+thickness	KEYWORD2
+
+# GTabview
+addTab	KEYWORD2
+tabbar_color	KEYWORD2
+tabbar_opa	KEYWORD2
+tabbar_hidden	KEYWORD2
+tab_count	KEYWORD2
+current_tab_id	KEYWORD2
+current_tab_name	KEYWORD2
+tab_name	KEYWORD2
+getTab	KEYWORD2
+
+# GWindow
+setHeaderHeight	KEYWORD2
+setHeaderColor	KEYWORD2
+setHeaderOPA	KEYWORD2
+setBodyOPA	KEYWORD2
+
+# GWinUI
+addMenuItem	KEYWORD2
+addPage	KEYWORD2
+title	KEYWORD2
+titlebar_color	KEYWORD2
+titlebar_opa	KEYWORD2
+background	KEYWORD2
+left_menu	KEYWORD2
+cur_page_id	KEYWORD2
+cur_page_name	KEYWORD2
+wifi_signal	KEYWORD2
+wifi_signal_hidden	KEYWORD2
+battery_percentage	KEYWORD2
+battery_hidden	KEYWORD2
+indic_color	KEYWORD2
+
+# GWorkspaceUI
+header_color	KEYWORD2
+title	KEYWORD2
+title_color	KEYWORD2
+body_color	KEYWORD2
+body	KEYWORD2
+clickable	KEYWORD2
+onBackButtonClicked	KEYWORD2
+
+# GTileview
+addElement	KEYWORD2
+valid_positions	KEYWORD2
+edge_flash	KEYWORD2
+scroll_mode	KEYWORD2
+
+# GTimeSelector
+init	KEYWORD2
+hour	KEYWORD2
+minute	KEYWORD2
+isAM	KEYWORD2
+timestamp	KEYWORD2
+onApply	KEYWORD2
+onCancel	KEYWORD2
+
+# GTable
+cells	KEYWORD2
+row	KEYWORD2
+column	KEYWORD2
+rows	KEYWORD2
+columns	KEYWORD2
+column_width	KEYWORD2
+column_align	KEYWORD2
+column_type	KEYWORD2
+row_align	KEYWORD2
+row_style	KEYWORD2
+cell_align	KEYWORD2
+cell_style	KEYWORD2
+cell_crop	KEYWORD2
+cell_merge_right	KEYWORD2
+cell	KEYWORD2
+merge_right	KEYWORD2
+crop	KEYWORD2
+style_type	KEYWORD2
+toFloat	KEYWORD2
+toInt	KEYWORD2
+c_str	KEYWORD2
+toString	KEYWORD2
+format	KEYWORD2
+
+# GBar
+symmetric	KEYWORD2
+anim_time	KEYWORD2
+range	KEYWORD2
+value_min	KEYWORD2
+value_max	KEYWORD2
+value_start	KEYWORD2
+start_value	KEYWORD2
+
+# GCamera
+update	KEYWORD2
+brightness	KEYWORD2
+contrast	KEYWORD2
+saturation	KEYWORD2
+sharpness	KEYWORD2
+denoise	KEYWORD2
+guildline	KEYWORD2
+face_detection	KEYWORD2
+rear	KEYWORD2
+camera_init	KEYWORD2
+frame_swapbyte	KEYWORD2
+
+# GCanvas
+fillScreen	KEYWORD2
+fillAlpha	KEYWORD2
+drawLine	KEYWORD2
+drawHLine	KEYWORD2
+drawVLine	KEYWORD2
+drawRect	KEYWORD2
+drawText	KEYWORD2
+maskRect	KEYWORD2
+drawRoundRect	KEYWORD2
+fillRoundRect	KEYWORD2
+fillRoundRect	KEYWORD2
+drawCircle	KEYWORD2
+fillCircle	KEYWORD2
+maskCircle	KEYWORD2
+drawTriangle	KEYWORD2
+fillTriangle	KEYWORD2
+maskTriangle	KEYWORD2
+drawPolygon	KEYWORD2
+fillPolygon	KEYWORD2
+maskPolygon	KEYWORD2
+drawArc	KEYWORD2
+maskArc	KEYWORD2
+pixel	KEYWORD2
+alpha	KEYWORD2
+drawImage	KEYWORD2
+palette	KEYWORD2
+color_format	KEYWORD2
+
+
+# GArc
+radius	KEYWORD2
+rounded	KEYWORD2
+thickness	KEYWORD2
+angle	KEYWORD2
+angle_start	KEYWORD2
+angle_end	KEYWORD2
+angle_offset	KEYWORD2
+direction	KEYWORD2
+
+# GChart
+createSerie	KEYWORD2
+clearSerie	KEYWORD2
+type	KEYWORD2
+series_width	KEYWORD2
+series_opa	KEYWORD2
+series_darking	KEYWORD2
+addPoint	KEYWORD2
+point_count	KEYWORD2
+range	KEYWORD2
+margin	KEYWORD2
+x_tick_length	KEYWORD2
+y_tick_length	KEYWORD2
+x_tick_texts	KEYWORD2
+y_tick_texts	KEYWORD2
+secondary_y_tick_texts	KEYWORD2
+div_line_count	KEYWORD2
+update_mode	KEYWORD2
+refresh	KEYWORD2
+
+# GGauge
+range	KEYWORD2
+range_font	KEYWORD2
+range_color	KEYWORD2
+range_hidden	KEYWORD2
+value	KEYWORD2
+value_max	KEYWORD2
+value_min	KEYWORD2
+decimal	KEYWORD2
+font	KEYWORD2
+font_color	KEYWORD2
+title	KEYWORD2
+title_color	KEYWORD2
+title_font	KEYWORD2
+gauge_type	KEYWORD2
+
+# GGaugeLine
+range	KEYWORD2
+value_min	KEYWORD2
+value_max	KEYWORD2
+value	KEYWORD2
+critical_value	KEYWORD2
+critical_color	KEYWORD2
+scale_color	KEYWORD2
+scale_length	KEYWORD2
+scale_padding	KEYWORD2
+scale_width	KEYWORD2
+circle_middle_color	KEYWORD2
+circle_middle_radius	KEYWORD2
+scale	KEYWORD2
+scale_angle	KEYWORD2
+line_count	KEYWORD2
+label_count	KEYWORD2
+needle	KEYWORD2
+needle_color	KEYWORD2
+needle_count	KEYWORD2
+
+# GGaugeRainbow
+color_begin	KEYWORD2
+color_end	KEYWORD2
+color_bg	KEYWORD2
+
+# GDropdownList
+arrow	KEYWORD2
+arrow_symbol
+options	KEYWORD2
+options_count	KEYWORD2
+option_align	KEYWORD2
+scroll_mode	KEYWORD2
+selected	KEYWORD2
+selected_id	KEYWORD2
+height_open	KEYWORD2
+stay_open	KEYWORD2
+
+
+# GColorPicker
+type	KEYWORD2
+color	KEYWORD2
+
+# GMask
+fill	KEYWORD2
+clear	KEYWORD2
+arc	KEYWORD2
+line	KEYWORD2
+line_aa	KEYWORD2
+polygon	KEYWORD2
+rect	KEYWORD2
+circle	KEYWORD2
+triangle	KEYWORD2
+invert	KEYWORD2
+allocBuffer	KEYWORD2
+setBuffer	KEYWORD2
+getBuffer	KEYWORD2
+linkBuffer	KEYWORD2
+
+# GMultiScreen
+addScreen	KEYWORD2
+current_screen	KEYWORD2
+current_screen_id	KEYWORD2
+hidden_indic	KEYWORD2
+indic	KEYWORD2
+indic_color	KEYWORD2
+indic_opa	KEYWORD2
+anim_time	KEYWORD2
+num	KEYWORD2
+
+# GAqi
+pm25	KEYWORD2
+pm10	KEYWORD2
+pm1	KEYWORD2
+aqi	KEYWORD2
+aqi_type	KEYWORD2
+getAQI	KEYWORD2
+
+# GStep
+step	KEYWORD2
+decimal	KEYWORD2
+
+# GKeyUnlocker
+onApply	KEYWORD2
+onCancel	KEYWORD2
+mode	KEYWORD2
+secretkey	KEYWORD2
+
+# TridentTD_SD
+cardType	KEYWORD2
+cardSize	KEYWORD2
+totalBytes	KEYWORD2
+usedBytes	KEYWORD2
+listDir	KEYWORD2
+removeDir	KEYWORD2
+readFile	KEYWORD2
+writeFile	KEYWORD2
+appendFile	KEYWORD2
+renameFile	KEYWORD2
+readFile	KEYWORD2
+exists	KEYWORD2
+
+# GAnimation
+widget	KEYWORD2
+ready_cb	KEYWORD2
+exec_cb	KEYWORD2
+path_cb	KEYWORD2
+path_type	KEYWORD2
+value	KEYWORD2
+time	KEYWORD2
+repeat	KEYWORD2
+repeat_pause	KEYWORD2
+playback	KEYWORD2
+playback_pause	KEYWORD2
+run	KEYWORD2
+del	KEYWORD2
+count_running	KEYWORD2
+refresh_now	KEYWORD2
+
+# GTimer
+setInterval	KEYWORD2
+setOnce	KEYWORD2
+suspend	KEYWORD2
+resume	KEYWORD2
+del	KEYWORD2
+clearAll	KEYWORD2
+run	KEYWORD2
+enable	KEYWORD2
+
+
+# GTask
+create	KEYWORD2
+del	KEYWORD2
+once	KEYWORD2
+ready	KEYWORD2
+task_cb	KEYWORD2
+enable	KEYWORD2
+period	KEYWORD2
+priority	KEYWORD2
+reset	KEYWORD2
+
+# GWiFiManager
+# GWiFiSetting
+wifi_setting	KEYWORD2
+ssid	KEYWORD2
+password	KEYWORD2
+save	KEYWORD2
+connectWiFi	KEYWORD2
+disconnectWiFi	KEYWORD2
+reset	KEYWORD2
+autoconnection	KEYWORD2
+onWiFiConnected	KEYWORD2
+onWiFiDisconnected	KEYWORD2
+update_WiFiSignal	KEYWORD2
+onBack	KEYWORD2
+load_config	KEYWORD2
+save_config	KEYWORD2
+connect_wifi	KEYWORD2
+update_WiFiInfo	KEYWORD2
+ta_onValueChanged	KEYWORD2
+scan_WiFiNetworks	KEYWORD2
+update_NetworkList	KEYWORD2
+WiFiReScan	KEYWORD2
+msgbox_create	KEYWORD2
+
+# WiFiManager (เพิ่มให้)
+setSaveConfigCallback	KEYWORD2
+startConfigPortal	KEYWORD2
+
+# GBlynkManager
+# GBlynkSetting
+auth	KEYWORD2
+host	KEYWORD2
+port	KEYWORD2
+
+# TWatch_MP3
+playback	KEYWORD2
+stop	KEYWORD2
+update	KEYWORD2
+isPlaying	KEYWORD2
+play	KEYWORD2
+play_host	KEYWORD2
+volume	KEYWORD2
+onPlay	KEYWORD2
+onPause	KEYWORD2
+onStop	KEYWORD2
+onFinished	KEYWORD2
+
+# ESP32 I2S Audio
+audio_bitrate	KEYWORD2
+audio_commercial	KEYWORD2
+audio_eof_mp3	KEYWORD2
+audio_eof_speech	KEYWORD2
+audio_icyurl	KEYWORD2
+audio_info	KEYWORD2
+audio_id3data	KEYWORD2
+audio_lasthost	KEYWORD2
+audio_showstreamtitle	KEYWORD2
+audio_showstation	KEYWORD2
+audio_eof_stream	KEYWORD2
+audio_id3image	KEYWORD2
+connecttoSD	KEYWORD2
+connecttoFS	KEYWORD2
+connecttohost	KEYWORD2
+connecttospeech	KEYWORD2
+setAudioPlayPosition	KEYWORD2
+getAudioCurrentTime	KEYWORD2
+getAudioFileDuration	KEYWORD2
+getAudioLeftTime	KEYWORD2
+getTotalPlayingTime	KEYWORD2
+getDatamode	KEYWORD2
+getFilePos	KEYWORD2
+getFileSize	KEYWORD2
+getVolume	KEYWORD2
+loop	KEYWORD2
+pauseResume	KEYWORD2
+setDatamode	KEYWORD2
+setFilePos	KEYWORD2
+setPinout	KEYWORD2
+setVolume	KEYWORD2
+stopSong	KEYWORD2
+streamavail	KEYWORD2
+isRunning	KEYWORD2
+inBufferFilled	KEYWORD2
+inBufferFree	KEYWORD2
+i2s_mclk_pin_select	KEYWORD2
+setFileLoop	KEYWORD2
+setTone	KEYWORD2
+setBalance	KEYWORD2
+forceMono	KEYWORD2
+setInternalDAC	KEYWORD2
+setI2SCommFMT_LSB	KEYWORD2
+setTimeOffset KEYWORD2
+
+# TWatch Class
+enableInterrupt	KEYWORD2
+onBATT_Interrupt	KEYWORD2
+onTouch_Interrupt	KEYWORD2
+lowenergy	KEYWORD2
+auto_sleepmode	KEYWORD2
+display_ON	KEYWORD2
+display_OFF	KEYWORD2
+display_isON	KEYWORD2
+display_isOFF	KEYWORD2
+
+# GQRCode
+encode	KEYWORD2
+encodeLine	KEYWORD2
+encodeWiFi	KEYWORD2
+encodePromptPay	KEYWORD2
+encodeKPlusShop	KEYWORD2
+
+# LoRa
+begin	KEYWORD2
+end	KEYWORD2
+
+onSent	KEYWORD2
+onReceived	KEYWORD2
+receive_mode	KEYWORD2
+send_mode	KEYWORD2
+send	KEYWORD2
+
+beginPacket	KEYWORD2
+endPacket	KEYWORD2
+
+parsePacket	KEYWORD2
+packetRssi	KEYWORD2
+packetSnr	KEYWORD2
+packetFrequencyError	KEYWORD2
+
+rssi	KEYWORD2
+
+write	KEYWORD2
+
+available	KEYWORD2
+read	KEYWORD2
+peek	KEYWORD2
+flush	KEYWORD2
+
+onReceive	KEYWORD2
+onTxDone	KEYWORD2
+receive	KEYWORD2
+idle	KEYWORD2
+sleep	KEYWORD2
+
+setTxPower	KEYWORD2
+setFrequency	KEYWORD2
+setSpreadingFactor	KEYWORD2
+setSignalBandwidth	KEYWORD2
+setCodingRate4	KEYWORD2
+setPreambleLength	KEYWORD2
+setSyncWord	KEYWORD2
+enableCrc	KEYWORD2
+disableCrc	KEYWORD2
+enableInvertIQ	KEYWORD2
+disableInvertIQ	KEYWORD2
+setGain	KEYWORD2
+
+random	KEYWORD2
+setPins	KEYWORD2
+setSPIFrequency	KEYWORD2
+dumpRegisters	KEYWORD2
+
+PA_OUTPUT_RFO_PIN	LITERAL1
+PA_OUTPUT_PA_BOOST_PIN	LITERAL1
+
+LORA_NODE	LITERAL1
+LORA_GATEWAY	LITERAL1
+
+# GBPrimePay
+init	KEYWORD2
+update	KEYWORD2
+setToken	KEYWORD2
+setTopicPrefix	KEYWORD2
+setPlace	KEYWORD2
+getToken	KEYWORD2
+getTunnelTopic	KEYWORD2
+getPaidTopic	KEYWORD2
+getTunnelURL	KEYWORD2
+getForwardIP	KEYWORD2
+getForwardPort	KEYWORD2
+setForwardPort	KEYWORD2
+isMaster	KEYWORD2
+requestQRCash	KEYWORD2
+cancelRequestQRCash	KEYWORD2
+onInitialized	KEYWORD2
+onQRCash	KEYWORD2
+onPaid	KEYWORD2
+onPaymentTimeout	KEYWORD2
+onError	KEYWORD2
+onWiFiConnected	KEYWORD2
+onWiFiDisconnected	KEYWORD2
+onMQTTConnected	KEYWORD2
+onMQTTDisconnected	KEYWORD2
+onMQTTMessage	KEYWORD2
+gen_bill_no	KEYWORD2
+
+
+# Blynk
+BLYNK_CONNECTED	KEYWORD2
+BLYNK_DISCONNECTED	KEYWORD2
+
+# WiFi / SmartWiFi
+onWiFiEvent	KEYWORD2
+onWiFiConnected	KEYWORD2
+onWiFiDisconnected	KEYWORD2
+onNTPSynced	KEYWORD2
+getLocalTime	KEYWORD2
+isNTPSynced	KEYWORD2
+timezone	KEYWORD2
+daylight_saving	KEYWORD2
+syncNTP	KEYWORD2
+autoNTP	KEYWORD2
+
+WIFI_CONNECTED	KEYWORD2
+WIFI_DISCONNECTED	KEYWORD2
+NTP_SYNCED	KEYWORD2
+MQTT_CONNECTED	KEYWORD2
+MQTT_DISCONNECTED	KEYWORD2
+MQTT_SUBSCRIBED	KEYWORD2
+MQTT_UNSUBSCRIBED	KEYWORD2
+MQTT_PUBLISHED	KEYWORD2
+
+BEENEXT_DATA	KEYWORD2
+
+# BlynkGO TimeAlarms
+alarmRepeat	KEYWORD2
+alarmOnce	KEYWORD2
+AlarmHMS	KEYWORD2
+day	KEYWORD2
+month	KEYWORD2
+year	KEYWORD2
+weekday	KEYWORD2
+mday	KEYWORD2
+wday	KEYWORD2
+mon	KEYWORD2
+now	KEYWORD2
+hour	KEYWORD2
+minute	KEYWORD2
+second	KEYWORD2
+secs_of_day	KEYWORD2
+
+
+# MQTT
+publish	KEYWORD2
+subscribe	KEYWORD2
+unsubscribe	KEYWORD2
+clearRetain	KEYWORD2
+clearTopic	KEYWORD2
+setClientId	KEYWORD2
+getClientId	KEYWORD2
+onConnected	KEYWORD2
+onDisconnected	KEYWORD2
+onSubscribed	KEYWORD2
+onUnsubscribed	KEYWORD2
+onPublished	KEYWORD2
+onMessage	KEYWORD2
+setKeepAlive	KEYWORD2
+setCleanSession	KEYWORD2
+setMaxTopicLength	KEYWORD2
+setCredentials	KEYWORD2
+setWill	KEYWORD2
+setServer	KEYWORD2
+setSecure	KEYWORD2
+addServerFingerprint	KEYWORD2
+
+# BlynkGO_BMA423
+init	KEYWORD2
+isInited	KEYWORD2
+onStepCounter	KEYWORD2
+onDirection	KEYWORD2
+onAcceleration	KEYWORD2
+onDoubleClick	KEYWORD2
+onTilt	KEYWORD2
+onActivity	KEYWORD2
+onAnyNoMotion	KEYWORD2
+enableStepCounter	KEYWORD2
+enableDirection	KEYWORD2
+enableAcceleration	KEYWORD2
+getAcceleration	KEYWORD2
+getActivity	KEYWORD2
+resetStepCounter	KEYWORD2
+isStepCounter	KEYWORD2
+isDoubleClick	KEYWORD2
+isTilt	KEYWORD2
+isActivity	KEYWORD2
+isAnyNoMotion	KEYWORD2
+enableInterrupt	KEYWORD2
+readInterruptStatus	KEYWORD2
+getInterruptStatus	KEYWORD2
+
+
+
+acceleration_t	LITERAL1
+direction_t	LITERAL1
+activity_t	LITERAL1
+
+DIRECTION_NONE	LITERAL1
+DIRECTION_TOP_EDGE	LITERAL1
+DIRECTION_BOTTOM_EDGE	LITERAL1
+DIRECTION_LEFT_EDGE	LITERAL1
+DIRECTION_RIGHT_EDGE	LITERAL1
+DIRECTION_DISP_UP	LITERAL1
+DIRECTION_DISP_DOWN	LITERAL1
+
+ACTIVITY_STATIONARY	LITERAL1
+ACTIVITY_WALKING	LITERAL1
+ACTIVITY_RUNNING	LITERAL1
+ACTIVITY_INVALID	LITERAL1
+
+# axp20x
+setPowerOutPut	KEYWORD2
+isBatteryConnect	KEYWORD2
+isChargeing	KEYWORD2
+isLDO2Enable	KEYWORD2
+isLDO3Enable	KEYWORD2
+isLDO4Enable	KEYWORD2
+isDCDC3Enable	KEYWORD2
+isDCDC2Enable	KEYWORD2
+isChargeingEnable	KEYWORD2
+isVBUSPlug	KEYWORD2
+isDCDC1Enable	KEYWORD2
+isExtenEnable	KEYWORD2
+isAcinOverVoltageIRQ	KEYWORD2
+isAcinPlugInIRQ	KEYWORD2
+isAcinRemoveIRQ	KEYWORD2
+isVbusOverVoltageIRQ	KEYWORD2
+isVbusPlugInIRQ	KEYWORD2
+isVbusRemoveIRQ	KEYWORD2
+isVbusLowVHOLDIRQ	KEYWORD2
+isBattPlugInIRQ	KEYWORD2
+isBattRemoveIRQ	KEYWORD2
+isBattEnterActivateIRQ	KEYWORD2
+isBattExitActivateIRQ	KEYWORD2
+isChargingIRQ	KEYWORD2
+isChargingDoneIRQ	KEYWORD2
+isBattTempLowIRQ	KEYWORD2
+isBattTempHighIRQ	KEYWORD2
+isPEKShortPressIRQ	KEYWORD2
+isPEKLongtPressIRQ	KEYWORD2
+getAcinVoltage	KEYWORD2
+getAcinCurrent	KEYWORD2
+getVbusVoltage	KEYWORD2
+getVbusCurrent	KEYWORD2
+getTemp	KEYWORD2
+getTSTemp	KEYWORD2
+getGPIO0Voltage	KEYWORD2
+getGPIO1Voltage	KEYWORD2
+getBattInpower	KEYWORD2
+getBattVoltage	KEYWORD2
+getBattChargeCurrent	KEYWORD2
+getBattDischargeCurrent	KEYWORD2
+getSysIPSOUTVoltage	KEYWORD2
+getBattChargeCoulomb	KEYWORD2
+getBattDischargeCoulomb	KEYWORD2
+getSettingChargeCurrent	KEYWORD2
+setChargingTargetVoltage	KEYWORD2
+enableChargeing	KEYWORD2
+adc1Enable	KEYWORD2
+adc2Enable	KEYWORD2
+setStartupTime	KEYWORD2
+setlongPressTime	KEYWORD2
+setShutdownTime	KEYWORD2
+setTimeOutShutdown	KEYWORD2
+shutdown	KEYWORD2
+enableIRQ	KEYWORD2
+readIRQ	KEYWORD2
+clearIRQ	KEYWORD2
+setDCDC1Voltage	KEYWORD2
+setDCDC2Voltage	KEYWORD2
+setDCDC3Voltage	KEYWORD2
+setLDO2Voltage	KEYWORD2
+setLDO3Voltage	KEYWORD2
+setLDO4Voltage	KEYWORD2
+setChgLEDMode	KEYWORD2
+setLDO3Mode	KEYWORD2
+getBattPercentage	KEYWORD2
+debugCharging	KEYWORD2
+debugStatus	KEYWORD2
+setGPIO0Voltage	KEYWORD2
+setGPIO0Level	KEYWORD2
+setGPIO1Level	KEYWORD2
+readGpioStatus	KEYWORD2
+readGpio0Level	KEYWORD2
+readGpio1Level	KEYWORD2
+readGpio2Level	KEYWORD2
+setGpio2Mode	KEYWORD2
+setGpio3Mode	KEYWORD2
+setGpio3Level	KEYWORD2
+setGpioInterruptMode	KEYWORD2
+readChipId	KEYWORD2
+
+# pcf8563 (T-Watch RTC)
+RTC_Date	LITERAL1
+RTC_Alarm	LITERAL1
+
+setDateTime	KEYWORD2
+getDateTime	KEYWORD2
+getAlarm	KEYWORD2
+enableAlarm	KEYWORD2
+disableAlarm	KEYWORD2
+alarmActive	KEYWORD2
+resetAlarm	KEYWORD2
+setAlarm	KEYWORD2
+setAlarm	KEYWORD2
+setAlarmByWeekDay	KEYWORD2
+setAlarmByHours	KEYWORD2
+setAlarmByDays	KEYWORD2
+setAlarmByMinutes	KEYWORD2
+isTimerEnable	KEYWORD2
+isTimerActive	KEYWORD2
+enableTimer	KEYWORD2
+disableTimer	KEYWORD2
+setTimer	KEYWORD2
+clearTimer	KEYWORD2
+enableCLK	KEYWORD2
+disableCLK	KEYWORD2
+formatDateTime	KEYWORD2
+getDayOfWeek	KEYWORD2
+status2	KEYWORD2
+
+# MIC
+init	KEYWORD2
+read_buffer	KEYWORD2
+
+# ButtonISR
+ButtonISR	KEYWORD1
+attach	KEYWORD2
+detach	KEYWORD2
+gpio	KEYWORD2
+onPressed	KEYWORD2
+onPressing	KEYWORD2
+onReleased	KEYWORD2
+onLongPressed	KEYWORD2
+onLongPressedRepeat	KEYWORD2
+onLongClicked	KEYWORD2
+reset	KEYWORD2
+isPressing	KEYWORD2
+hasLongPressed	KEYWORD2
+event_pressed	KEYWORD2
+event_pressing	KEYWORD2
+event_released	KEYWORD2
+event_clicked	KEYWORD2
+event_longpressed	KEYWORD2
+event_longpressed_repeat	KEYWORD2
+event_longclicked	KEYWORD2
+loop	KEYWORD2
+
+
+# Button2
+HWButton	KEYWORD1
+Button2	KEYWORD1
+setDebounceTime	KEYWORD2
+setChangedHandler	KEYWORD2
+setPressedHandler	KEYWORD2
+setReleasedHandler	KEYWORD2
+setClickHandler	KEYWORD2
+setTapHandler	KEYWORD2
+setLongClickHandler	KEYWORD2
+setDoubleClickHandler	KEYWORD2
+setTripleClickHandler	KEYWORD2
+setPressingHandler	KEYWORD2
+setLongPressed	KEYWORD2
+
+onValueChanged	KEYWORD2
+onPressed	KEYWORD2
+onReleased	KEYWORD2
+onClicked	KEYWORD2
+onShortClicked	KEYWORD2
+onLongClicked	KEYWORD2
+onDoubleClicked	KEYWORD2
+onTripleClicked	KEYWORD2
+onPressing	KEYWORD2
+onLongPressed	KEYWORD2
+
+wasPressedFor	KEYWORD2
+isPressed	KEYWORD2
+isPressing	KEYWORD2
+getNumberOfClicks	KEYWORD2
+getClickType	KEYWORD2
+loop	KEYWORD2
+
+DEBOUNCE_MS	LITERAL1
+LONGCLICK_MS	LITERAL1
+DOUBLECLICK_MS	LITERAL1
+SINGLE_CLICK	LITERAL1
+DOUBLE_CLICK	LITERAL1
+TRIPLE_CLICK	LITERAL1
+LONG_CLICK	LITERAL1
+LONGPRESSED_MS	LITERAL1
+
+# GDatabase (TridentTD_SQLite32)
+openDB	KEYWORD2
+closeDB	KEYWORD2
+deleteDB	KEYWORD2
+
+query	KEYWORD2
+rows	KEYWORD2
+columns	KEYWORD2
+columnName	KEYWORD2
+columnValue	KEYWORD2
+
+available	KEYWORD2
+readRow	KEYWORD2
+getColumnNames	KEYWORD2
+
+setBusyTimeout	KEYWORD2
+execAndGet	KEYWORD2
+exec	KEYWORD2
+getTableRowCount	KEYWORD2
+getRowCount	KEYWORD2
+tableExists	KEYWORD2
+getLastInsertRowid	KEYWORD2
+getTotalChanges	KEYWORD2
+getErrorCode	KEYWORD2
+getExtendedErrorCode	KEYWORD2
+getErrorMsg	KEYWORD2
+getFilename	KEYWORD2
+getHandle	KEYWORD2
+createFunction	KEYWORD2
+loadExtension	KEYWORD2
+key	KEYWORD2
+rekey	KEYWORD2
+isUnencrypted	KEYWORD2
+
+reset	KEYWORD2
+tryReset	KEYWORD2
+clearBindings	KEYWORD2
+bind	KEYWORD2
+bind_zeroblob	KEYWORD2
+bindNoCopy	KEYWORD2
+executeStep	KEYWORD2
+tryExecuteStep	KEYWORD2
+getColumn	KEYWORD2
+getColumns	KEYWORD2
+isColumnNull	KEYWORD2
+getColumnName	KEYWORD2
+getColumnOriginName	KEYWORD2
+getColumnIndex	KEYWORD2
+getExtendedSQL	KEYWORD2
+getColumnCount	KEYWORD2
+hasRow	KEYWORD2
+isDone	KEYWORD2
+getBindParameterCount	KEYWORD2
+getErrorCode	KEYWORD2
+getExtendedErrorCode	KEYWORD2
+getErrorMsg	KEYWORD2
+
+# Point
+rotate	KEYWORD2
+opposite	KEYWORD2
+flipX	KEYWORD2
+flipY	KEYWORD2
+scale	KEYWORD2
+angle_rad	KEYWORD2
+angle_deg	KEYWORD2
+distance	KEYWORD2
+ceil	KEYWORD2
+floor	KEYWORD2
+setCenterPoint	KEYWORD2
+getCenterPoint	KEYWORD2
+transform	KEYWORD2
+bezier	KEYWORD2
+swap	KEYWORD2
+unitify	KEYWORD2
+to_point_t	KEYWORD2
+det	KEYWORD2
+freeMem	KEYWORD2
+element	KEYWORD2
+begin	KEYWORD2
+snap	KEYWORD2
+gridPoint	KEYWORD2
+max_coordinate_x	KEYWORD2
+max_coordinate_y	KEYWORD2
+is_on	KEYWORD2
+is_in	KEYWORD2
+
+# GArea
+intersect	KEYWORD2
+join	KEYWORD2
+to_area_t	KEYWORD2
+
+# AsyncHttpClient
+begin	KEYWORD2
+end	KEYWORD2
+connect	KEYWORD2
+disconnect	KEYWORD2
+isConnected	KEYWORD2
+isDisconnected	KEYWORD2
+setHttpVersion	KEYWORD2
+setKeepAlive	KEYWORD2
+addHeader	KEYWORD2
+clearHeader	KEYWORD2
+addPar	KEYWORD2
+clearPar	KEYWORD2
+regOnResponse	KEYWORD2
+onResponse	KEYWORD2
+regOnClosed	KEYWORD2
+onClosed	KEYWORD2
+GET	KEYWORD2
+POST	KEYWORD2
+https_port80	KEYWORD2
+
+# BlynkGO_AsyncLineNotify
+setToken	KEYWORD2
+notify	KEYWORD2
+notifySticker	KEYWORD2
+notifyPicture	KEYWORD2
+notifyPicturePath	KEYWORD2
+connected	KEYWORD2
+connect	KEYWORD2
+close	KEYWORD2
+
+
+# HttpResponse
+clear	KEYWORD2
+addStatusLine	KEYWORD2
+addHeader	KEYWORD2
+extendPayload	KEYWORD2
+addPayload	KEYWORD2
+getHttpVersion	KEYWORD2
+getStatusCode	KEYWORD2
+http_code	KEYWORD2
+getReasonPhrase	KEYWORD2
+getHeader	KEYWORD2
+getPayload	KEYWORD2
+
+# BlynkGO_AsyncWebServer
+begin	KEYWORD2
+end	KEYWORD2
+addHandler	KEYWORD2
+on	KEYWORD2
+hasParam	KEYWORD2
+getParam	KEYWORD2
+send	KEYWORD2
+send_P	KEYWORD2
+id	KEYWORD2
+remoteIP	KEYWORD2
+
+AsyncWebServerRequest	LITERAL1
+
+
+textAll	KEYWORD2
+onEvent	KEYWORD2
+cleanupClients	KEYWORD2
+
+AsyncWebSocket	LITERAL1
+AsyncWebSocketClient	LITERAL1
+AwsEventType	LITERAL1
+AwsFrameInfo	LITERAL1
+WS_EVT_CONNECT	LITERAL1
+WS_EVT_DISCONNECT	LITERAL1
+WS_EVT_DATA	LITERAL1
+WS_EVT_PONG	LITERAL1
+WS_EVT_ERROR	LITERAL1
+
+
+# Blynk API
+configBlynk	KEYWORD2
+enableBlynk	KEYWORD2
+
+# BlynkGO_AyncTCP
+AsyncClient	LITERAL1
+AsyncServer	LITERAL1
+AsyncClientSecure	LITERAL1
+AsyncServerSecure	LITERAL1
+connect	KEYWORD2
+close	KEYWORD2
+stop	KEYWORD2
+abort	KEYWORD2
+free	KEYWORD2
+canSend	KEYWORD2
+space	KEYWORD2
+add	KEYWORD2
+send	KEYWORD2
+ack	KEYWORD2
+ackLater	KEYWORD2
+write	KEYWORD2
+state	KEYWORD2
+connecting	KEYWORD2
+connected	KEYWORD2
+disconnecting	KEYWORD2
+disconnected	KEYWORD2
+freeable	KEYWORD2
+getMss	KEYWORD2
+getRxTimeout	KEYWORD2
+setRxTimeout	KEYWORD2
+getAckTimeout	KEYWORD2
+setAckTimeout	KEYWORD2
+setNoDelay	KEYWORD2
+getNoDelay	KEYWORD2
+getRemoteAddress	KEYWORD2
+getRemotePort	KEYWORD2
+getLocalAddress	KEYWORD2
+getLocalPort	KEYWORD2
+remoteIP	KEYWORD2
+remotePort	KEYWORD2
+localIP	KEYWORD2
+localPort	KEYWORD2
+onConnect	KEYWORD2
+onDisconnect	KEYWORD2
+onAck	KEYWORD2
+onError	KEYWORD2
+onData	KEYWORD2
+onPacket	KEYWORD2
+onTimeout	KEYWORD2
+onPoll	KEYWORD2
+ackPacket	KEYWORD2
+errorToString	KEYWORD2
+stateToString	KEYWORD2
+onClient	KEYWORD2
+
+last_touch	KEYWORD2
+last_touch_cb	KEYWORD2
+
+# lvgl
+lv_scr_act		KEYWORD2
+lv_style_copy	KEYWORD2
+lv_obj_allocate_ext_attr	KEYWORD2
+lv_obj_get_ext_attr	KEYWORD2
+lv_obj_get_user_data	KEYWORD2
+obj_get_user_data	KEYWORD2
+lv_obj_get_parent	KEYWORD2
+obj_get_parent	KEYWORD2
+
+lv_obj_create	KEYWORD2
+lv_arc_create	KEYWORD2
+lv_bar_create	KEYWORD2
+lv_btn_create	KEYWORD2
+lv_btnm_create	KEYWORD2
+lv_calendar_create	KEYWORD2
+lv_canvas_create	KEYWORD2
+lv_cb_create	KEYWORD2
+lv_chart_create	KEYWORD2
+lv_cont_create	KEYWORD2
+lv_ddlist_create	KEYWORD2
+lv_gauge_create	KEYWORD2
+lv_img_create	KEYWORD2
+lv_imgbtn_create	KEYWORD2
+lv_kb_create	KEYWORD2
+lv_label_create	KEYWORD2
+lv_kb_create	KEYWORD2
+lv_led_create	KEYWORD2
+lv_line_create	KEYWORD2
+lv_list_create	KEYWORD2
+lv_lmeter_create	KEYWORD2
+lv_mbox_create	KEYWORD2
+lv_page_create	KEYWORD2
+lv_preload_create	KEYWORD2
+lv_roller_create	KEYWORD2
+lv_slider_create	KEYWORD2
+lv_sw_create	KEYWORD2
+lv_table_create	KEYWORD2
+lv_tabview_create	KEYWORD2
+lv_ta_create	KEYWORD2
+lv_tileview_create	KEYWORD2
+lv_win_create	KEYWORD2
+
+lv_triangle_create	KEYWORD2
+lv_aqi_create	KEYWORD2
+
+free_widget	KEYWORD2
+
+TFT_COLOR	KEYWORD2
+TFT_COLOR_MIX	KEYWORD2
+TFT_COLOR_HSV_MIX	KEYWORD2
+TFT_COLOR_HEX	KEYWORD2
+TFT_COLOR_BRIGHTNESS	KEYWORD2
+TFT_COLOR_HSV	KEYWORD2
+TFT_COLOR_TO_HSV	KEYWORD2
+POINT_PRINTLN	KEYWORD2
+POINT_PRINTLN_F	KEYWORD2
+
+MATH_MAX	KEYWORD2
+MATH_MIN	KEYWORD2
+
+# esp32_utils
+YIELD	KEYWORD2
+MILLIS	KEYWORD2
+DELAY	KEYWORD2
+esp32_mod	KEYWORD2
+esp32_mod_f	KEYWORD2
+map_f	KEYWORD2
+
+
+# BeeNeXT API
+toString	KEYWORD2
+toInt	KEYWORD2
+toFloat	KEYWORD2
+toDouble	KEYWORD2
+toBool	KEYWORD2
+c_str	KEYWORD2
+
+#BeeNeXT function
+ledRGB	KEYWORD2
+readLDR	KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+GStyle	LITERAL1
+GWidget	LITERAL1
+StringX	LITERAL1
+GTimer	LITERAL1
+GTask	LITERAL1
+GDatabase	LITERAL1
+GQuery	LITERAL1
+
+GAnimation	LITERAL1
+new_GAnimation	LITERAL1
+
+GObject	LITERAL1
+new_GObject	LITERAL1
+
+GRect	LITERAL1
+new_GRect	LITERAL1
+
+GApp32	LITERAL1
+new_GApp32	LITERAL1
+
+GAqi	LITERAL1
+new_GAqi	LITERAL1
+
+GArc	LITERAL1
+new_GArc	LITERAL1
+
+GBar	LITERAL1
+new_GBar	LITERAL1
+
+GButton	LITERAL1
+new_GButton	LITERAL1
+
+GButtonMatrix	LITERAL1
+new_GButtonMatrix	LITERAL1
+
+GCamera	LITERAL1
+new_GCamera	LITERAL1
+
+GCanvas	LITERAL1
+new_GCanvas	LITERAL1
+
+GChart	LITERAL1
+new_GChart	LITERAL1
+
+GCheckBox	LITERAL1
+new_GCheckBox	LITERAL1
+
+GCircle	LITERAL1
+new_GCircle	LITERAL1
+
+GColorPicker	LITERAL1
+new_GColorPicker	LITERAL1
+
+GContainer	LITERAL1
+new_GContainer	LITERAL1
+
+GDropdownList	LITERAL1
+new_GDropdownList	LITERAL1
+
+GGauge	LITERAL1
+new_GGauge	LITERAL1
+
+GGaugeLine	LITERAL1
+new_GGaugeLine	LITERAL1
+
+GGaugeRainbow	LITERAL1
+new_GGaugeRainbow	LITERAL1
+
+GIcon	LITERAL1
+new_GIcon	LITERAL1
+
+GImage	LITERAL1
+new_GImage	LITERAL1
+
+GImageButton	LITERAL1
+new_GImageButton	LITERAL1
+
+GJoystick	LITERAL1
+new_GJoystick	LITERAL1
+
+GKeyboard	LITERAL1
+new_GKeyboard	LITERAL1
+
+GKeyUnlocker	LITERAL1
+new_GKeyUnlocker	LITERAL1
+
+GKnob	LITERAL1
+new_GKnob	LITERAL1
+
+GLabel	LITERAL1
+new_GLabel	LITERAL1
+
+GLed	LITERAL1
+new_GLed	LITERAL1
+
+GLevel	LITERAL1
+new_GLevel	LITERAL1
+
+GLine	LITERAL1
+new_GLine	LITERAL1
+
+GList	LITERAL1
+new_GList	LITERAL1
+
+GMask	LITERAL1
+new_GMask	LITERAL1
+
+GMultiScreen	LITERAL1
+new_GMultiScreen	LITERAL1
+
+GPage	LITERAL1
+new_GPage	LITERAL1
+
+GPreload	LITERAL1
+new_GPreload	LITERAL1
+
+GQRCode	LITERAL1
+new_GQRCode	LITERAL1
+
+GRoller	LITERAL1
+new_GRoller	LITERAL1
+
+GSlider	LITERAL1
+new_GSlider	LITERAL1
+
+GSliderV	LITERAL1
+new_GSliderV	LITERAL1
+
+GSliderH	LITERAL1
+new_GSliderV	LITERAL1
+
+GStep	LITERAL1
+new_GStep	LITERAL1
+
+GSwitch	LITERAL1
+new_GSwitch	LITERAL1
+
+GSwitch3D	LITERAL1
+new_GSwitch3D	LITERAL1
+
+GTable	LITERAL1
+new_GTable	LITERAL1
+
+GTab	LITERAL1
+GTabview	LITERAL1
+new_GTabview	LITERAL1
+
+GTextArea	LITERAL1
+new_GTextArea	LITERAL1
+
+GThermo	LITERAL1
+new_GThermo	LITERAL1
+
+GTileview	LITERAL1
+new_GTileview	LITERAL1
+
+GTimeSelector	LITERAL1
+new_GTimeSelector	LITERAL1
+
+GTriangle	LITERAL1
+new_GTriangle	LITERAL1
+
+GWiFiManager	LITERAL1
+new_GWiFiManager	LITERAL1
+
+GWiFiSetting	LITERAL1
+new_GWiFiSetting	LITERAL1
+
+GBlynkManager	LITERAL1
+new_GBlynkManager	LITERAL1
+
+GBlynkSetting	LITERAL1
+new_GBlynkSetting	LITERAL1
+
+GObjectUI	LITERAL1
+GLineAA	LITERAL1
+GMessageBox	LITERAL1
+GCalendar	LITERAL1
+GPreloader	LITERAL1
+GContainerUI	LITERAL1
+
+GWinUI	LITERAL1
+GWorkspaceUI	LITERAL1
+GImageButton	LITERAL1
+GWindow	LITERAL1
+
+Point	LITERAL1
+Points	LITERAL1
+GArea	LITERAL1
+
+LV_IMG_DECLARE	LITERAL1
+LV_FONT_DECLARE	LITERAL1
+LV_EVENT_CB_DECLARE	LITERAL1
+
+IMG_DECLARE	LITERAL1
+FONT_DECLARE	LITERAL1
+EVENT_CB_DECLARE	LITERAL1
+
+
+LV_COLOR_MIX	LITERAL1
+LV_COLOR_MAKE	LITERAL1
+LV_COLOR_HEX	LITERAL1
+LV_COLOR_SIZE	LITERAL1
+
+COLOR_MAKE	LITERAL1
+COLOR_MIX	LITERAL1
+COLOR_HEX	LITERAL1
+COLOR_TO1   LITERAL1
+COLOR_TO8   LITERAL1
+BEZIER3	LITERAL1
+
+TRUECOLOR	LITERAL1
+TRUECOLOR_ALPHA	LITERAL1
+
+LV_COLOR_TRANSP	LITERAL1
+LV_COLOR_WHITE	LITERAL1
+LV_COLOR_SILVER	LITERAL1
+LV_COLOR_GRAY	LITERAL1
+LV_COLOR_BLACK	LITERAL1
+LV_COLOR_RED	LITERAL1
+LV_COLOR_MAROON	LITERAL1
+LV_COLOR_YELLOW	LITERAL1
+LV_COLOR_OLIVE	LITERAL1
+LV_COLOR_LIME	LITERAL1
+LV_COLOR_GREEN	LITERAL1
+LV_COLOR_CYAN	LITERAL1
+LV_COLOR_AQUA	LITERAL1
+LV_COLOR_TEAL	LITERAL1
+LV_COLOR_BLUE	LITERAL1
+LV_COLOR_NAVY	LITERAL1
+LV_COLOR_MAGENTA	LITERAL1
+LV_COLOR_PURPLE	LITERAL1
+LV_COLOR_ORANGE	LITERAL1
+
+LV_OPA_TRANSP	LITERAL1
+LV_OPA_0	LITERAL1
+LV_OPA_10	LITERAL1
+LV_OPA_20	LITERAL1
+LV_OPA_30	LITERAL1
+LV_OPA_40	LITERAL1
+LV_OPA_50	LITERAL1
+LV_OPA_60	LITERAL1
+LV_OPA_70	LITERAL1
+LV_OPA_80	LITERAL1
+LV_OPA_90	LITERAL1
+LV_OPA_100	LITERAL1
+LV_OPA_COVER	LITERAL1
+
+OPA_TRANSP	LITERAL1
+OPA_0	LITERAL1
+OPA_10	LITERAL1
+OPA_20	LITERAL1
+OPA_30	LITERAL1
+OPA_40	LITERAL1
+OPA_50	LITERAL1
+OPA_60	LITERAL1
+OPA_70	LITERAL1
+OPA_80	LITERAL1
+OPA_90	LITERAL1
+OPA_100	LITERAL1
+OPA_COVER	LITERAL1
+
+ANIM_X	LITERAL1
+ANIM_Y	LITERAL1
+ANIM_WIDTH	LITERAL1
+ANIM_HEIGHT	LITERAL1
+ANIM_ANGLE	LITERAL1
+ANIM_ZOOM	LITERAL1
+ANIM_OPA	LITERAL1
+ANIM_PATH_LINEAR	LITERAL1
+ANIM_PATH_EASE_IN	LITERAL1
+ANIM_PATH_EASE_OUT	LITERAL1
+ANIM_PATH_EASE_IN_OUT	LITERAL1
+ANIM_PATH_OVERSHOOT	LITERAL1
+ANIM_PATH_BOUNCE	LITERAL1
+ANIM_PATH_STEP	LITERAL1
+
+
+
+LV_ALIGN_CENTER	LITERAL1
+LV_ALIGN_IN_TOP_LEFT	LITERAL1
+LV_ALIGN_IN_TOP_MID	LITERAL1
+LV_ALIGN_IN_TOP_RIGHT	LITERAL1
+LV_ALIGN_IN_BOTTOM_LEFT	LITERAL1
+LV_ALIGN_IN_BOTTOM_MID	LITERAL1
+LV_ALIGN_IN_BOTTOM_RIGHT	LITERAL1
+LV_ALIGN_IN_LEFT_MID	LITERAL1
+LV_ALIGN_IN_RIGHT_MID	LITERAL1
+LV_ALIGN_OUT_TOP_LEFT	LITERAL1
+LV_ALIGN_OUT_TOP_MID	LITERAL1
+LV_ALIGN_OUT_TOP_RIGHT	LITERAL1
+LV_ALIGN_OUT_BOTTOM_LEFT	LITERAL1
+LV_ALIGN_OUT_BOTTOM_MID	LITERAL1
+LV_ALIGN_OUT_BOTTOM_RIGHT	LITERAL1
+LV_ALIGN_OUT_LEFT_TOP	LITERAL1
+LV_ALIGN_OUT_LEFT_MID	LITERAL1
+LV_ALIGN_OUT_LEFT_BOTTOM	LITERAL1
+LV_ALIGN_OUT_RIGHT_TOP	LITERAL1
+LV_ALIGN_OUT_RIGHT_MID	LITERAL1
+LV_ALIGN_OUT_RIGHT_BOTTOM	LITERAL1
+
+ALIGN_CENTER	LITERAL1
+ALIGN_IN_TOP	LITERAL1
+ALIGN_IN_BOTTOM	LITERAL1
+ALIGN_IN_LEFT	LITERAL1
+ALIGN_IN_RIGHT	LITERAL1
+ALIGN_IN_TOP_LEFT	LITERAL1
+ALIGN_IN_TOP_MID	LITERAL1
+ALIGN_IN_TOP_RIGHT	LITERAL1
+ALIGN_IN_BOTTOM_LEFT	LITERAL1
+ALIGN_IN_BOTTOM_MID	LITERAL1
+ALIGN_IN_BOTTOM	LITERAL1
+ALIGN_IN_BOTTOM_RIGHT	LITERAL1
+ALIGN_IN_LEFT_MID	LITERAL1
+ALIGN_IN_RIGHT_MID	LITERAL1
+ALIGN_OUT_TOP	LITERAL1
+ALIGN_OUT_BOTTOM	LITERAL1
+ALIGN_OUT_LEFT	LITERAL1
+ALIGN_OUT_RIGHT	LITERAL1
+ALIGN_OUT_TOP_LEFT	LITERAL1
+ALIGN_OUT_TOP_MID	LITERAL1
+ALIGN_OUT_TOP_RIGHT	LITERAL1
+ALIGN_OUT_BOTTOM_LEFT	LITERAL1
+ALIGN_OUT_BOTTOM_MID	LITERAL1
+ALIGN_OUT_BOTTOM_RIGHT	LITERAL1
+ALIGN_OUT_LEFT_TOP	LITERAL1
+ALIGN_OUT_LEFT_MID	LITERAL1
+ALIGN_OUT_LEFT_BOTTOM	LITERAL1
+ALIGN_OUT_RIGHT_TOP	LITERAL1
+ALIGN_OUT_RIGHT_MID	LITERAL1
+ALIGN_OUT_RIGHT_BOTTOM	LITERAL1
+
+ALIGN_TOP_LEFT	LITERAL1
+ALIGN_TOP_MID	LITERAL1
+ALIGN_TOP_RIGHT	LITERAL1
+ALIGN_BOTTOM_LEFT	LITERAL1
+ALIGN_BOTTOM_MID	LITERAL1
+ALIGN_BOTTOM_RIGHT	LITERAL1
+ALIGN_LEFT_TOP	LITERAL1
+ALIGN_LEFT_MID	LITERAL1
+ALIGN_LEFT_BOTTOM	LITERAL1
+ALIGN_RIGHT_TOP	LITERAL1
+ALIGN_RIGHT_MID	LITERAL1
+ALIGN_RIGHT_BOTTOM	LITERAL1
+ALIGN_TOP	LITERAL1
+ALIGN_BOTTOM	LITERAL1
+ALIGN_LEFT	LITERAL1
+ALIGN_RIGHT	LITERAL1
+
+DRAG_DIR_NONE	LITERAL1
+DRAG_DIR_HOR	LITERAL1
+DRAG_DIR_VER	LITERAL1
+DRAG_DIR_BOTH	LITERAL1
+DRAG_DIR_ONE	LITERAL1
+
+LV_DRAG_DIR_NONE	LITERAL1
+LV_DRAG_DIR_HOR	LITERAL1
+LV_DRAG_DIR_VER	LITERAL1
+LV_DRAG_DIR_BOTH	LITERAL1
+LV_DRAG_DIR_ONE	LITERAL1
+
+SLIDER_TYPE_NORMAL	LITERAL1
+SLIDER_TYPE_SYM	LITERAL1
+SLIDER_TYPE_RANGE	LITERAL1
+
+LV_SLIDER_TYPE_NORMAL	LITERAL1
+LV_SLIDER_TYPE_SYM	LITERAL1
+LV_SLIDER_TYPE_RANGE	LITERAL1
+
+LV_LABEL_ALIGN_LEFT	LITERAL1
+LV_LABEL_ALIGN_CENTER	LITERAL1
+LV_LABEL_ALIGN_RIGHT	LITERAL1
+
+LABEL_ALIGN_LEFT	LITERAL1
+LABEL_ALIGN_CENTER	LITERAL1
+LABEL_ALIGN_RIGHT	LITERAL1
+
+TEXT_ALIGN_LEFT	LITERAL1
+TEXT_ALIGN_CENTER	LITERAL1
+TEXT_ALIGN_RIGHT	LITERAL1
+
+TL_DATUM	LITERAL1
+TC_DATUM	LITERAL1
+TR_DATUM	LITERAL1
+ML_DATUM	LITERAL1
+MC_DATUM	LITERAL1
+MR_DATUM	LITERAL1
+BL_DATUM	LITERAL1
+BC_DATUM	LITERAL1
+BR_DATUM	LITERAL1
+
+TOP_LEFT_DATUM	LITERAL1
+TOP_CENTER_DATUM	LITERAL1
+TOP_RIGHT_DATUM	LITERAL1
+MID_LEFT_DATUM	LITERAL1
+MID_CENTER_DATUM	LITERAL1
+MID_RIGHT_DATUM	LITERAL1
+BOTTOM_LEFT_DATUM	LITERAL1
+BOTTOM_CENTER_DATUM	LITERAL1
+BOTTOM_RIGHT_DATUM	LITERAL1
+
+
+BLEND_MODE_NORMAL	LITERAL1
+BLEND_MODE_ADDITIVE	LITERAL1
+BLEND_MODE_SUBTRACTIVE	LITERAL1
+
+LV_STYLE_SCREEN	LITERAL1
+LV_BTN_STYLE_REL	LITERAL1
+LV_BTN_STYLE_PR	LITERAL1
+LV_BTN_STYLE_TGL_REL	LITERAL1
+LV_BTN_STYLE_TGL_PR	LITERAL1
+LV_BTN_STYLE_INA	LITERAL1
+
+CURSOR_NONE	LITERAL1
+CURSOR_LINE	LITERAL1
+CURSOR_BLOCK	LITERAL1
+CURSOR_OUTLINE	LITERAL1
+CURSOR_UNDERLINE	LITERAL1
+CURSOR_HIDDEN	LITERAL1
+
+LV_CURSOR_NONE	LITERAL1
+LV_CURSOR_LINE	LITERAL1
+LV_CURSOR_BLOCK	LITERAL1
+LV_CURSOR_OUTLINE	LITERAL1
+LV_CURSOR_UNDERLINE	LITERAL1
+LV_CURSOR_HIDDEN	LITERAL1
+
+LV_GRAD_DIR_NONE	LITERAL1
+LV_GRAD_DIR_VER	LITERAL1
+LV_GRAD_DIR_HOR	LITERAL1
+
+GRAD_DIR_NONE	LITERAL1
+GRAD_DIR_VER	LITERAL1
+GRAD_DIR_HOR	LITERAL1
+
+GAUGE_TYPE_ARC	LITERAL1
+GAUGE_TYPE_FULL	LITERAL1
+
+LV_SIGNAL_CLEANUP	LITERAL1
+LV_SIGNAL_CHILD_CHG	LITERAL1
+LV_SIGNAL_CORD_CHG	LITERAL1
+LV_SIGNAL_PARENT_SIZE_CHG	LITERAL1
+LV_SIGNAL_STYLE_CHG	LITERAL1
+LV_SIGNAL_BASE_DIR_CHG	LITERAL1
+LV_SIGNAL_REFR_EXT_DRAW_PAD	LITERAL1
+LV_SIGNAL_GET_TYPE	LITERAL1
+LV_SIGNAL_PRESSED	LITERAL1
+LV_SIGNAL_PRESSING	LITERAL1
+LV_SIGNAL_PRESS_LOST	LITERAL1
+LV_SIGNAL_RELEASED	LITERAL1
+LV_SIGNAL_LONG_PRESS	LITERAL1
+LV_SIGNAL_LONG_PRESS_REP	LITERAL1
+LV_SIGNAL_DRAG_BEGIN	LITERAL1
+LV_SIGNAL_DRAG_THROW_BEGIN	LITERAL1
+LV_SIGNAL_DRAG_END	LITERAL1
+LV_SIGNAL_FOCUS	LITERAL1
+LV_SIGNAL_DEFOCUS	LITERAL1
+LV_SIGNAL_CONTROL	LITERAL1
+LV_SIGNAL_GET_EDITABLE	LITERAL1
+LV_SIGNAL_GESTURE	LITERAL1
+
+SIGNAL_CLEANUP	LITERAL1
+SIGNAL_CHILD_CHG	LITERAL1
+SIGNAL_CORD_CHG	LITERAL1
+SIGNAL_PARENT_SIZE_CHG	LITERAL1
+SIGNAL_STYLE_CHG	LITERAL1
+SIGNAL_BASE_DIR_CHG	LITERAL1
+SIGNAL_REFR_EXT_DRAW_PAD	LITERAL1
+SIGNAL_GET_TYPE	LITERAL1
+SIGNAL_PRESSED	LITERAL1
+SIGNAL_PRESSING	LITERAL1
+SIGNAL_PRESS_LOST	LITERAL1
+SIGNAL_RELEASED	LITERAL1
+SIGNAL_LONG_PRESS	LITERAL1
+SIGNAL_LONG_PRESS_REP	LITERAL1
+SIGNAL_DRAG_BEGIN	LITERAL1
+SIGNAL_DRAG_THROW_BEGIN	LITERAL1
+SIGNAL_DRAG_END	LITERAL1
+SIGNAL_FOCUS	LITERAL1
+SIGNAL_DEFOCUS	LITERAL1
+SIGNAL_CONTROL	LITERAL1
+SIGNAL_GET_EDITABLE	LITERAL1
+SIGNAL_GESTURE	LITERAL1
+
+LV_EVENT_PRESSED	LITERAL1
+LV_EVENT_PRESSING	LITERAL1
+LV_EVENT_PRESS_LOST	LITERAL1
+LV_EVENT_SHORT_CLICKED	LITERAL1
+LV_EVENT_LONG_PRESSED	LITERAL1
+LV_EVENT_LONG_PRESSED_REPEAT	LITERAL1
+LV_EVENT_CLICKED	LITERAL1
+LV_EVENT_RELEASED	LITERAL1                            
+LV_EVENT_DRAG_BEGIN	LITERAL1
+LV_EVENT_DRAG_END	LITERAL1
+LV_EVENT_DRAG_THROW_BEGIN	LITERAL1
+LV_EVENT_KEY	LITERAL1
+LV_EVENT_FOCUSED	LITERAL1
+LV_EVENT_DEFOCUSED	LITERAL1
+LV_EVENT_VALUE_CHANGED	LITERAL1
+LV_EVENT_INSERT	LITERAL1
+LV_EVENT_REFRESH	LITERAL1
+LV_EVENT_APPLY	LITERAL1
+LV_EVENT_CANCEL	LITERAL1
+LV_EVENT_DELETE	LITERAL1
+LV_EVENT_GESTURE	LITERAL1
+
+EVENT_PRESSED	LITERAL1
+EVENT_PRESSING	LITERAL1
+EVENT_PRESS_LOST	LITERAL1
+EVENT_SHORT_CLICKED	LITERAL1
+EVENT_LONG_PRESSED	LITERAL1
+EVENT_LONG_PRESSED_REPEAT	LITERAL1
+EVENT_CLICKED	LITERAL1
+EVENT_RELEASED	LITERAL1                            
+EVENT_DRAG_BEGIN	LITERAL1
+EVENT_DRAG_END	LITERAL1
+EVENT_DRAG_THROW_BEGIN	LITERAL1
+EVENT_KEY	LITERAL1
+EVENT_FOCUSED	LITERAL1
+EVENT_DEFOCUSED	LITERAL1
+EVENT_VALUE_CHANGED	LITERAL1
+EVENT_INSERT	LITERAL1
+EVENT_REFRESH	LITERAL1
+EVENT_APPLY	LITERAL1
+EVENT_CANCEL	LITERAL1
+EVENT_DELETE	LITERAL1
+EVENT_GESTURE	LITERAL1
+
+LV_GESTURE_DIR_TOP	LITERAL1
+LV_GESTURE_DIR_BOTTOM	LITERAL1
+LV_GESTURE_DIR_LEFT	LITERAL1
+LV_GESTURE_DIR_RIGHT	LITERAL1
+
+GESTURE_DIR_TOP	LITERAL1
+GESTURE_DIR_BOTTOM	LITERAL1
+GESTURE_DIR_LEFT	LITERAL1
+GESTURE_DIR_RIGHT	LITERAL1
+
+LV_DRAG_DIR_HOR	LITERAL1
+LV_DRAG_DIR_VER	LITERAL1
+LV_DRAG_DIR_ALL	LITERAL1
+
+LV_FIT_NONE	LITERAL1
+LV_FIT_TIGHT	LITERAL1
+LV_FIT_FLOOD	LITERAL1
+LV_FIT_FILL	LITERAL1
+
+FIT_NONE	LITERAL1
+FIT_TIGHT	LITERAL1
+FIT_FLOOD	LITERAL1
+FIT_FILL	LITERAL1
+
+FIT_CHILDREN	LITERAL1
+FIT_PARENT	LITERAL1
+FIT_MAX	LITERAL1
+
+LV_LAYOUT_OFF	LITERAL1
+LV_LAYOUT_CENTER	LITERAL1
+LV_LAYOUT_COL_L	LITERAL1
+LV_LAYOUT_COL_M	LITERAL1
+LV_LAYOUT_COL_R	LITERAL1
+LV_LAYOUT_ROW_T	LITERAL1
+LV_LAYOUT_ROW_M	LITERAL1
+LV_LAYOUT_ROW_B	LITERAL1
+LV_LAYOUT_PRETTY	LITERAL1
+LV_LAYOUT_GRID	LITERAL1
+
+LAYOUT_OFF	LITERAL1
+LAYOUT_NONE	LITERAL1
+LAYOUT_CENTER	LITERAL1
+LAYOUT_COL_L	LITERAL1
+LAYOUT_COL_M	LITERAL1
+LAYOUT_COL_R	LITERAL1
+LAYOUT_ROW_T	LITERAL1
+LAYOUT_ROW_M	LITERAL1
+LAYOUT_ROW_B	LITERAL1
+LAYOUT_PRETTY	LITERAL1
+LAYOUT_GRID	LITERAL1
+
+LABEL_LONG_EXPAND	LITERAL1
+LABEL_LONG_BREAK	LITERAL1
+LABEL_LONG_DOT	LITERAL1
+LABEL_LONG_SROLL	LITERAL1
+LABEL_LONG_SROLL_CIRC	LITERAL1
+LABEL_LONG_CROP	LITERAL1
+
+LV_LABEL_LONG_EXPAND	LITERAL1
+LV_LABEL_LONG_BREAK	LITERAL1
+LV_LABEL_LONG_DOT	LITERAL1
+LV_LABEL_LONG_SROLL	LITERAL1
+LV_LABEL_LONG_SROLL_CIRC	LITERAL1
+LV_LABEL_LONG_CROP	LITERAL1
+
+LV_SYMBOL_AUDIO	LITERAL1
+LV_SYMBOL_VIDEO	LITERAL1
+LV_SYMBOL_LIST	LITERAL1
+LV_SYMBOL_OK	LITERAL1
+LV_SYMBOL_CLOSE	LITERAL1
+LV_SYMBOL_POWER	LITERAL1
+LV_SYMBOL_SETTINGS	LITERAL1
+LV_SYMBOL_TRASH	LITERAL1
+LV_SYMBOL_HOME	LITERAL1
+LV_SYMBOL_DOWNLOAD	LITERAL1
+LV_SYMBOL_DRIVE	LITERAL1
+LV_SYMBOL_REFRESH	LITERAL1
+LV_SYMBOL_MUTE	LITERAL1
+LV_SYMBOL_VOLUME_MID	LITERAL1
+LV_SYMBOL_VOLUME_MAX	LITERAL1
+LV_SYMBOL_IMAGE	LITERAL1
+LV_SYMBOL_EDIT	LITERAL1
+LV_SYMBOL_PREV	LITERAL1
+LV_SYMBOL_PLAY	LITERAL1
+LV_SYMBOL_PAUSE	LITERAL1
+LV_SYMBOL_STOP	LITERAL1
+LV_SYMBOL_NEXT	LITERAL1
+LV_SYMBOL_EJECT	LITERAL1
+LV_SYMBOL_LEFT	LITERAL1
+LV_SYMBOL_RIGHT	LITERAL1
+LV_SYMBOL_PLUS	LITERAL1
+LV_SYMBOL_MINUS	LITERAL1
+LV_SYMBOL_WARNING	LITERAL1
+LV_SYMBOL_SHUFFLE	LITERAL1
+LV_SYMBOL_UP	LITERAL1
+LV_SYMBOL_DOWN	LITERAL1
+LV_SYMBOL_LOOP	LITERAL1
+LV_SYMBOL_DIRECTORY	LITERAL1
+LV_SYMBOL_UPLOAD	LITERAL1
+LV_SYMBOL_CALL	LITERAL1
+LV_SYMBOL_CUT	LITERAL1
+LV_SYMBOL_COPY	LITERAL1
+LV_SYMBOL_SAVE	LITERAL1
+LV_SYMBOL_CHARGE	LITERAL1
+LV_SYMBOL_BELL	LITERAL1
+LV_SYMBOL_KEYBOARD	LITERAL1
+LV_SYMBOL_GPS	LITERAL1
+LV_SYMBOL_FILE	LITERAL1
+LV_SYMBOL_WIFI	LITERAL1
+LV_SYMBOL_BATTERY_FULL	LITERAL1
+LV_SYMBOL_BATTERY_3	LITERAL1
+LV_SYMBOL_BATTERY_2	LITERAL1
+LV_SYMBOL_BATTERY_1	LITERAL1
+LV_SYMBOL_BATTERY_EMPTY	LITERAL1
+LV_SYMBOL_BLUETOOTH	LITERAL1
+LV_SYMBOL_DUMMY	LITERAL1
+LV_SYMBOL_SD_CARD	LITERAL1
+LV_SYMBOL_NEW_LINE	LITERAL1
+
+SYMBOL_AUDIO	LITERAL1
+SYMBOL_VIDEO	LITERAL1
+SYMBOL_LIST	LITERAL1
+SYMBOL_OK	LITERAL1
+SYMBOL_CLOSE	LITERAL1
+SYMBOL_POWER	LITERAL1
+SYMBOL_SETTINGS	LITERAL1
+SYMBOL_TRASH	LITERAL1
+SYMBOL_HOME	LITERAL1
+SYMBOL_DOWNLOAD	LITERAL1
+SYMBOL_DRIVE	LITERAL1
+SYMBOL_REFRESH	LITERAL1
+SYMBOL_MUTE	LITERAL1
+SYMBOL_VOLUME_MID	LITERAL1
+SYMBOL_VOLUME_MAX	LITERAL1
+SYMBOL_IMAGE	LITERAL1
+SYMBOL_EDIT	LITERAL1
+SYMBOL_PREV	LITERAL1
+SYMBOL_PLAY	LITERAL1
+SYMBOL_PAUSE	LITERAL1
+SYMBOL_STOP	LITERAL1
+SYMBOL_NEXT	LITERAL1
+SYMBOL_EJECT	LITERAL1
+SYMBOL_LEFT	LITERAL1
+SYMBOL_RIGHT	LITERAL1
+SYMBOL_ARROW_LEFT	LITERAL1
+SYMBOL_ARROW_RIGHT	LITERAL1
+SYMBOL_ARROW_UP	LITERAL1
+SYMBOL_ARROW_DOWN	LITERAL1
+SYMBOL_BACKSPACE	LITERAL1
+SYMBOL_THERMO	LITERAL1
+SYMBOL_THERMO_4	LITERAL1
+SYMBOL_THERMO_3	LITERAL1
+SYMBOL_THERMO_2	LITERAL1
+SYMBOL_THERMO_1	LITERAL1
+SYMBOL_THERMO_0	LITERAL1
+SYMBOL_HUMID	LITERAL1
+SYMBOL_SHOWER	LITERAL1
+SYMBOL_BATHROOM	LITERAL1
+SYMBOL_WIFI_1	LITERAL1
+SYMBOL_WIFI_2	LITERAL1
+SYMBOL_WIFI_3	LITERAL1
+SYMBOL_WIFI_4	LITERAL1
+SYMBOL_WIFI_NO_CON_1	LITERAL1
+SYMBOL_WIFI_NO_CON_2	LITERAL1
+SYMBOL_ENTER	LITERAL1
+SYMBOL_PLUS	LITERAL1
+SYMBOL_MINUS	LITERAL1
+SYMBOL_WARNING	LITERAL1
+SYMBOL_SHUFFLE	LITERAL1
+SYMBOL_UP	LITERAL1
+SYMBOL_DOWN	LITERAL1
+SYMBOL_LOOP	LITERAL1
+SYMBOL_DIRECTORY	LITERAL1
+SYMBOL_UPLOAD	LITERAL1
+SYMBOL_CALL	LITERAL1
+SYMBOL_CUT	LITERAL1
+SYMBOL_COPY	LITERAL1
+SYMBOL_SAVE	LITERAL1
+SYMBOL_CHARGE	LITERAL1
+SYMBOL_BELL	LITERAL1
+SYMBOL_KEYBOARD	LITERAL1
+SYMBOL_GPS	LITERAL1
+SYMBOL_FILE	LITERAL1
+SYMBOL_WIFI	LITERAL1
+SYMBOL_BATTERY_FULL	LITERAL1
+SYMBOL_BATTERY_3	LITERAL1
+SYMBOL_BATTERY_2	LITERAL1
+SYMBOL_BATTERY_1	LITERAL1
+SYMBOL_BATTERY_EMPTY	LITERAL1
+SYMBOL_BLUETOOTH	LITERAL1
+SYMBOL_DUMMY	LITERAL1
+SYMBOL_OPTION	LITERAL1
+SYMBOL_ALARM	LITERAL1
+SYMBOL_EYE_OPEN	LITERAL1
+SYMBOL_EYE_CLOSE	LITERAL1
+SYMBOL_DEGREE	LITERAL1
+SYMBOL_MICRO	LITERAL1
+SYMBOL_UMBRELLA	LITERAL1
+SYMBOL_WALKING	LITERAL1
+SYMBOL_SD_CARD	LITERAL1
+SYMBOL_NEW_LINE	LITERAL1
+
+BUTTON_RELEASED	LITERAL1
+BUTTON_PRESSED	LITERAL1
+TOGGLE_RELEASED	LITERAL1
+TOGGLE_PRESSED	LITERAL1
+BUTTON_INACTIVE	LITERAL1
+
+RELEASED	LITERAL1
+PRESSED	LITERAL1
+INACTIVE	LITERAL1
+INDIC	LITERAL1
+PLACEHOLDER	LITERAL1
+BG	LITERAL1
+KNOB	LITERAL1
+KNOB_ON	LITERAL1
+KNOB_OFF	LITERAL1
+BTNM_BG	LITERAL1
+KEYPAD_BG	LITERAL1
+LIST_BG	LITERAL1
+
+CTRL_HIDDEN	LITERAL1
+CTRL_NO_REPEAT	LITERAL1
+CTRL_INACTIVE	LITERAL1
+CTRL_TOGGLE	LITERAL1
+
+BUTTON_MODE_NORMAL	LITERAL1
+BUTTON_MODE_TOGGLE	LITERAL1
+BUTTON_MODE_INACTIVE	LITERAL1
+
+BUTTON_SWITCH	LITERAL1
+BUTTON_PUSH	LITERAL1
+
+MODE_NORMAL	LITERAL1
+MODE_PASSWORD	LITERAL1
+
+LV_LAYOUT_OFF	LITERAL1
+LV_LAYOUT_CENTER	LITERAL1
+LV_LAYOUT_COL_L	LITERAL1
+LV_LAYOUT_COL_M	LITERAL1
+LV_LAYOUT_COL_R	LITERAL1
+LV_LAYOUT_ROW_T	LITERAL1
+LV_LAYOUT_ROW_M	LITERAL1
+LV_LAYOUT_ROW_B	LITERAL1
+LV_LAYOUT_PRETTY	LITERAL1
+LV_LAYOUT_GRID	LITERAL1
+
+LV_IMG_CF_UNKNOWN	LITERAL1
+LV_IMG_CF_RAW	LITERAL1
+LV_IMG_CF_RAW_ALPHA	LITERAL1
+LV_IMG_CF_RAW_CHROMA_KEYED	LITERAL1
+LV_IMG_CF_TRUE_COLOR	LITERAL1
+LV_IMG_CF_TRUE_COLOR_ALPHA	LITERAL1
+LV_IMG_CF_TRUE_COLOR_CHROMA_KEYED	LITERAL1
+LV_IMG_CF_INDEXED_1BIT	LITERAL1
+LV_IMG_CF_INDEXED_2BIT	LITERAL1
+LV_IMG_CF_INDEXED_4BIT	LITERAL1
+LV_IMG_CF_INDEXED_8BIT	LITERAL1
+LV_IMG_CF_ALPHA_1BIT	LITERAL1
+LV_IMG_CF_ALPHA_2BIT	LITERAL1
+LV_IMG_CF_ALPHA_4BIT	LITERAL1
+LV_IMG_CF_ALPHA_8BIT	LITERAL1
+LV_IMG_CF_RESERVED_15	LITERAL1
+LV_IMG_CF_RESERVED_16	LITERAL1
+LV_IMG_CF_RESERVED_17	LITERAL1
+LV_IMG_CF_RESERVED_18	LITERAL1
+LV_IMG_CF_RESERVED_19	LITERAL1
+LV_IMG_CF_RESERVED_20	LITERAL1
+LV_IMG_CF_RESERVED_21	LITERAL1
+LV_IMG_CF_RESERVED_22	LITERAL1
+LV_IMG_CF_RESERVED_23	LITERAL1
+LV_IMG_CF_USER_ENCODED_0	LITERAL1
+LV_IMG_CF_USER_ENCODED_1	LITERAL1
+LV_IMG_CF_USER_ENCODED_2	LITERAL1
+LV_IMG_CF_USER_ENCODED_3	LITERAL1
+LV_IMG_CF_USER_ENCODED_4	LITERAL1
+LV_IMG_CF_USER_ENCODED_5	LITERAL1
+LV_IMG_CF_USER_ENCODED_6	LITERAL1
+LV_IMG_CF_USER_ENCODED_7	LITERAL1
+
+IMG_CF_UNKNOWN	LITERAL1
+IMG_CF_RAW	LITERAL1
+IMG_CF_RAW_ALPHA	LITERAL1
+IMG_CF_RAW_CHROMA_KEYED	LITERAL1
+IMG_CF_TRUE_COLOR	LITERAL1
+IMG_CF_TRUE_COLOR_ALPHA	LITERAL1
+IMG_CF_TRUE_COLOR_CHROMA_KEYED	LITERAL1
+IMG_CF_INDEXED_1BIT	LITERAL1
+IMG_CF_INDEXED_2BIT	LITERAL1
+IMG_CF_INDEXED_4BIT	LITERAL1
+IMG_CF_INDEXED_8BIT	LITERAL1
+IMG_CF_ALPHA_1BIT	LITERAL1
+IMG_CF_ALPHA_2BIT	LITERAL1
+IMG_CF_ALPHA_4BIT	LITERAL1
+IMG_CF_ALPHA_8BIT	LITERAL1
+IMG_CF_RESERVED_15	LITERAL1
+IMG_CF_RESERVED_16	LITERAL1
+IMG_CF_RESERVED_17	LITERAL1
+IMG_CF_RESERVED_18	LITERAL1
+IMG_CF_RESERVED_19	LITERAL1
+IMG_CF_RESERVED_20	LITERAL1
+IMG_CF_RESERVED_21	LITERAL1
+IMG_CF_RESERVED_22	LITERAL1
+IMG_CF_RESERVED_23	LITERAL1
+IMG_CF_USER_ENCODED_0	LITERAL1
+IMG_CF_USER_ENCODED_1	LITERAL1
+IMG_CF_USER_ENCODED_2	LITERAL1
+IMG_CF_USER_ENCODED_3	LITERAL1
+IMG_CF_USER_ENCODED_4	LITERAL1
+IMG_CF_USER_ENCODED_5	LITERAL1
+IMG_CF_USER_ENCODED_6	LITERAL1
+IMG_CF_USER_ENCODED_7	LITERAL1
+
+
+LV_CANVAS_BUF_SIZE_TRUE_COLOR	LITERAL1
+LV_CANVAS_BUF_SIZE_TRUE_COLOR_CHROMA_KEYED	LITERAL1
+LV_CANVAS_BUF_SIZE_TRUE_COLOR_ALPHA	LITERAL1
+LV_CANVAS_BUF_SIZE_ALPHA_1BIT	LITERAL1
+LV_CANVAS_BUF_SIZE_ALPHA_2BIT	LITERAL1
+LV_CANVAS_BUF_SIZE_ALPHA_4BIT	LITERAL1
+LV_CANVAS_BUF_SIZE_ALPHA_8BIT	LITERAL1
+LV_CANVAS_BUF_SIZE_INDEXED_1BIT	LITERAL1
+LV_CANVAS_BUF_SIZE_INDEXED_2BIT	LITERAL1
+LV_CANVAS_BUF_SIZE_INDEXED_4BIT	LITERAL1
+LV_CANVAS_BUF_SIZE_INDEXED_8BIT	LITERAL1
+
+LV_IMG_BUF_SIZE_TRUE_COLOR	LITERAL1
+LV_IMG_BUF_SIZE_TRUE_COLOR_CHROMA_KEYED	LITERAL1
+LV_IMG_BUF_SIZE_TRUE_COLOR_ALPHA	LITERAL1
+LV_IMG_BUF_SIZE_ALPHA_1BIT	LITERAL1
+LV_IMG_BUF_SIZE_ALPHA_2BIT	LITERAL1
+LV_IMG_BUF_SIZE_ALPHA_4BIT	LITERAL1
+LV_IMG_BUF_SIZE_ALPHA_8BIT	LITERAL1
+LV_IMG_BUF_SIZE_INDEXED_1BIT	LITERAL1
+LV_IMG_BUF_SIZE_INDEXED_2BIT	LITERAL1
+LV_IMG_BUF_SIZE_INDEXED_4BIT	LITERAL1
+LV_IMG_BUF_SIZE_INDEXED_8BIT	LITERAL1
+
+LV_IMG_ZOOM_NONE	LITERAL1
+
+LV_PROTECT_NONE	LITERAL1
+LV_PROTECT_CHILD_CHG	LITERAL1
+LV_PROTECT_PARENT	LITERAL1
+LV_PROTECT_POS	LITERAL1
+LV_PROTECT_FOLLOW	LITERAL1
+LV_PROTECT_PRESS_LOST	LITERAL1
+LV_PROTECT_CLICK_FOCUS	LITERAL1
+
+LV_SB_MODE_OFF	LITERAL1
+LV_SB_MODE_ON	LITERAL1
+LV_SB_MODE_DRAG	LITERAL1
+LV_SB_MODE_AUTO	LITERAL1
+LV_SB_MODE_HIDE	LITERAL1
+LV_SB_MODE_UNHIDE	LITERAL1
+
+SCROLLBAR_OFF	LITERAL1
+SCROLLBAR_ON	LITERAL1
+SCROLLBAR_DRAG	LITERAL1
+SCROLLBAR_AUTO	LITERAL1
+SCROLLBAR_HIDE	LITERAL1
+SCROLLBAR_UNHIDE	LITERAL1
+SCROLLBAR_AUTOHIDE	LITERAL1
+
+LV_KB_STYLE_BG	LITERAL1
+LV_KB_STYLE_BTN_REL	LITERAL1
+LV_KB_STYLE_BTN_PR	LITERAL1
+LV_KB_STYLE_BTN_TGL_REL	LITERAL1
+LV_KB_STYLE_BTN_TGL_PR	LITERAL1
+LV_KB_STYLE_BTN_INA	LITERAL1
+
+LV_BTNM_STYLE_BG	LITERAL1
+LV_BTNM_STYLE_BTN_REL	LITERAL1
+LV_BTNM_STYLE_BTN_PR	LITERAL1
+LV_BTNM_STYLE_BTN_TGL_REL	LITERAL1
+LV_BTNM_STYLE_BTN_TGL_PR	LITERAL1
+LV_BTNM_STYLE_BTN_INA	LITERAL1
+
+LV_BORDER_PART_NONE	LITERAL1
+LV_BORDER_PART_BOTTOM	LITERAL1
+LV_BORDER_PART_TOP	LITERAL1
+LV_BORDER_PART_LEFT	LITERAL1
+LV_BORDER_PART_RIGHT	LITERAL1
+LV_BORDER_PART_FULL	LITERAL1
+LV_BORDER_PART_INTERNAL	LITERAL1
+
+BORDER_NONE	LITERAL1
+BORDER_BOTTOM	LITERAL1
+BORDER_TOP	LITERAL1
+BORDER_LEFT	LITERAL1
+BORDER_RIGHT	LITERAL1
+BORDER_FULL	LITERAL1
+BORDER_INTERNAL	LITERAL1
+
+LV_PROTECT_NONE	LITERAL1
+LV_PROTECT_CHILD_CHG	LITERAL1
+LV_PROTECT_PARENT	LITERAL1
+LV_PROTECT_POS	LITERAL1
+LV_PROTECT_FOLLOW	LITERAL1
+LV_PROTECT_PRESS_LOST	LITERAL1
+LV_PROTECT_CLICK_FOCUS	LITERAL1
+
+PROTECT_NONE	LITERAL1
+PROTECT_CHILD_CHG	LITERAL1
+PROTECT_PARENT	LITERAL1
+PROTECT_POS	LITERAL1
+PROTECT_FOLLOW	LITERAL1
+PROTECT_PRESS_LOST	LITERAL1
+PROTECT_CLICK_FOCUS	LITERAL1
+
+LV_DRAG_DIR_HOR	LITERAL1
+LV_DRAG_DIR_VER	LITERAL1
+LV_DRAG_DIR_ALL	LITERAL1
+
+DRAG_DIR_HOR	LITERAL1
+DRAG_DIR_VER	LITERAL1
+DRAG_DIR_ALL	LITERAL1
+
+TL_DATUM	LITERAL1
+TC_DATUM	LITERAL1
+TR_DATUM	LITERAL1
+ML_DATUM	LITERAL1
+CL_DATUM	LITERAL1
+MC_DATUM	LITERAL1
+CC_DATUM	LITERAL1
+MR_DATUM	LITERAL1
+CR_DATUM	LITERAL1
+BL_DATUM	LITERAL1
+BC_DATUM	LITERAL1
+BR_DATUM	LITERAL1
+L_BASELINE	LITERAL1
+C_BASELINE	LITERAL1
+R_BASELINE	LITERAL1
+
+event_t	LITERAL1
+align_t	LITERAL1
+label_align_t	LITERAL1
+button_ctrl_t	LITERAL1
+button_state_t	LITERAL1
+button_type_t	LITERAL1
+style_t	LITERAL1
+obj_t	LITERAL1
+color_t	LITERAL1
+color_hsv_t	LITERAL1
+point_t	LITERAL1
+drag_dir_t	LITERAL1
+img_t	LITERAL1
+font_t	LITERAL1
+task_t	LITERAL1
+area_t	LITERAL1
+serie_t	LITERAL1
+chart_type_t	LITERAL1
+res_t	LITERAL1
+design_res_t	LITERAL1
+design_mode_t	LITERAL1
+bidi_dir_t	LITERAL1
+datum_t	LITERAL1
+lv_datum_t	LITERAL1
+
+preload_type_t	LITERAL1
+preload_dir_t	LITERAL1
+
+lv_style_t	LITERAL1
+lv_style_scr	LITERAL1
+lv_style_transp	LITERAL1
+lv_style_transp_fit	LITERAL1
+lv_style_transp_tight	LITERAL1
+lv_style_plain	LITERAL1
+lv_style_plain_color	LITERAL1
+lv_style_pretty	LITERAL1
+lv_style_pretty_color	LITERAL1
+lv_style_btn_rel	LITERAL1
+lv_style_btn_pr	LITERAL1
+lv_style_btn_tgl_rel	LITERAL1
+lv_style_btn_tgl_pr	LITERAL1
+lv_style_btn_ina	LITERAL1
+
+SW3D_TYPE_RECT	LITERAL1
+SW3D_TYPE_ROUND	LITERAL1
+
+LV_SW3D_TYPE_RECT	LITERAL1
+LV_SW3D_TYPE_ROUND	LITERAL1
+
+BIDI_DIR_LTR	LITERAL1
+BIDI_DIR_RTL	LITERAL1
+BIDI_DIR_AUTO	LITERAL1
+BIDI_DIR_INHERIT	LITERAL1
+BIDI_DIR_NEUTRAL	LITERAL1
+BIDI_DIR_WEAK	LITERAL1
+
+LV_BIDI_DIR_LTR	LITERAL1
+LV_BIDI_DIR_RTL	LITERAL1
+LV_BIDI_DIR_AUTO	LITERAL1
+LV_BIDI_DIR_INHERIT	LITERAL1
+LV_BIDI_DIR_NEUTRAL	LITERAL1
+LV_BIDI_DIR_WEAK	LITERAL1
+
+
+CF_UNKNOWN	LITERAL1
+CF_RAW	LITERAL1
+CF_RAW_ALPHA	LITERAL1
+CF_RAW_CHROMA_KEYED	LITERAL1
+CF_TRUE_COLOR	LITERAL1
+CF_TRUE_COLOR_ALPHA	LITERAL1
+CF_TRUE_COLOR_CHROMA_KEYED	LITERAL1
+CF_INDEXED_1BIT	LITERAL1
+CF_INDEXED_2BIT	LITERAL1
+CF_INDEXED_4BIT	LITERAL1
+CF_INDEXED_8BIT	LITERAL1
+CF_ALPHA_1BIT	LITERAL1
+CF_ALPHA_2BIT	LITERAL1
+CF_ALPHA_4BIT	LITERAL1
+CF_ALPHA_8BIT	LITERAL1
+
+color_format_t	LITERAL1
+
+STYLE_SCREEN	LITERAL1
+STYLE_TRANSPARENT	LITERAL1
+STYLE_TRANSPARENT_FIT	LITERAL1
+STYLE_TRANSPARENT_TIGHT	LITERAL1
+STYLE_PLAIN	LITERAL1
+STYLE_PLAIN_COLOR	LITERAL1
+STYLE_PRETTY	LITERAL1
+STYLE_PRETTY_COLOR	LITERAL1
+
+STYLE_BUTTON_RELEASED	LITERAL1
+STYLE_BUTTON_PRESSED	LITERAL1
+STYLE_BUTTON_TOGGLE_RELEASED	LITERAL1
+STYLE_BUTTON_TOGGLE_PRESSED	LITERAL1
+STYLE_BUTTON_INACTIVATE	LITERAL1
+
+CHART_TYPE_NONE	LITERAL1
+CHART_TYPE_LINE	LITERAL1
+CHART_TYPE_COLUMN	LITERAL1
+CHART_TYPE_POINT	LITERAL1
+CHART_TYPE_VERTICAL_LINE	LITERAL1
+CHART_TYPE_AREA	LITERAL1
+CHART_TYPE_AREA_FADED	LITERAL1
+CHART_TYPE_SPLINE	LITERAL1
+
+KB_MODE_TEXT_LOWER	LITERAL1
+KB_MODE_TEXT_UPPER	LITERAL1
+KB_MODE_SPECIAL	LITERAL1
+KB_MODE_NUM	LITERAL1
+
+LV_KB_MODE_TEXT_LOWER	LITERAL1
+LV_KB_MODE_TEXT_UPPER	LITERAL1
+LV_KB_MODE_SPECIAL	LITERAL1
+LV_KB_MODE_NUM	LITERAL1
+
+GKEYUNLOCKER_MODE_LOCK	LITERAL1
+GKEYUNLOCKER_MODE_SETTING	LITERAL1
+
+
+LV_RADIUS_CIRCLE	LITERAL1
+RADIUS_CIRCLE	LITERAL1
+LV_TA_CURSOR_LAST	LITERAL1
+CURSOR_LAST	LITERAL1
+
+LV_DRAW_LABEL_NO_TXT_SEL	LITERAL1
+NO_TXT_SEL	LITERAL1
+
+LV_CHART_TYPE_NONE	LITERAL1
+LV_CHART_TYPE_LINE	LITERAL1
+LV_CHART_TYPE_COLUMN	LITERAL1
+LV_CHART_TYPE_POINT	LITERAL1
+LV_CHART_TYPE_VERTICAL_LINE	LITERAL1
+LV_CHART_TYPE_AREA	LITERAL1
+LV_CHART_TYPE_AREA_FADED	LITERAL1
+LV_CHART_TYPE_SPLINE	LITERAL1
+
+
+DESIGN_RES_OK	LITERAL1
+DESIGN_RES_COVER	LITERAL1
+DESIGN_RES_NOT_COVER	LITERAL1
+DESIGN_RES_MASKED	LITERAL1
+
+DESIGN_DRAW_MAIN	LITERAL1
+DESIGN_DRAW_POST	LITERAL1
+DESIGN_COVER_CHK	LITERAL1
+
+lv_obj_t	LITERAL1
+lv_event_t	LITERAL1
+lv_btnm_ctrl_t	LITERAL1
+lv_btn_style_t	LITERAL1
+lv_btn_state_t	LITERAL1
+lv_drag_dir_t	LITERAL1
+lv_task_t	LITERAL1
+
+lv_design_mode_t	LITERAL1
+lv_font_t	LITERAL1
+lv_img_cf_t	LITERAL1
+lv_disp_t	LITERAL1
+lv_disp_buf_t	LITERAL1
+lv_disp_drv_t	LITERAL1
+lv_indev_drv_t	LITERAL1
+lv_indev_data_t	LITERAL1
+lv_area_t	LITERAL1
+lv_calendar_date_t	LITERAL1
+lv_color_t	LITERAL1
+lv_color1_t	LITERAL1
+lv_color8_t	LITERAL1
+lv_color16_t	LITERAL1
+lv_color32_t	LITERAL1
+lv_color_int_t	LITERAL1
+lv_color_hsv_t	LITERAL1
+lv_coord_t	LITERAL1
+lv_canvas_style_t	LITERAL1
+lv_img_dsc_t	LITERAL1
+lv_point_t	LITERAL1
+lv_canvas_ext_t	LITERAL1
+lv_cb_style_t	LITERAL1
+lv_chart_series_t	LITERAL1
+lv_layout_t	LITERAL1
+lv_fit_t	LITERAL1
+lv_signal_t	LITERAL1
+signal_t	LITERAL1
+lv_gesture_dir_t	LITERAL1
+gesture_dir_t	LITERAL1
+img_cf_t	LITERAL1
+
+fit_t	LITERAL1
+layout_t	LITERAL1
+lv_cont_style_t	LITERAL1
+lv_ddlist_style_t	LITERAL1
+lv_gauge_style_t	LITERAL1
+lv_img_style_t	LITERAL1
+lv_imgbtn_style_t	LITERAL1
+lv_kb_mode_t	LITERAL1
+lv_kb_style_t	LITERAL1
+lv_label_long_mode_t	LITERAL1
+lv_label_align_t	LITERAL1
+lv_label_style_t	LITERAL1
+lv_led_style_t	LITERAL1
+lv_line_style_t	LITERAL1
+lv_list_style_t	LITERAL1
+lv_lmeter_style_t	LITERAL1
+lv_mbox_style_t	LITERAL1
+lv_page_edge_t	LITERAL1
+lv_page_style_t	LITERAL1
+lv_preload_type_t	LITERAL1
+lv_preload_dir_t	LITERAL1
+lv_preload_style_t	LITERAL1
+lv_roller_mode_t	LITERAL1
+lv_roller_style_t	LITERAL1
+lv_slider_style_t	LITERAL1
+lv_spinbox_style_t	LITERAL1
+lv_sw_style_t	LITERAL1
+lv_table_style_t	LITERAL1
+lv_tabview_btns_pos_t	LITERAL1
+lv_tabview_style_t	LITERAL1
+lv_cursor_type_t	LITERAL1
+lv_ta_style_t	LITERAL1
+lv_tileview_style_t	LITERAL1
+lv_win_style_t	LITERAL1
+lv_sb_mode_t	LITERAL1
+lv_border_part_t	LITERAL1
+scrollbar_t	LITERAL1
+border_part_t	LITERAL1
+blend_mode_t	LITERAL1
+
+lv_tabview_ext_t	LITERAL1
+lv_page_ext_t	LITERAL1
+lv_cont_ext_t	LITERAL1
+lv_btn_ext_t	LITERAL1
+lv_label_ext_t	LITERAL1
+
+lv_anim_t	LITERAL1
+lv_anim_enable_t	LITERAL1
+lv_anim_value_t	LITERAL1
+lv_anim_exec_xcb_t	LITERAL1
+lv_anim_custom_exec_cb_t	LITERAL1
+lv_anim_ready_cb_t	LITERAL1
+
+lv_kb_mode_t	LITERAL1
+kb_mode_t	LITERAL1
+
+TYPE1	LITERAL1
+TYPE2	LITERAL1
+TYPE3	LITERAL1
+TYPE4	LITERAL1
+
+LV_HOR_RES	LITERAL1
+LV_VER_RES	LITERAL1
+RES_WIDTH	LITERAL1
+RES_HEIGHT	LITERAL1
+
+#Color
+TFT_TRANSPARENT	LITERAL1
+TFT_BLACK	LITERAL1
+TFT_NAVY	LITERAL1
+TFT_DARKGREEN	LITERAL1
+TFT_DARKCYAN	LITERAL1
+TFT_MAROON	LITERAL1
+TFT_PURPLE	LITERAL1
+TFT_OLIVE	LITERAL1
+TFT_LIGHTGRAY	LITERAL1
+TFT_DARKGRAY	LITERAL1
+TFT_BLUE	LITERAL1
+TFT_SKYBLUE	LITERAL1
+TFT_BLUE_LVGL	LITERAL1
+TFT_GREEN	LITERAL1
+TFT_LIGHTGREEN	LITERAL1
+TFT_CYAN	LITERAL1
+TFT_RED	LITERAL1
+TFT_MAGENTA	LITERAL1
+TFT_YELLOW	LITERAL1
+TFT_LIGHTYELLOW	LITERAL1
+TFT_WHITE	LITERAL1
+TFT_ORANGE	LITERAL1
+TFT_GREENYELLOW	LITERAL1
+TFT_PINK	LITERAL1
+TFT_SADDLEBROWN	LITERAL1
+
+TFT_GREENBLYNK	LITERAL1
+TFT_REDBLYNK	LITERAL1
+TFT_YELLOWBLYNK	LITERAL1
+TFT_BLUEBLYNK	LITERAL1
+TFT_VIOLETBLYNK	LITERAL1
+
+TFT_DARKGREENBLYNK	LITERAL1
+TFT_DARKREDBLYNK	LITERAL1
+TFT_DARKYELLOWBLYNK	LITERAL1
+TFT_DARKBLUEBLYNK	LITERAL1
+TFT_DARKVIOLETBLYNK	LITERAL1
+
+
+TFT_GRAY	LITERAL1
+TFT_DIMGRAY	LITERAL1
+TFT_GRAYBLYNK	LITERAL1
+TFT_DARKGRAYBLYNK	LITERAL1
+TFT_DARKGRAYBLYNK2	LITERAL1
+TFT_SILVER	LITERAL1
+
+TFT_VIOLET	LITERAL1
+TFT_DARKVIOLET	LITERAL1
+TFT_PIGBLOOD	LITERAL1
+TFT_DARKPIGBLOOD	LITERAL1
+TFT_DARKYELLOW	LITERAL1
+TFT_DARKRED	LITERAL1
+TFT_BROWN	LITERAL1
+
+TFT_OLDROSE	LITERAL1
+TFT_PINK1	LITERAL1
+TFT_OLDGREEN	LITERAL1
+
+ALARM_IVALID	LITERAL1
+ALARM_SUNDAY	LITERAL1
+ALARM_MONDAY	LITERAL1
+ALARM_TUESDAY	LITERAL1
+ALARM_WEDNESDAY	LITERAL1
+ALARM_THURSDAY	LITERAL1 
+ALARM_FRIDAY	LITERAL1
+ALARM_SATURDAY	LITERAL1
+
+PALETTE_0	LITERAL1
+PALETTE_1	LITERAL1
+PALETTE_2	LITERAL1
+PALETTE_3	LITERAL1
+PALETTE_4	LITERAL1
+PALETTE_5	LITERAL1
+PALETTE_6	LITERAL1
+PALETTE_7	LITERAL1
+PALETTE_8	LITERAL1
+PALETTE_9	LITERAL1
+PALETTE_10	LITERAL1
+PALETTE_11	LITERAL1
+PALETTE_12	LITERAL1
+PALETTE_13	LITERAL1
+PALETTE_14	LITERAL1
+PALETTE_15	LITERAL1
+PALETTE_16	LITERAL1
+PALETTE_17	LITERAL1
+PALETTE_18	LITERAL1
+PALETTE_19	LITERAL1
+PALETTE_20	LITERAL1
+PALETTE_21	LITERAL1
+PALETTE_22	LITERAL1
+PALETTE_23	LITERAL1
+PALETTE_24	LITERAL1
+PALETTE_25	LITERAL1
+PALETTE_26	LITERAL1
+PALETTE_27	LITERAL1
+PALETTE_28	LITERAL1
+PALETTE_29	LITERAL1
+PALETTE_30	LITERAL1
+PALETTE_31	LITERAL1
+PALETTE_32	LITERAL1
+PALETTE_33	LITERAL1
+PALETTE_34	LITERAL1
+PALETTE_35	LITERAL1
+PALETTE_36	LITERAL1
+PALETTE_37	LITERAL1
+PALETTE_38	LITERAL1
+PALETTE_39	LITERAL1
+PALETTE_40	LITERAL1
+PALETTE_41	LITERAL1
+PALETTE_42	LITERAL1
+PALETTE_43	LITERAL1
+PALETTE_44	LITERAL1
+PALETTE_45	LITERAL1
+PALETTE_46	LITERAL1
+PALETTE_47	LITERAL1
+PALETTE_48	LITERAL1
+PALETTE_49	LITERAL1
+PALETTE_50	LITERAL1
+PALETTE_51	LITERAL1
+PALETTE_52	LITERAL1
+PALETTE_53	LITERAL1
+PALETTE_54	LITERAL1
+PALETTE_55	LITERAL1
+PALETTE_56	LITERAL1
+PALETTE_57	LITERAL1
+PALETTE_58	LITERAL1
+PALETTE_59	LITERAL1
+PALETTE_60	LITERAL1
+PALETTE_61	LITERAL1
+PALETTE_62	LITERAL1
+PALETTE_63	LITERAL1
+PALETTE_64	LITERAL1
+PALETTE_65	LITERAL1
+PALETTE_66	LITERAL1
+PALETTE_67	LITERAL1
+PALETTE_68	LITERAL1
+PALETTE_69	LITERAL1
+PALETTE_70	LITERAL1
+PALETTE_71	LITERAL1
+PALETTE_72	LITERAL1
+PALETTE_73	LITERAL1
+PALETTE_74	LITERAL1
+PALETTE_75	LITERAL1
+PALETTE_76	LITERAL1
+PALETTE_77	LITERAL1
+PALETTE_78	LITERAL1
+PALETTE_79	LITERAL1
+PALETTE_80	LITERAL1
+PALETTE_81	LITERAL1
+PALETTE_82	LITERAL1
+PALETTE_83	LITERAL1
+PALETTE_84	LITERAL1
+PALETTE_85	LITERAL1
+PALETTE_86	LITERAL1
+PALETTE_87	LITERAL1
+PALETTE_88	LITERAL1
+PALETTE_89	LITERAL1
+PALETTE_90	LITERAL1
+PALETTE_91	LITERAL1
+PALETTE_92	LITERAL1
+PALETTE_93	LITERAL1
+PALETTE_94	LITERAL1
+PALETTE_95	LITERAL1
+PALETTE_96	LITERAL1
+PALETTE_97	LITERAL1
+PALETTE_98	LITERAL1
+PALETTE_99	LITERAL1
+PALETTE_100	LITERAL1
+PALETTE_101	LITERAL1
+PALETTE_102	LITERAL1
+PALETTE_103	LITERAL1
+PALETTE_104	LITERAL1
+PALETTE_105	LITERAL1
+PALETTE_106	LITERAL1
+PALETTE_107	LITERAL1
+PALETTE_108	LITERAL1
+PALETTE_109	LITERAL1
+PALETTE_110	LITERAL1
+PALETTE_111	LITERAL1
+PALETTE_112	LITERAL1
+PALETTE_113	LITERAL1
+PALETTE_114	LITERAL1
+PALETTE_115	LITERAL1
+PALETTE_116	LITERAL1
+PALETTE_117	LITERAL1
+PALETTE_118	LITERAL1
+PALETTE_119	LITERAL1
+PALETTE_120	LITERAL1
+PALETTE_121	LITERAL1
+PALETTE_122	LITERAL1
+PALETTE_123	LITERAL1
+PALETTE_124	LITERAL1
+PALETTE_125	LITERAL1
+PALETTE_126	LITERAL1
+PALETTE_127	LITERAL1
+PALETTE_128	LITERAL1
+PALETTE_129	LITERAL1
+PALETTE_130	LITERAL1
+PALETTE_131	LITERAL1
+PALETTE_132	LITERAL1
+PALETTE_133	LITERAL1
+PALETTE_134	LITERAL1
+PALETTE_135	LITERAL1
+PALETTE_136	LITERAL1
+PALETTE_137	LITERAL1
+PALETTE_138	LITERAL1
+PALETTE_139	LITERAL1
+PALETTE_140	LITERAL1
+PALETTE_141	LITERAL1
+PALETTE_142	LITERAL1
+PALETTE_143	LITERAL1
+PALETTE_144	LITERAL1
+PALETTE_145	LITERAL1
+PALETTE_146	LITERAL1
+PALETTE_147	LITERAL1
+PALETTE_148	LITERAL1
+PALETTE_149	LITERAL1
+PALETTE_150	LITERAL1
+PALETTE_151	LITERAL1
+PALETTE_152	LITERAL1
+PALETTE_153	LITERAL1
+PALETTE_154	LITERAL1
+PALETTE_155	LITERAL1
+PALETTE_156	LITERAL1
+PALETTE_157	LITERAL1
+PALETTE_158	LITERAL1
+PALETTE_159	LITERAL1
+PALETTE_160	LITERAL1
+PALETTE_161	LITERAL1
+PALETTE_162	LITERAL1
+PALETTE_163	LITERAL1
+PALETTE_164	LITERAL1
+PALETTE_165	LITERAL1
+PALETTE_166	LITERAL1
+PALETTE_167	LITERAL1
+PALETTE_168	LITERAL1
+PALETTE_169	LITERAL1
+PALETTE_170	LITERAL1
+PALETTE_171	LITERAL1
+PALETTE_172	LITERAL1
+PALETTE_173	LITERAL1
+PALETTE_174	LITERAL1
+PALETTE_175	LITERAL1
+PALETTE_176	LITERAL1
+PALETTE_177	LITERAL1
+PALETTE_178	LITERAL1
+PALETTE_179	LITERAL1
+PALETTE_180	LITERAL1
+PALETTE_181	LITERAL1
+PALETTE_182	LITERAL1
+PALETTE_183	LITERAL1
+PALETTE_184	LITERAL1
+PALETTE_185	LITERAL1
+PALETTE_186	LITERAL1
+PALETTE_187	LITERAL1
+PALETTE_188	LITERAL1
+PALETTE_189	LITERAL1
+PALETTE_190	LITERAL1
+PALETTE_191	LITERAL1
+PALETTE_192	LITERAL1
+PALETTE_193	LITERAL1
+PALETTE_194	LITERAL1
+PALETTE_195	LITERAL1
+PALETTE_196	LITERAL1
+PALETTE_197	LITERAL1
+PALETTE_198	LITERAL1
+PALETTE_199	LITERAL1
+PALETTE_200	LITERAL1
+PALETTE_201	LITERAL1
+PALETTE_202	LITERAL1
+PALETTE_203	LITERAL1
+PALETTE_204	LITERAL1
+PALETTE_205	LITERAL1
+PALETTE_206	LITERAL1
+PALETTE_207	LITERAL1
+PALETTE_208	LITERAL1
+PALETTE_209	LITERAL1
+PALETTE_210	LITERAL1
+PALETTE_211	LITERAL1
+PALETTE_212	LITERAL1
+PALETTE_213	LITERAL1
+PALETTE_214	LITERAL1
+PALETTE_215	LITERAL1
+PALETTE_216	LITERAL1
+PALETTE_217	LITERAL1
+PALETTE_218	LITERAL1
+PALETTE_219	LITERAL1
+PALETTE_220	LITERAL1
+PALETTE_221	LITERAL1
+PALETTE_222	LITERAL1
+PALETTE_223	LITERAL1
+PALETTE_224	LITERAL1
+PALETTE_225	LITERAL1
+PALETTE_226	LITERAL1
+PALETTE_227	LITERAL1
+PALETTE_228	LITERAL1
+PALETTE_229	LITERAL1
+PALETTE_230	LITERAL1
+PALETTE_231	LITERAL1
+PALETTE_232	LITERAL1
+PALETTE_233	LITERAL1
+PALETTE_234	LITERAL1
+PALETTE_235	LITERAL1
+PALETTE_236	LITERAL1
+PALETTE_237	LITERAL1
+PALETTE_238	LITERAL1
+PALETTE_239	LITERAL1
+PALETTE_240	LITERAL1
+PALETTE_241	LITERAL1
+PALETTE_242	LITERAL1
+PALETTE_243	LITERAL1
+PALETTE_244	LITERAL1
+PALETTE_245	LITERAL1
+PALETTE_246	LITERAL1
+PALETTE_247	LITERAL1
+PALETTE_248	LITERAL1
+PALETTE_249	LITERAL1
+PALETTE_250	LITERAL1
+PALETTE_251	LITERAL1
+PALETTE_252	LITERAL1
+PALETTE_253	LITERAL1
+PALETTE_254	LITERAL1
+PALETTE_255	LITERAL1
+
+SQLITE32_OK	LITERAL1
+SQLITE32_FAIL	LITERAL1
+
+REPEAT_ON	LITERAL1
+REPEAT_OFF	LITERAL1
+PLAYBACK_ON	LITERAL1
+PLAYBACK_OFF	LITERAL1
+
+CLOCKWISE	LITERAL1
+ANTICLOCKWISE	LITERAL1
+ARC_CLOCKWISE	LITERAL1
+ARC_ANTICLOCKWISE	LITERAL1
+
+PRELOAD_TYPE_SPINNING_ARC	LITERAL1
+PRELOAD_TYPE_FILLSPIN_ARC	LITERAL1
+PRELOAD_TYPE_CONSTANT_ARC	LITERAL1
+
+PRELOAD_DIR_FORWARD	LITERAL1
+PRELOAD_DIR_BACKWARD	LITERAL1
+PRELOAD_CLOCKWISE	LITERAL1
+PRELOAD_ANTICLOCKWISE	LITERAL1
+
+BLYNKGO_KEY	LITERAL1
+ROTATION_DEFAULT	LITERAL1
+ROTATION_VERTICAL	LITERAL1
+
+AQI_US	LITERAL1
+AQI_TH	LITERAL1
+AQI_CN	LITERAL1
+
+ACTIVE_LOW	LITERAL1
+ACTIVE_HIGH	LITERAL1
+
+AsyncHttpClient	LITERAL1
+HttpResponse	LITERAL1
+
+MessageProperties	LITERAL1
+QOS0	LITERAL1
+QOS1	LITERAL1
+QOS2	LITERAL1
+
+
+IRQ_TOUCH	LITERAL1
+IRQ_BATT	LITERAL1
+
+# GBPrimePay
+GBP_ERR_OK	LITERAL1
+GBP_ERR_NO_TOKEN	LITERAL1
+GBP_ERR_CONNECTION	LITERAL1
+GBP_ERR_REQ_QRCASH	LITERAL1
+GBP_ERR_RESULT_QRCASH	LITERAL1
+GBP_EER_PAID_BILL_NO	LITERAL1
+GBP_ERR_PAID	LITERAL1
+GBP_ERR_PAYMENT_TIMEOUT	LITERAL1
+
+# esp32 utils
+ANGLE360	KEYWORD2
+ANGLE180	KEYWORD2
+ANGLE_SEC	KEYWORD2
+ANGLE_MINUTE	KEYWORD2
+ANGLE_HOUR	KEYWORD2
+
+
+SETUP	KEYWORD3	RESERVED_WORD
+LOOP	KEYWORD3	RESERVED_WORD
+BLYNKGO_TASK	KEYWORD3	RESERVED_WORD
+PROJECT_NAME	KEYWORD3	RESERVED_WORD
+
+NO_INTERRUPTS	RESERVED_WORD
+INTERRUPTS	RESERVED_WORD
+MEM_CHECK	RESERVED_WORD
+GNULL	RESERVED_WORD
+GWIDGET_DELETE	RESERVED_WORD
+FLOAT	RESERVED_WORD
+
+ESP_LOGE	LITERAL1
+ESP_LOGW	LITERAL1
+ESP_LOGI	LITERAL1
+ESP_LOGD	LITERAL1
+ESP_LOGV	LITERAL1
+
+# Text Unicode / UTF8
+TEXT_NEXT	LITERAL1
+TEXT_PREV	LITERAL1
+
+#BeeNeXT board
+LED_R	LITERAL1
+LED_G	LITERAL1
+LED_B	LITERAL1
+LDR_PIN	LITERAL1
+LDR_RESOLUTION	LITERAL1
+SPEAKER_PIN	LITERAL1
+BEENEXT_DISABLE	LITERAL1

@@ -1,0 +1,10 @@
+วิธี upload ROM
+------------
+1. เปลี่ยนชื่อไฟล์ esptool.bin เป็น esptool.exe
+2.ปิด Serial Monitor อื่นๆ ที่เคยเปิดอยู่ออกไปก่อน
+3.เปิด command prompt มาที่ โฟลเดอร์นี้
+4.พิมพ์คำสั่ง upload แล้วตาม ด้วย COM Port ของ ESP32
+เช่น
+> upload COM8
+
+แล้วรอจนกว่าจะ upload ROM เสร็จ

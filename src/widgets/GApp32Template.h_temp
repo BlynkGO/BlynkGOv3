@@ -1,0 +1,20 @@
+#ifndef __GTEMPLATE_H__
+#define __GTEMPLATE_H__
+
+#include <BlynkGOv3.h>
+
+class GApp32Template : public GApp32 {
+  public:
+    GApp32Template(GWidget& parent=GScreen);
+    GApp32Template(GWidget* parent);
+    virtual ~GApp32Template();
+    virtual void create();
+            void create(GWidget& parent);
+            void create(GWidget* parent);
+//    GRect&  app();
+
+  private:
+};
+
+#endif //__GTEMPLATE_H__
+

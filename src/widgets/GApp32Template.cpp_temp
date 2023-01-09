@@ -1,0 +1,63 @@
+#include "GApp32Template.h"
+
+#define APP32_ICON    ico_app
+#define APP32_TEXT    "App Name"
+
+
+
+#define LV_OBJX_NAME  "GApp32Template"
+
+static lv_signal_cb_t ancestor_signal_cb;
+static lv_res_t GSignal_cb(lv_obj_t *obj, lv_signal_t sign, void* param)
+{
+  lv_res_t res;
+  res = ancestor_signal_cb( obj, sign, param);
+  if(res != LV_RES_OK ) return res;
+
+  if(sign == LV_SIGNAL_GET_TYPE) 
+    return lv_obj_handle_get_type_signal((lv_obj_type_t*)param, LV_OBJX_NAME);
+
+  /* หลัง del() หรือ deconstrutor ถูกเรียก และภายในได้ลบ child ไปแล้ว */
+  if(sign == LV_SIGNAL_CLEANUP) {
+    log_d("[GApp32_ThaiCovid19] signal cleanup");
+    GApp32_ThaiCovid19* pApp32Template = (GApp32_ThaiCovid19*) lv_obj_get_user_data(obj);
+
+    if(pApp32Template->hasLocalStyle()) {pApp32Template->freeLocalStyle(); }
+    pApp32Template->_created = false;
+  }
+  return LV_RES_OK;
+}
+
+
+
+GApp32Template::GApp32Template(GWidget& parent) : GApp32(&parent) {}
+GApp32Template::GApp32Template(GWidget* parent) : GApp32(parent) {}
+GApp32Template::~GApp32Template() { this->del(); }
+
+void GApp32Template::create(){
+  if(this->_par != NULL && !this->_par->isCreated()) this->_par->create();
+  if(this->_par->obj == NULL) return;
+
+  if(!this->isCreated()) {
+    GApp32::create( this->_par );
+    if(this->obj != NULL) {
+
+      this->setImage(APP32_ICON);
+      this->text(APP32_TEXT);
+      this->align(ALIGN_CENTER,0,0);
+
+      if(ancestor_signal_cb == NULL) ancestor_signal_cb = this->signal_cb();
+      this->signal_cb(GSignal_cb);
+    }
+  }
+}
+
+void GApp32Template::create(GWidget& parent){
+  this->_par = &parent;
+  create();
+}
+
+void GApp32Template::create(GWidget* parent) {
+  this->_par = parent;
+  create();
+}
