@@ -1052,7 +1052,7 @@ LORA_GATEWAY	LITERAL1
 init	KEYWORD2
 update	KEYWORD2
 setToken	KEYWORD2
-setTopicPrefix	KEYWORD2
+setTopic	KEYWORD2
 setPlace	KEYWORD2
 getToken	KEYWORD2
 getTunnelTopic	KEYWORD2
