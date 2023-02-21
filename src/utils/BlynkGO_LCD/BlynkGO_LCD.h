@@ -17,6 +17,77 @@ class BlynkGO_LCD  {
 
 #else
 
+#if defined(BLYNKGO_USE_AGFX) && (BLYNKGO_USE_AGFX==1)  // ใช้ AGFX 
+/******************************************************
+ * AGFX
+ *****************************************************/
+#include "./AGFX/AGFX.h"
+
+static constexpr int _TFT_BLACK       = 0x0000;      /*   0,   0,   0 */
+static constexpr int _TFT_WHITE       = 0xFFFF;      /* 255, 255, 255 */
+
+class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
+  public:
+    BlynkGO_LCD(
+      Arduino_ESP32RGBPanel *bus,
+      int16_t w, uint16_t hsync_polarity, uint16_t hsync_front_porch, uint16_t hsync_pulse_width, uint16_t hsync_back_porch,
+      int16_t h, uint16_t vsync_polarity, uint16_t vsync_front_porch, uint16_t vsync_pulse_width, uint16_t vsync_back_porch,
+      uint16_t pclk_active_neg = 0, int32_t prefer_speed = GFX_NOT_DEFINED, bool auto_flush = true)
+    : Arduino_RPi_DPI_RGBPanel(bus, w, hsync_polarity, hsync_front_porch, hsync_pulse_width, hsync_back_porch,
+                                    h, vsync_polarity, vsync_front_porch, vsync_pulse_width, vsync_back_porch, 
+                                    pclk_active_neg, prefer_speed, auto_flush) {}
+
+    BlynkGO_LCD() : Arduino_RPi_DPI_RGBPanel( new Arduino_ESP32RGBPanel(
+        GFX_NOT_DEFINED /* CS */, GFX_NOT_DEFINED /* SCK */, GFX_NOT_DEFINED /* SDA */,
+        40 /* DE */, 41 /* VSYNC */, 39 /* HSYNC */, 42 /* PCLK */,
+        45 /* R0 */, 48 /* R1 */, 47 /* R2 */, 21 /* R3 */, 14 /* R4 */,
+        5 /* G0 */, 6 /* G1 */, 7 /* G2 */, 15 /* G3 */, 16 /* G4 */, 4 /* G5 */,
+        8 /* B0 */, 3 /* B1 */, 46 /* B2 */, 9 /* B3 */, 1 /* B4 */ ),
+      800 /* width */, 0 /* hsync_polarity */, 8 /* hsync_front_porch */, 4 /* hsync_pulse_width */, 8 /* hsync_back_porch */,
+      480 /* height */, 0 /* vsync_polarity */, 8 /* vsync_front_porch */, 4 /* vsync_pulse_width */, 8 /* vsync_back_porch */,
+      1 /* pclk_active_neg */, 16000000 /* prefer_speed */, true /* auto_flush */)  {}
+
+    inline void init() { 
+      pinMode(_bl_pin, OUTPUT);
+      digitalWrite(_bl_pin, HIGH);
+      Arduino_RPi_DPI_RGBPanel::begin();
+    }
+    
+    inline void drawString(const char* str, int16_t x, int16_t y)   { Arduino_RPi_DPI_RGBPanel::setCursor(x, y);  Arduino_RPi_DPI_RGBPanel::print(str); }
+ 
+    int16_t _windows_x, _windows_y, _windows_w, _windows_h;
+    int16_t _xx,_yy, _cx, _cy;
+
+    inline void setAddrWindow(int16_t x, int16_t y, int16_t w, int16_t h)  { 
+      _windows_x  = x; _windows_y  = y; _windows_w = w; _windows_h = h; _xx=0; _yy=0; _cx = _windows_x + _xx; _cy = _windows_y + _yy;
+    }
+    
+    void writeColor( uint16_t color, uint16_t num) {
+        if(_xx >= _windows_w -1 && _yy >= _windows_h-1) return;
+        
+        Arduino_RPi_DPI_RGBPanel::writePixel( _cx, _cy, color);
+        if( ++_xx >= _windows_w) {_xx = _xx - _windows_w; _yy++; }
+        _cx = constrain(_windows_x + _xx ,0 , width()); 
+        _cy = constrain(_windows_y + _yy ,0 , height());
+        if( num-1 > 0 ) writeColor(color, num-1);
+    }
+
+
+    bool getTouch(int32_t* x, int32_t*y)                            { *x = 0; *y=0; return false; }
+
+    void wakeup()   {}
+    void sleep()    {}
+    void setBrightness(uint8_t brightness)                          {}
+    uint8_t getBrightness()                                         { return 0; }
+
+  private:
+    uint8_t _bl_pin = 2;
+};
+
+#else // ใช้ LoveCat
+/******************************************************
+ * LoveCat
+ *****************************************************/
 #define LGFX_USE_V1
 #include "./LoveCat/LovyanGFX.hpp"
 // #include "./LoveCat/lgfx/v1/panel/Panel_Device.hpp"
@@ -440,7 +511,10 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
 #endif //#if defined(TOUCH_GT911) || defined(BEENEXT_4_3) 
 };
 
+
+#endif //#if defined(BLYNKGO_USE_AGFX) && (BLYNKGO_USE_AGFX==1) 
 #endif// #if defined (TFT_4_3_INCH_TOUCH_485)
 #endif// #if !defined(BLYNKGO_OLED)
+
 
 #endif // __BLYNKGO_LCD_H__

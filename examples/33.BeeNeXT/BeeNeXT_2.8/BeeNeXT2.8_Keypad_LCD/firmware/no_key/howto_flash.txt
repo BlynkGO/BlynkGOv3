@@ -1,0 +1,12 @@
+วิธี flash
+---------
+1. เปลี่ยนชื่อ esptool.ext.bin เป็น esptool.exe
+
+2. double click ไฟล์ command_prompt_here.bat
+จะมาที่ หน้าต่าง command prompt โฟลเดอร์ปัจจุบันให้
+
+3. ใส่คำสั่งเพื่อ flash รอม 
+เช่น หาก ต่อที่ COM4 พิมพ์คำสั่ง
+
+> beenext_flasher COM4
+

@@ -48,6 +48,10 @@ class GImageButton : public GContainer {
                   const lv_img_dsc_t &src_btn_pr,
                   GWidget& parent=GScreen);
 
+    GImageButton( const lv_img_dsc_t &src_btn_rel, 
+                  const lv_img_dsc_t &src_btn_pr,
+                  GWidget& parent=GScreen);
+
     GImageButton( button_type_t type, 
                   const lv_img_dsc_t &src_btn_rel, 
                   GWidget& parent=GScreen);

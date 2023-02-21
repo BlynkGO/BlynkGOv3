@@ -27,6 +27,7 @@
  *      หาก มีการโจมตีด้วย ssid ชื่อเดียวกันซ้ำๆ ก็ยังกลับไปเชื่อมต่อ WiFi Router ตัวเดิมได้
  *    2.ตั้งค่า WiFi ได้ทั้งแบบ Auto IP และ Fixed IP
  *    3.มีระบบ WiFi Scan ค้นหา ไวไฟรอบๆ โดย scan ให้ทุกๆ 10 วินาที เมื่อกดค้นหา
+ *    4.กดค้าง 5วินาที ล้าง wifi/pass เสียแพงมากๆ
  *
  * Version 1.0.1
  *    1. เปลี่ยน GRect+GLabel เป็น GButton แทน
@@ -63,6 +64,9 @@
  * Version 1.0.11 @02/01/23
  *    1. wifi_manager.reset()  ทำการ reset ค่า wifi ทิ้ง พร้อมล้าง widget ข้อความต่างๆของ wifi_manager ออก
  *
+ * Version 1.0.12 @11/01/23
+ *    1. กดค้างนาน 5 วินาที    จะเข้าทำการ reset WiFi/Password แล้วค่อยเข้าไป GWiFiManager ไปตั้งค่าให้ GWiFiSetting
+ *    
  *********************************************************************
  */
 
@@ -83,7 +87,7 @@
 #include "GList.h"
 #include "GTask.h"
 
-#define WIFI_MANAGER_VERSION       "1.0.10"
+#define WIFI_MANAGER_VERSION       "1.0.12"
 
 class GWiFiSetting;
 

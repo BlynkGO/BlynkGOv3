@@ -617,6 +617,7 @@
   #define ROTATE_TYPE             0 //3
   #define OFFSET_ROTATION         0
   #define BLYNKGO_USE_SD          1
+  #define BLYNKGO_USE_AGFX        0
 
   #define RGB_DRIVER
   #define TFT_RGB_BUS
@@ -645,6 +646,16 @@
   #define TFT_HSYNC               GPIO_NUM_39
   #define TFT_PCLK                GPIO_NUM_42
   
+  #define TFT_HSYNC_POLARITY      0
+  #define TFT_HSYNC_FRONT_PORCH   8
+  #define TFT_HSYNC_PULSE_WIDTH   4
+  #define TFT_HSYNC_BACK_PORCH    8
+  #define TFT_VSYNC_POLARITY      0
+  #define TFT_VSYNC_FRONT_PORCH   8
+  #define TFT_VSYNC_PULSE_WIDTH   4
+  #define TFT_VSYNC_BACK_PORCH    8
+  #define TFT_PCLK_IDLE_HIGH      1
+
   #define SD_FSPI_MODE
   #define SD_CS                   10       // SD Chip Select
   #define SD_MOSI                 11
@@ -665,6 +676,7 @@
   #define ROTATE_TYPE             0 //3
   #define OFFSET_ROTATION         0
   #define BLYNKGO_USE_SD          1
+  #define BLYNKGO_USE_AGFX        0
 
   #define RGB_DRIVER
   #define TFT_RGB_BUS
@@ -723,6 +735,7 @@
   #define ROTATE_TYPE             0 //3
   #define OFFSET_ROTATION         0
   #define BLYNKGO_USE_SD          1
+  #define BLYNKGO_USE_AGFX        0
 
   #define RGB_DRIVER
   #define TFT_RGB_BUS

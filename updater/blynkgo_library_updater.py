@@ -2,19 +2,19 @@ import os
 from sys import platform
 import shutil
 
-blynkgo_ver="3.0.1"
+blynkgo_ver="3.0.0 beta4"
 
 
-print()
+print("")
 print(r"==========================================")
 print(r"     ___  __          __   _________  ")
 print(r"    / _ )/ /_ _____  / /__/ ___/ __ \ ")
 print(r"   / _  / / // / _ \/  '_/ (_ / /_/ / ")
 print(r"  /____/_/\_, /_//_/_/\_\\___/\____/  ")
 print(r"         /___/    ")
-print()
+print("")
 print(r"      BlynkGO Library V"+ blynkgo_ver + " Updator")
-print()
+print("")
 print(r"==========================================")
 
 if platform == "linux" or platform == "linux2":
@@ -37,23 +37,23 @@ elif platform == "win32":
     esp32_basedir  = esp32_basedir2
 
 # print(esp32basedir)
-print()
+print("")
 
 if(os.path.exists(esp32_basedir) is False):
 
   print("***************************************************************")
   print("            !!! BlynkGO-SDK Installer ERROR !!!")
-  print()
+  print("")
   print("             ERROR: Not Found ESP32 Core Folder")
   print("                Can't install BlynkGO-SDK.")
-  print()
+  print("")
   print("              Please contact blynkgo@gmail.com")
-  print()
+  print("")
   print("***************************************************************")
 
 else:
-  # เช็ค esp32 core version อะไร
-  print()
+  # check esp32 core version
+  print("")
   esp32_core_count = 0
   for filename in os.listdir(esp32_basedir):
     esp32_core_version  = filename
@@ -62,12 +62,12 @@ else:
   if(esp32_core_count == 2):
     print("***************************************************************")
     print("            !!! BlynkGO-SDK Installer ERROR !!!")
-    print()
+    print("")
     print("           ERROR : ESP32 Core is MORE THAN 1 version")
     print("                Can't install BlynkGO-SDK.")
-    print()
+    print("")
     print("              Please contact blynkgo@gmail.com")
-    print()
+    print("")
     print("***************************************************************")
 
   elif(esp32_core_count == 1 ):
@@ -101,19 +101,20 @@ else:
           print("      - " + filename)
           shutil.copy( cur_esp32_lib_dir + "/" + filename, esp32_libdir)
 
-      print("\n  [3] copying BlynkGO ESP32C3 lib")
-      cur_esp32c3_lib_dir = cur_dir + "/esp32c3/lib"
-      for filename in os.listdir(cur_esp32c3_lib_dir):
-        if(filename.endswith('.a')):
-          print("      - " + filename)
-          shutil.copy( cur_esp32c3_lib_dir + "/" + filename, esp32c3_libdir)
+      # print("\n  [3] copying BlynkGO ESP32C3 lib")
+      # cur_esp32c3_lib_dir = cur_dir + "/esp32c3/lib"
+      # print (cur_esp32c3_lib_dir)
+      # for filename in os.listdir(cur_esp32c3_lib_dir):
+      #   if(filename.endswith('.a')):
+      #     print("      - " + filename)
+      #     shutil.copy( cur_esp32c3_lib_dir + "/" + filename, esp32c3_libdir)
 
-      print("\n  [4] copying BlynkGO ESP32S2 lib")
-      cur_esp32s2_lib_dir = cur_dir + "/esp32s2/lib"
-      for filename in os.listdir(cur_esp32s2_lib_dir):
-        if(filename.endswith('.a')):
-          print("      - " + filename)
-          shutil.copy( cur_esp32s2_lib_dir + "/" + filename, esp32s2_libdir)
+      # print("\n  [4] copying BlynkGO ESP32S2 lib")
+      # cur_esp32s2_lib_dir = cur_dir + "/esp32s2/lib"
+      # for filename in os.listdir(cur_esp32s2_lib_dir):
+      #   if(filename.endswith('.a')):
+      #     print("      - " + filename)
+      #     shutil.copy( cur_esp32s2_lib_dir + "/" + filename, esp32s2_libdir)
 
       print("\n  [5] copying BlynkGO ESP32S3 lib")
       cur_esp32s3_lib_dir = cur_dir + "/esp32s3/lib"

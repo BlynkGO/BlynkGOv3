@@ -77,6 +77,11 @@ GImageButton::GImageButton( button_type_t type,
 : img_btn_rel(&src_btn_rel), img_btn_pr(&src_btn_pr), img_tgl_rel(&src_btn_pr),img_tgl_pr(&src_btn_pr), img_btn_ina(NULL),
 _type(type),GContainer(&parent) { }
 
+GImageButton::GImageButton( const lv_img_dsc_t &src_btn_rel, 
+                  const lv_img_dsc_t &src_btn_pr,
+                  GWidget& parent)
+: img_btn_rel(&src_btn_rel), img_btn_pr(&src_btn_pr), img_tgl_rel(&src_btn_pr),img_tgl_pr(&src_btn_pr), img_btn_ina(NULL),
+_type(BUTTON_PUSH),GContainer(&parent) { }
 
 GImageButton::GImageButton( button_type_t type, 
                             const lv_img_dsc_t &src_btn_rel, 

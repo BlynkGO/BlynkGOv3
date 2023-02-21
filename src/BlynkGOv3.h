@@ -34,7 +34,32 @@
 #ifndef _BLYNKGO_V3_H__
 #define _BLYNKGO_V3_H__
 
-#define BLYNKGO_VERSION             "3.0.0 beta3"
+// #define BLYNKGO_VERSION             "3.0.0 beta4"
+
+/** Major version number (X.x.x) */
+#define BLYNKGO_VERSION_MAJOR   3
+/** Minor version number (x.X.x) */
+#define BLYNKGO_VERSION_MINOR   0
+/** Patch version number (x.x.X) */
+#define BLYNKGO_VERSION_PATCH   0
+
+#define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH)).c_str()
+
+/**
+ * Macro to convert IDF version number into an integer
+ *
+ * To be used in comparisons, such as BLYNKGO_VERSION >= BLYNKGO_VERSION_VAL(3, 0, 0)
+ */
+#define BLYNKGO_VERSION_VAL(major, minor, patch) ((major << 16) | (minor << 8) | (patch))
+
+/**
+ * Current IDF version, as an integer
+ *
+ * To be used in comparisons, such as BLYNKGO_VERSION >= BLYNKGO_VERSION_VAL(3, 0, 0)
+ */
+#define BLYNKGO_VERSION  BLYNKGO_VERSION_VAL( BLYNKGO_VERSION_MAJOR, \
+                                              BLYNKGO_VERSION_MINOR, \
+                                              BLYNKGO_VERSION_PATCH)
 
 #include <Arduino.h>
 #include "config/blynkgo_config.h"
@@ -541,7 +566,7 @@ class BlynkGOv3 {
 #endif //BLYNKGO_USE_SD
 
   private:
-    const char* _version = BLYNKGO_VERSION;
+    const char* _version = BLYNKGO_VERSION_TEXT;
     uint8_t _rotation;
     bool _is_backlight_on = true;
     bool _has_sd = false;

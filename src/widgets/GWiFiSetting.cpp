@@ -839,7 +839,7 @@ void GWiFiSetting::ta_onValueChanged(GWidget*w){
   if(ext->ta_password->sameWith(w)){
     if( ext->ta_password->text() != String(GWiFiSetting::wifi_config.password) ){
       snprintf( GWiFiSetting::wifi_config.password, 64, "%s", ext->ta_password->text().c_str());
-      Serial.println(GWiFiSetting::wifi_config.password);
+      // Serial.println(GWiFiSetting::wifi_config.password);
       if( String(GWiFiSetting::wifi_config.ssid)!="") {
         WiFi.disconnect(true);
         WiFi.mode(WIFI_OFF);
@@ -848,7 +848,7 @@ void GWiFiSetting::ta_onValueChanged(GWidget*w){
     }
   }else
   if(ext->ta_fix_ip->sameWith(w)){
-    Serial.printf("ta_fix_ip changed : %s\n", ext->ta_fix_ip->text().c_str());
+    // Serial.printf("ta_fix_ip changed : %s\n", ext->ta_fix_ip->text().c_str());
 
     ip4_addr_t fix_ip_addr;
     ip4addr_aton( ext->ta_fix_ip->text().c_str(), &fix_ip_addr);
@@ -856,7 +856,7 @@ void GWiFiSetting::ta_onValueChanged(GWidget*w){
     GWiFiSetting::save_WiFiConfig();
   }else
   if(ext->ta_gateway_ip->sameWith(w)){
-    Serial.printf("ta_gateway_ip changed : %s\n", ext->ta_gateway_ip->text().c_str());
+    // Serial.printf("ta_gateway_ip changed : %s\n", ext->ta_gateway_ip->text().c_str());
 
     ip4_addr_t gateway_ip_addr;
     ip4addr_aton( ext->ta_gateway_ip->text().c_str(), &gateway_ip_addr);
@@ -864,7 +864,7 @@ void GWiFiSetting::ta_onValueChanged(GWidget*w){
     GWiFiSetting::save_WiFiConfig();
   }else
   if(ext->ta_subnet->sameWith(w)){
-    Serial.printf("ta_subnet changed : %s\n", ext->ta_subnet->text().c_str());
+    // Serial.printf("ta_subnet changed : %s\n", ext->ta_subnet->text().c_str());
 
     ip4_addr_t subnet_addr;
     ip4addr_aton( ext->ta_subnet->text().c_str(), &subnet_addr);
@@ -872,7 +872,7 @@ void GWiFiSetting::ta_onValueChanged(GWidget*w){
     GWiFiSetting::save_WiFiConfig();
   }else
   if(ext->ta_dns_ip->sameWith(w)){
-    Serial.printf("ta_dns_ip changed : %s\n", ext->ta_dns_ip->text().c_str());
+    // Serial.printf("ta_dns_ip changed : %s\n", ext->ta_dns_ip->text().c_str());
 
     ip4_addr_t dns_addr;
     ip4addr_aton( ext->ta_dns_ip->text().c_str(), &dns_addr);
@@ -1041,7 +1041,7 @@ void GWiFiSetting::load_WiFiConfig(){
     GWiFiSetting::wifi_config.dns32           = 0;
   }
 
-  // GWiFiSetting::display_WiFiConfig();
+  GWiFiSetting::display_WiFiConfig();
 }
 
 
@@ -1091,7 +1091,7 @@ void  GWiFiSetting::clean_WiFiConfig(){
 
     memset(GWiFiSetting::wifi_config.ssid    , 0, sizeof(GWiFiSetting::wifi_config.ssid));
     memset(GWiFiSetting::wifi_config.password, 0, sizeof(GWiFiSetting::wifi_config.password));
-    GWiFiSetting::wifi_config.ssid_enable     = true;
+    GWiFiSetting::wifi_config.ssid_enable     = false;
     GWiFiSetting::wifi_config.auto_ip_enable  = true;
     memset(GWiFiSetting::wifi_config.bssid   , 0, sizeof(GWiFiSetting::wifi_config.bssid));
     GWiFiSetting::wifi_config.fixed_ip32      = 0;
@@ -1103,7 +1103,7 @@ void  GWiFiSetting::clean_WiFiConfig(){
   gwifisetting_ext_t* ext = (gwifisetting_ext_t*) _pWiFiSetting->ext_attr();
   if(ext == NULL) return;
 
-  Serial.println("reset wifi sub widget");
+  // Serial.println("reset wifi sub widget");
   ext->ta_ssid->text(GWiFiSetting::wifi_config.ssid);
 
 }
@@ -1113,15 +1113,16 @@ void  GWiFiSetting::display_WiFiConfig(){
   char bssidStr[18] = { 0 };
   sprintf(bssidStr, "%02X:%02X:%02X:%02X:%02X:%02X", bssid[0], bssid[1], bssid[2], bssid[3], bssid[4], bssid[5]);
 
-  Serial.printf("ssid      : %s\n"
-                "password  : %s\n"
-                "bssid     : %s\n"
-                "ssid en   : %d\n"
-                "autoIP en : %d\n"
-                "fix ip    : %s\n"
-                "gateway ip: %s\n"
-                "subnet    : %s\n"
-                "dns ip    : %s\n",
+  Serial.printf("[GWiFiManager] \n"
+                "   ssid      : %s\n"
+                "   password  : %s\n"
+                "   bssid     : %s\n"
+                "   ssid en   : %d\n"
+                "   autoIP en : %d\n"
+                "   fix ip    : %s\n"
+                "   gateway ip: %s\n"
+                "   subnet    : %s\n"
+                "   dns ip    : %s\n",
                 GWiFiSetting::wifi_config.ssid, 
                 GWiFiSetting::wifi_config.password,
                 bssidStr,

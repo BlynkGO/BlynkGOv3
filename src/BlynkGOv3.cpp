@@ -355,6 +355,18 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
     BeeNeXT.begin();  // ทั่วไปใช้ Serial เป็นจุดเชื่อมต่อกับ MCU อื่น, แต่สำหรับ ESP32S3 แบบนี้จะใช้ Serial2 ในการเชื่อมต่อ
 #endif
 
+#if defined (TOUCH_XPT2046)
+  if( this->flashMem_exists("BLYNKGO_VER")) {
+    String _blynkgo_version = this->flashMem_String("BLYNKGO_VER");
+    if(_blynkgo_version != BLYNKGO_VERSION_TEXT) {
+      this->touch_calibrate();
+    }
+  }else{
+    this->flashMem("BLYNKGO_VER", String(BLYNKGO_VERSION_TEXT));   
+    this->touch_calibrate();
+  }
+#endif
+
 }
 
 
@@ -559,6 +571,7 @@ void BlynkGOv3::touch_calibrate(){
     lcd.calibrateTouch(touch_data, fg, bg, std::max(lcd.width(), lcd.height()) >> 3);
     // NVS.setObject("TOUCH_DATA", touch_data, sizeof(touch_data)*8); 
     this->flashMem("TOUCH_DATA", &touch_data, sizeof(touch_data));
+    lcd.setRotation(this->flashMem_Int("TFT_ROTATE"));  // ตั้ง rotation คืนที่เคยกำหนด
     ESP_LOGI(TAG, "[TouchCalibrate] set to FlashMem Done!");
     GScreen.invalidate();
   }
@@ -938,11 +951,16 @@ void BlynkGOv3::blynkgo_system_init(){
 #if defined (BLYNKGO_BASIC)
   ESP_LOGI(TAG, "[BlynkGO] basic");
   lv_disp_buf_init(&disp_buf, _cbuf, NULL, LV_HOR_RES_MAX * 10);
-#elif defined (BLYNKGO_ENTERPRISE) || defined(BEENEXT_4_3IPS)
+#elif defined (BLYNKGO_ENTERPRISE)
   ESP_LOGI(TAG, "[BlynkGO] alloc");
   size_t buf_size = sizeof(lv_color_t)* LV_HOR_RES_MAX * 60;
   _cbuf = (lv_color_t*) esp32_malloc(buf_size);
   lv_disp_buf_init(&disp_buf, _cbuf, NULL, LV_HOR_RES_MAX * 60);  // 480/40 = 12 ครั้ง
+#elif defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
+  ESP_LOGI(TAG, "[BeeNeXT] alloc (IPS)");
+  size_t buf_size = sizeof(lv_color_t)* (800*480);
+  _cbuf = (lv_color_t*) esp32_malloc(buf_size);
+  lv_disp_buf_init(&disp_buf, _cbuf, NULL, (800*480));
 #else
   ESP_LOGI(TAG, "[BlynkGO] full alloc");
   size_t buf_size = sizeof(lv_color_t)* lcd.width() * lcd.height();
