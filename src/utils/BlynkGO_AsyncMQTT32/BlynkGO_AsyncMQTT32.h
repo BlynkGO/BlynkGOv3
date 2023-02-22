@@ -1,11 +1,6 @@
 #ifndef __BLYNKGO_ASYNCMQTT32_H__
 #define __BLYNKGO_ASYNCMQTT32_H__
 
-#include <Arduino.h>
-#include "../../config/blynkgo_config.h"
-
-#if BLYNKO_USE_ASYNC_MQTT32
-
 /** Major version number (X.x.x) */
 #define BLYNKGO_ASYNC_MQTT32_VERSION_MAJOR   1
 /** Minor version number (x.X.x) */
@@ -16,10 +11,16 @@
 #define BLYNKGO_ASYNC_MQTT32_VERSION_TEXT    (String(BLYNKGO_ASYNC_MQTT32_VERSION_MAJOR)+"."+String(BLYNKGO_ASYNC_MQTT32_VERSION_MINOR)+"."+String(BLYNKGO_ASYNC_MQTT32_VERSION_PATCH))
 
 
+#include "../../config/blynkgo_config.h"
+
+// #define BLYNKO_USE_ASYNC_MQTT32   1
+#if BLYNKO_USE_ASYNC_MQTT32
+
+#include <Arduino.h>
 #include <WiFi.h>
 #include "mqtt_client.h"
 #include <vector>
-// #define BLYNKO_USE_ASYNC_MQTT32   1
+
 
 enum {
   QOS0=0,
