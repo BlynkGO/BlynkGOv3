@@ -1041,7 +1041,7 @@ void GWiFiSetting::load_WiFiConfig(){
     GWiFiSetting::wifi_config.dns32           = 0;
   }
 
-  GWiFiSetting::display_WiFiConfig();
+  // GWiFiSetting::display_WiFiConfig();
 }
 
 

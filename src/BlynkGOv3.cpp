@@ -177,17 +177,6 @@ BlynkWifi Blynk(_blynkTransport);
 
 #if BLYNKGO_USE_WIFI || BLYNKGO_USE_BLYNK
 
-#if BLYNKGO_USE_MQTT
-AsyncMqttClient  MQTT;
-#define MQTT_CONNECTION_DELAY   5000
-static GTimer _mqtt_timer;
-static uint32_t _mqtt_connection_timer;
-static void Mqtt_onConnected(bool session);
-static void Mqtt_onDisconnected(AsyncMqttClientDisconnectReason reason);
-static void Mqtt_onSubscribed(uint16_t packetId, uint8_t qos);
-static void Mqtt_onUnsubscribed(uint16_t packetId);
-static void Mqtt_onPublished(uint16_t packetId);
-#endif
 
 static std::vector<WiFiEvent_t> _wifi_event_list;
 static void BlynkGO_WiFiEvent(WiFiEvent_t event);
@@ -201,13 +190,6 @@ SOFTAP_STA_DISCONNECTED()    __attribute__((weak, alias("WiFiNoOpCbk")));
 #if BLYNKGO_USE_NTP
 NTP_SYNCED()        __attribute__((weak, alias("WiFiNoOpCbk")));
 #endif // BLYNKGO_USE_NTP
-#if BLYNKGO_USE_MQTT
-MQTT_CONNECTED()    __attribute__((weak, alias("WiFiNoOpCbk")));
-MQTT_DISCONNECTED() __attribute__((weak, alias("WiFiNoOpCbk")));
-MQTT_SUBSCRIBED()   __attribute__((weak, alias("WiFiNoOpCbk")));
-MQTT_UNSUBSCRIBED() __attribute__((weak, alias("WiFiNoOpCbk")));
-MQTT_PUBLISHED()    __attribute__((weak, alias("WiFiNoOpCbk")));
-#endif // BLYNKGO_USE_MQTT
 #endif
 
 #if BLYNKGO_USE_WIFI
@@ -249,7 +231,7 @@ const char* blynkgo_logo = R"BLYNKGO_LOGO(
        /___/ Version %s
 )BLYNKGO_LOGO";
 
-  Serial.printf(blynkgo_logo, this->_version);
+  Serial.printf(blynkgo_logo, this->_version.c_str());
 #if defined BLYNKGO_BOARD_NAME
   Serial.println(F("[BlynkGO] " BLYNKGO_BOARD_NAME ));
 #endif
@@ -308,13 +290,6 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
 
 #if BLYNKGO_USE_WIFI || BLYNKGO_USE_BLYNK
   WiFi.onEvent(BlynkGO_WiFiEvent);  // เรียกภายในก่อน ส่งต่อไปให้ด้วย
-#if BLYNKGO_USE_MQTT
-  MQTT.onConnected( Mqtt_onConnected );
-  MQTT.onDisconnected( Mqtt_onDisconnected );
-  MQTT.onSubscribed( Mqtt_onSubscribed );
-  MQTT.onUnsubscribed( Mqtt_onUnsubscribed );
-  MQTT.onPublished( Mqtt_onPublished );
-#endif // BLYNKGO_USE_MQTT
 #endif // BLYNKGO_USE_WIFI || BLYNKGO_USE_BLYNK
 
 #if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
@@ -401,6 +376,10 @@ void BlynkGOv3::update(bool beenext_loop){
     WiFiEvent_t event = _wifi_event_list[0];
     _wifi_event_list.erase(_wifi_event_list.begin());
 
+#if BLYNKO_USE_ASYNC_MQTT32
+    static GTimer timer_mqtt_connection;
+#endif
+
     //ส่ง event ต่อไปยัง ของ user's wifi_event_sys_cb ด้วย
     if(this->wifi_event_cb){
       this->wifi_event_cb(event);
@@ -449,8 +428,8 @@ void BlynkGOv3::update(bool beenext_loop){
           }
 #endif 
 
-#if BLYNKGO_USE_MQTT
-          _mqtt_timer.setOnce(MQTT_CONNECTION_DELAY, []() { MQTT.connect(); } );
+#if BLYNKO_USE_ASYNC_MQTT32
+          timer_mqtt_connection.delay(400,[](){ MQTT.connect(); });
 #endif
           break;
         }
@@ -484,12 +463,12 @@ void BlynkGOv3::update(bool beenext_loop){
     //} // else
   } // if(_wifi_event_list.size())
 
-  #if BLYNKGO_USE_MQTT
-    if( _mqtt_connection_timer <= millis() ){
-      _mqtt_connection_timer = millis() + 3000;
-      if(WiFi.isConnected() && !MQTT.connected() ) MQTT.connect();
-    }
-  #endif // BLYNKGO_USE_MQTT
+  // #if BLYNKGO_USE_MQTT
+  //   if( _mqtt_connection_timer <= millis() ){
+  //     _mqtt_connection_timer = millis() + 3000;
+  //     if(WiFi.isConnected() && !MQTT.connected() ) MQTT.connect();
+  //   }
+  // #endif // BLYNKGO_USE_MQTT
 #endif //BLYNKGO_USE_WIFI
 
 
@@ -1372,31 +1351,31 @@ static void BlynkGO_WiFiEvent(WiFiEvent_t event)
   // }
 }
 
-#if BLYNKGO_USE_MQTT
-static void Mqtt_onConnected(bool session)
-{
-  MqttOnConnected();
-}
+// #if BLYNKGO_USE_MQTT
+// static void Mqtt_onConnected(bool session)
+// {
+//   MqttOnConnected();
+// }
 
-static void Mqtt_onDisconnected(AsyncMqttClientDisconnectReason reason)
-{
-  MqttOnDisconnected();
-}
+// static void Mqtt_onDisconnected(AsyncMqttClientDisconnectReason reason)
+// {
+//   MqttOnDisconnected();
+// }
 
-static void Mqtt_onSubscribed(uint16_t packetId, uint8_t qos)
-{
-  MqttOnSubscribed();
-}
+// static void Mqtt_onSubscribed(uint16_t packetId, uint8_t qos)
+// {
+//   MqttOnSubscribed();
+// }
 
-static void Mqtt_onUnsubscribed(uint16_t packetId)
-{
-  MqttOnUnsubscribed();
-}
+// static void Mqtt_onUnsubscribed(uint16_t packetId)
+// {
+//   MqttOnUnsubscribed();
+// }
 
-static void Mqtt_onPublished(uint16_t packetId)
-{
-  MqttOnPublished();
-}
-#endif 
+// static void Mqtt_onPublished(uint16_t packetId)
+// {
+//   MqttOnPublished();
+// }
+// #endif 
 #endif  // #if BLYNKGO_USE_WIFI || BLYNKGO_USE_BLYNK
 

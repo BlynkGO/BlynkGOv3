@@ -1145,6 +1145,27 @@ setServer	KEYWORD2
 setSecure	KEYWORD2
 addServerFingerprint	KEYWORD2
 
+# BlynkGO_AsyncMQTT32
+setServer	KEYWORD2
+setServerSecure	KEYWORD2
+setWebSocket	KEYWORD2
+setWebSocketSecure	KEYWORD2
+setCertPEM	KEYWORD2
+connect	KEYWORD2
+disconnect	KEYWORD2
+reconnect	KEYWORD2
+connected	KEYWORD2
+auto_reconnect	KEYWORD2
+onConnected	KEYWORD2
+onDisconnected	KEYWORD2
+onError	KEYWORD2
+onMessage	KEYWORD2
+onData	KEYWORD2
+onPublished	KEYWORD2
+onSubscribed	KEYWORD2
+onUnsubscribed	KEYWORD2
+
+
 # BlynkGO_BMA423
 init	KEYWORD2
 isInited	KEYWORD2

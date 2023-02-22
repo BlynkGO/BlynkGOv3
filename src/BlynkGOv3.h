@@ -43,7 +43,7 @@
 /** Patch version number (x.x.X) */
 #define BLYNKGO_VERSION_PATCH   0
 
-#define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH)).c_str()
+#define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 
 /**
  * Macro to convert IDF version number into an integer
@@ -167,10 +167,8 @@ FONT_DECLARE(arial_vietnam_30);
   #include "utils/BlynkGO_AsyncLineNotify/BlynkGO_AsyncLineNotify.h"
 #endif
 
-#if BLYNKGO_USE_MQTT
-  #include "utils/BlynkGO_AsyncMqttClient/BlynkGO_AsyncMqttClient.h"
-  extern AsyncMqttClient  MQTT;
-  #define MessageProperties  AsyncMqttClientMessageProperties 
+#if BLYNKO_USE_ASYNC_MQTT32
+  #include "utils/BlynkGO_AsyncMQTT32/BlynkGO_AsyncMQTT32.h"
 #endif
 
 #if defined(BLYNKGO_BOARD_V1_3) && defined(BLYNKGO_CAMERA_AI)
@@ -208,13 +206,6 @@ typedef void (*NTPSyncedCb)(void);
 #if BLYNKGO_USE_NTP
   #define NTP_SYNCED()        void NTPOnSynced()
 #endif // BLYNKGO_USE_NTP
-#if BLYNKGO_USE_MQTT
-  #define MQTT_CONNECTED()    void MqttOnConnected()
-  #define MQTT_DISCONNECTED() void MqttOnDisconnected()
-  #define MQTT_SUBSCRIBED()   void MqttOnSubscribed()
-  #define MQTT_UNSUBSCRIBED() void MqttOnUnsubscribed()
-  #define MQTT_PUBLISHED()    void MqttOnPublished()
-#endif // BLYNKGO_USE_MQTT
 #endif // SMARTWIFI
 
   #ifdef __cplusplus
@@ -230,13 +221,6 @@ typedef void (*NTPSyncedCb)(void);
 #if BLYNKGO_USE_NTP
     NTP_SYNCED();
 #endif // BLYNKGO_USE_NTP
-#if BLYNKGO_USE_MQTT
-    MQTT_CONNECTED();
-    MQTT_DISCONNECTED();
-    MQTT_SUBSCRIBED();
-    MQTT_UNSUBSCRIBED();
-    MQTT_PUBLISHED();
-#endif // BLYNKGO_USE_MQTT
   #ifdef __cplusplus
   }
   #endif
@@ -566,7 +550,7 @@ class BlynkGOv3 {
 #endif //BLYNKGO_USE_SD
 
   private:
-    const char* _version = BLYNKGO_VERSION_TEXT;
+    String _version = BLYNKGO_VERSION_TEXT;
     uint8_t _rotation;
     bool _is_backlight_on = true;
     bool _has_sd = false;

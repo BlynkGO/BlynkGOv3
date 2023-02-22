@@ -37,25 +37,23 @@ void setup() {
   });
 
   //------------------------------------
+  // MQTT จะเชื่อมต่ออัตโนมัติ เมื่อ WiFi เชื่อมต่อสำเร็จ 
+  // และ จะ subscribe topic ต่างๆที่ได้ กำหนดไว้
+  
   MQTT.setServer(MQTT_SERVER, MQTT_PORT);
-  MQTT.onMessage([](char* topic, char* data, MessageProperties properties, size_t len, size_t index, size_t total){
-    static String  payload;
-    if(index == 0) payload = "";
-    char buf[len]; memcpy(buf, data, len); buf[len]=0; payload += buf;
-    
-    if( index + len >= total) {
-      Serial.printf("[MQTT] message :  topic : %s -> payload : %s\n", topic, payload.c_str() );
+  MQTT.subscribe("/MY_SWITCH/state");                 // กำหนด subscribe topic
+  MQTT.onMessage([]( String topic, String message){
+    Serial.printf("[MQTT] onMessage : %s --> %s\n",  topic.c_str(), message.c_str() );
 
-      // รับคำสั่งเปิด/ปิด sw3d จาก MQTT มากำหนดสถานะให้ sw3d
-      bool sw3d_state = payload.toInt();
-      if( sw3d_state != sw3d.state() ){   // หาก สถานะที่ได้รับจาก mqtt ไม่ตรงกับสถานะปัจจุบันของ sw3d
-        sw3d.state(sw3d_state);           // ให้กำหนด สถานะใหม่
-        BlynkGO.flashMem("MY_SWITCH"    , sw3d.state() );
-        if(sw3d_state){
-          Serial.println("Switch3D : Turn ON from MQTT"); 
-        }else{
-          Serial.println("Switch3D : Turn OFF from MQTT"); 
-        }
+    // รับคำสั่งเปิด/ปิด sw3d จาก MQTT มากำหนดสถานะให้ sw3d
+    bool sw3d_state = (bool) message.toInt();
+    if( sw3d_state != sw3d.state() ){   // หาก สถานะที่ได้รับจาก mqtt ไม่ตรงกับสถานะปัจจุบันของ sw3d
+      sw3d.state(sw3d_state);           // ให้กำหนด สถานะใหม่
+      BlynkGO.flashMem("MY_SWITCH"    , sw3d.state() );
+      if(sw3d_state){
+        Serial.println("Switch3D : Turn ON from MQTT"); 
+      }else{
+        Serial.println("Switch3D : Turn OFF from MQTT"); 
       }
     }
   });  
@@ -64,26 +62,3 @@ void setup() {
 void loop() {
   BlynkGO.update();
 }
-
-WIFI_CONNECTED(){
-  Serial.println("[WiFi] connected");
-}
-
-WIFI_DISCONNECTED(){
-  Serial.println("[WiFi] disconnected");  
-}
-
-MQTT_CONNECTED(){
-  Serial.println("[MQTT] connected");
-  Serial.println("[MQTT] subscribing...");
-  MQTT.subscribe("/MY_SWITCH/state");                 // กำหนด subscribe topic
-}
-
-MQTT_DISCONNECTED(){
-  Serial.println("[MQTT] disconnected");  
-}
-
-MQTT_SUBSCRIBED(){
-  Serial.println("[MQTT] subscribed");  
-}
-
