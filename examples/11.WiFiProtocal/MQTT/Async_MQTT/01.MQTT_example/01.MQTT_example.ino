@@ -68,9 +68,9 @@
 //#define MQTT_WEBSOCKET_PORT     8884
 //#define MQTT_WEBSOCKET_USER     ""
 //#define MQTT_WEBSOCKET_PASS     ""
-
-// openssl s_client -connect broker.hivemq.com:8884 -showcerts
-extern const char* broker_hivemq_com_8884_cert_pem;     // MQTT WebSocket Secure's Cert-PEM
+//
+//// openssl s_client -connect broker.hivemq.com:8884 -showcerts
+// extern const char* broker_hivemq_com_8884_cert_pem;     // MQTT WebSocket Secure's Cert-PEM
 
 
 GWiFiManager wifi_manager;
