@@ -1,6 +1,13 @@
 # BlynkGOv3
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)
 
+## Version 3.0.0 beta4  
+ให้ติดตั้งด้วย BlynkGO SDK version3.0.4 FIX008
+
+- รองรับ AsyncMQTT32 ที่สามารถเชื่อมต่อได้ครบ 4 แบบ  
+คือ TCP, TCP Secure (SSL/TLS), WebSocket, WebSocket Secure  
+พร้อมใส่ user/password ได้  
+  
 ## Version 3.0.0 beta3  
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.4 FIX001
 
