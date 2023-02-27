@@ -74,6 +74,7 @@
 // #define RTC_I2C_SDA               25      // RTC I2C SDA        ---> Wire1 แบบกำหนดขาเอง ใช้ I2C แยกจาก Touch I2C
 // #define RTC_I2C_SCL               4       // RTC I2C SCL        ---> Wire1 แบบกำหนดขาเอง ใช้ I2C แยกจาก Touch I2C
 
+#define BLYNKGO_USE_BEENEXT       0
 
 // เปิด/ปิด การใช้ DEBUG
 #define BLYNKGO_DEBUG             0       // 1 เลือกใช้ Debug ด้วย               ; 0 ไม่เลือกใช้ Debug ; 

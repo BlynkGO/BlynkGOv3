@@ -104,9 +104,9 @@ void BlynkGO_AsyncMQTT32::setCertPEM(const char * mqtt_cert_pem){
   this->_mqtt_conf.cert_pem = (const char *)mqtt_cert_pem;
 }
 
-//void BlynkGO_AsyncMQTT32::use_global_ca_store(bool enable){
-//  this->_mqtt_conf.use_global_ca_store = enable;
-//}
+void BlynkGO_AsyncMQTT32::use_global_ca_store(bool enable){
+  this->_mqtt_conf.use_global_ca_store = enable;
+}
 
 void BlynkGO_AsyncMQTT32::connect(bool auto_reconnect){
   if(this->_mqtt_conf.uri == NULL) return;

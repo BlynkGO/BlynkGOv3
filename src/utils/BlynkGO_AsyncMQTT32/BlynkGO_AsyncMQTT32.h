@@ -76,7 +76,7 @@ class BlynkGO_AsyncMQTT32 {
     void setWebSocketSecure( String host, uint16_t port=443, String user="", String password="");
     void setCertPEM(const char * mqtt_cert_pem);
 
-//    void use_global_ca_store(bool enable);
+   void use_global_ca_store(bool enable);
     
     void connect(bool auto_reconnect=true);
     void disconnect();

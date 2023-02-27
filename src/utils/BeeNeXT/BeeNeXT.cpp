@@ -1,6 +1,6 @@
 #include "BeeNeXT.h"
 
-#if defined(BEENEXT)
+#if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
 
 void BeeNeXT_NoOpCbk() {}
 BEENEXT_DATA()    __attribute__((weak, alias("BeeNeXT_NoOpCbk")));
@@ -83,6 +83,7 @@ void BeeNeXT_class::update(){
         _data = data;
         BeeNeXT_onData();
       }else{
+        _data = data;
         BeeNeXT_onSerialData();
       }
     }
@@ -96,6 +97,7 @@ void BeeNeXT_class::update(){
         _data = data;
         BeeNeXT_onData();
       }else{
+        _data = data;
         BeeNeXT_onSerialData();
       }
     }
@@ -149,4 +151,4 @@ size_t BeeNeXT_class::write(const uint8_t *buffer, size_t size){
 }
 
 
-#endif //#if defined(BEENEXT)
+#endif //#if defined(BEENEXT) || BLYNKGO_USE_BEENEXT

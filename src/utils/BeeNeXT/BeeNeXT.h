@@ -1,10 +1,10 @@
 #ifndef __BEENEXT_H__
 #define __BEENEXT_H__
 
-#define BEENEXT_VERSION     1.0.1
+#define BEENEXT_VERSION     1.0.2
 
-//#include "../../config/blynkgo_config.h"
-#define BEENEXT
+#include "../../config/blynkgo_config.h"
+// #define BEENEXT
 
 /**********************************************
  * BeeNeXT config
@@ -13,7 +13,7 @@
 #define BEENEXT_USE_SOFTWARESERIAL      1
 
 /**********************************************/
-#if defined(BEENEXT)
+#if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
 
 #include <Arduino.h>
 #include "BeeNeXT_command.h"
@@ -86,5 +86,5 @@ class BeeNeXT_class : public Print {
 /**********************************************/
 extern BeeNeXT_class BeeNeXT;
 
-#endif //#if defined(BEENEXT)
+#endif // #if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
 #endif //__BEENEXT_H__

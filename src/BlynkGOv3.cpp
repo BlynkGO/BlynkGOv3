@@ -325,7 +325,7 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
 #endif // #if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
 
 
-#if defined(BEENEXT)
+#if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
   // #if defined(BEENEXT_4_3) || defined(BEENEXT_4_3C) | defined(BEENEXT_4_3IPS)
     BeeNeXT.begin();  // ทั่วไปใช้ Serial เป็นจุดเชื่อมต่อกับ MCU อื่น, แต่สำหรับ ESP32S3 แบบนี้จะใช้ Serial2 ในการเชื่อมต่อ
 #endif
@@ -350,7 +350,7 @@ void BlynkGOv3::update(bool beenext_loop){
   lv_task_handler(); /* let the GUI do its work */
 #endif
 
-#if defined(BEENEXT)
+#if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
   if(beenext_loop) BeeNeXT.update();
 #endif
   

@@ -70,7 +70,7 @@
 #include "utils/lvgl-dev-7.0/src/lv_draw/TridentUnicode.h"
 #include "utils/TridentTD_ESP32NVS/TridentTD_ESP32NVS.h"  // ESP32 NVS
 
-#if defined(BEENEXT)
+#if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
 #include "utils/BeeNeXT/BeeNeXT.h"
 #endif
 
