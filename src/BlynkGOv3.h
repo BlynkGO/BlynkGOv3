@@ -28,6 +28,10 @@
  *     - BeeNeXT 2.8R, 3.5R 
  *     - TFT Screen Capture  
  *     - OLED Screen Capture ( still not impliment )
+ *   [V3.0.0 beta 4] @28/02/23
+ *     - เพิ่ม BlynkGO.autoNTP(true/false);
+ *     - BlynkGO Enterprise 5" แบบ old และ jst
+ *     
  *********************************************************************
  */
 
@@ -488,7 +492,8 @@ class BlynkGOv3 {
      *****************************************************************/
     void     syncNTP();
 
-
+    inline void     autoNTP(bool mode)        { _auto_ntp_synced = mode; }
+    inline bool     autoNTP()                 { return _auto_ntp_synced; }
 
 
 
@@ -554,6 +559,7 @@ class BlynkGOv3 {
     uint8_t _rotation;
     bool _is_backlight_on = true;
     bool _has_sd = false;
+    bool _auto_ntp_synced = true;
     // bool _is_blynkgo_system_inited = false;
 
     void blynkgo_system_init();

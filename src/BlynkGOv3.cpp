@@ -413,7 +413,9 @@ void BlynkGOv3::update(bool beenext_loop){
           }
 
 #if BLYNKGO_USE_NTP 
-          pBlynkGO->syncNTP();
+          if(pBlynkGO->autoNTP()){
+            pBlynkGO->syncNTP();
+          }
           // ntp_synced =false;
           // // Serial.println("configTime call");
           // // configTime(NTP_TIMEZONE * 3600, NTP_DAYLIGHT_SAVING * 3600, NTP_HOSTNAME1, NTP_HOSTNAME2, NTP_HOSTNAME3);

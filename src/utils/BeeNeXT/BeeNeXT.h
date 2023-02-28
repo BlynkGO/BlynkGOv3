@@ -3,8 +3,8 @@
 
 #define BEENEXT_VERSION     1.0.2
 
-#include "../../config/blynkgo_config.h"
-// #define BEENEXT
+// #include "../../config/blynkgo_config.h"
+#define BEENEXT
 
 /**********************************************
  * BeeNeXT config
