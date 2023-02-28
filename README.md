@@ -7,7 +7,8 @@
 - รองรับ AsyncMQTT32 ที่สามารถเชื่อมต่อได้ครบ 4 แบบ  
 คือ TCP, TCP Secure (SSL/TLS), WebSocket, WebSocket Secure  
 พร้อมใส่ user/password ได้  
-- รองรับ แสดงเวลาจาก RTC timestamp ที่ต่อบน MCU อื่น  
+- รองรับ แสดงเวลาจาก RTC timestamp ที่ต่อบน MCU อื่น   
+- เพิ่มคำสั่ง BlynkGO.autoNTP(true/false); ให้ compatable กับ BlynkGOv2  
   
 ## Version 3.0.0 beta3  
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.4 FIX001
