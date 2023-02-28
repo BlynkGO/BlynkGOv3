@@ -78,7 +78,7 @@
 #include "utils/BeeNeXT/BeeNeXT.h"
 #endif
 
-#if defined(BLYNKGO_USE_SOFTWARESERIAL)
+#if defined(BLYNKGO_USE_SOFTWARESERIAL) && (CONFIG_IDF_TARGET_ESP32S3==0)
 #include "utils/BeeNeXT/libs/SoftwareSerial/SoftwareSerial.h"
 #endif
 

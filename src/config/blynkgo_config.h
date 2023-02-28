@@ -18,10 +18,10 @@
 //--------------------------------------------------------
 
 // เปิด/ปิด การใช้งาน WiFi
-#define BLYNKGO_USE_WIFI              0       // 1 เลือกใช้ WiFi ด้วย                ; 0 ไม่เลือกใช้ WiFi ; 
+#define BLYNKGO_USE_WIFI              1       // 1 เลือกใช้ WiFi ด้วย                ; 0 ไม่เลือกใช้ WiFi ; 
 
 // เปิด/ปิด การซิงค์เวลา NTP อัตโนมัติหรือไม่
-#define BLYNKGO_USE_NTP               0       // 1 เลือกใช้ NTP Sync เวลาอัตโนมัติ ด้วย  ; 0 ไม่เลือกใช้ NTP ;   ( ถ้าใช้ NTP ให้เปิด WIFI ด้วย)
+#define BLYNKGO_USE_NTP               1       // 1 เลือกใช้ NTP Sync เวลาอัตโนมัติ ด้วย  ; 0 ไม่เลือกใช้ NTP ;   ( ถ้าใช้ NTP ให้เปิด WIFI ด้วย)
 
 // เปิด/ปิด การใช้งาน Blynk หรือไม่ (ให้ติดตั้ง BlynkBlynkGO ก่อน)
 #define BLYNKGO_USE_BLYNK             0       // 1 เลือกใช้ Blynk ด้วย               ; 0 ไม่เลือกใช้ Blynk ;  ( ถ้าใช้ Blynk ให้เปิด WIFI ด้วย)

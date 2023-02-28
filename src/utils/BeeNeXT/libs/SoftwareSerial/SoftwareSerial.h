@@ -6,7 +6,7 @@
 #include "../../../../config/blynkgo_config.h"
 
 // #define BLYNKGO_USE_BEENEXT   1
-#if BLYNKGO_USE_BEENEXT || BLYNKGO_USE_SOFTWARESERIAL
+#if defined(BEENEXT) || BLYNKGO_USE_BEENEXT || BLYNKGO_USE_SOFTWARESERIAL
 
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------  ESP

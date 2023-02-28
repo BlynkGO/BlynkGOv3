@@ -38,7 +38,7 @@
 #include <Arduino.h>
 #include "SoftwareSerial.h"
 
-#if BLYNKGO_USE_BEENEXT || BLYNKGO_USE_SOFTWARESERIAL
+#if defined(BEENEXT) ||  BLYNKGO_USE_BEENEXT || BLYNKGO_USE_SOFTWARESERIAL
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------  ESP
 //--------------------------------------------------------------------------------
@@ -1154,4 +1154,4 @@ int SoftwareSerial::peek()
 }
 
 #endif //#if defined(ESP8266) || defined(ESP32)
-#endif //#if BLYNKGO_USE_BEENEXT || BLYNKGO_USE_SOFTWARESERIAL
+#endif //#if defined(BEENEXT) || BLYNKGO_USE_BEENEXT || BLYNKGO_USE_SOFTWARESERIAL
