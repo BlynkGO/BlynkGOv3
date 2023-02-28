@@ -15,7 +15,7 @@
 - รองรับบอร์ด BlynkGO Board 3.5" 
 - รองรับบอร์ด BlynkGO Emma-II 3.5"
 - รองรับบอร์ด BlynkGO Enterprise 5" (jst)
-- รองรับบอร์ด BlynkGO Enterprise 7" (old)
+- รองรับบอร์ด BlynkGO Enterprise 7" (่jst/old)
 - รองรับบอร์ด BeeNeXT 2.8 Resistive/Capacitive
 - รองรับบอร์ด BeeNeXT 3.5 Resistive/Capacitive
 - รองรับบอร์ด BeeNeXT 4.3 Resistive/Capacitive/IPS
