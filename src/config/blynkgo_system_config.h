@@ -1196,6 +1196,41 @@
   #define TOUCH_I2C_SDA           21      // I2C SDA
   #define TOUCH_I2C_SCL           22      // I2C SCL
 
+#elif defined BLYNKGO_ENTERPRISE_5_0_INCH_OLD
+  #define BLYNKGO_BOARD_NAME      "BlynkGO Enterprise 5.0\" Capacitive Touch"
+  #define BLYNKGO_ENTERPRISE
+  #define TFT_5_0_INCH_TOUCH
+  #define ROTATE_TYPE             0
+  #define OFFSET_ROTATION         0
+
+  #define RA8875_DRIVER      // TFT 5.0"
+  #define TFT_WIDTH               800
+  #define TFT_HEIGHT              480
+  #define TFT_MOSI                23  // SPI MOSI
+  #define TFT_MISO                19  // SPI MISO
+  #define TFT_SCLK                18  // SPI SCK
+  #define TFT_CS                  5
+  #define TFT_RST                 33
+  #define TFT_BUSY                27
+  #define TFT_BL                  32
+  #define TFT_DUMMY_READ_PIXEL    16  // 8 or 16 OK
+  #define TFT_DUMMY_READ_BITS     0   // 0 or 1 OK
+  #define TFT_SPI_3WIRE           false
+  
+  #define BLYNKGO_USE_SD          1   // conflict with TFT
+  #define SD_VSPI_MODE
+  #define SD_MOSI                 23
+  #define SD_MISO                 19
+  #define SD_SCLK                 18
+  #define SD_CS                   4       // SD Chip Select
+
+  #define TOUCH_GSL1680F
+  #define TOUCH_INT               -1      // INTが接続されているピン番号
+  #define TOUCH_I2C_PORT          0       // 使用するI2Cを選択 (0 or 1)
+  #define TOUCH_I2C_ADDR          0x40    // I2Cデバイスアドレス番号
+  #define TOUCH_I2C_SDA           21      // I2C SDA
+  #define TOUCH_I2C_SCL           22      // I2C SCL
+
 #elif defined BLYNKGO_ENTERPRISE_7_0_INCH
   #define BLYNKGO_BOARD_NAME      "BlynkGO Enterprise 7.0\" Capacitive Touch"
   #define BLYNKGO_ENTERPRISE
