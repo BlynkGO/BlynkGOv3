@@ -1,7 +1,7 @@
 // SofewareSerial ที่ใช้ได้ทั้ง AVR, ESP8266, ESP32
 
-#ifndef SoftwareSerial_h
-#define SoftwareSerial_h
+#ifndef BeeNeXT_SoftwareSerial_h
+#define BeeNeXT_SoftwareSerial_h
 
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------  ESP
@@ -34,7 +34,7 @@
 #include "circular_queue/circular_queue.h"
 #include <Stream.h>
 
-enum SoftwareSerialParity : uint8_t {
+enum BeeNeXT_SoftwareSerialParity : uint8_t {
   SWSERIAL_PARITY_NONE = 000,
   SWSERIAL_PARITY_EVEN = 020,
   SWSERIAL_PARITY_ODD = 030,
@@ -42,7 +42,7 @@ enum SoftwareSerialParity : uint8_t {
   SWSERIAL_PARITY_SPACE = 070,
 };
 
-enum SoftwareSerialConfig {
+enum BeeNeXT_SoftwareSerialConfig {
   SWSERIAL_5N1 = SWSERIAL_PARITY_NONE,
   SWSERIAL_6N1,
   SWSERIAL_7N1,
@@ -91,17 +91,17 @@ enum SoftwareSerialConfig {
 /// Instead, the begin() function handles pin assignments and logic inversion.
 /// It also has optional input buffer capacity arguments for byte buffer and ISR bit buffer.
 /// Bitrates up to at least 115200 can be used.
-class SoftwareSerial : public Stream {
+class BeeNeXT_SoftwareSerial : public Stream {
   public:
-    SoftwareSerial();
+    BeeNeXT_SoftwareSerial();
     /// Ctor to set defaults for pins.
     /// @param rxPin the GPIO pin used for RX
     /// @param txPin -1 for onewire protocol, GPIO pin used for twowire TX
-    SoftwareSerial(int8_t rxPin, int8_t txPin = -1, bool invert = false);
-    SoftwareSerial(const SoftwareSerial&) = delete;
-    SoftwareSerial& operator= (const SoftwareSerial&) = delete;
-    virtual ~SoftwareSerial();
-    /// Configure the SoftwareSerial object for use.
+    BeeNeXT_SoftwareSerial(int8_t rxPin, int8_t txPin = -1, bool invert = false);
+    BeeNeXT_SoftwareSerial(const BeeNeXT_SoftwareSerial&) = delete;
+    BeeNeXT_SoftwareSerial& operator= (const BeeNeXT_SoftwareSerial&) = delete;
+    virtual ~BeeNeXT_SoftwareSerial();
+    /// Configure the BeeNeXT_SoftwareSerial object for use.
     /// @param baud the TX/RX bitrate
     /// @param config sets databits, parity, and stop bit count
     /// @param rxPin -1 or default: either no RX pin, or keeps the rxPin set in the ctor
@@ -111,18 +111,18 @@ class SoftwareSerial : public Stream {
     /// @param isrBufCapacity 0: derived from bufCapacity. The capacity of the internal asynchronous
     ///        bit receive buffer, a suggested size is bufCapacity times the sum of
     ///        start, data, parity and stop bit count.
-    void begin(uint32_t baud, SoftwareSerialConfig config,
+    void begin(uint32_t baud, BeeNeXT_SoftwareSerialConfig config,
                int8_t rxPin, int8_t txPin, bool invert,
                int bufCapacity = 64, int isrBufCapacity = 0);
-    inline void begin(uint32_t baud, SoftwareSerialConfig config,
+    inline void begin(uint32_t baud, BeeNeXT_SoftwareSerialConfig config,
                int8_t rxPin, int8_t txPin) {
       begin(baud, config, rxPin, txPin, m_invert);
     }
-    inline void begin(uint32_t baud, SoftwareSerialConfig config,
+    inline void begin(uint32_t baud, BeeNeXT_SoftwareSerialConfig config,
                int8_t rxPin) {
       begin(baud, config, rxPin, m_txPin, m_invert);
     }
-    inline void begin(uint32_t baud, SoftwareSerialConfig config = SWSERIAL_8N1) {
+    inline void begin(uint32_t baud, BeeNeXT_SoftwareSerialConfig config = SWSERIAL_8N1) {
       begin(baud, config, m_rxPin, m_txPin, m_invert);
     }
     inline void begin(uint32_t baud, uint8_t rxPin, uint8_t txPin){ //BEENEXT
@@ -190,13 +190,13 @@ class SoftwareSerial : public Stream {
     }
     void flush() override;
     size_t write(uint8_t byte) override;
-    size_t write(uint8_t byte, SoftwareSerialParity parity);
+    size_t write(uint8_t byte, BeeNeXT_SoftwareSerialParity parity);
     size_t write(const uint8_t* buffer, size_t size) override;
     size_t write(const char* buffer, size_t size) {
       return write(reinterpret_cast<const uint8_t*>(buffer), size);
     }
-    size_t write(const uint8_t* buffer, size_t size, SoftwareSerialParity parity);
-    size_t write(const char* buffer, size_t size, SoftwareSerialParity parity) {
+    size_t write(const uint8_t* buffer, size_t size, BeeNeXT_SoftwareSerialParity parity);
+    size_t write(const char* buffer, size_t size, BeeNeXT_SoftwareSerialParity parity) {
       return write(reinterpret_cast<const uint8_t*>(buffer), size, parity);
     }
     operator bool() const {
@@ -255,8 +255,8 @@ class SoftwareSerial : public Stream {
     static void disableInterrupts();
     static void restoreInterrupts();
 
-    static void rxBitISR(SoftwareSerial* self);
-    static void rxBitSyncISR(SoftwareSerial* self);
+    static void rxBitISR(BeeNeXT_SoftwareSerial* self);
+    static void rxBitSyncISR(BeeNeXT_SoftwareSerial* self);
 
     // Member variables
     int8_t m_rxPin = -1;
@@ -279,7 +279,7 @@ class SoftwareSerial : public Stream {
     uint8_t m_pduBits;
     bool m_intTxEnabled;
     bool m_rxGPIOPullupEnabled;
-    SoftwareSerialParity m_parityMode;
+    BeeNeXT_SoftwareSerialParity m_parityMode;
     uint8_t m_stopBits;
     bool m_lastReadParity;
     bool m_overflow = false;
@@ -299,8 +299,8 @@ class SoftwareSerial : public Stream {
 #endif
     // the ISR stores the relative bit times in the buffer. The inversion corrected level is used as sign bit (2's complement):
     // 1 = positive including 0, 0 = negative.
-    std::unique_ptr<circular_queue<uint32_t, SoftwareSerial*> > m_isrBuffer;
-    const Delegate < void(uint32_t&&), SoftwareSerial* > m_isrBufferForEachDel = { [](SoftwareSerial * self, uint32_t&& isrCycle) { self->rxBits(isrCycle); }, this };
+    std::unique_ptr<circular_queue<uint32_t, BeeNeXT_SoftwareSerial*> > m_isrBuffer;
+    const Delegate < void(uint32_t&&), BeeNeXT_SoftwareSerial* > m_isrBufferForEachDel = { [](BeeNeXT_SoftwareSerial * self, uint32_t&& isrCycle) { self->rxBits(isrCycle); }, this };
     std::atomic<bool> m_isrOverflow;
     uint32_t m_isrLastCycle;
     bool m_rxCurParity = false;
@@ -312,7 +312,7 @@ class SoftwareSerial : public Stream {
 //--------------------------------------------------------------------------------
 #else
 /*
-  SoftwareSerial.h (formerly NewSoftSerial.h) -
+  BeeNeXT_SoftwareSerial.h (formerly NewSoftSerial.h) -
   Multi-instance software serial library for Arduino/Wiring
   -- Interrupt-driven receive and other improvements by ladyada
    (http://ladyada.net)
@@ -357,7 +357,7 @@ class SoftwareSerial : public Stream {
 #define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
 #endif
 
-class SoftwareSerial : public Stream
+class BeeNeXT_SoftwareSerial : public Stream
 {
   private:
     // per object data
@@ -382,7 +382,7 @@ class SoftwareSerial : public Stream
     static uint8_t _receive_buffer[_SS_MAX_RX_BUFF];
     static volatile uint8_t _receive_buffer_tail;
     static volatile uint8_t _receive_buffer_head;
-    static SoftwareSerial *active_object;
+    static BeeNeXT_SoftwareSerial *active_object;
 
     // private methods
     inline void recv() __attribute__((__always_inline__));
@@ -399,9 +399,9 @@ class SoftwareSerial : public Stream
 
   public:
     // public methods
-    SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverse_logic = false);
-    SoftwareSerial() {}  // BEENEXT
-    ~SoftwareSerial();
+    BeeNeXT_SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverse_logic = false);
+    BeeNeXT_SoftwareSerial() {}  // BEENEXT
+    ~BeeNeXT_SoftwareSerial();
     void begin(long speed);
     void begin(unsigned long baud, uint8_t rx, uint8_t tx);  //BEENEXT
     inline void begin(uint8_t rx, uint8_t tx)   { begin(115200, rx,tx); } //BEENEXT
@@ -435,4 +435,4 @@ class SoftwareSerial : public Stream
 
 #endif //#if defined(ESP8266) || defined(ESP32)
 
-#endif // #ifndef SoftwareSerial_h
+#endif // #ifndef BeeNeXT_SoftwareSerial_h

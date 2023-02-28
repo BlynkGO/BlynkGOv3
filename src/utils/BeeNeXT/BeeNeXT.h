@@ -23,7 +23,7 @@
 #endif
 
 #if BEENEXT_USE_SOFTWARESERIAL && (CONFIG_IDF_TARGET_ESP32S3==0)
-  #include "libs/SoftwareSerial/SoftwareSerial.h"
+  #include "libs/BeeNeXT_SoftwareSerial/BeeNeXT_SoftwareSerial.h"
 #endif
 
 #define BEENEXT_DATA()      void BeeNeXT_onData()
@@ -79,7 +79,7 @@ class BeeNeXT_class : public Print {
     String _data;
     HardwareSerial * _hw_serial=NULL;
 #if BEENEXT_USE_SOFTWARESERIAL && (CONFIG_IDF_TARGET_ESP32S3==0)
-    SoftwareSerial * _sw_serial=NULL;
+    BeeNeXT_SoftwareSerial * _sw_serial=NULL;
     bool  _is_swserial_alloced=false;
 #endif
 };
