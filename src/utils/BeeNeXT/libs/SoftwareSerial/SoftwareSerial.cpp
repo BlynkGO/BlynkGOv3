@@ -1,5 +1,5 @@
 /*
-  BeeNeXT_SoftwareSerial.cpp (formerly NewSoftSerial.cpp) -
+  SoftwareSerial.cpp (formerly NewSoftSerial.cpp) -
   Multi-instance software serial library for Arduino/Wiring
   -- Interrupt-driven receive and other improvements by ladyada
    (http://ladyada.net)
@@ -36,20 +36,21 @@
 // Includes
 //
 #include <Arduino.h>
-#include "BeeNeXT_SoftwareSerial.h"
+#include "SoftwareSerial.h"
 
+#if BLYNKGO_USE_BEENEXT || BLYNKGO_USE_SOFTWARESERIAL
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------  ESP
 //--------------------------------------------------------------------------------
 #if defined(ESP8266) || defined(ESP32)
 
 #ifndef ESP32
-uint32_t BeeNeXT_SoftwareSerial::m_savedPS = 0;
+uint32_t SoftwareSerial::m_savedPS = 0;
 #else
-portMUX_TYPE BeeNeXT_SoftwareSerial::m_interruptsMux = portMUX_INITIALIZER_UNLOCKED;
+portMUX_TYPE SoftwareSerial::m_interruptsMux = portMUX_INITIALIZER_UNLOCKED;
 #endif
 
-inline void IRAM_ATTR BeeNeXT_SoftwareSerial::disableInterrupts()
+inline void IRAM_ATTR SoftwareSerial::disableInterrupts()
 {
 #ifndef ESP32
   m_savedPS = xt_rsil(15);
@@ -58,7 +59,7 @@ inline void IRAM_ATTR BeeNeXT_SoftwareSerial::disableInterrupts()
 #endif
 }
 
-inline void IRAM_ATTR BeeNeXT_SoftwareSerial::restoreInterrupts()
+inline void IRAM_ATTR SoftwareSerial::restoreInterrupts()
 {
 #ifndef ESP32
   xt_wsr_ps(m_savedPS);
@@ -69,12 +70,12 @@ inline void IRAM_ATTR BeeNeXT_SoftwareSerial::restoreInterrupts()
 
 constexpr uint8_t BYTE_ALL_BITS_SET = ~static_cast<uint8_t>(0);
 
-BeeNeXT_SoftwareSerial::BeeNeXT_SoftwareSerial() {
+SoftwareSerial::SoftwareSerial() {
   m_isrOverflow = false;
   m_rxGPIOPullupEnabled = true;
 }
 
-BeeNeXT_SoftwareSerial::BeeNeXT_SoftwareSerial(int8_t rxPin, int8_t txPin, bool invert)
+SoftwareSerial::SoftwareSerial(int8_t rxPin, int8_t txPin, bool invert)
 {
   m_isrOverflow = false;
   m_rxGPIOPullupEnabled = true;
@@ -83,11 +84,11 @@ BeeNeXT_SoftwareSerial::BeeNeXT_SoftwareSerial(int8_t rxPin, int8_t txPin, bool 
   m_invert = invert;
 }
 
-BeeNeXT_SoftwareSerial::~BeeNeXT_SoftwareSerial() {
+SoftwareSerial::~SoftwareSerial() {
   end();
 }
 
-bool BeeNeXT_SoftwareSerial::isValidGPIOpin(int8_t pin) {
+bool SoftwareSerial::isValidGPIOpin(int8_t pin) {
 #if defined(ESP8266)
   return (pin >= 0 && pin <= 16) && !isFlashInterfacePin(pin);
 #elif defined(ESP32)
@@ -117,7 +118,7 @@ bool BeeNeXT_SoftwareSerial::isValidGPIOpin(int8_t pin) {
 #endif
 }
 
-bool BeeNeXT_SoftwareSerial::isValidRxGPIOpin(int8_t pin) {
+bool SoftwareSerial::isValidRxGPIOpin(int8_t pin) {
   return isValidGPIOpin(pin)
 #if defined(ESP8266)
          && (pin != 16)
@@ -125,7 +126,7 @@ bool BeeNeXT_SoftwareSerial::isValidRxGPIOpin(int8_t pin) {
          ;
 }
 
-bool BeeNeXT_SoftwareSerial::isValidTxGPIOpin(int8_t pin) {
+bool SoftwareSerial::isValidTxGPIOpin(int8_t pin) {
   return isValidGPIOpin(pin)
 #if defined(ESP32)
 #ifdef CONFIG_IDF_TARGET_ESP32
@@ -139,7 +140,7 @@ bool BeeNeXT_SoftwareSerial::isValidTxGPIOpin(int8_t pin) {
          ;
 }
 
-bool BeeNeXT_SoftwareSerial::hasRxGPIOPullUp(int8_t pin) {
+bool SoftwareSerial::hasRxGPIOPullUp(int8_t pin) {
 #if defined(ESP32)
   return !(pin >= 34 && pin <= 39);
 #else
@@ -148,13 +149,13 @@ bool BeeNeXT_SoftwareSerial::hasRxGPIOPullUp(int8_t pin) {
 #endif
 }
 
-void BeeNeXT_SoftwareSerial::setRxGPIOPullUp() {
+void SoftwareSerial::setRxGPIOPullUp() {
   if (m_rxValid) {
     pinMode(m_rxPin, hasRxGPIOPullUp(m_rxPin) && m_rxGPIOPullupEnabled ? INPUT_PULLUP : INPUT);
   }
 }
 
-void BeeNeXT_SoftwareSerial::begin(uint32_t baud, BeeNeXT_SoftwareSerialConfig config,
+void SoftwareSerial::begin(uint32_t baud, SoftwareSerialConfig config,
                            int8_t rxPin, int8_t txPin,
                            bool invert, int bufCapacity, int isrBufCapacity) {
   if (-1 != rxPin) m_rxPin = rxPin;
@@ -162,7 +163,7 @@ void BeeNeXT_SoftwareSerial::begin(uint32_t baud, BeeNeXT_SoftwareSerialConfig c
   m_oneWire = (m_rxPin == m_txPin);
   m_invert = invert;
   m_dataBits = 5 + (config & 07);
-  m_parityMode = static_cast<BeeNeXT_SoftwareSerialParity>(config & 070);
+  m_parityMode = static_cast<SoftwareSerialParity>(config & 070);
   m_stopBits = 1 + ((config & 0300) ? 1 : 0);
   m_pduBits = m_dataBits + static_cast<bool>(m_parityMode) + m_stopBits;
   m_bitCycles = (ESP.getCpuFreqMHz() * 1000000UL + baud / 2) / baud;
@@ -176,7 +177,7 @@ void BeeNeXT_SoftwareSerial::begin(uint32_t baud, BeeNeXT_SoftwareSerialConfig c
       m_parityBuffer.reset(new circular_queue<uint8_t>((m_buffer->capacity() + 7) / 8));
       m_parityInPos = m_parityOutPos = 1;
     }
-    m_isrBuffer.reset(new circular_queue<uint32_t, BeeNeXT_SoftwareSerial*>((isrBufCapacity > 0) ?
+    m_isrBuffer.reset(new circular_queue<uint32_t, SoftwareSerial*>((isrBufCapacity > 0) ?
                       isrBufCapacity : m_buffer->capacity() * (2 + m_dataBits + static_cast<bool>(m_parityMode))));
     if (m_buffer && (!m_parityMode || m_parityBuffer) && m_isrBuffer) {
       m_rxValid = true;
@@ -199,7 +200,7 @@ void BeeNeXT_SoftwareSerial::begin(uint32_t baud, BeeNeXT_SoftwareSerialConfig c
   }
 }
 
-void BeeNeXT_SoftwareSerial::end()
+void SoftwareSerial::end()
 {
   enableRx(false);
   m_txValid = false;
@@ -212,11 +213,11 @@ void BeeNeXT_SoftwareSerial::end()
   }
 }
 
-uint32_t BeeNeXT_SoftwareSerial::baudRate() {
+uint32_t SoftwareSerial::baudRate() {
   return ESP.getCpuFreqMHz() * 1000000UL / m_bitCycles;
 }
 
-void BeeNeXT_SoftwareSerial::setTransmitEnablePin(int8_t txEnablePin) {
+void SoftwareSerial::setTransmitEnablePin(int8_t txEnablePin) {
   if (isValidTxGPIOpin(txEnablePin)) {
     m_txEnableValid = true;
     m_txEnablePin = txEnablePin;
@@ -228,16 +229,16 @@ void BeeNeXT_SoftwareSerial::setTransmitEnablePin(int8_t txEnablePin) {
   }
 }
 
-void BeeNeXT_SoftwareSerial::enableIntTx(bool on) {
+void SoftwareSerial::enableIntTx(bool on) {
   m_intTxEnabled = on;
 }
 
-void BeeNeXT_SoftwareSerial::enableRxGPIOPullup(bool on) {
+void SoftwareSerial::enableRxGPIOPullup(bool on) {
   m_rxGPIOPullupEnabled = on;
   setRxGPIOPullUp();
 }
 
-void BeeNeXT_SoftwareSerial::enableTx(bool on) {
+void SoftwareSerial::enableTx(bool on) {
   if (m_txValid && m_oneWire) {
     if (on) {
       enableRx(false);
@@ -251,7 +252,7 @@ void BeeNeXT_SoftwareSerial::enableTx(bool on) {
   }
 }
 
-void BeeNeXT_SoftwareSerial::enableRx(bool on) {
+void SoftwareSerial::enableRx(bool on) {
   if (m_rxValid) {
     if (on) {
       m_rxLastBit = m_pduBits - 1;
@@ -269,7 +270,7 @@ void BeeNeXT_SoftwareSerial::enableRx(bool on) {
   }
 }
 
-int BeeNeXT_SoftwareSerial::read() {
+int SoftwareSerial::read() {
   if (!m_rxValid) {
     return -1;
   }
@@ -293,7 +294,7 @@ int BeeNeXT_SoftwareSerial::read() {
   return val;
 }
 
-int BeeNeXT_SoftwareSerial::read(uint8_t* buffer, size_t size) {
+int SoftwareSerial::read(uint8_t* buffer, size_t size) {
   if (!m_rxValid) {
     return 0;
   }
@@ -312,7 +313,7 @@ int BeeNeXT_SoftwareSerial::read(uint8_t* buffer, size_t size) {
   return avail;
 }
 
-size_t BeeNeXT_SoftwareSerial::readBytes(uint8_t* buffer, size_t size) {
+size_t SoftwareSerial::readBytes(uint8_t* buffer, size_t size) {
   if (!m_rxValid || !size) {
     return 0;
   }
@@ -328,7 +329,7 @@ size_t BeeNeXT_SoftwareSerial::readBytes(uint8_t* buffer, size_t size) {
   return count;
 }
 
-int BeeNeXT_SoftwareSerial::available() {
+int SoftwareSerial::available() {
   if (!m_rxValid) {
     return 0;
   }
@@ -340,7 +341,7 @@ int BeeNeXT_SoftwareSerial::available() {
   return avail;
 }
 
-void BeeNeXT_SoftwareSerial::lazyDelay() {
+void SoftwareSerial::lazyDelay() {
   // Reenable interrupts while delaying to avoid other tasks piling up
   if (!m_intTxEnabled) {
     restoreInterrupts();
@@ -363,13 +364,13 @@ void BeeNeXT_SoftwareSerial::lazyDelay() {
   preciseDelay();
 }
 
-void IRAM_ATTR BeeNeXT_SoftwareSerial::preciseDelay() {
+void IRAM_ATTR SoftwareSerial::preciseDelay() {
   while ((ESP.getCycleCount() - m_periodStart) < m_periodDuration) {}
   m_periodDuration = 0;
   m_periodStart = ESP.getCycleCount();
 }
 
-void IRAM_ATTR BeeNeXT_SoftwareSerial::writePeriod(
+void IRAM_ATTR SoftwareSerial::writePeriod(
   uint32_t dutyCycle, uint32_t offCycle, bool withStopBit) {
   preciseDelay();
   if (dutyCycle)
@@ -410,19 +411,19 @@ void IRAM_ATTR BeeNeXT_SoftwareSerial::writePeriod(
   }
 }
 
-size_t BeeNeXT_SoftwareSerial::write(uint8_t byte) {
+size_t SoftwareSerial::write(uint8_t byte) {
   return write(&byte, 1);
 }
 
-size_t BeeNeXT_SoftwareSerial::write(uint8_t byte, BeeNeXT_SoftwareSerialParity parity) {
+size_t SoftwareSerial::write(uint8_t byte, SoftwareSerialParity parity) {
   return write(&byte, 1, parity);
 }
 
-size_t BeeNeXT_SoftwareSerial::write(const uint8_t* buffer, size_t size) {
+size_t SoftwareSerial::write(const uint8_t* buffer, size_t size) {
   return write(buffer, size, m_parityMode);
 }
 
-size_t IRAM_ATTR BeeNeXT_SoftwareSerial::write(const uint8_t* buffer, size_t size, BeeNeXT_SoftwareSerialParity parity) {
+size_t IRAM_ATTR SoftwareSerial::write(const uint8_t* buffer, size_t size, SoftwareSerialParity parity) {
   if (m_rxValid) {
     rxBits();
   }
@@ -514,7 +515,7 @@ size_t IRAM_ATTR BeeNeXT_SoftwareSerial::write(const uint8_t* buffer, size_t siz
   return size;
 }
 
-void BeeNeXT_SoftwareSerial::flush() {
+void SoftwareSerial::flush() {
   if (!m_rxValid) {
     return;
   }
@@ -526,13 +527,13 @@ void BeeNeXT_SoftwareSerial::flush() {
   }
 }
 
-bool BeeNeXT_SoftwareSerial::overflow() {
+bool SoftwareSerial::overflow() {
   bool res = m_overflow;
   m_overflow = false;
   return res;
 }
 
-int BeeNeXT_SoftwareSerial::peek() {
+int SoftwareSerial::peek() {
   if (!m_rxValid) {
     return -1;
   }
@@ -545,7 +546,7 @@ int BeeNeXT_SoftwareSerial::peek() {
   return val;
 }
 
-void BeeNeXT_SoftwareSerial::rxBits() {
+void SoftwareSerial::rxBits() {
 #ifdef ESP8266
   if (m_isrOverflow.load()) {
     m_overflow = true;
@@ -573,7 +574,7 @@ void BeeNeXT_SoftwareSerial::rxBits() {
   }
 }
 
-void BeeNeXT_SoftwareSerial::rxBits(const uint32_t isrCycle) {
+void SoftwareSerial::rxBits(const uint32_t isrCycle) {
   const bool level = (m_isrLastCycle & 1) ^ m_invert;
 
   // error introduced by edge value in LSB of isrCycle is negligible
@@ -643,7 +644,7 @@ void BeeNeXT_SoftwareSerial::rxBits(const uint32_t isrCycle) {
   }
 }
 
-void IRAM_ATTR BeeNeXT_SoftwareSerial::rxBitISR(BeeNeXT_SoftwareSerial* self) {
+void IRAM_ATTR SoftwareSerial::rxBitISR(SoftwareSerial* self) {
   uint32_t curCycle = ESP.getCycleCount();
   bool level = *self->m_rxReg & self->m_rxBitMask;
 
@@ -652,7 +653,7 @@ void IRAM_ATTR BeeNeXT_SoftwareSerial::rxBitISR(BeeNeXT_SoftwareSerial* self) {
   if (!self->m_isrBuffer->push((curCycle | 1U) ^ !level)) self->m_isrOverflow.store(true);
 }
 
-void IRAM_ATTR BeeNeXT_SoftwareSerial::rxBitSyncISR(BeeNeXT_SoftwareSerial* self) {
+void IRAM_ATTR SoftwareSerial::rxBitSyncISR(SoftwareSerial* self) {
   uint32_t start = ESP.getCycleCount();
   uint32_t wait = self->m_bitCycles - 172U;
 
@@ -675,11 +676,11 @@ void IRAM_ATTR BeeNeXT_SoftwareSerial::rxBitSyncISR(BeeNeXT_SoftwareSerial* self
   }
 }
 
-void BeeNeXT_SoftwareSerial::onReceive(Delegate<void(int available), void*> handler) {
+void SoftwareSerial::onReceive(Delegate<void(int available), void*> handler) {
   receiveHandler = handler;
 }
 
-void BeeNeXT_SoftwareSerial::perform_work() {
+void SoftwareSerial::perform_work() {
   if (!m_rxValid) {
     return;
   }
@@ -708,10 +709,10 @@ void BeeNeXT_SoftwareSerial::perform_work() {
 //
 // Statics
 //
-BeeNeXT_SoftwareSerial *BeeNeXT_SoftwareSerial::active_object = 0;
-uint8_t BeeNeXT_SoftwareSerial::_receive_buffer[_SS_MAX_RX_BUFF];
-volatile uint8_t BeeNeXT_SoftwareSerial::_receive_buffer_tail = 0;
-volatile uint8_t BeeNeXT_SoftwareSerial::_receive_buffer_head = 0;
+SoftwareSerial *SoftwareSerial::active_object = 0;
+uint8_t SoftwareSerial::_receive_buffer[_SS_MAX_RX_BUFF];
+volatile uint8_t SoftwareSerial::_receive_buffer_tail = 0;
+volatile uint8_t SoftwareSerial::_receive_buffer_head = 0;
 
 //
 // Debugging
@@ -739,13 +740,13 @@ inline void DebugPulse(uint8_t, uint8_t) {}
 //
 
 /* static */
-inline void BeeNeXT_SoftwareSerial::tunedDelay(uint16_t delay) {
+inline void SoftwareSerial::tunedDelay(uint16_t delay) {
   _delay_loop_2(delay);
 }
 
 // This function sets the current object as the "listening"
 // one and returns true if it replaces another
-bool BeeNeXT_SoftwareSerial::listen()
+bool SoftwareSerial::listen()
 {
   if (!_rx_delay_stopbit)
     return false;
@@ -767,7 +768,7 @@ bool BeeNeXT_SoftwareSerial::listen()
 }
 
 // Stop listening. Returns true if we were actually listening.
-bool BeeNeXT_SoftwareSerial::stopListening()
+bool SoftwareSerial::stopListening()
 {
   if (active_object == this)
   {
@@ -781,7 +782,7 @@ bool BeeNeXT_SoftwareSerial::stopListening()
 //
 // The receive routine called by the interrupt handler
 //
-void BeeNeXT_SoftwareSerial::recv()
+void SoftwareSerial::recv()
 {
 
 #if GCC_VERSION < 40302
@@ -867,7 +868,7 @@ void BeeNeXT_SoftwareSerial::recv()
 #endif
 }
 
-uint8_t BeeNeXT_SoftwareSerial::rx_pin_read()
+uint8_t SoftwareSerial::rx_pin_read()
 {
   return *_receivePortRegister & _receiveBitMask;
 }
@@ -877,7 +878,7 @@ uint8_t BeeNeXT_SoftwareSerial::rx_pin_read()
 //
 
 /* static */
-inline void BeeNeXT_SoftwareSerial::handle_interrupt()
+inline void SoftwareSerial::handle_interrupt()
 {
   if (active_object)
   {
@@ -888,7 +889,7 @@ inline void BeeNeXT_SoftwareSerial::handle_interrupt()
 #if defined(PCINT0_vect)
 ISR(PCINT0_vect)
 {
-  BeeNeXT_SoftwareSerial::handle_interrupt();
+  SoftwareSerial::handle_interrupt();
 }
 #endif
 
@@ -907,7 +908,7 @@ ISR(PCINT3_vect, ISR_ALIASOF(PCINT0_vect));
 //
 // Constructor
 //
-BeeNeXT_SoftwareSerial::BeeNeXT_SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverse_logic /* = false */) :
+SoftwareSerial::SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverse_logic /* = false */) :
   _rx_delay_centering(0),
   _rx_delay_intrabit(0),
   _rx_delay_stopbit(0),
@@ -922,12 +923,12 @@ BeeNeXT_SoftwareSerial::BeeNeXT_SoftwareSerial(uint8_t receivePin, uint8_t trans
 //
 // Destructor
 //
-BeeNeXT_SoftwareSerial::~BeeNeXT_SoftwareSerial()
+SoftwareSerial::~SoftwareSerial()
 {
   end();
 }
 
-void BeeNeXT_SoftwareSerial::setTX(uint8_t tx)
+void SoftwareSerial::setTX(uint8_t tx)
 {
   // First write, then set output. If we do this the other way around,
   // the pin would be output low for a short while before switching to
@@ -940,7 +941,7 @@ void BeeNeXT_SoftwareSerial::setTX(uint8_t tx)
   _transmitPortRegister = portOutputRegister(port);
 }
 
-void BeeNeXT_SoftwareSerial::setRX(uint8_t rx)
+void SoftwareSerial::setRX(uint8_t rx)
 {
   pinMode(rx, INPUT);
   if (!_inverse_logic)
@@ -951,7 +952,7 @@ void BeeNeXT_SoftwareSerial::setRX(uint8_t rx)
   _receivePortRegister = portInputRegister(port);
 }
 
-uint16_t BeeNeXT_SoftwareSerial::subtract_cap(uint16_t num, uint16_t sub) {
+uint16_t SoftwareSerial::subtract_cap(uint16_t num, uint16_t sub) {
   if (num > sub)
     return num - sub;
   else
@@ -962,7 +963,7 @@ uint16_t BeeNeXT_SoftwareSerial::subtract_cap(uint16_t num, uint16_t sub) {
 // Public methods
 //
 
-void BeeNeXT_SoftwareSerial::begin(long speed)
+void SoftwareSerial::begin(long speed)
 {
   _rx_delay_centering = _rx_delay_intrabit = _rx_delay_stopbit = _tx_delay = 0;
 
@@ -1035,13 +1036,13 @@ void BeeNeXT_SoftwareSerial::begin(long speed)
   listen();
 }
 
-void BeeNeXT_SoftwareSerial::begin(unsigned long baud, uint8_t rx, uint8_t tx) { //BEENEXT
+void SoftwareSerial::begin(unsigned long baud, uint8_t rx, uint8_t tx) { //BEENEXT
   setTX(tx);
   setRX(rx);
   this->begin(baud);
 }
 
-void BeeNeXT_SoftwareSerial::setRxIntMsk(bool enable)
+void SoftwareSerial::setRxIntMsk(bool enable)
 {
   if (enable)
     *_pcint_maskreg |= _pcint_maskvalue;
@@ -1049,14 +1050,14 @@ void BeeNeXT_SoftwareSerial::setRxIntMsk(bool enable)
     *_pcint_maskreg &= ~_pcint_maskvalue;
 }
 
-void BeeNeXT_SoftwareSerial::end()
+void SoftwareSerial::end()
 {
   stopListening();
 }
 
 
 // Read data from buffer
-int BeeNeXT_SoftwareSerial::read()
+int SoftwareSerial::read()
 {
   if (!isListening())
     return -1;
@@ -1071,7 +1072,7 @@ int BeeNeXT_SoftwareSerial::read()
   return d;
 }
 
-int BeeNeXT_SoftwareSerial::available()
+int SoftwareSerial::available()
 {
   if (!isListening())
     return 0;
@@ -1079,7 +1080,7 @@ int BeeNeXT_SoftwareSerial::available()
   return ((unsigned int)(_receive_buffer_tail + _SS_MAX_RX_BUFF - _receive_buffer_head)) % _SS_MAX_RX_BUFF;
 }
 
-size_t BeeNeXT_SoftwareSerial::write(uint8_t b)
+size_t SoftwareSerial::write(uint8_t b)
 {
   if (_tx_delay == 0) {
     setWriteError();
@@ -1134,12 +1135,12 @@ size_t BeeNeXT_SoftwareSerial::write(uint8_t b)
   return 1;
 }
 
-void BeeNeXT_SoftwareSerial::flush()
+void SoftwareSerial::flush()
 {
   // There is no tx buffering, simply return
 }
 
-int BeeNeXT_SoftwareSerial::peek()
+int SoftwareSerial::peek()
 {
   if (!isListening())
     return -1;
@@ -1153,3 +1154,4 @@ int BeeNeXT_SoftwareSerial::peek()
 }
 
 #endif //#if defined(ESP8266) || defined(ESP32)
+#endif //#if BLYNKGO_USE_BEENEXT || BLYNKGO_USE_SOFTWARESERIAL

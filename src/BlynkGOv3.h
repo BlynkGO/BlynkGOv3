@@ -78,6 +78,10 @@
 #include "utils/BeeNeXT/BeeNeXT.h"
 #endif
 
+#if defined(BLYNKGO_USE_SOFTWARESERIAL)
+#include "utils/BeeNeXT/libs/SoftwareSerial/SoftwareSerial.h"
+#endif
+
 #if BLYNKGO_USE_NTP
   #include "time.h"
 #endif
