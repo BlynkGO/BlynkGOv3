@@ -6,7 +6,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_ASYNC_MQTT32_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_ASYNC_MQTT32_VERSION_PATCH   0
+#define BLYNKGO_ASYNC_MQTT32_VERSION_PATCH   1
 
 #define BLYNKGO_ASYNC_MQTT32_VERSION_TEXT    (String(BLYNKGO_ASYNC_MQTT32_VERSION_MAJOR)+"."+String(BLYNKGO_ASYNC_MQTT32_VERSION_MINOR)+"."+String(BLYNKGO_ASYNC_MQTT32_VERSION_PATCH))
 
@@ -92,6 +92,7 @@ class BlynkGO_AsyncMQTT32 {
     int  publish(String topic, uint8_t* data, size_t data_len, uint8_t qos=QOS0, bool retain=false);
     int  subscribe(String topic, uint8_t qos=QOS0); 
     bool unsubscribe(String topic);
+    void unsubscribe_all();
 
     inline int clearRetain(String topic, uint8_t qos = QOS0)            { return publish(topic, NULL, 0, qos, true); }
     inline int clearTopic(String topic, uint8_t qos = QOS0)             { return clearRetain(topic, qos); }

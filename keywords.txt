@@ -1126,6 +1126,7 @@ secs_of_day	KEYWORD2
 publish	KEYWORD2
 subscribe	KEYWORD2
 unsubscribe	KEYWORD2
+unsubscribe_all	KEYWORD2
 clearRetain	KEYWORD2
 clearTopic	KEYWORD2
 setClientId	KEYWORD2
@@ -1136,6 +1137,7 @@ onSubscribed	KEYWORD2
 onUnsubscribed	KEYWORD2
 onPublished	KEYWORD2
 onMessage	KEYWORD2
+
 setKeepAlive	KEYWORD2
 setCleanSession	KEYWORD2
 setMaxTopicLength	KEYWORD2

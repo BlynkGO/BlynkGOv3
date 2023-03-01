@@ -1,5 +1,7 @@
 #include "BlynkGO_AsyncMQTT32.h"
 #include <Ticker.h>
+#include <algorithm>
+#include <memory>
 
 #if BLYNKO_USE_ASYNC_MQTT32
 
@@ -160,6 +162,7 @@ int BlynkGO_AsyncMQTT32::subscribe(String topic, uint8_t qos){
 bool BlynkGO_AsyncMQTT32::unsubscribe(String topic){
   int ret = esp_mqtt_client_unsubscribe( this->_client, (const char *) topic.c_str() );
   if(ret !=-1){
+    ESP_LOGI(TAG, "[MQTT] unsubscribe successful, topic=%s",  topic.c_str() );
     for( int i=0; i< this->subscribe_topics.size();i++){
       if( String(this->subscribe_topics[i].topic) == topic){
         this->subscribe_topics.erase(this->subscribe_topics.begin() + i);
@@ -168,8 +171,16 @@ bool BlynkGO_AsyncMQTT32::unsubscribe(String topic){
     }
     return true;
   }else{
+    ESP_LOGI(TAG, "[MQTT] unsubscribe failed, topic=%s",  topic.c_str() );
     return false;
   }
+}
+
+void BlynkGO_AsyncMQTT32::unsubscribe_all(){
+  for( int i=0; i< this->subscribe_topics.size();i++){
+    esp_mqtt_client_unsubscribe( this->_client, (const char *) this->subscribe_topics[i].topic );
+  }
+  this->subscribe_topics.clear();
 }
 
 int BlynkGO_AsyncMQTT32::publish(String topic, String message, uint8_t qos, bool retain){
@@ -271,9 +282,15 @@ void BlynkGO_AsyncMQTT32::mqtt_event_handler(void *handler_args, esp_event_base_
     case MQTT_EVENT_DATA:
     {
       ESP_LOGI(TAG, "[MQTT] MQTT_EVENT_DATA");
-      String topic = event->topic; topic[event->topic_len] = 0;
+      std::unique_ptr<char[]> topic_buf(new char[event->topic_len + 1]);
+      std::copy(event->topic, event->topic + event->topic_len, topic_buf.get());
+      topic_buf[event->topic_len] = '\0';
+      String topic(topic_buf.get());
       if( pMQTTClient32->_fn_onmessage != NULL) {        
-        String message  = event->data;  message[event->data_len]  = 0;
+        std::unique_ptr<char[]> message_buf(new char[event->data_len + 1]);
+        std::copy(event->data, event->data + event->data_len, message_buf.get());
+        message_buf[event->data_len] = '\0';
+        String message(message_buf.get());
         pMQTTClient32->_fn_onmessage(topic, message);
       }
       if( pMQTTClient32->_fn_ondata != NULL) {
