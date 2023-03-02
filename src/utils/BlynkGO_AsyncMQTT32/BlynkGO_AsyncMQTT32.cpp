@@ -12,7 +12,7 @@ MQTT_SUBSCRIBED()   __attribute__((weak, alias("MQTTNoOpCbk")));
 MQTT_UNSUBSCRIBED() __attribute__((weak, alias("MQTTNoOpCbk")));
 MQTT_PUBLISHED()    __attribute__((weak, alias("MQTTNoOpCbk")));
 
-static const char *TAG = "MQTT_EXAMPLE";
+static const char *TAG = "ASYNC_MQTT32";
 
 BlynkGO_AsyncMQTT32 MQTT;
 BlynkGO_AsyncMQTT32* _pMQTTClient32 = NULL;
@@ -162,7 +162,7 @@ int BlynkGO_AsyncMQTT32::subscribe(String topic, uint8_t qos){
 bool BlynkGO_AsyncMQTT32::unsubscribe(String topic){
   int ret = esp_mqtt_client_unsubscribe( this->_client, (const char *) topic.c_str() );
   if(ret !=-1){
-    ESP_LOGI(TAG, "[MQTT] unsubscribe successful, topic=%s",  topic.c_str() );
+    ESP_LOGI(TAG, "unsubscribe successful, topic=%s",  topic.c_str() );
     for( int i=0; i< this->subscribe_topics.size();i++){
       if( String(this->subscribe_topics[i].topic) == topic){
         this->subscribe_topics.erase(this->subscribe_topics.begin() + i);
@@ -171,7 +171,7 @@ bool BlynkGO_AsyncMQTT32::unsubscribe(String topic){
     }
     return true;
   }else{
-    ESP_LOGI(TAG, "[MQTT] unsubscribe failed, topic=%s",  topic.c_str() );
+    ESP_LOGI(TAG, "unsubscribe failed, topic=%s",  topic.c_str() );
     return false;
   }
 }
@@ -206,7 +206,7 @@ void BlynkGO_AsyncMQTT32::mqtt_event_handler(void *handler_args, esp_event_base_
   {
     case MQTT_EVENT_CONNECTED:
     {
-      ESP_LOGI(TAG, "[MQTT] MQTT_EVENT_CONNECTED");
+      ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
       Serial.println("[MQTT] connected");
       ticker_reconnect.detach();
 
@@ -219,13 +219,13 @@ void BlynkGO_AsyncMQTT32::mqtt_event_handler(void *handler_args, esp_event_base_
 
       for(int i=0; i< pMQTTClient32->subscribe_topics.size(); i++){
         pMQTTClient32->subscribe_topics[i].msg_id = esp_mqtt_client_subscribe(client, pMQTTClient32->subscribe_topics[i].topic, pMQTTClient32->subscribe_topics[i].qos);
-        ESP_LOGI(TAG, "[MQTT] sent subscribe successful, msg_id=%d", pMQTTClient32->subscribe_topics[i].msg_id);
+        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", pMQTTClient32->subscribe_topics[i].msg_id);
       }
       delay(1);
       break;
     }
     case MQTT_EVENT_DISCONNECTED:
-      ESP_LOGI(TAG, "[MQTT] MQTT_EVENT_DISCONNECTED");
+      ESP_LOGI(TAG, "MQTT_EVENT_DISCONNECTED");
       Serial.println("[MQTT] disconnected");
       // pMQTTClient32->disconnect();
       pMQTTClient32->_connected = false;
@@ -255,7 +255,7 @@ void BlynkGO_AsyncMQTT32::mqtt_event_handler(void *handler_args, esp_event_base_
       break;
 
     case MQTT_EVENT_SUBSCRIBED:
-      ESP_LOGI(TAG, "[MQTT] MQTT_EVENT_SUBSCRIBED, msg_id=%d", event->msg_id);
+      ESP_LOGI(TAG, "MQTT_EVENT_SUBSCRIBED, msg_id=%d", event->msg_id);
 
       MqttOnSubscribed();
       if( pMQTTClient32->_fn_onsubscribe != NULL) {
@@ -264,7 +264,7 @@ void BlynkGO_AsyncMQTT32::mqtt_event_handler(void *handler_args, esp_event_base_
       delay(1);
       break;
     case MQTT_EVENT_UNSUBSCRIBED:
-      ESP_LOGI(TAG, "[MQTT] MQTT_EVENT_UNSUBSCRIBED, msg_id=%d", event->msg_id);
+      ESP_LOGI(TAG, "MQTT_EVENT_UNSUBSCRIBED, msg_id=%d", event->msg_id);
       MqttOnUnsubscribed();
       if( pMQTTClient32->_fn_onunsubscribe != NULL) {
         pMQTTClient32->_fn_onunsubscribe(event->msg_id);
@@ -272,7 +272,7 @@ void BlynkGO_AsyncMQTT32::mqtt_event_handler(void *handler_args, esp_event_base_
       delay(1);
       break;
     case MQTT_EVENT_PUBLISHED:
-      ESP_LOGI(TAG, "[MQTT] MQTT_EVENT_PUBLISHED, msg_id=%d", event->msg_id);
+      ESP_LOGI(TAG, "MQTT_EVENT_PUBLISHED, msg_id=%d", event->msg_id);
       MqttOnPublished();
       if( pMQTTClient32->_fn_onpublish != NULL) {
         pMQTTClient32->_fn_onpublish(event->msg_id);
@@ -281,7 +281,7 @@ void BlynkGO_AsyncMQTT32::mqtt_event_handler(void *handler_args, esp_event_base_
       break;
     case MQTT_EVENT_DATA:
     {
-      ESP_LOGI(TAG, "[MQTT] MQTT_EVENT_DATA");
+      ESP_LOGI(TAG, "MQTT_EVENT_DATA");
       std::unique_ptr<char[]> topic_buf(new char[event->topic_len + 1]);
       std::copy(event->topic, event->topic + event->topic_len, topic_buf.get());
       topic_buf[event->topic_len] = '\0';
@@ -300,14 +300,14 @@ void BlynkGO_AsyncMQTT32::mqtt_event_handler(void *handler_args, esp_event_base_
       break;
     }
     case MQTT_EVENT_ERROR:
-      ESP_LOGI(TAG, "[MQTT] MQTT_EVENT_ERROR");
+      ESP_LOGI(TAG, "MQTT_EVENT_ERROR");
       if( pMQTTClient32->_fn_onerror != NULL) {
         pMQTTClient32->_fn_onerror();
       }
       delay(1);
       break;
     default:
-      ESP_LOGI(TAG, "[MQTT] Other event id:%d", event->event_id);
+      ESP_LOGI(TAG, "Other event id:%d", event->event_id);
       delay(1);
       break;
   }
