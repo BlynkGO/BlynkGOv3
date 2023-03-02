@@ -219,7 +219,7 @@ void BlynkGO_AsyncMQTT32::mqtt_event_handler(void *handler_args, esp_event_base_
 
       for(int i=0; i< pMQTTClient32->subscribe_topics.size(); i++){
         pMQTTClient32->subscribe_topics[i].msg_id = esp_mqtt_client_subscribe(client, pMQTTClient32->subscribe_topics[i].topic, pMQTTClient32->subscribe_topics[i].qos);
-        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", pMQTTClient32->subscribe_topics[i].msg_id);
+        ESP_LOGI(TAG, "subscribe successful, msg_id=%d", pMQTTClient32->subscribe_topics[i].msg_id);
       }
       delay(1);
       break;
