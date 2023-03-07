@@ -300,7 +300,7 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
     Wire.begin(RTC_I2C_SDA, RTC_I2C_SCL);
     this->RTC.begin( &Wire);  // เรียกใช้ Wire1.begin(..)
   #elif defined(TOUCH_I2C_SCA) && defined(TOUCH_I2C_SCL) 
-    Wire1.begin(TOUCH_I2C_SCA, TOUCH_I2C_SCL);
+    // ภายใน Wire1 ของ Touch I2C ได้มีการ begin แล้ว จึงไม่ต้อง เรียก Wire1.begin(..) อีก
     this->RTC.begin( &Wire1 );  // แบบใช้ Wire I2C ขาร่วมกับ Touch I2C  // Wire ของ Touch มีการ begin(...) ไปก่อนแล้ว
   #endif
 
