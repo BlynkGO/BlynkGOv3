@@ -113,7 +113,7 @@
   // capacitive touch i2c
   #define TOUCH_FT6236
   #define TOUCH_I2C_ADDR          0x38
-  #define TOUCH_I2C_PORT          0       // 使用するI2Cを選択 (0 or 1)
+  #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)
   #define TOUCH_I2C_SDA           26
   #define TOUCH_I2C_SCL           27
   #define TOUCH_INT               -1 //38
@@ -1191,7 +1191,7 @@
 
   #define TOUCH_GSL1680F
   #define TOUCH_INT               -1      // INTが接続されているピン番号
-  #define TOUCH_I2C_PORT          0       // 使用するI2Cを選択 (0 or 1)
+  #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)
   #define TOUCH_I2C_ADDR          0x40    // I2Cデバイスアドレス番号
   #define TOUCH_I2C_SDA           21      // I2C SDA
   #define TOUCH_I2C_SCL           22      // I2C SCL
@@ -1226,7 +1226,7 @@
 
   #define TOUCH_GSL1680F
   #define TOUCH_INT               -1      // INTが接続されているピン番号
-  #define TOUCH_I2C_PORT          0       // 使用するI2Cを選択 (0 or 1)
+  #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)
   #define TOUCH_I2C_ADDR          0x40    // I2Cデバイスアドレス番号
   #define TOUCH_I2C_SDA           21      // I2C SDA
   #define TOUCH_I2C_SCL           22      // I2C SCL
@@ -1262,7 +1262,7 @@
 
   #define TOUCH_FT5206
   #define TOUCH_INT               -1      // INTが接続されているピン番号
-  #define TOUCH_I2C_PORT          0       // 使用するI2Cを選択 (0 or 1)
+  #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)
   #define TOUCH_I2C_ADDR          0x38    // I2Cデバイスアドレス番号
   #define TOUCH_I2C_SDA           21      // I2C SDA
   #define TOUCH_I2C_SCL           22      // I2C SCL
@@ -1298,7 +1298,7 @@
 
   #define TOUCH_FT5206
   #define TOUCH_INT               -1      // INTが接続されているピン番号
-  #define TOUCH_I2C_PORT          0       // 使用するI2Cを選択 (0 or 1)
+  #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)
   #define TOUCH_I2C_ADDR          0x38    // I2Cデバイスアドレス番号
   #define TOUCH_I2C_SDA           21      // I2C SDA
   #define TOUCH_I2C_SCL           22      // I2C SCL
