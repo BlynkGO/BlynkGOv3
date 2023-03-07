@@ -297,10 +297,11 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
 #else
 #if BLYNKGO_USE_RTC_DS323X || BLYNKGO_USE_RTC_DS1307 || BLYNKGO_USE_RTC_PCF8523 || BLYNKGO_USE_RTC_PCF8563
   #if defined(RTC_I2C_SDA)  && defined(RTC_I2C_SCL) // แบบกำหนดขา I2C แยกจาก Touch I2C
-    Wire1.begin(RTC_I2C_SDA, RTC_I2C_SCL);
-    this->RTC.begin( &Wire1);  // เรียกใช้ Wire1.begin(..)
-  #else
-    this->RTC.begin( &Wire );  // แบบใช้ Wire I2C ขาร่วมกับ Touch I2C  // Wire ของ Touch มีการ begin(...) ไปก่อนแล้ว
+    Wire.begin(RTC_I2C_SDA, RTC_I2C_SCL);
+    this->RTC.begin( &Wire);  // เรียกใช้ Wire1.begin(..)
+  #elif defined(TOUCH_I2C_SCA) && defined(TOUCH_I2C_SCL) 
+    Wire1.begin(TOUCH_I2C_SCA, TOUCH_I2C_SCL);
+    this->RTC.begin( &Wire1 );  // แบบใช้ Wire I2C ขาร่วมกับ Touch I2C  // Wire ของ Touch มีการ begin(...) ไปก่อนแล้ว
   #endif
 
   // คำสั่งของ TimeLib.h

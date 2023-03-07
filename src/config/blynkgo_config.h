@@ -72,13 +72,13 @@
 // เปิด/ปิด การใช้งาน RTC PCF8563
 #define BLYNKGO_USE_RTC_PCF8563       0       // 1 เลือกใช้ RTC PCF8563 ด้วย         ; 0 ไม่เลือกใช้  RTC PCF8563
 
-// แบบกำหนดขา RTC I2C ร่วมกับ Touch I2C โดยใช้ Wire
-// BlynkGO Board v1.1-1.3 ต่อ DS3231 ที่ขา 26 (I2C SDA),27 (I2C SCL)  ---> Wire  แบบใช้ I2C ร่วม กับ Touch I2C
-// BlynkGO Emma-II        ต่อ DS3231 ที่ขา 18 (I2C SDA),19 (I2C SCL)  ---> Wire  แบบใช้ I2C ร่วม กับ Touch I2C
+// แบบกำหนดขา RTC I2C ร่วมกับ Touch I2C โดยใช้ Wire1 ร่วม Touch I2C  (BlynkGOv3 จะใช้ I2C Port1 (Wire1) เป็น ตัวทำสัมผัส )
+// BlynkGO Board v1.1-1.3 ต่อ DS3231 ที่ขา 26 (I2C SDA),27 (I2C SCL)  ---> Wire1  แบบใช้ I2C ร่วม กับ Touch I2C
+// BlynkGO Emma-II        ต่อ DS3231 ที่ขา 18 (I2C SDA),19 (I2C SCL)  ---> Wire1  แบบใช้ I2C ร่วม กับ Touch I2C
 
-// แบบกำหนดขา RTC I2C แยกจาก Touch I2C โดยใช้ Wire1 แยกต่างหาก
-// #define RTC_I2C_SDA               25      // RTC I2C SDA        ---> Wire1 แบบกำหนดขาเอง ใช้ I2C แยกจาก Touch I2C
-// #define RTC_I2C_SCL               4       // RTC I2C SCL        ---> Wire1 แบบกำหนดขาเอง ใช้ I2C แยกจาก Touch I2C
+// แบบกำหนดขา RTC I2C แยกจาก Touch I2C โดยใช้ Wire แยกต่างหาก
+// #define RTC_I2C_SDA               25      // RTC I2C SDA        ---> Wire แบบกำหนดขาเอง ใช้ I2C แยกจาก Touch I2C
+// #define RTC_I2C_SCL               4       // RTC I2C SCL        ---> Wire แบบกำหนดขาเอง ใช้ I2C แยกจาก Touch I2C
 
 
 // เปิด/ปิด การใช้ DEBUG
