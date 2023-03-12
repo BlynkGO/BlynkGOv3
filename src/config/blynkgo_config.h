@@ -36,8 +36,6 @@
 // เปิด/ปิด การใช้งาน BeeNeXT ร่วมด้วย
 #define BLYNKGO_USE_BEENEXT           0
 
-// เปิด/ปิด การใช้งาน SoftwareSerial
-#define BLYNKGO_USE_SOFTWARESERIAL    0
 
 // // เปิด/ปิด การใช้งาน QR Payment โดยผ่านสื่อกลาง Global PrimePay  (GB PrimePay)
 // #define BLYNKGO_USE_QRPAYMENT         0      // 1 เลือกใช้ QR Payment ด้วย          ; 0 ไม่เลือกใช้ QR Payment ;   (ถ้าใช้ QR Payment  ให้เปิด WiFi, NTP, MQTT ด้วย )
