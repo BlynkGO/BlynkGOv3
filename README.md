@@ -10,7 +10,7 @@
 - รองรับ แสดงเวลาจาก RTC timestamp ที่ต่อบน MCU อื่น   
 - เพิ่มคำสั่ง BlynkGO.autoNTP(true/false); ให้ compatable กับ BlynkGOv2  
 - รองรับบอร์ด BlynkGO Enterprise 5" (old)
-- เพิ่ม BLYNKGO_USE_SOFTWARESERIAL  1
+- ย้ายไลฯย่อย BeeNeXT ออกไปต่างหาก และเพิ่มตัวอย่าง NodeMCU <--> BeeNeXT3.5
   
 ## Version 3.0.0 beta3  
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.4 FIX001
