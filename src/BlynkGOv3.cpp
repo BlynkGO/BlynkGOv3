@@ -92,7 +92,11 @@ static uint8_t capture_type = CAPTURE_TYPE_BMP;
   ButtonISR BTN   = ButtonISR(0);
 #endif
 
-
+#if defined(BEENEXT_5_0IPS) || defined(BEENEXT_7_0IPS)
+  #define GUI_TASK_LOOP_NUM   20
+#else
+  #define GUI_TASK_LOOP_NUM   1
+#endif
 
 /************************************
  * Define & typedef
@@ -327,8 +331,13 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
 
 
 #if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
+  #if defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
+    Serial2.begin(9600, SERIAL_8N1, 35/*input only*/,22);
+    BeeNeXT.begin(&Serial2);
+  #else
   // #if defined(BEENEXT_4_3) || defined(BEENEXT_4_3C) | defined(BEENEXT_4_3IPS)
     BeeNeXT.begin();  // ทั่วไปใช้ Serial เป็นจุดเชื่อมต่อกับ MCU อื่น, แต่สำหรับ ESP32S3 แบบนี้จะใช้ Serial2 ในการเชื่อมต่อ
+  #endif
 #endif
 
 #if defined (TOUCH_XPT2046)
@@ -345,10 +354,11 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
 
 }
 
-
 void BlynkGOv3::update(bool beenext_loop){
 #if BLYNKGO_DEV_LEVEL >= BLYNKGO_DEV_LEVEL_SUPERG
-  lv_task_handler(); /* let the GUI do its work */
+  for(int i=0; i< GUI_TASK_LOOP_NUM; i++) {
+    lv_task_handler(); /* let the GUI do its work */
+  }
 #endif
 
 #if defined(BEENEXT) || BLYNKGO_USE_BEENEXT

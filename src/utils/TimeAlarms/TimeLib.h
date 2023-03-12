@@ -139,6 +139,12 @@ char* monthStr(uint8_t month);
 char* dayStr(uint8_t day);
 char* monthShortStr(uint8_t month);
 char* dayShortStr(uint8_t day);
+
+// BlynkGO
+inline char* weekday_shortstr(uint8_t wday)   { return dayShortStr(wday+1);   }
+inline char* weekday_str(uint8_t wday)        { return dayStr(wday+1);        }
+inline char* weekday_shortstr()               { return dayShortStr(wday()+1); }
+inline char* weekday_str()                    { return dayStr(wday()+1);      }
 	
 /* time sync functions	*/
 timeStatus_t timeStatus(); // indicates if time has been set and recently synchronized

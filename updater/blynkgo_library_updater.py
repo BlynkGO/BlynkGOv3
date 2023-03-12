@@ -17,29 +17,38 @@ print(r"      BlynkGO Library V"+ blynkgo_ver + " Updator")
 print("")
 print(r"==========================================")
 
+
 if platform == "linux" or platform == "linux2":
   # Linux :  /home/{username}/.arduino15
-  user_home      = os.environ['HOME']
-  esp32_basedir  = user_home            + "/.arduino15/packages/esp32/hardware/esp32"
+  user_home            = os.environ['HOME']
+  arduino15_folder     = user_home            + "/.arduino15"
+  ide2_yaml_file       = user_home            + "/.arduinoIDE/arduino-cli.yaml"   # XXX
 elif platform == "darwin":
   # MAC :  /Users/"$USER"/Library/Arduino15/packages/esp32/hardware/esp32/1.0.6/tools/sdk/lib/
-  username       = os.environ['USER']
-  esp32_basedir  = "/Users/" + username + "/Library/Arduino15/packages/esp32/hardware/esp32"
+  username             = os.environ['USER']
+  arduino15_folder     = "/Users/" + username             + "/Library/Arduino15"
+  ide2_yaml_file       = "/Users/" + username + "/.arduinoIDE/arduino-cli.yaml" # XXX
+  print(arduino15_folder)
 elif platform == "win32":
-  userprofile    = os.environ['UserProfile']
-  esp32_basedir1 = userprofile          + "/AppData/Local/Arduino15/packages/esp32/hardware/esp32"
-  esp32_basedir2 = userprofile          + "/Documents/ArduinoData/packages/esp32/hardware/esp32"
+  # Windows :  C:\Users\<USER_NAME>\AppData\Local\Arduino15  
+  userprofile          = os.environ['UserProfile']
+  arduino15_folder1    = userprofile          + "/Documents/ArduinoData"
+  arduino15_folder2    = userprofile          + "/AppData/Local/Arduino15"
+  ide2_yaml_file       = userprofile          + "/.arduinoIDE/arduino-cli.yaml" 
 
-  esp32_basedir  = esp32_basedir1
-  if(os.path.exists(esp32_basedir2) is True):
-    esp32_basedir  = esp32_basedir1
-  elif(os.path.exists(esp32_basedir2) is True):
-    esp32_basedir  = esp32_basedir2
+  arduino15_folder   = arduino15_folder1
+  if(os.path.exists(arduino15_folder1)):
+    arduino15_folder = arduino15_folder1
+  elif(os.path.exists(arduino15_folder2)):
+    arduino15_folder = arduino15_folder2
 
+ide_esp32_basedir   = arduino15_folder + "/packages/esp32/hardware/esp32" # esp32 folder
+ide_preference_file = arduino15_folder + "/preferences.txt"               # preference.txt
+  
 # print(esp32basedir)
 print("")
 
-if(os.path.exists(esp32_basedir) is False):
+if(os.path.exists(ide_esp32_basedir) is False):
 
   print("***************************************************************")
   print("            !!! BlynkGO-SDK Installer ERROR !!!")
@@ -54,25 +63,54 @@ if(os.path.exists(esp32_basedir) is False):
 else:
   # check esp32 core version
   print("")
-  esp32_core_count = 0
-  for filename in os.listdir(esp32_basedir):
-    esp32_core_version  = filename
-    esp32_core_count += 1
+  # esp32_core_count = 0
+  # for filename in os.listdir(esp32_basedir):
+  #   esp32_core_version  = filename
+  #   esp32_core_count += 1
+  # if(esp32_core_count == 2):
+  #   print("***************************************************************")
+  #   print("            !!! BlynkGO-SDK Installer ERROR !!!")
+  #   print("")
+  #   print("           ERROR : ESP32 Core is MORE THAN 1 version")
+  #   print("                Can't install BlynkGO-SDK.")
+  #   print("")
+  #   print("              Please contact blynkgo@gmail.com")
+  #   print("")
+  #   print("***************************************************************")
 
-  if(esp32_core_count == 2):
+  # elif(esp32_core_count == 1 ):
+  #   print("ESP32 Core Version : " + esp32_core_version)
+  #   esp32_core_folder   = esp32_basedir + "/" + esp32_core_version
+  #   if platform == "win32":
+  #     esp32_core_folder = esp32_core_folder.replace("/","\\")
+
+  #   print("ESP32 Core Folder  :")
+  #   print("--> " + esp32_core_folder)
+
+
+
+  esp32core_version_list = os.listdir(ide_esp32_basedir)
+  # print(esp32core_version_list)
+  if(len(esp32core_version_list) == 2 and platform != "darwin" )  :    # เกิดพบ 2 version ของ ESP32 core
     print("***************************************************************")
-    print("            !!! BlynkGO-SDK Installer ERROR !!!")
-    print("")
-    print("           ERROR : ESP32 Core is MORE THAN 1 version")
-    print("                Can't install BlynkGO-SDK.")
-    print("")
+    print("            !!! BlynkGO-Library Updater ERROR !!!")
+    print()
+    print("        ERROR : Your ESP32 Core is MORE THAN 1 version"   )
+    print("            Can't install BlynkGO-Library Updater.")
+    print()
     print("              Please contact blynkgo@gmail.com")
-    print("")
+    print()
     print("***************************************************************")
+    print("Open File Explorer : \n  --> " + _esp32_basedir)
+    print("\nand DELETE the folder [v" + "] or folder [v".join(esp32core_version_list)+ "]")
+    print("And then install BlynkGO-SDK again.")
 
-  elif(esp32_core_count == 1 ):
+  elif(len(esp32core_version_list) == 1 or (len(esp32core_version_list) == 2 and platform == "darwin" )) :
+    esp32_core_version  = esp32core_version_list[0]
+    if platform == "darwin" :
+      esp32_core_version  = esp32core_version_list[1]
     print("ESP32 Core Version : " + esp32_core_version)
-    esp32_core_folder   = esp32_basedir + "/" + esp32_core_version
+    esp32_core_folder   = _esp32_basedir + "/" + esp32_core_version
     if platform == "win32":
       esp32_core_folder = esp32_core_folder.replace("/","\\")
 

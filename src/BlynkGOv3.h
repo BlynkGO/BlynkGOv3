@@ -75,12 +75,13 @@
 #include "utils/TridentTD_ESP32NVS/TridentTD_ESP32NVS.h"  // ESP32 NVS
 
 #if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
-#include "utils/BeeNeXT/BeeNeXT.h"
+// #include "utils/BeeNeXT/BeeNeXT.h"
+#include <BeeNeXT.h>
 #endif
 
-#if defined(BLYNKGO_USE_SOFTWARESERIAL) && (CONFIG_IDF_TARGET_ESP32S3==0)
-#include "utils/BeeNeXT/libs/SoftwareSerial/SoftwareSerial.h"
-#endif
+// #if defined(BLYNKGO_USE_SOFTWARESERIAL) && (CONFIG_IDF_TARGET_ESP32S3==0)
+// #include "utils/BeeNeXT/libs/SoftwareSerial/SoftwareSerial.h"
+// #endif
 
 #if BLYNKGO_USE_NTP
   #include "time.h"
