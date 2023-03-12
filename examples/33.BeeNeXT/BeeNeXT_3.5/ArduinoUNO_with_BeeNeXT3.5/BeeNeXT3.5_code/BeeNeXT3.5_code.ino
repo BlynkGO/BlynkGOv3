@@ -24,7 +24,7 @@ void setup() {
     }
     
     Serial.println(btn.isON());
-    BeeNeXT.send("LED", btn.isON());  // ส่ง BeeNeXT ได้แล้ว  ทาง 3.5" Uart Port ( HMI HardSerial)
+    BeeNeXT.send("LED", btn.isON());   // ส่งค่าไปยัง ฝั่ง MCU ด้วย key "LED" และ value คือ สถานะของ btn ว่า ON (true) หรือ OFF (false)
   });
 }
 
