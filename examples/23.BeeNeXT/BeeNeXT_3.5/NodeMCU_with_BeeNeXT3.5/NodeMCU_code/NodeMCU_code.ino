@@ -20,7 +20,7 @@ void setup() {
   timer.setInterval(1000,[](){
     static int c;
     Serial.println(++c);
-    BeeNeXT.send("MY_VALUE", c );  // ฝั่ง NodeMCU ส่งค่า c ไปยัง ฝั่ง จอ BeeNeXT 3.5" ด้วย key "lb_text" & value คือ ค่า c
+    BeeNeXT.send("MY_VALUE", c );  // ฝั่ง MCU ส่งค่า c ไปยัง ฝั่ง จอ BeeNeXT 3.5" ด้วย key "MY_VALUE" & value คือ ค่า c
   });
 }
 
