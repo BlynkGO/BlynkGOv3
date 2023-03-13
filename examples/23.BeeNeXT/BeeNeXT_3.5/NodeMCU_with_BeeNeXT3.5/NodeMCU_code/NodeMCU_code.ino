@@ -11,7 +11,7 @@
 
 void setup() {
   Serial.begin(115200); Serial.println();
-  BeeNeXT.begin(SOFT_RX, SOFT_TX);
+  BeeNeXT.begin(BEENEXT_SOFT_RX, BEENEXT_SOFT_TX);
 
   pinMode(LED, OUTPUT);
   digitalWrite(LED, TURN_OFF);
