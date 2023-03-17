@@ -2,7 +2,7 @@
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)
 
 ## Version 3.0.0 beta5  
-ให้ติดตั้งด้วย BlynkGO SDK version3.0.5  
+ให้ติดตั้งด้วย BlynkGO SDK version3.0.5 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
 
 - ปรับส่วน driver lcd ให้แยกออกมาเป็น precompiled เพื่อให้ลดเวลา compile ส่วนนี้ลง
 - additional libraries ปรับเป็น precompiled  
