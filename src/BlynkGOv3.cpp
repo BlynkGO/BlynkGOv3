@@ -332,8 +332,8 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
 
 #if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
   #if defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
-    Serial2.begin(9600, SERIAL_8N1, 35/*input only*/,22);
-    BeeNeXT.begin(&Serial2);
+    // Serial2.begin(9600, SERIAL_8N1, 35 /*input only*/ ,22);
+    // BeeNeXT.begin(&Serial2);
   #else
   // #if defined(BEENEXT_4_3) || defined(BEENEXT_4_3C) | defined(BEENEXT_4_3IPS)
     BeeNeXT.begin();  // ทั่วไปใช้ Serial เป็นจุดเชื่อมต่อกับ MCU อื่น, แต่สำหรับ ESP32S3 แบบนี้จะใช้ Serial2 ในการเชื่อมต่อ

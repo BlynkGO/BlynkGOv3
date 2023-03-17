@@ -18,30 +18,30 @@
 //--------------------------------------------------------
 
 // เปิด/ปิด การใช้งาน WiFi
-#define BLYNKGO_USE_WIFI              0       // 1 เลือกใช้ WiFi ด้วย                ; 0 ไม่เลือกใช้ WiFi ; 
+#define BLYNKGO_USE_WIFI              1       // 1 เลือกใช้ WiFi ด้วย                ; 0 ไม่เลือกใช้ WiFi ; 
 
 // เปิด/ปิด การซิงค์เวลา NTP อัตโนมัติหรือไม่
-#define BLYNKGO_USE_NTP               0       // 1 เลือกใช้ NTP Sync เวลาอัตโนมัติ ด้วย  ; 0 ไม่เลือกใช้ NTP ;   ( ถ้าใช้ NTP ให้เปิด WIFI ด้วย)
+#define BLYNKGO_USE_NTP               1       // 1 เลือกใช้ NTP Sync เวลาอัตโนมัติ ด้วย  ; 0 ไม่เลือกใช้ NTP ;   ( ถ้าใช้ NTP ให้เปิด WIFI ด้วย)
 
 // เปิด/ปิด การใช้งาน Blynk หรือไม่ (ให้ติดตั้ง BlynkBlynkGO ก่อน)
-#define BLYNKGO_USE_BLYNK             0       // 1 เลือกใช้ Blynk ด้วย               ; 0 ไม่เลือกใช้ Blynk ;  ( ถ้าใช้ Blynk ให้เปิด WIFI ด้วย)
+#define BLYNKGO_USE_BLYNK             1       // 1 เลือกใช้ Blynk ด้วย               ; 0 ไม่เลือกใช้ Blynk ;  ( ถ้าใช้ Blynk ให้เปิด WIFI ด้วย)
 
 // // เปิด/ปิด การใช้งาน Line Notify แบบ Async (ไม่สะดุดรอการเชื่อมต่อ) หรือไม่
 // #define BLYNKGO_USE_LINENOTIFY        0       // 1 เลือกใช้ Line Notify ด้วย         ; 0 ไม่เลือกใช้ Line Notify ;  ( ถ้าใช้ Line Notify ให้เปิด WIFI ด้วย)
 
 // เปิด/ปิด การใช้งาน MQTT แบบ Async (ไม่สะดุดรอการเชื่อมต่อ) หรือไม่
 // สามารถเชื่อมต่อได้ทั้งแบบ TCP, SSL/TLS, WebSocket, WebSocket Secure และมี user/password ได้
-#define BLYNKO_USE_ASYNC_MQTT32       0       // 1 เลือกใช้ MQTT ด้วย                ; 0 ไม่เลือกใช้ MQTT ;  ( ถ้าใช้ MQTT ให้เปิด WIFI ด้วย)
+#define BLYNKO_USE_ASYNC_MQTT32       1       // 1 เลือกใช้ MQTT ด้วย                ; 0 ไม่เลือกใช้ MQTT ;  ( ถ้าใช้ MQTT ให้เปิด WIFI ด้วย)
 
 // เปิด/ปิด การใช้งาน BeeNeXT ร่วมด้วย
-#define BLYNKGO_USE_BEENEXT           0
+#define BLYNKGO_USE_BEENEXT           1
 
 
 // // เปิด/ปิด การใช้งาน QR Payment โดยผ่านสื่อกลาง Global PrimePay  (GB PrimePay)
 // #define BLYNKGO_USE_QRPAYMENT         0      // 1 เลือกใช้ QR Payment ด้วย          ; 0 ไม่เลือกใช้ QR Payment ;   (ถ้าใช้ QR Payment  ให้เปิด WiFi, NTP, MQTT ด้วย )
 
 // เปิด/ปิด การใช้งาน LORA ด้วยหรือไม่
-#define BLYNKGO_USE_LORA              0       // 1 เลือกใช้ LORA ด้วย                ; 0 ไม่เลือกใช้ LORA ;
+#define BLYNKGO_USE_LORA              1       // 1 เลือกใช้ LORA ด้วย                ; 0 ไม่เลือกใช้ LORA ;
 
 // // เปิด/ปิด การใช้งาน GDatabase หรือไม่
 // #define BLYNKGO_USE_GDATABASE         0       // 1 เลือกใช้ GDatabase ด้วย           ; 0 ไม่เลือกใช้ GDatabase ; 
@@ -53,13 +53,13 @@
 // #define BLYNKGO_USE_MIC               0       // 1 เลือกใช้ Mic    ด้วย              ; 0 ไม่เลือกใช้ Mic ;     สำหรับ   TTGO T-Watch2020 v3
 
 // เปิด/ปิด การใช้งาน ButtonISR (Button Interrupt) สำหรับ GPIO-0 (ปุ่ม EN)
-#define BLYNKGO_USE_BUTTON_ISR        0       // 1 เลือกใช้ ButtonISR ด้วย GPIO-0 ด้วย; 0 ไม่เลือกใช้ ButtonISR GPIO-0 ; 
+#define BLYNKGO_USE_BUTTON_ISR        1       // 1 เลือกใช้ ButtonISR ด้วย GPIO-0 ด้วย; 0 ไม่เลือกใช้ ButtonISR GPIO-0 ; 
 
 // เปิด/ปิด การใช้งาน GPS
-#define BLYNKGO_USE_GPS               0       // 1 เลือกใช้ GPS ด้วย                 ; 0 ไม่เลือกใช้  GPS
+#define BLYNKGO_USE_GPS               1       // 1 เลือกใช้ GPS ด้วย                 ; 0 ไม่เลือกใช้  GPS
 
 // เปิด/ปิด การใช้งาน RTC DS3231 , DS3232
-#define BLYNKGO_USE_RTC_DS323X        0       // 1 เลือกใช้ RTC DS323X ด้วย          ; 0 ไม่เลือกใช้  RTC DS323X
+#define BLYNKGO_USE_RTC_DS323X        1       // 1 เลือกใช้ RTC DS323X ด้วย          ; 0 ไม่เลือกใช้  RTC DS323X
 
 // เปิด/ปิด การใช้งาน RTC DS1307
 #define BLYNKGO_USE_RTC_DS1307        0       // 1 เลือกใช้ RTC DS1307 ด้วย          ; 0 ไม่เลือกใช้  RTC DS1307

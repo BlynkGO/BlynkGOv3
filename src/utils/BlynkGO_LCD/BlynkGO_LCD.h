@@ -3,6 +3,7 @@
 
 
 #include <Arduino.h>
+#include <sdkconfig.h>
 #include "../../config/blynkgo_config.h"
 
 #if !defined(BLYNKGO_OLED)
@@ -103,7 +104,7 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
     lgfx::Panel_RA8875  _panel_instance;
 #elif defined(ILI9341_DRIVER)
     lgfx::Panel_ILI9341 _panel_instance;
-#else defined(RGB_DRIVER)
+#elif defined(RGB_DRIVER) && defined (CONFIG_IDF_TARGET_ESP32S3)
     lgfx::Panel_RGB     _panel_instance;
 #endif
 
@@ -142,7 +143,7 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
   public:
     BlynkGO_LCD(void)
     {
-#if defined(RGB_DRIVER)
+#if defined(RGB_DRIVER)  && defined (CONFIG_IDF_TARGET_ESP32S3)
       {
         auto panel_cfg            = _panel_instance.config();
         auto panel_cfg2           = _panel_instance.config_detail();
@@ -220,7 +221,7 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
         _panel_instance.setBus(&_bus_instance);
       }
 
-#else // กรณีไม่ใช่ RGB_DRIVER
+#else // กรณีไม่ใช่ RGB_DRIVER && !defined (CONFIG_IDF_TARGET_ESP32S3)
 
       {
         auto bus_cfg = _bus_instance.config();

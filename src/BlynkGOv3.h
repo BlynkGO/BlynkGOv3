@@ -38,7 +38,7 @@
 #ifndef _BLYNKGO_V3_H__
 #define _BLYNKGO_V3_H__
 
-// #define BLYNKGO_VERSION             "3.0.0 beta4"
+// #define BLYNKGO_VERSION             "3.0.0 beta5"
 
 /** Major version number (X.x.x) */
 #define BLYNKGO_VERSION_MAJOR   3

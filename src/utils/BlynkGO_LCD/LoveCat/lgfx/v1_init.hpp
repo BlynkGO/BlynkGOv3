@@ -54,3 +54,9 @@ Contributors:
 #include "v1/touch/Touch_XPT2046.hpp"
 #include "v1/touch/Touch_XPT2046_neo.hpp"  // BlynkGO
 
+//BlynkGO
+#include <sdkconfig.h>
+#if defined (CONFIG_IDF_TARGET_ESP32S3)
+#include "v1/platforms/esp32s3/Panel_RGB.hpp"
+#include "v1/platforms/esp32s3/Bus_RGB.hpp"
+#endif
