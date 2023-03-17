@@ -1,4 +1,4 @@
-#include <BlynkGOv3.h>
+#include <BlynkGOv2.h>
 
 namespace GRAPHIC {
   void design();

@@ -15,12 +15,14 @@ SoftTimer timer_sensor;
 void setup() {
   Serial.begin(9600); Serial.println();
   Serial.println("BeeNeXT : Arduino MEGA");
-
-  pinMode(LED, OUTPUT);
-  digitalWrite(LED, LED_OFF);
+  while(!Serial) delay(100);
 
   Serial2.begin(9600);                    // แบบใช้ Hardware Serial2 ขา RX2=16, TX2=17
   BeeNeXT.begin(&Serial2);                // แบบใช้ Hardware Serial2 
+  delay(100);
+
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, LED_OFF);
 
   // ตั้งเวลา ส่งค่าไปยัง ฝั่งจอ BeeNeXT 
   // ส่งไป ด้วยคำสั่ง  BeeNeXT.send( key, value );

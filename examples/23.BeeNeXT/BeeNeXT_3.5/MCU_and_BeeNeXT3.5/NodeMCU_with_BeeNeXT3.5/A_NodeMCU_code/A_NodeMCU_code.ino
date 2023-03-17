@@ -14,11 +14,11 @@ void setup() {
   Serial.begin(9600); Serial.println();
   Serial.println("BeeNeXT : NodeMCU");
 
-  pinMode(LED, OUTPUT);
-  digitalWrite(LED, LED_OFF);
-
 //  BeeNeXT.begin(&Serial); // แบบใช้ Hardware Serial (RX=0, TX=1)
   BeeNeXT.begin(D1,D2);     // แบบใช้ Software Serial (RX=D1, TX=D2)
+
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, LED_OFF);
 
   // ตั้งเวลา ส่งค่าไปยัง ฝั่งจอ BeeNeXT 
   // ส่งไป ด้วยคำสั่ง  BeeNeXT.send( key, value );

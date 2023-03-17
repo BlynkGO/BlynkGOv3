@@ -9,8 +9,12 @@ SoftTimer timer_sensor;
 void setup() {
   Serial.begin(9600); Serial.println();
   Serial.println("BeeNeXT : Arduino UNO");
+  while(!Serial) delay(100);
+
 //  BeeNeXT.begin(&Serial); // แบบใช้ Hardware Serial (RX=0, TX=1)
   BeeNeXT.begin(8,9);       // แบบใช้ Software Serial (RX=8, TX=9)
+  delay(100);
+
   pinMode(LED, OUTPUT);
   digitalWrite(LED, LED_OFF);
 
