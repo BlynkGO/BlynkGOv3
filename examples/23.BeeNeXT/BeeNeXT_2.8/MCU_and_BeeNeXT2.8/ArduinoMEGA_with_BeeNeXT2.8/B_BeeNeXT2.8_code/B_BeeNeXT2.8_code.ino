@@ -5,7 +5,7 @@
  *     
  * *******************************************************/
 
-#include <BlynkGOv2.h>
+#include <BlynkGOv3.h>
 #include "00_resource.h"
 
 void setup() {
