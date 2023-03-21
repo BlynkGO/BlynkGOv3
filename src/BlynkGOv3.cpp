@@ -98,7 +98,7 @@ static uint8_t capture_type = CAPTURE_TYPE_BMP;
 
 #if defined(BEENEXT_4_3) || defined(BEENEXT_4_3C) || defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
   #define GUI_TASK_LOOP_NUM   1
-  #define LVGL_TICK_PERIOD    50    // ms
+  #define LVGL_TICK_PERIOD    60    // ms
 #else
   #define GUI_TASK_LOOP_NUM   1
   #define LVGL_TICK_PERIOD    5    // ms
