@@ -63,6 +63,10 @@ static lv_disp_buf_t disp_buf;
 //   static lv_color_t buf[LV_HOR_RES_MAX * 60];
 #else
   static lv_color_t *_cbuf;
+  #if CONFIG_IDF_TARGET_ESP32S3
+  static lv_color_t *_cbuf2;
+  #endif
+
 #endif
 static void blynkgo_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p);
 
@@ -93,7 +97,7 @@ static uint8_t capture_type = CAPTURE_TYPE_BMP;
 #endif
 
 #if defined(BEENEXT_5_0IPS) || defined(BEENEXT_7_0IPS)
-  #define GUI_TASK_LOOP_NUM   20
+  #define GUI_TASK_LOOP_NUM   10
 #else
   #define GUI_TASK_LOOP_NUM   1
 #endif
@@ -948,11 +952,11 @@ void BlynkGOv3::blynkgo_system_init(){
   size_t buf_size = sizeof(lv_color_t)* LV_HOR_RES_MAX * 60;
   _cbuf = (lv_color_t*) esp32_malloc(buf_size);
   lv_disp_buf_init(&disp_buf, _cbuf, NULL, LV_HOR_RES_MAX * 60);  // 480/40 = 12 ครั้ง
-#elif defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
-  ESP_LOGI(TAG, "[BeeNeXT] alloc (IPS)");
-  size_t buf_size = sizeof(lv_color_t)* (800*480);
-  _cbuf = (lv_color_t*) esp32_malloc(buf_size);
-  lv_disp_buf_init(&disp_buf, _cbuf, NULL, (800*480));
+#elif defined(BEENEXT_4_3) || defined(BEENEXT_4_3C) || defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
+  ESP_LOGI(TAG, "[BeeNeXT] alloc (ESP32S3)");
+  _cbuf   = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+  _cbuf2  = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+  lv_disp_buf_init(&disp_buf, _cbuf, _cbuf2, lcd.width() * lcd.height()/ 8);
 #else
   ESP_LOGI(TAG, "[BlynkGO] full alloc");
   size_t buf_size = sizeof(lv_color_t)* lcd.width() * lcd.height();

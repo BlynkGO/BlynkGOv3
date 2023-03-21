@@ -22,7 +22,7 @@ class BlynkGO_LCD  {
 /******************************************************
  * AGFX
  *****************************************************/
-#include "./AGFX/AGFX.h"
+#include "./agfx/agfx.h"
 
 static constexpr int _TFT_BLACK       = 0x0000;      /*   0,   0,   0 */
 static constexpr int _TFT_WHITE       = 0xFFFF;      /* 255, 255, 255 */
