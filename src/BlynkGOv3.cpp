@@ -96,17 +96,18 @@ static uint8_t capture_type = CAPTURE_TYPE_BMP;
   ButtonISR BTN   = ButtonISR(0);
 #endif
 
-#if defined(BEENEXT_5_0IPS) || defined(BEENEXT_7_0IPS)
-  #define GUI_TASK_LOOP_NUM   10
+#if defined(BEENEXT_4_3) || defined(BEENEXT_4_3C) || defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
+  #define GUI_TASK_LOOP_NUM   1
+  #define LVGL_TICK_PERIOD    50    // ms
 #else
   #define GUI_TASK_LOOP_NUM   1
+  #define LVGL_TICK_PERIOD    5    // ms
 #endif
 
 /************************************
  * Define & typedef
  ************************************/
 
-#define LVGL_TICK_PERIOD    5    // ms
 
 #if defined(THAI_TEXT)
   #define TEXT_TOUCH_ARROW    "กดสัมผัสที่ลูกศร"
