@@ -2,7 +2,7 @@
 #ifndef TAMC_GT911_H
 #define TAMC_GT911_H
 
-#include <Arduino.h>
+#include "Arduino.h"
 #include <Wire.h>
 
 #define GT911_ADDR1 (uint8_t)0x5D
@@ -152,6 +152,8 @@ class TAMC_GT911 {
   public:
     TAMC_GT911() {} //BlynkGO
     TAMC_GT911(uint8_t _sda, uint8_t _scl, uint8_t _int, uint8_t _rst, uint16_t _width, uint16_t _height);
+
+    //BlynkGO
     void begin(uint8_t _sda, uint8_t _scl, uint8_t _int, uint8_t _rst, uint16_t _width, uint16_t _height,uint8_t _addr=GT911_ADDR1);
     void begin(uint8_t _addr=GT911_ADDR1);
     void reset();
@@ -165,6 +167,26 @@ class TAMC_GT911 {
     bool isTouched = false;
     // uint8_t gesture = NO_GESTURE;
     TP_Point points[5];
+
+    template <typename T>
+    uint_fast8_t getTouch(T *x, T *y)
+    {      
+      T _x, _y;
+      this->read();
+      if (this->isTouched){
+        _x = map(this->points[0].x, this->width , 0, 0, this->width  - 1);
+        _y = map(this->points[0].y, this->height, 0, 0, this->height - 1);
+        if( _x >=0 && _y >=0) {
+            *x = _x;
+            *y = _y;
+            return 1;
+        }
+        return 0;
+      }
+      else{
+        return 0;
+      }
+    }
 
   private:
     void calculateChecksum();

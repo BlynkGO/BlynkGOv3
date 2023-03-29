@@ -52,7 +52,21 @@ static BlynkGOv3  *pBlynkGO=NULL;
   #endif
   uint8_t _oled_threshold=128;
 #else
-  BlynkGO_LCD lcd;
+  #if defined(BLYNKGO_USE_AGFX) && (BLYNKGO_USE_AGFX==1)  // ใช้ AGFX 
+    BlynkGO_LCD lcd(TFT_WIDTH, TFT_HEIGHT, 2,
+      new Arduino_ESP32RGBPanel(
+        TFT_HENABLE /* DE */, TFT_VSYNC /* VSYNC */, TFT_HSYNC /* HSYNC */, TFT_PCLK /* PCLK */,
+        TFT_R0 /* R0 */, TFT_R1 /* R1 */, TFT_R2 /* R2 */, TFT_R3 /* R3 */, TFT_R4 /* R4 */,
+        TFT_G0 /* G0 */, TFT_G1 /* G1 */, TFT_G2 /* G2 */, TFT_G3 /* G3 */, TFT_G4 /* G4 */, TFT_G5 /* G5 */,
+        TFT_B0 /* B0 */, TFT_B1 /* B1 */, TFT_B2 /* B2 */, TFT_B3 /* B3 */, TFT_B4 /* B4 */,
+        TFT_HSYNC_POLARITY /* hsync_polarity */, TFT_HSYNC_FRONT_PORCH /* hsync_front_porch */, TFT_HSYNC_PULSE_WIDTH /* hsync_pulse_width */, TFT_HSYNC_BACK_PORCH /* hsync_back_porch */,
+        TFT_VSYNC_POLARITY /* vsync_polarity */, TFT_VSYNC_FRONT_PORCH /* vsync_front_porch */, TFT_VSYNC_PULSE_WIDTH /* vsync_pulse_width */, TFT_VSYNC_BACK_PORCH /* vsync_back_porch */,
+        TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, 16000000 /* prefer_speed */),
+      new TAMC_GT911( TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT)
+    );
+  #else
+    BlynkGO_LCD lcd;
+  #endif
 #endif
 
 static lv_indev_t * indev  =NULL;
@@ -861,7 +875,16 @@ static void blynkgo_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_co
 {
   //  lcd.drawBitmap(area->x1, area->y1, area->x2, area->y2, (uint16_t *)color_p);                    // copy 'color_array' to the specifed coordinates
   //  lv_disp_flush_ready(disp);  
-  
+
+#if defined(BLYNKGO_USE_AGFX) && BLYNKGO_USE_AGFX
+
+  uint32_t w = (area->x2 - area->x1 + 1);
+  uint32_t h = (area->y2 - area->y1 + 1);
+  lcd.draw16bitRGBBitmap(area->x1, area->y1, (uint16_t *)&color_p->full, w, h);
+  lv_disp_flush_ready(disp);
+
+#else
+
 #if defined(BLYNKGO_OLED)
 #else
   int w = (area->x2 - area->x1 + 1);
@@ -921,6 +944,9 @@ static void blynkgo_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_co
   lcd.endWrite();            /* terminate TFT transaction */
 #endif
   lv_disp_flush_ready(disp); /* tell lvgl that flushing is done */
+
+#endif //#if defined(BLYNKGO_USE_AGFX) && BLYNKGO_USE_AGFX
+
 }
 
 

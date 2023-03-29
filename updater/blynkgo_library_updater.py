@@ -2,7 +2,7 @@ import os
 from sys import platform
 import shutil
 
-blynkgo_ver="3.0.0 beta5"
+blynkgo_ver="3.0.0 beta6"
 
 
 print("")

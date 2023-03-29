@@ -75,6 +75,8 @@ class GObject {
     GWidget*    child(bool start=false);
     GWidget*    child_back(bool start=false);
     uint16_t    child_num();
+    uint16_t    child_num_recursive();
+    void        child_del_recursive();
 
     /* -------- Call Back API ------------ */
     void        event_main(event_t event);

@@ -31,14 +31,22 @@
  *   [V3.0.0 beta 4] @28/02/23
  *     - เพิ่ม BlynkGO.autoNTP(true/false);
  *     - BlynkGO Enterprise 5" แบบ old และ jst
- *     
+ *   [V3.0.0 beta 5]
+ *     - ปรับ แยก driver จอ/สัมผัส ออกมาเป็น static precompiled เพื่อทำให้ compile เร็วขึ้น
+ *   [V3.0.0 beta 6] @25/03/23 -29/03/23
+ *     - เพิ่ม GCanvas และมีเพิ่ม GCanvas สามารถ drawQRCode(..) ได้ดว้ย
+ *     - GCanvas มี API คำสั่ง getThermalPrinterBuffer(..) สำหรับสร้าง buffer ออก thermal printer ได้
+ *     - เพิ่ม agfx core ด้วย
+ *     - GObject เพิ่ม child_num_recursive() และ child_del_recursive() และ ระบบ widget_del() 
+ *       ยังไม่ได้มีการปรับ del() ของแต่ละวิตเจ็ต
+ *
  *********************************************************************
  */
 
 #ifndef _BLYNKGO_V3_H__
 #define _BLYNKGO_V3_H__
 
-// #define BLYNKGO_VERSION             "3.0.0 beta5"
+// #define BLYNKGO_VERSION             "3.0.0 beta6"
 
 /** Major version number (X.x.x) */
 #define BLYNKGO_VERSION_MAJOR   3

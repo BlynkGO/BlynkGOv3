@@ -19,6 +19,7 @@
 
 
 #include "GObject.h"
+#include "GWidgets.h"
 
 #define LV_OBJX_NAME  "GObject" 
 
@@ -213,6 +214,28 @@ GWidget* GObject::child_back(bool start){
 uint16_t GObject::child_num(){
   if(!isCreated()) create();
   return lv_obj_count_children(this->obj);
+}
+
+uint16_t GObject::child_num_recursive(){
+  if(!isCreated()) create();
+  return lv_obj_count_children_recursive(this->obj);
+}
+
+void GObject::child_del_recursive(){
+  if(!isCreated()) return;
+  Serial.println(this->child_num());
+  GWidget* child = this->child(true);
+  while(child){
+    Serial.println(child->type());
+    String    widget_type = child->type();
+    uint16_t  child_num   = child->child_num();
+    if( ( widget_type=="GButton" && child_num > 1) || (widget_type != "GButton" && child_num >= 1 ) ) {
+      child->child_del_recursive(); //recursive del
+    }else{
+      widget_del(child);
+      child = this->child();
+    }
+  }
 }
 
 void GObject::event_cb(event_cb_t event_cb){

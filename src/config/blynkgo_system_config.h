@@ -772,36 +772,50 @@
   #define ROTATE_TYPE             0 //3
   #define OFFSET_ROTATION         0
   #define BLYNKGO_USE_SD          1
-  #define BLYNKGO_USE_AGFX        0
+  #define BLYNKGO_USE_AGFX        1
 
   #define RGB_DRIVER
   #define TFT_RGB_BUS
   #define TFT_WIDTH               800
   #define TFT_HEIGHT              480
   #define TFT_BL                  2
-  #define TFT_B0                  GPIO_NUM_8
-  #define TFT_B1                  GPIO_NUM_3
-  #define TFT_B2                  GPIO_NUM_46
-  #define TFT_B3                  GPIO_NUM_9
-  #define TFT_B4                  GPIO_NUM_1
-  #define TFT_G0                  GPIO_NUM_5
-  #define TFT_G1                  GPIO_NUM_6
-  #define TFT_G2                  GPIO_NUM_7
-  #define TFT_G3                  GPIO_NUM_15
-  #define TFT_G4                  GPIO_NUM_16
-  #define TFT_G5                  GPIO_NUM_4
-  #define TFT_R0                  GPIO_NUM_45
-  #define TFT_R1                  GPIO_NUM_48
+  //--------------------------------------------
+  #define TFT_R0                  GPIO_NUM_14
+  #define TFT_R1                  GPIO_NUM_21
   #define TFT_R2                  GPIO_NUM_47
-  #define TFT_R3                  GPIO_NUM_21
-  #define TFT_R4                  GPIO_NUM_14
-
-  #define TFT_HENABLE             GPIO_NUM_40
-  #define TFT_VSYNC               GPIO_NUM_41
+  #define TFT_R3                  GPIO_NUM_48
+  #define TFT_R4                  GPIO_NUM_45
+  //--------------------------------------------
+  #define TFT_G0                  GPIO_NUM_9
+  #define TFT_G1                  GPIO_NUM_46
+  #define TFT_G2                  GPIO_NUM_3
+  #define TFT_G3                  GPIO_NUM_8
+  #define TFT_G4                  GPIO_NUM_16
+  #define TFT_G5                  GPIO_NUM_1
+  //--------------------------------------------
+  #define TFT_B0                  GPIO_NUM_15
+  #define TFT_B1                  GPIO_NUM_7
+  #define TFT_B2                  GPIO_NUM_6
+  #define TFT_B3                  GPIO_NUM_5
+  #define TFT_B4                  GPIO_NUM_4
+  //--------------------------------------------
+  
+  #define TFT_HENABLE             GPIO_NUM_41
+  #define TFT_VSYNC               GPIO_NUM_40
   #define TFT_HSYNC               GPIO_NUM_39
   #define TFT_PCLK                GPIO_NUM_42
 
-  
+  //--------------------------------------------
+  #define TFT_HSYNC_POLARITY      0
+  #define TFT_HSYNC_FRONT_PORCH   210
+  #define TFT_HSYNC_PULSE_WIDTH   30
+  #define TFT_HSYNC_BACK_PORCH    16
+  #define TFT_VSYNC_POLARITY      0
+  #define TFT_VSYNC_FRONT_PORCH   22
+  #define TFT_VSYNC_PULSE_WIDTH   13
+  #define TFT_VSYNC_BACK_PORCH    10
+  #define TFT_PCLK_IDLE_HIGH      1
+  //--------------------------------------------
   
   #define SD_FSPI_MODE
   #define SD_CS                   10       // SD Chip Select
@@ -816,6 +830,7 @@
   #define TOUCH_I2C_SCL           20
   #define TOUCH_INT               -1
   #define TOUCH_RST               38
+
 
 #endif
 

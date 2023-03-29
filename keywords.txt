@@ -1,4 +1,4 @@
-#######################################
+﻿#######################################
 # Syntax Coloring Map LowPower
 #######################################
 
@@ -217,6 +217,7 @@ isProtected	KEYWORD2
 child	KEYWORD2
 child_back	KEYWORD2
 child_num	KEYWORD2
+child_num_recursive	KEYWORD2
 sameWith	KEYWORD2
 setTitle	KEYWORD2
 
@@ -671,6 +672,7 @@ drawHLine	KEYWORD2
 drawVLine	KEYWORD2
 drawRect	KEYWORD2
 drawText	KEYWORD2
+drawQRCode	KEYWORD2
 maskRect	KEYWORD2
 drawRoundRect	KEYWORD2
 fillRoundRect	KEYWORD2
@@ -691,7 +693,39 @@ alpha	KEYWORD2
 drawImage	KEYWORD2
 palette	KEYWORD2
 color_format	KEYWORD2
-
+plotLine	KEYWORD2
+plotLineAA	KEYWORD2
+plotLineWidth	KEYWORD2
+plotCircleAA	KEYWORD2
+plotCircleWidth	KEYWORD2
+plotEllipseRect	KEYWORD2
+plotEllipseRectAA	KEYWORD2
+plotEllipseRectWidth	KEYWORD2
+plotRotatedEllipseRect	KEYWORD2
+plotRotatedEllipse	KEYWORD2
+plotRotatedEllipseRectAA	KEYWORD2
+plotRotatedEllipseAA	KEYWORD2
+plotRotatedEllipseWidth	KEYWORD2
+plotRotatedEllipseRectWidth	KEYWORD2
+plotQuadRationalBezierSeg	KEYWORD2
+plotQuadRationalBezier	KEYWORD2
+plotQuadRationalBezierSegAA	KEYWORD2
+plotQuadRationalBezierAA	KEYWORD2
+plotQuadRationalBezierWidthSeg	KEYWORD2
+plotQuadRationalBezierWidth	KEYWORD2
+plotQuadBezierSeg	KEYWORD2
+plotQuadBezier	KEYWORD2
+plotQuadBezierSegAA	KEYWORD2
+plotQuadBezierAA	KEYWORD2
+plotCubicBezierSeg	KEYWORD2
+plotCubicBezier	KEYWORD2
+plotCubicBezierSegAA	KEYWORD2
+plotCubicBezierAA	KEYWORD2
+plotCubicBezierWidth	KEYWORD2
+plotCubicBezierSegWidth	KEYWORD2
+plotQuadSpline	KEYWORD2
+plotCubicSpline	KEYWORD2
+getThermalPrinterBuffer	KEYWORD2
 
 # GArc
 radius	KEYWORD2
@@ -1664,6 +1698,8 @@ lv_triangle_create	KEYWORD2
 lv_aqi_create	KEYWORD2
 
 free_widget	KEYWORD2
+widget_del	KEYWORD2
+child_recursive_del	KEYWORD2
 
 TFT_COLOR	KEYWORD2
 TFT_COLOR_MIX	KEYWORD2

@@ -35,7 +35,7 @@
 #include "GButtonMatrix.h"
   // #include "GCalendar.h"
 // #include "GCamera.h"  // ESP32core 2.0.3 ไม่พบ fd_forward.h ที่เป็นส่วน ESP32 Cam face detection
-// #include "GCanvas.h"
+#include "GCanvas.h"
 #include "GChart.h"
 #include "GCheckBox.h"
 #include "GCircle.h"
@@ -117,6 +117,9 @@ extern GObject GScreen;
  * API สำหรับ จากคืนเม็มโมรี่ ที่จองบน PSRAM
  **************************************/
 void free_widget(GWidget*widget);
+void widget_del(GWidget* widget);
+// void child_del_recursive(GWidget* widget);
+
 
 /**************************************
  * API สำหรับ จากจอง (allocation) วิตเจ็ตบน PSRAM
@@ -148,8 +151,8 @@ GButtonMatrix*  new_GButtonMatrix(GWidget *parent);
 // GCamera*        new_GCamera(GWidget& parent=GScreen);
 // GCamera*        new_GCamera(GWidget *parent);
 
-// GCanvas*        new_GCanvas(GWidget& parent=GScreen);
-// GCanvas*        new_GCanvas(GWidget *parent);
+GCanvas*        new_GCanvas(GWidget& parent=GScreen);
+GCanvas*        new_GCanvas(GWidget *parent);
 
 GChart*         new_GChart(GWidget& parent=GScreen);
 GChart*         new_GChart(GWidget *parent);

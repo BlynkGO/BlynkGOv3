@@ -23,67 +23,43 @@ class BlynkGO_LCD  {
  * AGFX
  *****************************************************/
 #include "./agfx/agfx.h"
+#include "./LoveCat/lgfx/v1/touch/TAMC_GT911/TAMC_GT911.h"
 
 static constexpr int _TFT_BLACK       = 0x0000;      /*   0,   0,   0 */
 static constexpr int _TFT_WHITE       = 0xFFFF;      /* 255, 255, 255 */
 
-class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
+class BlynkGO_LCD : public Arduino_RGB_Display {
   public:
-    BlynkGO_LCD(
-      Arduino_ESP32RGBPanel *bus,
-      int16_t w, uint16_t hsync_polarity, uint16_t hsync_front_porch, uint16_t hsync_pulse_width, uint16_t hsync_back_porch,
-      int16_t h, uint16_t vsync_polarity, uint16_t vsync_front_porch, uint16_t vsync_pulse_width, uint16_t vsync_back_porch,
-      uint16_t pclk_active_neg = 0, int32_t prefer_speed = GFX_NOT_DEFINED, bool auto_flush = true)
-    : Arduino_RPi_DPI_RGBPanel(bus, w, hsync_polarity, hsync_front_porch, hsync_pulse_width, hsync_back_porch,
-                                    h, vsync_polarity, vsync_front_porch, vsync_pulse_width, vsync_back_porch, 
-                                    pclk_active_neg, prefer_speed, auto_flush) {}
-
-    BlynkGO_LCD() : Arduino_RPi_DPI_RGBPanel( new Arduino_ESP32RGBPanel(
-        GFX_NOT_DEFINED /* CS */, GFX_NOT_DEFINED /* SCK */, GFX_NOT_DEFINED /* SDA */,
-        40 /* DE */, 41 /* VSYNC */, 39 /* HSYNC */, 42 /* PCLK */,
-        45 /* R0 */, 48 /* R1 */, 47 /* R2 */, 21 /* R3 */, 14 /* R4 */,
-        5 /* G0 */, 6 /* G1 */, 7 /* G2 */, 15 /* G3 */, 16 /* G4 */, 4 /* G5 */,
-        8 /* B0 */, 3 /* B1 */, 46 /* B2 */, 9 /* B3 */, 1 /* B4 */ ),
-      800 /* width */, 0 /* hsync_polarity */, 8 /* hsync_front_porch */, 4 /* hsync_pulse_width */, 8 /* hsync_back_porch */,
-      480 /* height */, 0 /* vsync_polarity */, 8 /* vsync_front_porch */, 4 /* vsync_pulse_width */, 8 /* vsync_back_porch */,
-      1 /* pclk_active_neg */, 16000000 /* prefer_speed */, true /* auto_flush */)  {}
-
-    inline void init() { 
-      pinMode(_bl_pin, OUTPUT);
-      digitalWrite(_bl_pin, HIGH);
-      Arduino_RPi_DPI_RGBPanel::begin();
+    BlynkGO_LCD( int16_t w, int16_t h, uint8_t pin_bl, Arduino_ESP32RGBPanel *rgbpanel, TAMC_GT911* touch=NULL) :
+      Arduino_RGB_Display(w,h,rgbpanel), _bl(pin_bl),_ts(touch)
+    { 
+      pinMode(_bl,OUTPUT); digitalWrite(_bl,HIGH);
     }
+    void begin(){
+      Arduino_RGB_Display::begin();
+      Serial.println("[Touch] test");
+      if(_ts==NULL) { _ts = new TAMC_GT911(TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT); }
+      if(_ts)       { _ts->begin(); _ts->setRotation(3); }
+    }
+    inline void init()      { begin(); }
+    template <typename T>
+    uint_fast8_t getTouch(T *x, T *y)
+    {
+      return (_ts==NULL)? 0 : _ts->getTouch(x,y);
+    }
+
+    inline void drawString(const char* str, int16_t x, int16_t y)   { this->setCursor(x, y); this->print(str); }
+    inline void wakeup()   {}
+    inline void sleep()    {}
+    inline void setBrightness(uint8_t brightness)  {}
+    inline uint8_t getBrightness()                 { return 0; }
     
-    inline void drawString(const char* str, int16_t x, int16_t y)   { Arduino_RPi_DPI_RGBPanel::setCursor(x, y);  Arduino_RPi_DPI_RGBPanel::print(str); }
- 
-    int16_t _windows_x, _windows_y, _windows_w, _windows_h;
-    int16_t _xx,_yy, _cx, _cy;
-
-    inline void setAddrWindow(int16_t x, int16_t y, int16_t w, int16_t h)  { 
-      _windows_x  = x; _windows_y  = y; _windows_w = w; _windows_h = h; _xx=0; _yy=0; _cx = _windows_x + _xx; _cy = _windows_y + _yy;
-    }
-    
-    void writeColor( uint16_t color, uint16_t num) {
-        if(_xx >= _windows_w -1 && _yy >= _windows_h-1) return;
-        
-        Arduino_RPi_DPI_RGBPanel::writePixel( _cx, _cy, color);
-        if( ++_xx >= _windows_w) {_xx = _xx - _windows_w; _yy++; }
-        _cx = constrain(_windows_x + _xx ,0 , width()); 
-        _cy = constrain(_windows_y + _yy ,0 , height());
-        if( num-1 > 0 ) writeColor(color, num-1);
-    }
-
-
-    bool getTouch(int32_t* x, int32_t*y)                            { *x = 0; *y=0; return false; }
-
-    void wakeup()   {}
-    void sleep()    {}
-    void setBrightness(uint8_t brightness)                          {}
-    uint8_t getBrightness()                                         { return 0; }
-
+    TAMC_GT911 *_ts = NULL;
   private:
-    uint8_t _bl_pin = 2;
+    uint8_t _bl=2;
 };
+
+
 
 #else // ใช้ LoveCat
 /******************************************************
@@ -161,51 +137,53 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
       {
         auto bus_cfg = _bus_instance.config();
         bus_cfg.panel             = &_panel_instance;
-        // bus_cfg.pin_d0            = TFT_B0;  // B0
-        // bus_cfg.pin_d1            = TFT_B1;  // B1
-        // bus_cfg.pin_d2            = TFT_B2;  // B2
-        // bus_cfg.pin_d3            = TFT_B3;  // B3
-        // bus_cfg.pin_d4            = TFT_B4;  // B4
-        // bus_cfg.pin_d5            = TFT_G0;  // G0
-        // bus_cfg.pin_d6            = TFT_G1;  // G1
-        // bus_cfg.pin_d7            = TFT_G2;  // G2
-        // bus_cfg.pin_d8            = TFT_G3;  // G3
-        // bus_cfg.pin_d9            = TFT_G4;  // G4
-        // bus_cfg.pin_d10           = TFT_G5;  // G5
-        // bus_cfg.pin_d11           = TFT_R0;  // R0
-        // bus_cfg.pin_d12           = TFT_R1;  // R1
-        // bus_cfg.pin_d13           = TFT_R2;  // R2
-        // bus_cfg.pin_d14           = TFT_R3;  // R3
-        // bus_cfg.pin_d15           = TFT_R4;  // R4
 
-        // bus_cfg.pin_henable       = TFT_HENABLE;
-        // bus_cfg.pin_vsync         = TFT_VSYNC;
-        // bus_cfg.pin_hsync         = TFT_HSYNC;
-        // bus_cfg.pin_pclk          = TFT_PCLK;
-        // bus_cfg.freq_write        = 16000000;
+        bus_cfg.pin_d0            = TFT_B0;  // B0
+        bus_cfg.pin_d1            = TFT_B1;  // B1
+        bus_cfg.pin_d2            = TFT_B2;  // B2
+        bus_cfg.pin_d3            = TFT_B3;  // B3
+        bus_cfg.pin_d4            = TFT_B4;  // B4
+        bus_cfg.pin_d5            = TFT_G0;  // G0
+        bus_cfg.pin_d6            = TFT_G1;  // G1
+        bus_cfg.pin_d7            = TFT_G2;  // G2
+        bus_cfg.pin_d8            = TFT_G3;  // G3
+        bus_cfg.pin_d9            = TFT_G4;  // G4
+        bus_cfg.pin_d10           = TFT_G5;  // G5
+        bus_cfg.pin_d11           = TFT_R0;  // R0
+        bus_cfg.pin_d12           = TFT_R1;  // R1
+        bus_cfg.pin_d13           = TFT_R2;  // R2
+        bus_cfg.pin_d14           = TFT_R3;  // R3
+        bus_cfg.pin_d15           = TFT_R4;  // R4
 
-        bus_cfg.pin_d0  = GPIO_NUM_8;  // B0
-        bus_cfg.pin_d1  = GPIO_NUM_3;  // B1
-        bus_cfg.pin_d2  = GPIO_NUM_46; // B2
-        bus_cfg.pin_d3  = GPIO_NUM_9;  // B3
-        bus_cfg.pin_d4  = GPIO_NUM_1;  // B4
-        bus_cfg.pin_d5  = GPIO_NUM_5;  // G0
-        bus_cfg.pin_d6  = GPIO_NUM_6;  // G1
-        bus_cfg.pin_d7  = GPIO_NUM_7;  // G2
-        bus_cfg.pin_d8  = GPIO_NUM_15; // G3
-        bus_cfg.pin_d9  = GPIO_NUM_16; // G4
-        bus_cfg.pin_d10 = GPIO_NUM_4;  // G5
-        bus_cfg.pin_d11 = GPIO_NUM_45; // R0
-        bus_cfg.pin_d12 = GPIO_NUM_48; // R1
-        bus_cfg.pin_d13 = GPIO_NUM_47; // R2
-        bus_cfg.pin_d14 = GPIO_NUM_21; // R3
-        bus_cfg.pin_d15 = GPIO_NUM_14; // R4
+        bus_cfg.pin_henable       = TFT_HENABLE;
+        bus_cfg.pin_vsync         = TFT_VSYNC;
+        bus_cfg.pin_hsync         = TFT_HSYNC;
+        bus_cfg.pin_pclk          = TFT_PCLK;
+        bus_cfg.freq_write        = 16000000;
 
-        bus_cfg.pin_henable = GPIO_NUM_40;
-        bus_cfg.pin_vsync   = GPIO_NUM_41;
-        bus_cfg.pin_hsync   = GPIO_NUM_39;
-        bus_cfg.pin_pclk    = GPIO_NUM_42;
-        bus_cfg.freq_write  = 16000000;
+        // OK===============
+        // bus_cfg.pin_d0  = GPIO_NUM_8;  // B0
+        // bus_cfg.pin_d1  = GPIO_NUM_3;  // B1
+        // bus_cfg.pin_d2  = GPIO_NUM_46; // B2
+        // bus_cfg.pin_d3  = GPIO_NUM_9;  // B3
+        // bus_cfg.pin_d4  = GPIO_NUM_1;  // B4
+        // bus_cfg.pin_d5  = GPIO_NUM_5;  // G0
+        // bus_cfg.pin_d6  = GPIO_NUM_6;  // G1
+        // bus_cfg.pin_d7  = GPIO_NUM_7;  // G2
+        // bus_cfg.pin_d8  = GPIO_NUM_15; // G3
+        // bus_cfg.pin_d9  = GPIO_NUM_16; // G4
+        // bus_cfg.pin_d10 = GPIO_NUM_4;  // G5
+        // bus_cfg.pin_d11 = GPIO_NUM_45; // R0
+        // bus_cfg.pin_d12 = GPIO_NUM_48; // R1
+        // bus_cfg.pin_d13 = GPIO_NUM_47; // R2
+        // bus_cfg.pin_d14 = GPIO_NUM_21; // R3
+        // bus_cfg.pin_d15 = GPIO_NUM_14; // R4
+
+        // bus_cfg.pin_henable = GPIO_NUM_40;
+        // bus_cfg.pin_vsync   = GPIO_NUM_41;
+        // bus_cfg.pin_hsync   = GPIO_NUM_39;
+        // bus_cfg.pin_pclk    = GPIO_NUM_42;
+        // bus_cfg.freq_write  = 16000000;
 
         bus_cfg.hsync_polarity    = TFT_HSYNC_POLARITY;//0;
         bus_cfg.hsync_front_porch = TFT_HSYNC_FRONT_PORCH;//8;
