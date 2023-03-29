@@ -149,13 +149,13 @@ class GCanvas : public GObject {
 
     inline color_t* buffer()        { return cbuf; }
 
+    color_t *cbuf = NULL;
   protected:
     uint16_t _w=0, _h=0;
     bool _has_alpha;
     bool _fill_transp=false;
     img_t src_dsc;
     bool src_dsc_created = false;
-    color_t *cbuf = NULL;
 
     void setPixel(int x, int y, uint16_t color);
     void setPixelAA(int x, int y, uint16_t color, uint8_t aa);
