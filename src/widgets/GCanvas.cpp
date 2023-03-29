@@ -2201,7 +2201,7 @@ void GCanvas::getThermalPrinterBuffer(uint8_t* &buffer, bool invert_color){
 
   for (int y = 0; y < h; y++) {
     for (int x = 0; x < w; x++) {
-      uint16_t color16 = canvas.cbuf[y * w + x];
+      uint16_t color16 = this->cbuf[y * w + x];
       uint8_t brightness = (uint8_t)((0.299 * ((color16 >> 11) & 0x1F) + 0.587 * ((color16 >> 5) & 0x3F) + 0.114 * (color16 & 0x1F)) / 255.0 * 7.0);
       buffer[y * ((w + 7) / 8) + x / 8] |= (brightness << (7 - x % 8));
     }
