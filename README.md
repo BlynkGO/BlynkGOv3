@@ -1,6 +1,15 @@
 # BlynkGOv3
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)
 
+## Version 3.0.0 beta6  
+ให้ติดตั้งด้วย BlynkGO SDK version3.0.6 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
+
+ - เพิ่ม GCanvas และมีเพิ่ม GCanvas สามารถ drawQRCode(..) ได้ด้วย
+ - GCanvas มี API คำสั่ง getThermalPrinterBuffer(..) สำหรับสร้าง buffer ออก thermal printer ได้
+ - เพิ่ม agfx core ด้วย
+ - GObject เพิ่ม child_num_recursive() และ child_del_recursive() และ ระบบ widget_del()  
+   ยังไม่ได้มีการปรับ del() ของแต่ละวิตเจ็ต
+
 ## Version 3.0.0 beta5  
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.5 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
 
