@@ -982,8 +982,9 @@ void BlynkGOv3::blynkgo_system_init(){
 #elif defined(BEENEXT_4_3) || defined(BEENEXT_4_3C) || defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
   ESP_LOGI(TAG, "[BeeNeXT] alloc (ESP32S3)");
   _cbuf   = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
-  _cbuf2  = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
-  lv_disp_buf_init(&disp_buf, _cbuf, _cbuf2, lcd.width() * lcd.height()/ 8);
+  // _cbuf2  = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+  // lv_disp_buf_init(&disp_buf, _cbuf, _cbuf2, lcd.width() * lcd.height()/ 8);
+  lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()/ 8);
 #else
   ESP_LOGI(TAG, "[BlynkGO] full alloc");
   size_t buf_size = sizeof(lv_color_t)* lcd.width() * lcd.height();
