@@ -30,7 +30,7 @@ Adafruit_I2CDevice::Adafruit_I2CDevice(uint8_t addr, TwoWire *theWire) {
  *    @return True if I2C initialized and a device with the addr found
  */
 bool Adafruit_I2CDevice::begin(bool addr_detect) {
-  // _wire->begin();
+  // _wire->begin();  // BlynkGO
   _begun = true;
 
   if (addr_detect) {
