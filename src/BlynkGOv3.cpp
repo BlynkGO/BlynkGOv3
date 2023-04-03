@@ -318,31 +318,44 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
 #if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
   this->ledRGB(0,0,0); // ให้ ledทำงานแบบดับสนิท
 #else
+
 #if BLYNKGO_USE_RTC_DS323X || BLYNKGO_USE_RTC_DS1307 || BLYNKGO_USE_RTC_PCF8523 || BLYNKGO_USE_RTC_PCF8563
+
+#if BLYNKGO_USE_RTC_DS323X  
+    const char* rtc_type = "DS323X";
+#elif BLYNKGO_USE_RTC_DS1307
+    const char* rtc_type = "DS1307";
+#elif BLYNKGO_USE_RTC_PCF8523
+    const char* rtc_type = "PCF8523";
+#elif BLYNKGO_USE_RTC_PCF8563
+    const char* rtc_type = "PCF8563";
+#else
+    const char* rct_type = "";
+#endif
+
   #if defined(RTC_I2C_SDA)  && defined(RTC_I2C_SCL) // แบบกำหนดขา I2C แยกจาก Touch I2C
+    Serial.printf("[RTC] %s on I2C Wire (%d,%d)\n", rtc_type, RTC_I2C_SDA, RTC_I2C_SCL);
     Wire.begin(RTC_I2C_SDA, RTC_I2C_SCL);
-    this->RTC.begin( &Wire);  // เรียกใช้ Wire1.begin(..)
-  #elif defined(TOUCH_I2C_SCA) && defined(TOUCH_I2C_SCL) 
+    bool rtc_ret = this->RTC.begin( &Wire);  // เรียกใช้ Wire1.begin(..)
+  #elif defined(TOUCH_I2C_SDA) && defined(TOUCH_I2C_SCL) 
     // ภายใน Wire1 ของ Touch I2C ได้มีการ begin แล้ว จึงไม่ต้อง เรียก Wire1.begin(..) อีก
-    this->RTC.begin( &Wire1 );  // แบบใช้ Wire I2C ขาร่วมกับ Touch I2C  // Wire ของ Touch มีการ begin(...) ไปก่อนแล้ว
+    Serial.printf("[RTC] %s on Touch I2C Wire1 (%d,%d)\n", rtc_type, TOUCH_I2C_SDA, TOUCH_I2C_SCL);
+    bool rtc_ret = this->RTC.begin( &Wire1 );  // แบบใช้ Wire I2C ขาร่วมกับ Touch I2C  // Wire ของ Touch มีการ begin(...) ไปก่อนแล้ว
+  #else
+    bool rtc_ret = false;
   #endif
 
   // คำสั่งของ TimeLib.h
-  setSyncProvider(rtc_timestamp);
-  if (timeStatus() != timeSet){
-    Serial.println("[RTC] Unable to sync system time with the RTC");
-  }
-  else{
-
-#if BLYNKGO_USE_RTC_DS323X  
-    Serial.printf("[RTC] DS323x inited to system time! --> %02d/%02d/%04d %02d:%02d:%02d\n", day(), month(),year(), hour(), minute(), second());
-#elif BLYNKGO_USE_RTC_DS1307
-    Serial.printf("[RTC] DS1307 inited to system time! --> %02d/%02d/%04d %02d:%02d:%02d\n", day(), month(),year(), hour(), minute(), second());
-#elif BLYNKGO_USE_RTC_PCF8523
-    Serial.printf("[RTC] PCF8523 inited to system time! --> %02d/%02d/%04d %02d:%02d:%02d\n", day(), month(),year(), hour(), minute(), second());
-#elif BLYNKGO_USE_RTC_PCF8563
-    Serial.printf("[RTC] PCF8563 inited to system time! --> %02d/%02d/%04d %02d:%02d:%02d\n", day(), month(),year(), hour(), minute(), second());
-#endif
+  if(rtc_ret) {
+    setSyncProvider(rtc_timestamp);
+    if (timeStatus() != timeSet){
+      Serial.println("[RTC] Unable to sync system time with the RTC");
+    }
+    else{
+      Serial.printf("[RTC] %s inited to system time! --> %02d/%02d/%04d %02d:%02d:%02d\n", rtc_type, day(), month(),year(), hour(), minute(), second());
+    }
+  }else{
+    Serial.println("[RTC] init failed");
   }
 #endif // #if BLYNKGO_USE_RTC_DS323X || BLYNKGO_USE_RTC_DS1307 || BLYNKGO_USE_RTC_PCF8523 || BLYNKGO_USE_RTC_PCF8563
 

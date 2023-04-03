@@ -2,7 +2,7 @@ import os
 from sys import platform
 import shutil
 
-blynkgo_ver="3.0.0 beta6"
+blynkgo_ver="3.0.0 beta7"
 
 
 print("")
@@ -101,7 +101,7 @@ else:
     print("              Please contact blynkgo@gmail.com")
     print()
     print("***************************************************************")
-    print("Open File Explorer : \n  --> " + _esp32_basedir)
+    print("Open File Explorer : \n  --> " + ide_esp32_basedir)
     print("\nand DELETE the folder [v" + "] or folder [v".join(esp32core_version_list)+ "]")
     print("And then install BlynkGO-SDK again.")
 
@@ -110,7 +110,7 @@ else:
     if platform == "darwin" :
       esp32_core_version  = esp32core_version_list[1]
     print("ESP32 Core Version : " + esp32_core_version)
-    esp32_core_folder   = _esp32_basedir + "/" + esp32_core_version
+    esp32_core_folder   = ide_esp32_basedir + "/" + esp32_core_version
     if platform == "win32":
       esp32_core_folder = esp32_core_folder.replace("/","\\")
 

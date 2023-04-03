@@ -251,7 +251,11 @@
 
 //------------------------------------------------
 #if defined BLYNKGO_EMMA_II
-  #define BLYNKGO_BOARD_NAME      "BlynkGO EMMA II (TFT 3.5 Capacitive Flash 16MB PSRAM 8MB)"
+  #if defined EMMA16MB
+    #define BLYNKGO_BOARD_NAME      "BlynkGO EMMA II (TFT 3.5 Capacitive Flash 16MB PSRAM 8MB)"
+  #else
+    #define BLYNKGO_BOARD_NAME      "BlynkGO EMMA II (TFT 3.5 Capacitive Flash 4MB PSRAM 4MB)"
+  #endif
   // #define BLYNKGO_BASIC
   #define ROTATE_TYPE             1
   #define OFFSET_ROTATION         0

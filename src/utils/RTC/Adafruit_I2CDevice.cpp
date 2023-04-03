@@ -22,21 +22,17 @@ Adafruit_I2CDevice::Adafruit_I2CDevice(uint8_t addr, TwoWire *theWire) {
 #endif
 }
 
-/*!
- *    @brief  Initializes and does basic address detection
- *    @param  addr_detect Whether we should attempt to detect the I2C address
- * with a scan. 99% of sensors/devices don't mind but once in a while, they spaz
- * on a scan!
- *    @return True if I2C initialized and a device with the addr found
- */
+// BlynkGO
 bool Adafruit_I2CDevice::begin(bool addr_detect) {
-  // _wire->begin();  // BlynkGO
-  _begun = true;
+  if(!_begun){
+    _wire->begin();
+    _begun = true;
+  }
 
   if (addr_detect) {
     return detected();
   }
-  return true;
+  return _begun;
 }
 
 /*!

@@ -29,10 +29,10 @@ public:
    *    @return The size of the Wire receive/transmit buffer */
   size_t maxBufferSize() { return _maxBufferSize; }
 
+  bool _begun;
 private:
   uint8_t _addr;
   TwoWire *_wire;
-  bool _begun;
   size_t _maxBufferSize;
   bool _read(uint8_t *buffer, size_t len, bool stop);
 };
