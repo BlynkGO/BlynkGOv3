@@ -40,8 +40,7 @@ extern "C" {
 #include "lodepng/lodepng.h"
 #include "libbmp/libbmp.h"
 #include "gifdec/gifdec.h"
-// #include "../utils/LovyanGFX/lgfx/utility/lgfx_tjpgd.h"  // lgfx's tjgpd
-#include "../utils/BlynkGO_LCD/LoveCat/lgfx/utility/lgfx_tjpgd.h"
+#include "esp32/rom/tjpgd.h"
 #include "esp_heap_caps.h"
 
 
