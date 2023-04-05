@@ -47,11 +47,15 @@ extern "C" {
 lv_res_t png_to_img_dsc(const char* filename, lv_img_dsc_t* img_dsc);
 lv_res_t jpg_to_img_dsc(const char* filename, lv_img_dsc_t* img_dsc);
 lv_res_t bmp_to_img_dsc(const char* filename, lv_img_dsc_t* img_dsc);
+void     free_img_dsc(lv_img_dsc_t* img_dsc);
+
 
 bool     isPngFile(const char* filename);
 bool     isJpgFile(const char* filename);
 bool     isBmpFile(const char* filename);
 bool     isGifFile(const char* filename);
+
+
 
 #ifdef __cplusplus
 } /* extern "C" */

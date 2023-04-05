@@ -53,14 +53,17 @@ static jpg_scale_t   jpg_scale = JPEG_SCALE_NONE;
 /**********************
      GLOBAL FUNCTIONS
  **********************/
+void free_img_dsc(lv_img_dsc_t* img_dsc){
+  if(img_dsc->data != NULL) {
+    free(img_dsc->data);
+    img_dsc->data = NULL;
+  }
+  memset(img_dsc, 0, sizeof(lv_img_dsc_t));
+}
 
 lv_res_t bmp_to_img_dsc(const char* fn, lv_img_dsc_t* img_dsc){
   if(!strcmp(&fn[strlen(fn) - 3], "bmp") || !strcmp(&fn[strlen(fn) - 3], "BMP")) {              /*Check the extension*/
-    if(img_dsc->data != NULL) {
-      free(img_dsc->data);
-      img_dsc->data = NULL;
-    }
-    memset(img_dsc, 0, sizeof(lv_img_dsc_t));
+    free_img_dsc(img_dsc);
 
     FILE * file = fopen(fn, "rb" );
     if(!file) { return LV_RES_INV; }
@@ -116,12 +119,8 @@ lv_res_t bmp_to_img_dsc(const char* fn, lv_img_dsc_t* img_dsc){
 
 lv_res_t jpg_to_img_dsc(const char* fn, lv_img_dsc_t* img_dsc){
   if(!strcmp(&fn[strlen(fn) - 3], "jpg") || !strcmp(&fn[strlen(fn) - 3], "JPG")) {              /*Check the extension*/
-    if(img_dsc->data != NULL) {
-      free(img_dsc->data);
-      img_dsc->data = NULL;
-    }
-    memset(img_dsc, 0, sizeof(lv_img_dsc_t));
-
+    free_img_dsc(img_dsc);
+    
     // lgfxJdec      jpg_decoder;
     JDEC          jpg_decoder;
     jpg_device_t  jpg_device;
@@ -162,11 +161,7 @@ lv_res_t jpg_to_img_dsc(const char* fn, lv_img_dsc_t* img_dsc){
 
 lv_res_t png_to_img_dsc(const char* fn, lv_img_dsc_t* img_dsc) {
     if(!strcmp(&fn[strlen(fn) - 3], "png") || !strcmp(&fn[strlen(fn) - 3], "PNG")) {              /*Check the extension*/
-        if(img_dsc->data != NULL) {
-            free(img_dsc->data);
-            img_dsc->data = NULL;
-        }
-        memset(img_dsc, 0, sizeof(lv_img_dsc_t));
+        free_img_dsc(img_dsc);
 
         FILE* file;
         file = fopen(fn, "rb" );
