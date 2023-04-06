@@ -43,7 +43,7 @@
  *     - GObject เพิ่ม child_num_recursive() และ child_del_recursive() และ ระบบ widget_del() 
  *       ยังไม่ได้มีการปรับ del() ของแต่ละวิตเจ็ต
  *
- *   [V3.0.0 beta 7] @04/04/23
+ *   [V3.0.0 beta 7] @04/04/23-06/04/23
  *     - RTC ทำงานร่วมกับ Touch I2C ได้ (Wire1 ร่วม) หรือจะแยก ด้วย Wire ได้
  *     - fix img_decoder และ เพิ่ม jpg_data_to_img_dsc(..) สำหรับแปลง jpg data -> img_t
  *
