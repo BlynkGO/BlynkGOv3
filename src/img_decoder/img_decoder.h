@@ -49,6 +49,8 @@ lv_res_t jpg_to_img_dsc(const char* filename, lv_img_dsc_t* img_dsc);
 lv_res_t bmp_to_img_dsc(const char* filename, lv_img_dsc_t* img_dsc);
 void     free_img_dsc(lv_img_dsc_t* img_dsc);
 
+lv_res_t jpg_data_to_img_dsc(uint8_t* input_data, size_t input_size, lv_img_dsc_t* img_dsc);
+
 
 bool     isPngFile(const char* filename);
 bool     isJpgFile(const char* filename);

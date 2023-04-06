@@ -22,9 +22,14 @@
         TYPEDEFS
  **********************/
 typedef enum { JPEG_SCALE_NONE, JPEG_SCALE_2, JPEG_SCALE_4, JPEG_SCALE_8, JPEG_SCALE_MAX } jpg_scale_t;
+typedef enum { JDEV_TYPE_FILE, JDEV_TYPE_ARRAY } jpg_device_type_t;
 
 typedef struct {
+  jpg_device_type_t type;
   FILE *file;
+  uint8_t* input_data;
+  uint32_t input_size;
+  uint32_t input_index;
   uint8_t* img_data;   // link to another inner esp32_malloc
   uint16_t w;
   uint16_t h;
@@ -38,7 +43,7 @@ typedef struct {
 // static uint32_t jpg_data_draw(lgfxJdec *jpg_decoder, void *bitmap, JRECT *rect);
 
 /* using esp32's tjpgd decoder cb */
-static uint32_t jpgfile_reader(JDEC *jpg_decoder, uint8_t *data, uint32_t data_len);
+static uint32_t jpg_reader(JDEC *jpg_decoder, uint8_t *data, uint32_t data_len);
 static uint32_t jpg_data_draw(JDEC *jpg_decoder, void *bitmap, JRECT *rect);
 
 /* using for png color converter*/
@@ -120,17 +125,18 @@ lv_res_t bmp_to_img_dsc(const char* fn, lv_img_dsc_t* img_dsc){
 lv_res_t jpg_to_img_dsc(const char* fn, lv_img_dsc_t* img_dsc){
   if(!strcmp(&fn[strlen(fn) - 3], "jpg") || !strcmp(&fn[strlen(fn) - 3], "JPG")) {              /*Check the extension*/
     free_img_dsc(img_dsc);
-    
+
     // lgfxJdec      jpg_decoder;
     JDEC          jpg_decoder;
     jpg_device_t  jpg_device;
     JRESULT       jres;
 
+    jpg_device.type  = JDEV_TYPE_FILE;
     jpg_device.file  = fopen(fn, "rb" );
     if (!jpg_device.file) {  return LV_RES_INV; }
 
     // jres = lgfx_jd_prepare(&jpg_decoder, jpgfile_reader, jpg_work , 3100, &jpg_device );
-    jres = jd_prepare(&jpg_decoder, jpgfile_reader, jpg_work , 3100, &jpg_device );
+    jres = jd_prepare(&jpg_decoder, jpg_reader, jpg_work , 3100, &jpg_device );
     if (jres != JDR_OK) { fclose(jpg_device.file); return LV_RES_INV; }
 
     jpg_device.w = jpg_decoder.width  / (1 << (uint8_t)(jpg_scale));
@@ -156,6 +162,46 @@ lv_res_t jpg_to_img_dsc(const char* fn, lv_img_dsc_t* img_dsc){
     return LV_RES_OK;     /*The image is fully decoded. Return with its pointer*/
   }
   return LV_RES_INV;    /*If not returned earlier then it failed*/
+}
+
+lv_res_t jpg_data_to_img_dsc(uint8_t* input_data, size_t input_size, lv_img_dsc_t* img_dsc){
+  if (input_data == NULL || input_size == 0) {  return LV_RES_INV; }
+
+  free_img_dsc(img_dsc);
+
+  JDEC          jpg_decoder;
+  jpg_device_t  jpg_device;
+  JRESULT       jres;
+
+  jpg_device.type        = JDEV_TYPE_ARRAY;
+  jpg_device.input_data  = input_data;
+  jpg_device.input_size  = input_size;
+  jpg_device.input_index = 0;
+
+  jres = jd_prepare(&jpg_decoder, jpg_reader, jpg_work , 3100, &jpg_device );
+  if (jres != JDR_OK) { return LV_RES_INV; }
+
+  jpg_device.w = jpg_decoder.width  / (1 << (uint8_t)(jpg_scale));
+  jpg_device.h = jpg_decoder.height / (1 << (uint8_t)(jpg_scale));
+
+  // printf("[j decoder] %d,%d\n", jpg_device.w,jpg_device.h);
+
+  uint8_t * img_data = NULL;
+  img_data = (uint8_t*) esp32_malloc( LV_IMG_BUF_SIZE_TRUE_COLOR(jpg_device.w, jpg_device.h)); //dsc->header.w, dsc->header.h) );
+  if(img_data == NULL) return LV_RES_INV;
+  jpg_device.img_data = img_data;
+
+  jres = jd_decomp( &jpg_decoder, jpg_data_draw, (uint8_t) jpg_scale);
+  if (jres != JDR_OK) { return LV_RES_INV; }
+
+  img_dsc->header.always_zero  = 0;
+  img_dsc->header.cf           = LV_IMG_CF_TRUE_COLOR;      /*Set the color format*/
+  img_dsc->header.w            = jpg_device.w;
+  img_dsc->header.h            = jpg_device.h;
+  img_dsc->data_size           = LV_IMG_BUF_SIZE_TRUE_COLOR(jpg_device.w, jpg_device.h);
+  img_dsc->data                = img_data;
+
+  return LV_RES_OK;     /*The image is fully decoded. Return with its pointer*/
 }
 
 
@@ -267,14 +313,37 @@ static void convert_color_depth(uint8_t * img, uint32_t px_cnt, uint32_t cf)
 #endif
 }
 
-static uint32_t jpgfile_reader(JDEC *jpg_decoder, uint8_t *data, uint32_t data_len) {
+static uint32_t jpg_reader(JDEC *jpg_decoder, uint8_t *data, uint32_t data_len) {
   jpg_device_t *jpg_device = (jpg_device_t *) jpg_decoder->device;
-  if (data) {
-    return fread(data, 1, data_len , jpg_device->file);
-  } else {
-    fseek(jpg_device->file, data_len, SEEK_CUR);
+
+  if(jpg_device->type == JDEV_TYPE_FILE) {
+    if (data) {
+      return fread(data, 1, data_len , jpg_device->file);
+    } else {
+      fseek(jpg_device->file, data_len, SEEK_CUR);
+    }
+    return data_len;
+    
+  }else if(jpg_device->type == JDEV_TYPE_ARRAY ) {
+
+    if (!jpg_device->input_data) return 0;
+    if (jpg_device->input_index >= (jpg_device->input_size + 2)) return 0; // end of stream
+
+    if ((jpg_device->input_index + data_len) > (jpg_device->input_size + 2))
+      data_len = (jpg_device->input_size + 2) - jpg_device->input_index;
+
+    if (data)
+    { // Read len bytes from the input strem
+      memcpy(data, jpg_device->input_data + jpg_device->input_index, data_len);
+      jpg_device->input_index += data_len;
+      return data_len; // Returns number of bytes read
+    }
+    else
+    { // Remove len bytes from the input stream
+      jpg_device->input_index += data_len;
+      return data_len;
+    }
   }
-  return data_len;
 }
 
 static uint32_t jpg_data_draw(JDEC *jpg_decoder, void *bitmap, JRECT *rect) {
@@ -372,7 +441,7 @@ bool isJpgFile(const char* fn){
       return false;
     }
       // jres = lgfx_jd_prepare(&jpg_decoder, jpgfile_reader, jpg_work , 3100, &jpg_device );
-      jres = jd_prepare(&jpg_decoder, jpgfile_reader, jpg_work , 3100, &jpg_device );
+      jres = jd_prepare(&jpg_decoder, jpg_reader, jpg_work , 3100, &jpg_device );
     if (jres != JDR_OK) {
       fclose(jpg_device.file);
       return false;
