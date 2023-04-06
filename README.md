@@ -4,6 +4,7 @@
 ## Version 3.0.0 beta7  
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.7 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
  - RTC ทำงานร่วมกับ Touch I2C ได้ (Wire1 ร่วม) หรือจะแยก ด้วย Wire ได้  
+ - fix img_decoder และ เพิ่ม jpg_data_to_img_dsc(..)  สำหรับแปลง jpg data -> img_t 
  
 ## Version 3.0.0 beta6  
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.6 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
