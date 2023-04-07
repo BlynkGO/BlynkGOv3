@@ -2,7 +2,7 @@ import os
 from sys import platform
 import shutil
 
-blynkgo_ver="3.0.0 beta7"
+blynkgo_ver="3.0.0 beta8"
 
 
 print("")
@@ -120,7 +120,7 @@ else:
     #-------------------------------------------------------------------------------
     # ESP32 Core 2.0.x  : BlynGOv3
     #------------------------
-    if( filename.startswith("2.0")):
+    if( esp32_core_version.startswith("2.0")):
       esp32_sdkdir        = esp32_core_folder + "/tools/sdk"
       esp32_partitiondir  = esp32_core_folder + "/tools/partitions"
       esp32_libdir        = esp32_sdkdir      + "/esp32/lib"
