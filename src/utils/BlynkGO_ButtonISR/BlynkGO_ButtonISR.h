@@ -3,7 +3,7 @@
 
 #include "../../config/blynkgo_config.h"
 
-#if defined (BLYNKGO_MINI) || defined (TTGO_TWATCH_2019) || defined (BLYNKGO_LORA32) || defined (BLYNKGO_M5STACK) || BLYNKGO_USE_BUTTON_ISR
+#if defined (BLYNKGO_MINI) || defined (TTGO_TWATCH_2019) || defined (BLYNKGO_LORA32) || defined(BEENEXT_1_9) || defined (BLYNKGO_M5STACK) || BLYNKGO_USE_BUTTON_ISR
 
 #include <Arduino.h>
 

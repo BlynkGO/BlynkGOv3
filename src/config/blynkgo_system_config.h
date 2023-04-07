@@ -294,9 +294,38 @@
 
 #endif
 
+//------------------------------------------------
+#if defined BEENEXT_1_9
+  #define BLYNKGO_BOARD_NAME      "BeeNeXT 1.9\" ESP32S3"
+
+  #define ST7789_DRIVER
+  #define ROTATE_TYPE             0
+  #define OFFSET_ROTATION         1
+  #define ROTATE_TYPE             1
+  #define BLYNKGO_USE_SD          0
+  #define BLYNKGO_USE_AGFX        1
+
+  #define SPI_HOST_TYPE           SPI2_HOST  // spi_host_device_t  ใน spi_types.h --> SPI1_HOST=0 or SPI2_HOST=1 ( FSPI=0 or HSPI=1  ESP32S3   ดูใน esp32_hal_spi.h ; )
+  #define SPI_MOSI                13
+  #define SPI_SCLK                12
+  #define SPI_MISO                -1
+
+  // TFT
+  #define TFT_WIDTH               320
+  #define TFT_HEIGHT              170
+  #define TFT_SPI_HOST_TYPE       SPI_HOST_TYPE
+  #define TFT_MISO                SPI_MISO
+  #define TFT_MOSI                SPI_MOSI
+  #define TFT_SCLK                SPI_SCLK
+  #define TFT_CS                  10      // Chip select control pin
+  #define TFT_DC                  11      // Data Command control pin
+  #define TFT_RST                 1      // Not use
+  #define TFT_BUSY                -1
+  #define TFT_BL                  14       // TFT backlight  pin
+  #define TFT_INVERT              true
 
 //------------------------------------------------
-#if defined BEENEXT_2_8
+#elif defined BEENEXT_2_8
   #define BLYNKGO_BOARD_NAME      "BeeNeXT 2.8\" Touch (resistive)"
   #define BLYNKGO_BASIC
   #define BEENEXT

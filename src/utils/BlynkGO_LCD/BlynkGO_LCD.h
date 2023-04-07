@@ -5,6 +5,8 @@
 #include <Arduino.h>
 #include <sdkconfig.h>
 #include "../../config/blynkgo_config.h"
+// #include "./config/blynkgo_config.h"
+
 
 #if !defined(BLYNKGO_OLED)
 
@@ -23,11 +25,39 @@ class BlynkGO_LCD  {
  * AGFX
  *****************************************************/
 #include "./agfx/agfx.h"
-#include "./LoveCat/lgfx/v1/touch/TAMC_GT911/TAMC_GT911.h"
+
+#if defined(TOUCH_GT911)
+  #include "./LoveCat/lgfx/v1/touch/TAMC_GT911/TAMC_GT911.h"
+#endif
 
 static constexpr int _TFT_BLACK       = 0x0000;      /*   0,   0,   0 */
 static constexpr int _TFT_WHITE       = 0xFFFF;      /* 255, 255, 255 */
 
+#if defined(BEENEXT_1_9)
+class BlynkGO_LCD : public Arduino_ST7789 {
+  public:
+    BlynkGO_LCD(Arduino_DataBus *bus, int8_t rst = GFX_NOT_DEFINED, uint8_t r = 0,
+      bool ips = false, int16_t w = ST7789_TFTWIDTH, int16_t h = ST7789_TFTHEIGHT,
+      uint8_t col_offset1 = 0, uint8_t row_offset1 = 0, uint8_t col_offset2 = 0, uint8_t row_offset2 = 0)
+    : Arduino_ST7789(bus, rst, r, ips, w, h, col_offset1, row_offset1, col_offset2, row_offset2)
+    { 
+      pinMode(_bl,OUTPUT); digitalWrite(_bl,HIGH);
+    }
+    void begin(){
+      Arduino_ST7789::begin();
+    }
+
+    inline void init()      { begin(); }
+    inline void drawString(const char* str, int16_t x, int16_t y)   { this->setCursor(x, y); this->print(str); }
+    inline void wakeup()   {}
+    inline void sleep()    {}
+    inline void setBrightness(uint8_t brightness)  {}
+    inline uint8_t getBrightness()                 { return 0; }
+  private:
+    uint8_t _bl=TFT_BL;
+};
+
+#elif defined(BEENEXT_4_3C) ||  defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
 class BlynkGO_LCD : public Arduino_RGB_Display {
   public:
     BlynkGO_LCD( int16_t w, int16_t h, uint8_t pin_bl, Arduino_ESP32RGBPanel *rgbpanel, TAMC_GT911* touch=NULL) :
@@ -58,7 +88,7 @@ class BlynkGO_LCD : public Arduino_RGB_Display {
   private:
     uint8_t _bl=2;
 };
-
+#endif // agfx (BeeNeXT 4.3,5.0,7.0)
 
 
 #else // ใช้ LoveCat
@@ -80,6 +110,8 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
     lgfx::Panel_RA8875  _panel_instance;
 #elif defined(ILI9341_DRIVER)
     lgfx::Panel_ILI9341 _panel_instance;
+#elif defined(ST7789_DRIVER)
+    lgfx::Panel_ST7789  _panel_instance;
 #elif defined(RGB_DRIVER) && defined (CONFIG_IDF_TARGET_ESP32S3)
     lgfx::Panel_RGB     _panel_instance;
 #endif
@@ -240,6 +272,18 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
         bus_cfg.pin_sclk    = TFT_SCLK;
         bus_cfg.pin_dc      = TFT_DC; 
     #endif
+  #elif defined(ST7789_DRIVER)
+        bus_cfg.spi_host    = TFT_SPI_HOST_TYPE;  // ใน blynkgo_system_config.h
+        bus_cfg.spi_mode    = 0;             // SPI通信モードを設定 (0 ~ 3)
+        bus_cfg.freq_write  = 40000000;    // 送信時のSPIクロック (最大80MHz, 80MHzを整数で割った値に丸められます)
+        bus_cfg.freq_read   = 16000000;    // 受信時のSPIクロック
+        bus_cfg.spi_3wire   = false;//true;        // 受信をMOSIピンで行う場合はtrueを設定
+        bus_cfg.use_lock    = true;        // トランザクションロックを使用する場合はtrueを設定
+        bus_cfg.dma_channel = SPI_DMA_CH_AUTO; // 使用するDMAチャンネルを設定 (0=DMA不使用 / 1=1ch / 2=ch / SPI_DMA_CH_AUTO=自動設定)
+        bus_cfg.pin_mosi    = TFT_MOSI;
+        bus_cfg.pin_miso    = TFT_MISO;
+        bus_cfg.pin_sclk    = TFT_SCLK;
+        bus_cfg.pin_dc      = TFT_DC; 
   #elif defined(ST7796_DRIVER)
     #if defined(TFT_PARALLEL8)
 //        bus_cfg.i2s_port    = I2S_NUM_0;  // 使用するI2Sポートを選択 (0 or 1) (ESP32のI2S LCDモードを使用します)
@@ -300,7 +344,7 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
 
       {
         auto panel_cfg = _panel_instance.config();
-  #if defined(ILI9488_DRIVER) || defined(ST7796_DRIVER) || defined(ILI9341_DRIVER)
+  #if defined(ILI9488_DRIVER) || defined(ST7796_DRIVER) || defined(ILI9341_DRIVER) || defined(ST7789_DRIVER)
         panel_cfg.pin_cs           = TFT_CS; //14;
         panel_cfg.pin_rst          = TFT_RST;
         panel_cfg.pin_busy         = TFT_BUSY;
@@ -431,7 +475,7 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
         cfg.pin_bl      = TFT_BL;               // バックライトが接続されているピン番号
     #if defined(RGB_DRIVER)
     #else
-        cfg.invert      = false;                // バックライトの輝度を反転させる場合 true
+        cfg.invert      = true;//false;                // バックライトの輝度を反転させる場合 true
         cfg.freq        = 12000; //44100;                // バックライトのPWM周波数
         cfg.pwm_channel = BACKLIGHT_CHANNEL;    // 使用するPWMのチャンネル番号  : ch15
     #endif

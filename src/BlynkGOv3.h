@@ -47,13 +47,16 @@
  *     - RTC ทำงานร่วมกับ Touch I2C ได้ (Wire1 ร่วม) หรือจะแยก ด้วย Wire ได้
  *     - fix img_decoder และ เพิ่ม jpg_data_to_img_dsc(..) สำหรับแปลง jpg data -> img_t
  *
+ *   [V3.0.0 beta 8] @07/04/23
+ *     - เพิ่ม BeeNeXT1.9" IPS (320x170)  SDK 3.0.8
+ *
  *********************************************************************
  */
 
 #ifndef _BLYNKGO_V3_H__
 #define _BLYNKGO_V3_H__
 
-// #define BLYNKGO_VERSION             "3.0.0 beta6"
+// #define BLYNKGO_VERSION             "3.0.0 beta8"
 
 /** Major version number (X.x.x) */
 #define BLYNKGO_VERSION_MAJOR   3
@@ -168,7 +171,7 @@ FONT_DECLARE(arial_vietnam_30);
 #endif
 #endif
 
-#if BLYNKGO_USE_BUTTON_ISR || defined (BLYNKGO_MINI) || defined (TTGO_TWATCH_2019) || defined (BLYNKGO_LORA32) || defined (BLYNKGO_M5STACK)
+#if BLYNKGO_USE_BUTTON_ISR || defined (BLYNKGO_MINI) || defined (TTGO_TWATCH_2019) || defined (BLYNKGO_LORA32) || defined(BEENEXT_1_9) || defined (BLYNKGO_M5STACK)
   // #include "utils/Button2/Button2.h"
   #include "utils/BlynkGO_ButtonISR/BlynkGO_ButtonISR.h"
 #endif
@@ -597,7 +600,7 @@ uint32_t last_touch();
   extern ButtonISR BTN_A;
   extern ButtonISR BTN_B;
   extern ButtonISR BTN_C;
-#elif defined(BLYNKGO_LORA32) || BLYNKGO_USE_BUTTON_ISR
+#elif defined(BLYNKGO_LORA32) || defined(BEENEXT_1_9)  || BLYNKGO_USE_BUTTON_ISR
   extern ButtonISR BTN;
 #endif
 

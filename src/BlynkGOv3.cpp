@@ -53,17 +53,25 @@ static BlynkGOv3  *pBlynkGO=NULL;
   uint8_t _oled_threshold=128;
 #else
   #if defined(BLYNKGO_USE_AGFX) && (BLYNKGO_USE_AGFX==1)  // ใช้ AGFX 
-    BlynkGO_LCD lcd(TFT_WIDTH, TFT_HEIGHT, 2,
-      new Arduino_ESP32RGBPanel(
-        TFT_HENABLE /* DE */, TFT_VSYNC /* VSYNC */, TFT_HSYNC /* HSYNC */, TFT_PCLK /* PCLK */,
-        TFT_R0 /* R0 */, TFT_R1 /* R1 */, TFT_R2 /* R2 */, TFT_R3 /* R3 */, TFT_R4 /* R4 */,
-        TFT_G0 /* G0 */, TFT_G1 /* G1 */, TFT_G2 /* G2 */, TFT_G3 /* G3 */, TFT_G4 /* G4 */, TFT_G5 /* G5 */,
-        TFT_B0 /* B0 */, TFT_B1 /* B1 */, TFT_B2 /* B2 */, TFT_B3 /* B3 */, TFT_B4 /* B4 */,
-        TFT_HSYNC_POLARITY /* hsync_polarity */, TFT_HSYNC_FRONT_PORCH /* hsync_front_porch */, TFT_HSYNC_PULSE_WIDTH /* hsync_pulse_width */, TFT_HSYNC_BACK_PORCH /* hsync_back_porch */,
-        TFT_VSYNC_POLARITY /* vsync_polarity */, TFT_VSYNC_FRONT_PORCH /* vsync_front_porch */, TFT_VSYNC_PULSE_WIDTH /* vsync_pulse_width */, TFT_VSYNC_BACK_PORCH /* vsync_back_porch */,
-        TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, 16000000 /* prefer_speed */),
-      new TAMC_GT911( TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT)
-    );
+    #if defined(BEENEXT_1_9)
+      BlynkGO_LCD lcd(
+        new Arduino_ESP32SPI(TFT_DC, TFT_CS, TFT_SCLK, TFT_MOSI, TFT_MISO),
+        TFT_RST, OFFSET_ROTATION, true/* IPS */, TFT_HEIGHT, TFT_WIDTH, 
+        35 /* col offset 1 */, 0 /* row offset 1 */, 35 /* col offset 2 */, 0 /* row offset 2 */
+      );
+    #elif defined(BEENEXT_4_3C) ||  defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
+      BlynkGO_LCD lcd(TFT_WIDTH, TFT_HEIGHT, 2,
+        new Arduino_ESP32RGBPanel(
+          TFT_HENABLE /* DE */, TFT_VSYNC /* VSYNC */, TFT_HSYNC /* HSYNC */, TFT_PCLK /* PCLK */,
+          TFT_R0 /* R0 */, TFT_R1 /* R1 */, TFT_R2 /* R2 */, TFT_R3 /* R3 */, TFT_R4 /* R4 */,
+          TFT_G0 /* G0 */, TFT_G1 /* G1 */, TFT_G2 /* G2 */, TFT_G3 /* G3 */, TFT_G4 /* G4 */, TFT_G5 /* G5 */,
+          TFT_B0 /* B0 */, TFT_B1 /* B1 */, TFT_B2 /* B2 */, TFT_B3 /* B3 */, TFT_B4 /* B4 */,
+          TFT_HSYNC_POLARITY /* hsync_polarity */, TFT_HSYNC_FRONT_PORCH /* hsync_front_porch */, TFT_HSYNC_PULSE_WIDTH /* hsync_pulse_width */, TFT_HSYNC_BACK_PORCH /* hsync_back_porch */,
+          TFT_VSYNC_POLARITY /* vsync_polarity */, TFT_VSYNC_FRONT_PORCH /* vsync_front_porch */, TFT_VSYNC_PULSE_WIDTH /* vsync_pulse_width */, TFT_VSYNC_BACK_PORCH /* vsync_back_porch */,
+          TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, 16000000 /* prefer_speed */),
+        new TAMC_GT911( TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT)
+      );
+    #endif
   #else
     BlynkGO_LCD lcd;
   #endif
@@ -106,7 +114,7 @@ static uint8_t capture_type = CAPTURE_TYPE_BMP;
   ButtonISR BTN_A = ButtonISR(BUTTON_A_PIN);
   ButtonISR BTN_B = ButtonISR(BUTTON_B_PIN);
   ButtonISR BTN_C = ButtonISR(BUTTON_C_PIN);
-#elif defined(BLYNKGO_LORA32) || BLYNKGO_USE_BUTTON_ISR
+#elif defined(BLYNKGO_LORA32) || defined(BEENEXT_1_9)  || BLYNKGO_USE_BUTTON_ISR
   ButtonISR BTN   = ButtonISR(0);
 #endif
 
@@ -524,7 +532,7 @@ void BlynkGOv3::update(bool beenext_loop){
   BTN_A.loop();
   BTN_B.loop();
   BTN_C.loop();
-#elif defined(BLYNKGO_LORA32) || BLYNKGO_USE_BUTTON_ISR
+#elif defined(BLYNKGO_LORA32) || defined(BEENEXT_1_9) || BLYNKGO_USE_BUTTON_ISR
   BTN.loop();
 #endif
 
@@ -963,7 +971,7 @@ static void blynkgo_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_co
 }
 
 
-#if !defined (BLYNKGO_OLED)
+#if !defined (BLYNKGO_OLED) && !defined(BEENEXT_1_9)
 static bool blynkgo_touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
 {
    int32_t touchX, touchY;
@@ -1015,6 +1023,7 @@ void BlynkGOv3::blynkgo_system_init(){
     lv_disp_drv_register(&disp_drv);
 
 #if defined(BLYNKGO_OLED)
+#elif defined(BEENEXT_1_9)
 #else
   lv_indev_drv_t indev_drv;
     lv_indev_drv_init(&indev_drv);
