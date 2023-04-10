@@ -4,6 +4,7 @@
 ## Version 3.0.0 beta8  
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.8 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
  - รองรับบอร์ด BeeNeXT 1.9" IPS (ESP32S3)
+ - เพิ่ม Backlight PWM สำหรับ BeeNeXT 1.9",4.3",5.0"
 
 ## Version 3.0.0 beta7  
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.7 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
