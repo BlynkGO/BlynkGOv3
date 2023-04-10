@@ -68,6 +68,7 @@ void setup() {
   Serial.begin(115200); Serial.println();     // เริ่มใช้งาน Serial Monitor
   BlynkGO.begin();                            // เริ่มใช้งาน BlynkGO
   BlynkGO.fillScreen(TFT_BLACK);              // เติมสีหน้าจอเป็นสี ดำ
+//  BlynkGO.brightness(100);                  // ปรับความสว่าง max = 255
 
   //------------------------------------------------  
   multiscreen.addScreen(9);
@@ -158,6 +159,14 @@ void setup() {
       multiscreen.current_screen( 0, false );
     }
   });
+
+//  // หากกดค้างยาว 
+//  BTN.onLongPressed([](ButtonISR* btn) {
+//    // ถ้าตอนนี้อยู่หน้า id =2 
+//    if(  multiscreen.current_screen_id() == 2 ) {
+//      // ให้ทำอะไรตามต้องการ
+//    }
+//  });
 
 }
 
