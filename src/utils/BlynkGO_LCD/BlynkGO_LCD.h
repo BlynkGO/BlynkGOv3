@@ -4,9 +4,11 @@
 
 #include <Arduino.h>
 #include <sdkconfig.h>
-#include "../../config/blynkgo_config.h"
-// #include "./config/blynkgo_config.h"
+// #include "../../config/blynkgo_config.h"
+#include "./config/blynkgo_config.h"
 
+#define LGFX_USE_V1
+#include "./LoveCat/lgfx/v1/platforms/esp32/Light_PWM.hpp"
 
 #if !defined(BLYNKGO_OLED)
 
@@ -41,20 +43,28 @@ class BlynkGO_LCD : public Arduino_ST7789 {
       uint8_t col_offset1 = 0, uint8_t row_offset1 = 0, uint8_t col_offset2 = 0, uint8_t row_offset2 = 0)
     : Arduino_ST7789(bus, rst, r, ips, w, h, col_offset1, row_offset1, col_offset2, row_offset2)
     { 
-      pinMode(_bl,OUTPUT); digitalWrite(_bl,HIGH);
     }
+
     void begin(){
       Arduino_ST7789::begin();
+      auto cfg = _light_instance.config();
+        cfg.pin_bl      = TFT_BL;
+        cfg.invert      = false;
+        cfg.freq        = 12000; //44100; 
+        cfg.pwm_channel = BACKLIGHT_CHANNEL;
+      _light_instance.config(cfg);
+      _light_instance.init(255);
     }
 
     inline void init()      { begin(); }
     inline void drawString(const char* str, int16_t x, int16_t y)   { this->setCursor(x, y); this->print(str); }
-    inline void wakeup()   {}
-    inline void sleep()    {}
-    inline void setBrightness(uint8_t brightness)  {}
-    inline uint8_t getBrightness()                 { return 0; }
+    inline void wakeup()                            { _light_instance.setBrightness(_last_brightness);}
+    inline void sleep()                             { _light_instance.setBrightness(0); }
+    inline void setBrightness(uint8_t brightness)   { _light_instance.setBrightness(brightness); _last_brightness = brightness; }
+    inline uint8_t getBrightness()                  { return _last_brightness; }
   private:
-    uint8_t _bl=TFT_BL;
+    lgfx::Light_PWM     _light_instance;
+    uint8_t             _last_brightness=255;
 };
 
 #elif defined(BEENEXT_4_3C) ||  defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
@@ -63,14 +73,23 @@ class BlynkGO_LCD : public Arduino_RGB_Display {
     BlynkGO_LCD( int16_t w, int16_t h, uint8_t pin_bl, Arduino_ESP32RGBPanel *rgbpanel, TAMC_GT911* touch=NULL) :
       Arduino_RGB_Display(w,h,rgbpanel), _bl(pin_bl),_ts(touch)
     { 
-      pinMode(_bl,OUTPUT); digitalWrite(_bl,HIGH);
     }
     void begin(){
       Arduino_RGB_Display::begin();
+      
+      auto cfg = _light_instance.config();
+        cfg.pin_bl      = TFT_BL;
+        cfg.invert      = false;
+        cfg.freq        = 12000; //44100; 
+        cfg.pwm_channel = BACKLIGHT_CHANNEL;
+      _light_instance.config(cfg);
+      _light_instance.init(255);
+
       Serial.println("[Touch] test");
       if(_ts==NULL) { _ts = new TAMC_GT911(TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT); }
       if(_ts)       { _ts->begin(); _ts->setRotation(3); }
     }
+
     inline void init()      { begin(); }
     template <typename T>
     uint_fast8_t getTouch(T *x, T *y)
@@ -79,14 +98,16 @@ class BlynkGO_LCD : public Arduino_RGB_Display {
     }
 
     inline void drawString(const char* str, int16_t x, int16_t y)   { this->setCursor(x, y); this->print(str); }
-    inline void wakeup()   {}
-    inline void sleep()    {}
-    inline void setBrightness(uint8_t brightness)  {}
-    inline uint8_t getBrightness()                 { return 0; }
+    inline void wakeup()                            { _light_instance.setBrightness(_last_brightness);}
+    inline void sleep()                             { _light_instance.setBrightness(0); }
+    inline void setBrightness(uint8_t brightness)   { _light_instance.setBrightness(brightness); _last_brightness = brightness; }
+    inline uint8_t getBrightness()                  { return _last_brightness; }
     
     TAMC_GT911 *_ts = NULL;
+
   private:
-    uint8_t _bl=2;
+    lgfx::Light_PWM     _light_instance;
+    uint8_t             _last_brightness=255;
 };
 #endif // agfx (BeeNeXT 4.3,5.0,7.0)
 
@@ -95,7 +116,7 @@ class BlynkGO_LCD : public Arduino_RGB_Display {
 /******************************************************
  * LoveCat
  *****************************************************/
-#define LGFX_USE_V1
+
 #include "./LoveCat/LovyanGFX.hpp"
 // #include "./LoveCat/lgfx/v1/panel/Panel_Device.hpp"
 #include "./LoveCat/lgfx/v1/Touch.hpp"

@@ -30,7 +30,12 @@
 #define LED_R_CHANNEL             ((uint8_t)12)
 #define LED_G_CHANNEL             ((uint8_t)13)
 #define LED_B_CHANNEL             ((uint8_t)14)
+
+#if defined (CONFIG_IDF_TARGET_ESP32S3)
+#define BACKLIGHT_CHANNEL         ((uint8_t)7)  // ((uint8_t)1)
+#else
 #define BACKLIGHT_CHANNEL         ((uint8_t)15)  // ((uint8_t)1)
+#endif
 
 #ifndef BLYNKGO_USE_FS
 #define BLYNKGO_USE_FS            1
