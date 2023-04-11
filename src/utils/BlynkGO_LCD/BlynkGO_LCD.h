@@ -4,8 +4,8 @@
 
 #include <Arduino.h>
 #include <sdkconfig.h>
-// #include "../../config/blynkgo_config.h"
-#include "./config/blynkgo_config.h"
+#include "../../config/blynkgo_config.h"
+// #include "./config/blynkgo_config.h"
 
 #define LGFX_USE_V1
 #include "./LoveCat/lgfx/v1/platforms/esp32/Light_PWM.hpp"
