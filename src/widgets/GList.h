@@ -112,7 +112,7 @@ class GList : public GPage {
     uint8_t padding_left();
     uint8_t padding_right();
     uint8_t padding_inner();
-
+                      // ขณะไม่ได้เลือก,ขณะเลือก
     GStyle  style[5]; // RELEASED,  PRESSED,  TOGGLE_RELEASED,  TOGGLE_PRESSED,  INACTIVE
 
     void    clear_src_dsc_list();
