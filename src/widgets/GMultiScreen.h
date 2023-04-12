@@ -64,8 +64,9 @@ class GMultiScreen : public GObject {
     uint16_t current_screen_id();
 
     inline   void selected_id(uint16_t screen_id, bool anim=true)     { this->current_screen( screen_id, anim); }
-    inline   GObject* selected()                                      { return this->current_screen();          }
+    inline   void selected(uint16_t screen_id, bool anim=true)        { this->current_screen( screen_id, anim); }
     inline   uint16_t selected_id()                                   { return this->current_screen_id();       }
+    inline   GObject* selected()                                      { return this->current_screen();          }
 
     void     hidden_indic(bool enable);
     bool     hidden_indic();
