@@ -505,6 +505,11 @@ onDoubleClicked	KEYWORD2
 font_color	KEYWORD2
 addItem	KEYWORD2
 removeItem	KEYWORD2
+add	KEYWORD2
+remove_id	KEYWORD2
+remove	KEYWORD2
+selected	KEYWORD2
+selected_id	KEYWORD2
 item_name	KEYWORD2
 item_id	KEYWORD2
 item_selected	KEYWORD2

@@ -49,6 +49,18 @@ class GList : public GPage {
     String  item_selected();
     int16_t item_selected_id();
 
+    inline  int16_t add(String item_name)                               { return this->addItem(item_name); }
+    inline  int16_t add(const void * item_img_src, String item_name)    { return this->addItem(item_img_src, item_name); }
+    inline  int16_t add(const img_t& item_img_src, String item_name)    { return this->addItem(item_img_src, item_name); }
+    inline  int16_t add(String filename, String item_name)              { return this->addItem(filename, item_name); }
+    inline  void    remove_id(uint8_t item_id)                          { this->removeItem(item_id);    }
+    inline  void    remove(uint8_t item_id)                             { this->removeItem(item_id);    }
+    inline  uint16_t num()                                              { return this->item_num();      }
+    inline  void    selected_id(uint8_t item_id)                        { this->item_selected(item_id); }
+    inline  uint8_t selected_id()                                       { return item_selected_id();    }
+    inline  void    selected(uint8_t item_id)                           { this->selected_id(item_id);   }
+    inline  String  selected()                                          { return this->item_selected(); }
+
     const char*  item_name(uint8_t item_id);
     int          item_id(const char* item_name);
     int          item_id(String item_name);
