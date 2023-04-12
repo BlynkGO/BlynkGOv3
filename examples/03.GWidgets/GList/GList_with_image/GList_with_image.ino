@@ -36,6 +36,8 @@ void setup() {
   list.onClicked([](GWidget* widget) {
     Serial.printf("List Clicked : [%d] %s\n", list.selected_id(), list.selected().c_str());
   });
+
+  list.selected_id(3);
 }
 
 void loop() {
