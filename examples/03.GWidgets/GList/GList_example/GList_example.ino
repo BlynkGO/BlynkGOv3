@@ -12,17 +12,19 @@ void setup() {
 
   list.size(160, 120);
   list.align(label, ALIGN_BOTTOM, 0, 20);
-  list.addItem( SYMBOL_FILE       , "ใหม่");
-  list.addItem( SYMBOL_DIRECTORY  , "เปิด");
-  list.addItem( SYMBOL_CLOSE      , "ลบ");
-  list.addItem( SYMBOL_EDIT       , "แก้ไข");
-  list.addItem( SYMBOL_SAVE       , "บันทึก");
+  list.add( SYMBOL_FILE       , "ใหม่");
+  list.add( SYMBOL_DIRECTORY  , "เปิด");
+  list.add( SYMBOL_CLOSE      , "ลบ");
+  list.add( SYMBOL_EDIT       , "แก้ไข");
+  list.add( SYMBOL_SAVE       , "บันทึก");
 
   list.color(TFT_RED);
   list.onClicked([](GWidget* widget){
-    label = list.item_selected();
+    label = list.selected();
     Serial.println(label);
   });
+
+  list.selected_id(2);
 }
 
 void loop() {

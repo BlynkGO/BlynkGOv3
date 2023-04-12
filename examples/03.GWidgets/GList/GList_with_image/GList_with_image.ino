@@ -24,18 +24,17 @@ void setup() {
   list.style[RELEASED].color(TFT_BLACK);
   list.style[PRESSED].color(TFT_DARKGRAY);
 
-  list.addItem("SD://TridentTD/icons/png60x60/calculator.png", "เครื่องคิดเลข"); 
-  list.addItem(ico_setting,     "ตั้งค่า");
-  list.addItem(ico_camera,      "กล้อง");
-  list.addItem(ico_filemanager, "ไฟล์");
-  list.addItem(ico_smarthome,   "บ้านอัจฉริยะ");
-  list.addItem(ico_alarm,       "นาฬิกาปลุก");
-  list.addItem(ico_weather,     "พยากรณ์อากาศ");
-  list.addItem(ico_battery,     "แบตเตอรี่");
+  list.add("SD://TridentTD/icons/png60x60/calculator.png", "เครื่องคิดเลข"); 
+  list.add(ico_setting,     "ตั้งค่า");
+  list.add(ico_camera,      "กล้อง");
+  list.add(ico_filemanager, "ไฟล์");
+  list.add(ico_smarthome,   "บ้านอัจฉริยะ");
+  list.add(ico_alarm,       "นาฬิกาปลุก");
+  list.add(ico_weather,     "พยากรณ์อากาศ");
+  list.add(ico_battery,     "แบตเตอรี่");
 
   list.onClicked([](GWidget* widget) {
-    uint8_t id = list.item_id(list.item_selected());
-    Serial.printf("List Clicked : [%d] %s\n", id, list.item_selected().c_str());
+    Serial.printf("List Clicked : [%d] %s\n", list.selected_id(), list.selected().c_str());
   });
 }
 
