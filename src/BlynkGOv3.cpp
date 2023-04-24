@@ -60,7 +60,7 @@ static BlynkGOv3  *pBlynkGO=NULL;
         35 /* col offset 1 */, 0 /* row offset 1 */, 35 /* col offset 2 */, 0 /* row offset 2 */
       );
     #elif defined(BEENEXT_4_3C) ||  defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
-      BlynkGO_LCD lcd(TFT_WIDTH, TFT_HEIGHT, 2,
+      BlynkGO_LCD lcd(TFT_WIDTH, TFT_HEIGHT, //2,
         new Arduino_ESP32RGBPanel(
           TFT_HENABLE /* DE */, TFT_VSYNC /* VSYNC */, TFT_HSYNC /* HSYNC */, TFT_PCLK /* PCLK */,
           TFT_R0 /* R0 */, TFT_R1 /* R1 */, TFT_R2 /* R2 */, TFT_R3 /* R3 */, TFT_R4 /* R4 */,
@@ -482,7 +482,8 @@ void BlynkGOv3::update(bool beenext_loop){
 #endif 
 
 #if BLYNKO_USE_ASYNC_MQTT32
-          timer_mqtt_connection.delay(400,[](){ MQTT.connect(); });
+          if(MQTT.auto_reconnect())
+            timer_mqtt_connection.delay(400,[](){ MQTT.connect(); });
 #endif
           break;
         }
