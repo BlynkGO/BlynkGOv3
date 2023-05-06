@@ -50,6 +50,11 @@
  *   [V3.0.0 beta 8] @07/04/23
  *     - เพิ่ม BeeNeXT1.9" IPS (320x170)  SDK 3.0.8
  *
+ *   [V3.0.0 beta 9] @07/04/23, 06/05/23
+ *     - fix BeeNeXT3.5C SDK 3.0.8
+ *     - fix BeeNeXT7.0IPS ให้ทำงานเฉพาะจออย่างเดียวไปก่อน สัมผัสยังไม่ได้ fix
+ *     - fix backlight ของ BlynkGO Emma-II ให้ on off ได้ถูกต้อง
+ *
  *********************************************************************
  */
 
@@ -353,6 +358,8 @@ class BlynkGOv3 {
      * API backlight_off() สำหรับปิดไฟ led หน้าจอ
      *****************************************************************/
 #if !defined(BLYNKGO_OLED)
+    // __attribute__ ((always_inline)) inline void wakeup()                          { lcd.setBrightness( this->flashMem_Int("BRIGHTNESS") ); _is_backlight_on = true;  }
+    // __attribute__ ((always_inline)) inline void sleep()                           { lcd.setBrightness(0);                                  _is_backlight_on = false; }
     __attribute__ ((always_inline)) inline void wakeup()                          { lcd.wakeup(); _is_backlight_on = true;}
     __attribute__ ((always_inline)) inline void sleep()                           { lcd.sleep();  _is_backlight_on = false;}
     __attribute__ ((always_inline)) inline void backlight_ON()                    { this->wakeup(); }

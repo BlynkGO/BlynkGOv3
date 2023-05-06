@@ -41,6 +41,7 @@ typedef void(*mqtt_ondata_cb)   ( String topic, uint8_t* data, size_t len);
 typedef void(*mqtt_onsubscribe_cb)(int msg_id);
 
 #define AUTO_RECONNECT      true
+#define NO_AUTO_RECONNECT   false
 
 #if BLYNKO_USE_ASYNC_MQTT32
   

@@ -4,8 +4,8 @@
 
 #include <Arduino.h>
 #include <sdkconfig.h>
-#include "../../config/blynkgo_config.h"
-// #include "./config/blynkgo_config.h"
+// #include "../../config/blynkgo_config.h"
+#include "config/blynkgo_config.h"
 
 #define LGFX_USE_V1
 #include "./LoveCat/lgfx/v1/platforms/esp32/Light_PWM.hpp"
@@ -28,9 +28,7 @@ class BlynkGO_LCD  {
  *****************************************************/
 #include "./agfx/agfx.h"
 
-#if defined(TOUCH_GT911)
-  #include "./LoveCat/lgfx/v1/touch/TAMC_GT911/TAMC_GT911.h"
-#endif
+
 
 static constexpr int _TFT_BLACK       = 0x0000;      /*   0,   0,   0 */
 static constexpr int _TFT_WHITE       = 0xFFFF;      /* 255, 255, 255 */
@@ -68,10 +66,13 @@ class BlynkGO_LCD : public Arduino_ST7789 {
 };
 
 #elif defined(BEENEXT_4_3C) ||  defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
+// #if defined(TOUCH_GT911)
+  #include "./LoveCat/lgfx/v1/touch/TAMC_GT911/TAMC_GT911.h"
+// #endif
 class BlynkGO_LCD : public Arduino_RGB_Display {
   public:
-    BlynkGO_LCD( int16_t w, int16_t h, uint8_t pin_bl, Arduino_ESP32RGBPanel *rgbpanel, TAMC_GT911* touch=NULL) :
-      Arduino_RGB_Display(w,h,rgbpanel), _bl(pin_bl),_ts(touch)
+    BlynkGO_LCD( int16_t w, int16_t h, Arduino_ESP32RGBPanel *rgbpanel, TAMC_GT911* touch=NULL) :
+      Arduino_RGB_Display(w,h,rgbpanel), _ts(touch)
     { 
     }
     void begin(){
@@ -84,27 +85,30 @@ class BlynkGO_LCD : public Arduino_RGB_Display {
         cfg.pwm_channel = BACKLIGHT_CHANNEL;
       _light_instance.config(cfg);
       _light_instance.init(255);
-
-      Serial.println("[Touch] test");
+#if defined(TOUCH_GT911)
       if(_ts==NULL) { _ts = new TAMC_GT911(TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT); }
       if(_ts)       { _ts->begin(); _ts->setRotation(3); }
+#endif
     }
 
     inline void init()      { begin(); }
+
+#if defined(TOUCH_GT911)
     template <typename T>
     uint_fast8_t getTouch(T *x, T *y)
     {
       return (_ts==NULL)? 0 : _ts->getTouch(x,y);
     }
+#endif
 
     inline void drawString(const char* str, int16_t x, int16_t y)   { this->setCursor(x, y); this->print(str); }
     inline void wakeup()                            { _light_instance.setBrightness(_last_brightness);}
     inline void sleep()                             { _light_instance.setBrightness(0); }
     inline void setBrightness(uint8_t brightness)   { _light_instance.setBrightness(brightness); _last_brightness = brightness; }
     inline uint8_t getBrightness()                  { return _last_brightness; }
-    
-    TAMC_GT911 *_ts = NULL;
 
+    TAMC_GT911 *_ts = NULL;
+    
   private:
     lgfx::Light_PWM     _light_instance;
     uint8_t             _last_brightness=255;
@@ -496,7 +500,11 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
         cfg.pin_bl      = TFT_BL;               // バックライトが接続されているピン番号
     #if defined(RGB_DRIVER)
     #else
+#if defined(TFT_BL_INVERT)
+        cfg.invert      = TFT_BL_INVERT;             // バックライトの輝度を反転させる場合 true
+#else
         cfg.invert      = true;//false;                // バックライトの輝度を反転させる場合 true
+#endif
         cfg.freq        = 12000; //44100;                // バックライトのPWM周波数
         cfg.pwm_channel = BACKLIGHT_CHANNEL;    // 使用するPWMのチャンネル番号  : ch15
     #endif

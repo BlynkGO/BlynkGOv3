@@ -21,6 +21,12 @@
 
 #define BLYNKGO_V3
 
+#if BLYNKGO_USE_RTC_DS323X || BLYNKGO_USE_RTC_DS1307 || BLYNKGO_USE_RTC_PCF8523 || BLYNKGO_USE_RTC_PCF8563
+  #define BLYNKGO_USE_RTC           1
+#else
+  #define BLYNKGO_USE_RTC           0
+#endif
+
 //-------------------------------------------------
 /* System Config */
 #define BLYNKGO_SPIFFS_DRIVE      "F:/"
@@ -256,6 +262,8 @@
 
 //------------------------------------------------
 #if defined BLYNKGO_EMMA_II
+// #ifdef ARDUINO_BOARD
+// #if defined(ARDUINO_BOARD) && (ARDUINO_BOARD == "BLYNKGO_EMMA_II")
   #if defined EMMA16MB
     #define BLYNKGO_BOARD_NAME      "BlynkGO EMMA II (TFT 3.5 Capacitive Flash 16MB PSRAM 8MB)"
   #else
@@ -287,6 +295,7 @@
   #define TFT_RST                 22      // TFT reset pin
   #define TFT_BUSY                -1
   #define TFT_BL                  23      // TFT backlight  pin
+  #define TFT_BL_INVERT           false
   #define TFT_INVERT              false
 
   // capacitive touch i2c
@@ -298,6 +307,7 @@
   #define TOUCH_INT               -1 //38
 
 #endif
+// #endif
 
 //------------------------------------------------
 #if defined BEENEXT_1_9
@@ -809,7 +819,7 @@
   #define BEENEXT
   #define ROTATE_TYPE             0 //3
   #define OFFSET_ROTATION         0
-  #define BLYNKGO_USE_SD          1
+  #define BLYNKGO_USE_SD          0
   #define BLYNKGO_USE_AGFX        1
 
   #define RGB_DRIVER
@@ -861,13 +871,13 @@
   #define SD_SCLK                 12
   #define SD_MISO                 13
 
-  #define TOUCH_GT911
-  #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)
-  #define TOUCH_I2C_ADDR          0x5D
-  #define TOUCH_I2C_SDA           19
-  #define TOUCH_I2C_SCL           20
-  #define TOUCH_INT               -1
-  #define TOUCH_RST               38
+  // #define TOUCH_GT911
+  // #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)
+  // #define TOUCH_I2C_ADDR          0x5D
+  // #define TOUCH_I2C_SDA           19
+  // #define TOUCH_I2C_SCL           20
+  // #define TOUCH_INT               -1
+  // #define TOUCH_RST               38
 
 
 #endif

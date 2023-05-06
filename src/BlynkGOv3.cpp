@@ -69,7 +69,11 @@ static BlynkGOv3  *pBlynkGO=NULL;
           TFT_HSYNC_POLARITY /* hsync_polarity */, TFT_HSYNC_FRONT_PORCH /* hsync_front_porch */, TFT_HSYNC_PULSE_WIDTH /* hsync_pulse_width */, TFT_HSYNC_BACK_PORCH /* hsync_back_porch */,
           TFT_VSYNC_POLARITY /* vsync_polarity */, TFT_VSYNC_FRONT_PORCH /* vsync_front_porch */, TFT_VSYNC_PULSE_WIDTH /* vsync_pulse_width */, TFT_VSYNC_BACK_PORCH /* vsync_back_porch */,
           TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, 16000000 /* prefer_speed */),
-        new TAMC_GT911( TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT)
+#if defined(TOUCH_GT911)
+          new TAMC_GT911( TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT )
+#else
+          NULL
+#endif
       );
     #endif
   #else
@@ -287,7 +291,6 @@ void BlynkGOv3::begin(String blynkgo_key){
   this->begin(blynkgo_key64);
 }
 
-
 void BlynkGOv3::begin(uint64_t blynkgo_key){
   pBlynkGO = this;
   blynkgo_logo();
@@ -299,6 +302,14 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
   }
   NVS.begin();
 
+#if defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
+#if BLYNKGO_USE_SD
+#if BLYNKGO_DEV_LEVEL >= BLYNKGO_DEV_>LEVEL_SD
+  hw_sd_init();
+#endif
+#endif // BLYNKGO_USE_SD
+#endif
+
 
 #if BLYNKGO_DEV_LEVEL >= BLYNKGO_DEV_LEVEL_GFX
   hw_lcd_init();
@@ -309,11 +320,13 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
   blynkgo_system_init();
 #endif
 
+#if !defined(BEENEXT_3_5) && !defined(BEENEXT_3_5C)
 #if BLYNKGO_USE_SD
 #if BLYNKGO_DEV_LEVEL >= BLYNKGO_DEV_>LEVEL_SD
   hw_sd_init();
 #endif
 #endif // BLYNKGO_USE_SD
+#endif
 
 #if defined(LDR_RESOLUTION)
   analogReadResolution(LDR_RESOLUTION);
@@ -372,8 +385,8 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
 
 #if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
   #if defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
-    // Serial2.begin(9600, SERIAL_8N1, 35 /*input only*/ ,22);
-    // BeeNeXT.begin(&Serial2);
+    Serial2.begin(9600, SERIAL_8N1, 35 /*input only*/ ,22);
+    BeeNeXT.begin(&Serial2);
   #else
   // #if defined(BEENEXT_4_3) || defined(BEENEXT_4_3C) | defined(BEENEXT_4_3IPS)
     BeeNeXT.begin();  // ทั่วไปใช้ Serial เป็นจุดเชื่อมต่อกับ MCU อื่น, แต่สำหรับ ESP32S3 แบบนี้จะใช้ Serial2 ในการเชื่อมต่อ
@@ -647,11 +660,13 @@ void BlynkGOv3::hw_lcd_init(){
   // #endif
   // พบแล้วหาก เปิดใช้ RTC ด้วย Wire จะไปเริ่มขา 21,22 ทำให้ชนกับ TFT_BL 21
   if(this->flashMem_exists("BRIGHTNESS")) {
-    this->brightness( (uint8_t) (this->flashMem_Int("BRIGHTNESS") ), false );
+    // this->brightness( (uint8_t) (this->flashMem_Int("BRIGHTNESS") ), false );
+    lcd.setBrightness( (uint8_t) (this->flashMem_Int("BRIGHTNESS") ) );
   }else{
-    this->brightness( 255, true );
+    // this->brightness( 255, true );
+    lcd.setBrightness( 255 );
   }
-  Serial.printf("[BRIGHTNESS] %d\n", this->brightness());
+  Serial.printf("[BRIGHTNESS] %d\n", lcd.getBrightness() );//this->brightness());
 #endif
 
 #if !defined(BLYNKGO_OLED)
@@ -701,6 +716,7 @@ void BlynkGOv3::hw_lcd_init(){
 #if BLYNKGO_USE_SD
 void BlynkGOv3::hw_sd_init() {
 #if BLYNKGO_DEV_LEVEL >= BLYNKGO_DEV_LEVEL_SD
+
 #if defined (SD_VSPI_MODE) || defined(SD_FSPI_MODE)
   Serial.println("[SD] begin...");
   pinMode(SD_CS, OUTPUT);
@@ -971,8 +987,10 @@ static void blynkgo_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_co
 
 }
 
-
-#if !defined (BLYNKGO_OLED) && !defined(BEENEXT_1_9)
+#if   defined (BLYNKGO_OLED)
+#elif defined (BEENEXT_1_9)
+#elif defined (BEENEXT_7_0IPS) && !defined(TOUCH_GT911)
+#else
 static bool blynkgo_touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
 {
    int32_t touchX, touchY;
@@ -1023,8 +1041,10 @@ void BlynkGOv3::blynkgo_system_init(){
     disp_drv.buffer   = &disp_buf;
     lv_disp_drv_register(&disp_drv);
 
-#if defined(BLYNKGO_OLED)
-#elif defined(BEENEXT_1_9)
+#if   defined (BLYNKGO_OLED)
+#elif defined (BEENEXT_1_9)
+#elif defined (BEENEXT_7_0IPS) && !defined(TOUCH_GT911)
+  Serial.println("[Touch] skip!");
 #else
   lv_indev_drv_t indev_drv;
     lv_indev_drv_init(&indev_drv);
