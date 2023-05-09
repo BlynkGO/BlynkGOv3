@@ -1,7 +1,7 @@
 # BlynkGOv3
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)
 
-## [Version 3.0.0 beta9](https://github.com/BlynkGO/BlynkGOv3/tree/df438037613157a43e66097a597d670b23da65fd)  
+## [Version 3.0.0 beta9](https://github.com/BlynkGO/BlynkGOv3/tree/aff9ccd70ff083c3207777dcc20beac79a85a8ce)  
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.9 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
  - fix BeeNeXT3.5C SDK 3.0.9  
  - fix BeeNeXT7.0IPS ให้ทำงานเฉพาะจออย่างเดียวไปก่อน สัมผัสยังไม่ได้ fix  
