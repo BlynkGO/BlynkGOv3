@@ -37,12 +37,15 @@ void BlynkGO_AsyncMQTT32::setServer(String host, uint16_t port, String user, Str
   this->_mqtt_conf.host = _host;
   this->_mqtt_conf.port = _port;
 
+  char _uri_[128];
   if( user == "" ) {
     snprintf(this->_uri, sizeof(this->_uri), "mqtt://%s:%u", this->_host, this->_port);
+    snprintf(_uri_     , sizeof(_uri_)     , "mqtt://%s:%u", this->_host, this->_port);
   }else{
     snprintf(this->_uri, sizeof(this->_uri), "mqtt://%s:%s@%s:%u", user.c_str(), password.c_str(), this->_host, this->_port);
+    snprintf(_uri_     , sizeof(_uri_)     , "mqtt://[USER]:[PASS]@%s:%u", this->_host, this->_port);
   }
-  Serial.printf("[MQTT] connect by TCP >  %s\n",this->_uri);
+  Serial.printf("[MQTT] connect by TCP >  %s\n",_uri_);
 
   this->_mqtt_conf.uri = _uri;
 }
@@ -53,13 +56,15 @@ void BlynkGO_AsyncMQTT32::setServerSecure( String host, uint16_t port, String us
   this->_mqtt_conf.host = _host;
   this->_mqtt_conf.port = _port;
 
+  char _uri_[128];
   if( user == "" ) {
     snprintf(this->_uri, sizeof(this->_uri), "mqtts://%s:%u", this->_host, this->_port);
+    snprintf(_uri_     , sizeof(_uri_)     , "mqtts://%s:%u", this->_host, this->_port);
   }else{
     snprintf(this->_uri, sizeof(this->_uri), "mqtts://%s:%s@%s:%u", user.c_str(), password.c_str(), this->_host, this->_port);
+    snprintf(_uri_     , sizeof(_uri_)     , "mqtts://[USER]:[PASS]@%s:%u", this->_host, this->_port);
   }
-  
-  Serial.printf("[MQTT] connect by SSL/TLS >  %s\n",this->_uri);
+  Serial.printf("[MQTT] connect by SSL/TLS >  %s\n",_uri_);
 
   this->_mqtt_conf.uri = _uri;
 }
@@ -72,13 +77,15 @@ void BlynkGO_AsyncMQTT32::setWebSocket( String host, uint16_t port, String user,
   this->_mqtt_conf.host = _host;
   this->_mqtt_conf.port = _port;
   
+  char _uri_[128];
   if( user == "" ) {
     snprintf(this->_uri, sizeof(this->_uri), "ws://%s:%u/mqtt", this->_host, this->_port);
+    snprintf(_uri_     , sizeof(_uri_)     , "ws://%s:%u/mqtt", this->_host, this->_port);
   }else{
     snprintf(this->_uri, sizeof(this->_uri), "ws://%s:%s@%s:%u/mqtt", user.c_str(), password.c_str(), this->_host, this->_port);
+    snprintf(_uri_     , sizeof(_uri_)     , "ws://[USER]:[PASS]@%s:%u/mqtt", this->_host, this->_port);
   }
-
-  Serial.printf("[MQTT] connect by WebSocket >  %s\n",this->_uri);
+  Serial.printf("[MQTT] connect by WebSocket >  %s\n",_uri_);
   
   this->_mqtt_conf.uri = _uri;
 }
@@ -90,17 +97,18 @@ void BlynkGO_AsyncMQTT32::setWebSocketSecure( String host, uint16_t port, String
   this->_mqtt_conf.host = _host;
   this->_mqtt_conf.port = _port;
   
+  char _uri_[128];
   if( user == "" ) {
     snprintf(this->_uri, sizeof(this->_uri), "wss://%s:%u/mqtt", this->_host, this->_port);
+    snprintf(_uri_     , sizeof(_uri_)     , "wss://%s:%u/mqtt", this->_host, this->_port);
   }else{
     snprintf(this->_uri, sizeof(this->_uri), "wss://%s:%s@%s:%u/mqtt", user.c_str(), password.c_str(), this->_host, this->_port);
+    snprintf(_uri_     , sizeof(_uri_)     , "wss://[USER]:[PASS]@%s:%u/mqtt", this->_host, this->_port);
   }
-  
-  Serial.printf("[MQTT] connect by WebSocket Secure >  %s\n",this->_uri);
+  Serial.printf("[MQTT] connect by WebSocket Secure >  %s\n",_uri_);
   
   this->_mqtt_conf.uri = _uri;
 }
-
 
 void BlynkGO_AsyncMQTT32::setCertPEM(const char * mqtt_cert_pem){
   this->_mqtt_conf.cert_pem = (const char *)mqtt_cert_pem;
