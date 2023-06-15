@@ -368,6 +368,7 @@
   #define TFT_RST                 -1
   #define TFT_BUSY                -1
   #define TFT_BL                  21 
+  #define TFT_BL_INVERT           false
   #define TFT_INVERT              false
   #define TFT_SPI_3WIRE           false
   #define TFT_DUMMY_READ_PIXEL    8
