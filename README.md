@@ -1,7 +1,7 @@
 # BlynkGOv3
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)
 
-## [Version 3.0.0 beta10](https://github.com/BlynkGO/BlynkGOv3/tree/8f6ba892c690a89e6cc8db83620248e2200a3543)  
+## [Version 3.0.0 beta10](https://github.com/BlynkGO/BlynkGOv3/tree/0d2651b51013df118e35f93247935113d4b2a3d0)  
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.10 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
  - support BeeNeXT3.2C HMI Uart IPS  
  - support BeeNeXT7.0 HMI uart ให้สามารถทำงานสัมผัสไปได้ด้วย
