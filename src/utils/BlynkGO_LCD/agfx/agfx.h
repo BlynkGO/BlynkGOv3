@@ -28,7 +28,6 @@
 #include "databus/Arduino_STM32PAR8.h"
 #include "databus/Arduino_SWPAR8.h"
 #include "databus/Arduino_SWSPI.h"
-#include "databus/Arduino_XL9535SWSPI.h"
 
 #include "Arduino_GFX.h" // Core graphics library
 #if !defined(LITTLE_FOOT_PRINT)
@@ -42,12 +41,12 @@
 #include "display/Arduino_GC9106.h"
 #include "display/Arduino_GC9107.h"
 #include "display/Arduino_GC9A01.h"
+#include "display/Arduino_GC9503V_RGBPanel.h"
 #include "display/Arduino_HX8347C.h"
 #include "display/Arduino_HX8347D.h"
 #include "display/Arduino_HX8352C.h"
 #include "display/Arduino_HX8357A.h"
 #include "display/Arduino_HX8357B.h"
-#include "display/Arduino_HX8369A.h"
 #include "display/Arduino_ILI9225.h"
 #include "display/Arduino_ILI9331.h"
 #include "display/Arduino_ILI9341.h"
@@ -62,13 +61,13 @@
 #include "display/Arduino_NT35310.h"
 #include "display/Arduino_NT35510.h"
 #include "display/Arduino_NT39125.h"
-#include "display/Arduino_NV3041A.h"
 #include "display/Arduino_R61529.h"
-#include "display/Arduino_RGB_Display.h"
+#include "display/Arduino_RPi_DPI_RGBPanel.h"
 #include "display/Arduino_SEPS525.h"
 #include "display/Arduino_SSD1283A.h"
 #include "display/Arduino_SSD1331.h"
 #include "display/Arduino_SSD1351.h"
+#include "display/Arduino_ST7701_RGBPanel.h"
 #include "display/Arduino_ST7735.h"
 #include "display/Arduino_ST7789.h"
 #include "display/Arduino_ST7796.h"
@@ -146,7 +145,7 @@
 #define DF_GFX_DC 3
 #define DF_GFX_RST 2
 #define DF_GFX_BL 1
-#elif defined(TARGET_RP2040)
+#elif defined(ARDUINO_RASPBERRY_PI_PICO) || defined(ARDUINO_RASPBERRY_PI_PICO_W)
 #define DF_GFX_SCK 18
 #define DF_GFX_MOSI 19
 #define DF_GFX_MISO 16
@@ -167,7 +166,7 @@
 #define DF_GFX_MOSI 35
 #define DF_GFX_MISO GFX_NOT_DEFINED
 #define DF_GFX_CS 34
-#define DF_GFX_DC 38
+#define DF_GFX_DC 35
 #define DF_GFX_RST 33
 #define DF_GFX_BL 21
 #elif defined(ESP32) && (CONFIG_IDF_TARGET_ESP32S3)

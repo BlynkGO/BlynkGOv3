@@ -28,7 +28,6 @@
 #endif
 
 // Color definitions
-#ifndef DISABLE_COLOR_DEFINES
 #define BLACK 0x0000       ///<   0,   0,   0
 #define NAVY 0x000F        ///<   0,   0, 123
 #define DARKGREEN 0x03E0   ///<   0, 125,   0
@@ -48,7 +47,6 @@
 #define ORANGE 0xFD20      ///< 255, 165,   0
 #define GREENYELLOW 0xAFE5 ///< 173, 255,  41
 #define PINK 0xFC18        ///< 255, 130, 198
-#endif
 
 // Many (but maybe not all) non-AVR board installs define macros
 // for compatibility with existing PROGMEM-reading AVR code.
@@ -145,7 +143,7 @@ public:
   Arduino_GFX(int16_t w, int16_t h); // Constructor
 
   // This MUST be defined by the subclass:
-  virtual bool begin(int32_t speed = GFX_NOT_DEFINED) = 0;
+  virtual void begin(int32_t speed = GFX_NOT_DEFINED) = 0;
   virtual void writePixelPreclipped(int16_t x, int16_t y, uint16_t color) = 0;
 
   // TRANSACTION API / CORE DRAW API

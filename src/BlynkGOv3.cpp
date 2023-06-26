@@ -60,21 +60,35 @@ static BlynkGOv3  *pBlynkGO=NULL;
         35 /* col offset 1 */, 0 /* row offset 1 */, 35 /* col offset 2 */, 0 /* row offset 2 */
       );
     #elif defined(BEENEXT_4_3C) ||  defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
-      BlynkGO_LCD lcd(TFT_WIDTH, TFT_HEIGHT, //2,
+      BlynkGO_LCD lcd(TFT_WIDTH, TFT_HEIGHT,
         new Arduino_ESP32RGBPanel(
+          GFX_NOT_DEFINED /* CS */, GFX_NOT_DEFINED /* SCK */, GFX_NOT_DEFINED /* SDA */,
           TFT_HENABLE /* DE */, TFT_VSYNC /* VSYNC */, TFT_HSYNC /* HSYNC */, TFT_PCLK /* PCLK */,
           TFT_R0 /* R0 */, TFT_R1 /* R1 */, TFT_R2 /* R2 */, TFT_R3 /* R3 */, TFT_R4 /* R4 */,
           TFT_G0 /* G0 */, TFT_G1 /* G1 */, TFT_G2 /* G2 */, TFT_G3 /* G3 */, TFT_G4 /* G4 */, TFT_G5 /* G5 */,
-          TFT_B0 /* B0 */, TFT_B1 /* B1 */, TFT_B2 /* B2 */, TFT_B3 /* B3 */, TFT_B4 /* B4 */,
-          TFT_HSYNC_POLARITY /* hsync_polarity */, TFT_HSYNC_FRONT_PORCH /* hsync_front_porch */, TFT_HSYNC_PULSE_WIDTH /* hsync_pulse_width */, TFT_HSYNC_BACK_PORCH /* hsync_back_porch */,
-          TFT_VSYNC_POLARITY /* vsync_polarity */, TFT_VSYNC_FRONT_PORCH /* vsync_front_porch */, TFT_VSYNC_PULSE_WIDTH /* vsync_pulse_width */, TFT_VSYNC_BACK_PORCH /* vsync_back_porch */,
-          TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, 16000000 /* prefer_speed */),
-#if defined(TOUCH_GT911)
-          new TAMC_GT911( TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT )
+          TFT_B0 /* B0 */, TFT_B1 /* B1 */, TFT_B2 /* B2 */, TFT_B3 /* B3 */, TFT_B4 /* B4 */),
+#if defined(TOUCH_GT911_TAMC)
+        new TAMC_GT911( TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT)
 #else
-          NULL
+        NULL
 #endif
       );
+
+//       BlynkGO_LCD lcd(TFT_WIDTH, TFT_HEIGHT, //2,
+//         new Arduino_ESP32RGBPanel(
+//           TFT_HENABLE /* DE */, TFT_VSYNC /* VSYNC */, TFT_HSYNC /* HSYNC */, TFT_PCLK /* PCLK */,
+//           TFT_R0 /* R0 */, TFT_R1 /* R1 */, TFT_R2 /* R2 */, TFT_R3 /* R3 */, TFT_R4 /* R4 */,
+//           TFT_G0 /* G0 */, TFT_G1 /* G1 */, TFT_G2 /* G2 */, TFT_G3 /* G3 */, TFT_G4 /* G4 */, TFT_G5 /* G5 */,
+//           TFT_B0 /* B0 */, TFT_B1 /* B1 */, TFT_B2 /* B2 */, TFT_B3 /* B3 */, TFT_B4 /* B4 */,
+//           TFT_HSYNC_POLARITY /* hsync_polarity */, TFT_HSYNC_FRONT_PORCH /* hsync_front_porch */, TFT_HSYNC_PULSE_WIDTH /* hsync_pulse_width */, TFT_HSYNC_BACK_PORCH /* hsync_back_porch */,
+//           TFT_VSYNC_POLARITY /* vsync_polarity */, TFT_VSYNC_FRONT_PORCH /* vsync_front_porch */, TFT_VSYNC_PULSE_WIDTH /* vsync_pulse_width */, TFT_VSYNC_BACK_PORCH /* vsync_back_porch */,
+//           TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, 16000000 /* prefer_speed */),
+// #if defined(TOUCH_GT911_TAMC)
+//           new TAMC_GT911( TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT )
+// #else
+//           NULL
+// #endif
+//       );
     #endif
   #else
     BlynkGO_LCD lcd;
@@ -122,9 +136,12 @@ static uint8_t capture_type = CAPTURE_TYPE_BMP;
   ButtonISR BTN   = ButtonISR(0);
 #endif
 
-#if defined(BEENEXT_4_3) || defined(BEENEXT_4_3C) || defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
+#if defined(BEENEXT_4_3) || defined(BEENEXT_4_3C) || defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) //||  defined(BEENEXT_7_0IPS)
   #define GUI_TASK_LOOP_NUM   1
   #define LVGL_TICK_PERIOD    60    // ms
+#elif defined(BEENEXT_7_0IPS)
+  #define GUI_TASK_LOOP_NUM   1
+  #define LVGL_TICK_PERIOD    10    // ms
 #else
   #define GUI_TASK_LOOP_NUM   1
   #define LVGL_TICK_PERIOD    5    // ms
@@ -182,7 +199,7 @@ typedef struct _blynkgo_alarm_t{
 
 static std::vector<blynkgo_alarm_t> blynkgo_alarms;
 
-#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
+#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_2) || defined(BEENEXT_3_2C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
 #else
 #if BLYNKGO_USE_RTC_DS323X || BLYNKGO_USE_RTC_DS1307 || BLYNKGO_USE_RTC_PCF8523 || BLYNKGO_USE_RTC_PCF8563
  // now timestamp from RTC
@@ -336,7 +353,7 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
   WiFi.onEvent(BlynkGO_WiFiEvent);  // เรียกภายในก่อน ส่งต่อไปให้ด้วย
 #endif // BLYNKGO_USE_WIFI || BLYNKGO_USE_BLYNK
 
-#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
+#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_2) || defined(BEENEXT_3_2C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
   this->ledRGB(0,0,0); // ให้ ledทำงานแบบดับสนิท
 #else
 
@@ -382,7 +399,8 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
 
 #endif // #if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
 
-
+#if defined(BEENEXT_7_0IPS)
+#else
 #if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
   #if defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
     Serial2.begin(9600, SERIAL_8N1, 35 /*input only*/ ,22);
@@ -392,14 +410,22 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
     BeeNeXT.begin();  // ทั่วไปใช้ Serial เป็นจุดเชื่อมต่อกับ MCU อื่น, แต่สำหรับ ESP32S3 แบบนี้จะใช้ Serial2 ในการเชื่อมต่อ
   #endif
 #endif
+#endif
 
 #if defined (TOUCH_XPT2046)
   if( this->flashMem_exists("BLYNKGO_VER")) {
     String _blynkgo_version = this->flashMem_String("BLYNKGO_VER");
+    // Serial.print("found BLYNKGO_VER : ");
+    Serial.println(_blynkgo_version);
+    // Serial.print("cur verson : ");
+    Serial.println(BLYNKGO_VERSION_TEXT);
     if(_blynkgo_version != BLYNKGO_VERSION_TEXT) {
       this->touch_calibrate();
+      this->flashMem_erase("BLYNKGO_VER");
+      this->flashMem("BLYNKGO_VER", BLYNKGO_VERSION_TEXT );
     }
   }else{
+    // Serial.println("not found BLYNKGO_VER");
     this->flashMem("BLYNKGO_VER", String(BLYNKGO_VERSION_TEXT));   
     this->touch_calibrate();
   }
@@ -616,6 +642,7 @@ void BlynkGOv3::touch_calibrate(){
     uint16_t touch_data[8];
     lcd.calibrateTouch(touch_data, fg, bg, std::max(lcd.width(), lcd.height()) >> 3);
     // NVS.setObject("TOUCH_DATA", touch_data, sizeof(touch_data)*8); 
+    this->flashMem_erase("TOUCH_DATA");
     this->flashMem("TOUCH_DATA", &touch_data, sizeof(touch_data));
     lcd.setRotation(this->flashMem_Int("TFT_ROTATE"));  // ตั้ง rotation คืนที่เคยกำหนด
     ESP_LOGI(TAG, "[TouchCalibrate] set to FlashMem Done!");
@@ -707,7 +734,11 @@ void BlynkGOv3::hw_lcd_init(){
     // --- start logo by text ------------------
     lcd.fillScreen(_TFT_BLACK);
     lcd.setTextSize((std::max(lcd.width(), lcd.height()) + 255) >> 9); //>> 8);
+#if BLYNKGO_USE_AGFX
+    lcd.setTextColor(RED);//RGB565(255, 0, 0));
+#else
     lcd.setTextColor(0xFF0000U);
+#endif
     lcd.drawString("C:> BlynkGOv3", 30, 16);
   // }
 }
@@ -989,7 +1020,7 @@ static void blynkgo_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_co
 
 #if   defined (BLYNKGO_OLED)
 #elif defined (BEENEXT_1_9)
-#elif defined (BEENEXT_7_0IPS) && !defined(TOUCH_GT911)
+// #elif defined (BEENEXT_7_0IPS) && !defined(TOUCH_GT911)
 #else
 static bool blynkgo_touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
 {
@@ -1020,11 +1051,20 @@ void BlynkGOv3::blynkgo_system_init(){
   _cbuf = (lv_color_t*) esp32_malloc(buf_size);
   lv_disp_buf_init(&disp_buf, _cbuf, NULL, LV_HOR_RES_MAX * 60);  // 480/40 = 12 ครั้ง
 #elif defined(BEENEXT_4_3) || defined(BEENEXT_4_3C) || defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
-  ESP_LOGI(TAG, "[BeeNeXT] alloc (ESP32S3)");
+  ESP_LOGI(TAG, "[BlynkGO] alloc (ESP32S3)");
   _cbuf   = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
   // _cbuf2  = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
   // lv_disp_buf_init(&disp_buf, _cbuf, _cbuf2, lcd.width() * lcd.height()/ 8);
   lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()/ 8);
+// #elif defined(BEENEXT_7_0IPS)
+//   ESP_LOGI(TAG, "[BlynkGO] alloc (ESP32S3) 7inch");
+//   // _cbuf   = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+//   // _cbuf2  = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+//   _cbuf = (lv_color_t *)malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() /6);
+
+//   // lv_disp_buf_init(&disp_buf, _cbuf, _cbuf2, lcd.width() * lcd.height()/ 8);
+//   // lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()/ 8);
+//   lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()/ 6);
 #else
   ESP_LOGI(TAG, "[BlynkGO] full alloc");
   size_t buf_size = sizeof(lv_color_t)* lcd.width() * lcd.height();
@@ -1043,8 +1083,8 @@ void BlynkGOv3::blynkgo_system_init(){
 
 #if   defined (BLYNKGO_OLED)
 #elif defined (BEENEXT_1_9)
-#elif defined (BEENEXT_7_0IPS) && !defined(TOUCH_GT911)
-  Serial.println("[Touch] skip!");
+// #elif defined (BEENEXT_7_0IPS) && !defined(TOUCH_GT911)
+  // Serial.println("[Touch] skip!");
 #else
   lv_indev_drv_t indev_drv;
     lv_indev_drv_init(&indev_drv);
@@ -1128,7 +1168,7 @@ uint8_t  BlynkGOv3::brightness(){
 }
 
 
-#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
+#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_2) || defined(BEENEXT_3_2C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
 void BlynkGOv3::ledRGB(uint8_t r, uint8_t g, uint8_t b){
   static bool _led_pwm_inited = false;
 
@@ -1387,7 +1427,7 @@ static void ntp_sync_task(void* param){
   setTime( timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec, timeinfo.tm_mday, timeinfo.tm_mon+1, timeinfo.tm_year+1900-2000);
   BlynkGOv3::blynkgo_alarm_handler();
 
-#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
+#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_2) || defined(BEENEXT_3_2C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
 #else
 #if BLYNKGO_USE_RTC_DS323X || BLYNKGO_USE_RTC_DS1307 || BLYNKGO_USE_RTC_PCF8523 || BLYNKGO_USE_RTC_PCF8563
   time_t now;

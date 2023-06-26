@@ -710,6 +710,8 @@ void GWiFiSetting::create(){
 
         ext->lb_wifi_msgbox_status->hidden(false);
         *ext->lb_wifi_msgbox_status = "";
+
+        Serial.println("[GWiFiSetting] wifi scanning...");
         
         GWiFiSetting::scan_WiFiNetworks();
       });

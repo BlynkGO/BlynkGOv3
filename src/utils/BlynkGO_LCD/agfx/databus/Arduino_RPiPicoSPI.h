@@ -1,4 +1,4 @@
-#if defined(TARGET_RP2040)
+#if defined(ARDUINO_RASPBERRY_PI_PICO) || defined(ARDUINO_RASPBERRY_PI_PICO_W)
 
 #ifndef _ARDUINO_RPIPICOSPI_H_
 #define _ARDUINO_RPIPICOSPI_H_
@@ -15,7 +15,7 @@ class Arduino_RPiPicoSPI : public Arduino_DataBus
 public:
   Arduino_RPiPicoSPI(int8_t dc = GFX_NOT_DEFINED, int8_t cs = GFX_NOT_DEFINED, int8_t sck = PIN_SPI0_SCK, int8_t mosi = PIN_SPI0_MOSI, int8_t miso = PIN_SPI0_MISO, spi_inst_t *spi = spi0); // Constructor
 
-  bool begin(int32_t speed = GFX_NOT_DEFINED, int8_t dataMode = GFX_NOT_DEFINED) override;
+  void begin(int32_t speed = GFX_NOT_DEFINED, int8_t dataMode = GFX_NOT_DEFINED) override;
   void beginWrite() override;
   void endWrite() override;
   void writeCommand(uint8_t) override;
@@ -65,4 +65,4 @@ private:
 };
 
 #endif // _ARDUINO_RPIPICOSPI_H_
-#endif // #if defined(TARGET_RP2040)
+#endif // #if defined(ARDUINO_RASPBERRY_PI_PICO) || defined(ARDUINO_RASPBERRY_PI_PICO_W)

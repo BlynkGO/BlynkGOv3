@@ -494,8 +494,8 @@ void GGauge::thickness(uint8_t thick) {
 
   float   r_val_min      = radius_arg_bg - thick_arg_bg/4;    // รัศมีตำแหน่งของศูนย์กลางของ val_min, val_max
   float   angle_font_h   = map_f( font_h_val_min, 0, 2*PI* r_val_min, 0, 360); // แปลงความสูง font ของ val_min เป็น องศา
-  Serial.printf("r_fg %.2f ; r_bg %.2f ; r_val_min : %.2f ; angle font-h of val-min : %.2f\n", 
-        radius_arg_fg, radius_arg_bg, r_val_min, angle_font_h); 
+  // Serial.printf("r_fg %.2f ; r_bg %.2f ; r_val_min : %.2f ; angle font-h of val-min : %.2f\n", 
+  //       radius_arg_fg, radius_arg_bg, r_val_min, angle_font_h); 
 
   ext->arc_bg->thickness( thick_arg_bg);
   ext->arc_bg->radius(radius_arg_bg); 

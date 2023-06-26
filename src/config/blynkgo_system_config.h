@@ -344,7 +344,7 @@
   #define BLYNKGO_BOARD_NAME      "BeeNeXT 2.8\" Touch (resistive)"
   #define BLYNKGO_BASIC
   #define BEENEXT
-  #define TFT_2_8_INCH_TOUCH
+  // #define TFT_2_8_INCH_TOUCH
   #define OFFSET_ROTATION         0
   #define ROTATE_TYPE             3
 
@@ -404,7 +404,7 @@
   #define OFFSET_ROTATION         0
   #define ROTATE_TYPE             3
   #define BEENEXT
-  #define TFT_2_8_INCH_TOUCH
+  // #define TFT_2_8_INCH_TOUCH
   #define OFFSET_ROTATION         0
   #define ROTATE_TYPE             3
 
@@ -446,12 +446,132 @@
   #define LED_R                   4
   #define LED_G                   16
   #define LED_B                   17
+
+#elif defined BEENEXT_3_2
+  #define BLYNKGO_BOARD_NAME      "BeeNeXT 3.2\" Touch (resistive)"  // ยังไม่ได้ impliment
+  #define BLYNKGO_BASIC
+  #define OFFSET_ROTATION         0
+  #define ROTATE_TYPE             3
+  #define BEENEXT
+  // #define TFT_3_2_INCH_TOUCH
+
+  // HSPI MISO12, MOSI13, SCK14, SS15;
+  // VSPI MISO19, MOSI23, SCK18, SS5;
+  #define SPI_HOST_TYPE           HSPI_HOST  // HSPI_HOST or VSPI_HOST
+  #define SPI_MISO                12
+  #define SPI_MOSI                13
+  #define SPI_SCLK                14
+
+  // TFT 3.2"
+  #define ST7789_DRIVER      // TFT 3.2"
+  #define TFT_WIDTH               240
+  #define TFT_HEIGHT              320
+  #define TFT_SPI_HOST_TYPE       SPI_HOST_TYPE
+  #define TFT_MISO                SPI_MISO
+  #define TFT_MOSI                SPI_MOSI
+  #define TFT_SCLK                SPI_SCLK
+  #define TFT_CS                  15
+  #define TFT_DC                  2
+  #define TFT_RST                 35
+  #define TFT_BUSY                -1
+  #define TFT_BL                  27 
+  #define TFT_BL_INVERT           false
+  #define TFT_INVERT              true  // กลับสี
+  #define TFT_SPI_3WIRE           false
+  #define TFT_DUMMY_READ_PIXEL    8
+  #define TFT_DUMMY_READ_BITS     1
+
+  
+  #define BLYNKGO_USE_SD          1   // conflict with TFT
+  #define SD_VSPI_MODE
+  #define SD_SCLK                 18
+  #define SD_MISO                 19
+  #define SD_MOSI                 23
+  #define SD_CS                   5       // SD Chip Select
+
+  #define TOUCH_XPT2046
+  #define TOUCH_HOST_TYPE         SPI_HOST_TYPE
+  #define TOUCH_INT               36
+  #define TOUCH_MOSI              SPI_MOSI // 13 <-- 32
+  #define TOUCH_MISO              SPI_MISO // 12 <-- 39
+  #define TOUCH_SCLK              SPI_SCLK // 14 <-- 25
+  #define TOUCH_CS                33
+
+
+  #define LDR_PIN                 34
+  #define LDR_RESOLUTION          12
+  #define SPEAKER_PIN             26
+
+  #define LED_R                   4
+  #define LED_G                   16
+  #define LED_B                   17
+
+#elif defined BEENEXT_3_2C
+  #define BLYNKGO_BOARD_NAME      "BeeNeXT 3.2\" Touch (capacitive)"  // ยังไม่ได้ impliment
+  #define BLYNKGO_BASIC
+  #define OFFSET_ROTATION         0
+  #define ROTATE_TYPE             3
+  #define BEENEXT
+
+  // HSPI MISO12, MOSI13, SCK14, SS15;
+  // VSPI MISO19, MOSI23, SCK18, SS5;
+  #define SPI_HOST_TYPE           HSPI_HOST  // HSPI_HOST or VSPI_HOST
+  #define SPI_MISO                12
+  #define SPI_MOSI                13
+  #define SPI_SCLK                14
+
+  // TFT 3.2"
+  #define ST7789_DRIVER      // TFT 3.2"
+  #define TFT_WIDTH               240
+  #define TFT_HEIGHT              320
+  #define TFT_SPI_HOST_TYPE       SPI_HOST_TYPE
+  #define TFT_MISO                SPI_MISO
+  #define TFT_MOSI                SPI_MOSI
+  #define TFT_SCLK                SPI_SCLK
+  #define TFT_CS                  15
+  #define TFT_DC                  2
+  #define TFT_RST                 35
+  #define TFT_BUSY                -1
+  #define TFT_BL                  27 
+  #define TFT_BL_INVERT           false
+  #define TFT_INVERT              true  // กลับสี
+  #define TFT_SPI_3WIRE           false
+  #define TFT_DUMMY_READ_PIXEL    8
+  #define TFT_DUMMY_READ_BITS     1
+
+  
+  #define BLYNKGO_USE_SD          1   // conflict with TFT
+  #define SD_VSPI_MODE
+  #define SD_SCLK                 18
+  #define SD_MISO                 19
+  #define SD_MOSI                 23
+  #define SD_CS                   5       // SD Chip Select
+
+  // capacitive touch i2c
+  #define TOUCH_GT911_TAMC
+  // #define TOUCH_GT911
+  #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)
+  #define TOUCH_I2C_ADDR          0x5D  // 0x14
+  #define TOUCH_I2C_SDA           33
+  #define TOUCH_I2C_SCL           32
+  #define TOUCH_INT               -1    // not used
+  #define TOUCH_RST               25
+  #define TOUCH_BUS_SHARED        false
+
+  #define LDR_PIN                 34
+  #define LDR_RESOLUTION          12
+  #define SPEAKER_PIN             26
+
+  #define LED_R                   4
+  #define LED_G                   16
+  #define LED_B                   17
+
 //------------------------------------------------
 #elif defined BEENEXT_3_5
   #define BLYNKGO_BOARD_NAME      "BeeNeXT 3.5\" Touch (resistive)"
   #define BLYNKGO_BASIC
   #define BEENEXT
-  #define TFT_3_5_INCH_TOUCH
+  // #define TFT_3_5_INCH_TOUCH
   #define OFFSET_ROTATION         0
   #define ROTATE_TYPE             3
 
@@ -545,7 +665,8 @@
   #define SD_CS                   5       // SD Chip Select
 
   // capacitive touch i2c
-  #define TOUCH_GT911_TAMC
+  #define TOUCH_GT911_TAMC        // ใช้ได้
+  // #define TOUCH_GT911           // ไม่ทำงาน
   #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)
   #define TOUCH_I2C_ADDR          0x5D  // 0x14
   #define TOUCH_I2C_SDA           33
@@ -875,13 +996,16 @@
   #define SD_SCLK                 12
   #define SD_MISO                 13
 
-  // #define TOUCH_GT911
-  // #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)
-  // #define TOUCH_I2C_ADDR          0x5D
-  // #define TOUCH_I2C_SDA           19
-  // #define TOUCH_I2C_SCL           20
-  // #define TOUCH_INT               -1
-  // #define TOUCH_RST               38
+   #define TOUCH_GT911_TAMC
+//   #define TOUCH_GT911
+  
+  #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)
+  #define TOUCH_I2C_ADDR          0x5D
+  #define TOUCH_I2C_SDA           19
+  #define TOUCH_I2C_SCL           20
+  #define TOUCH_INT               -1
+  #define TOUCH_RST               38
+  #define TOUCH_BUS_SHARED        false
 
 
 #endif

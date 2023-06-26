@@ -10,7 +10,7 @@ class Arduino_ESP32S2PAR16Q : public Arduino_DataBus
 public:
   Arduino_ESP32S2PAR16Q(int8_t dc, int8_t cs, int8_t wr, int8_t rd); // Constructor
 
-  bool begin(int32_t speed = GFX_NOT_DEFINED, int8_t dataMode = GFX_NOT_DEFINED) override;
+  void begin(int32_t speed = GFX_NOT_DEFINED, int8_t dataMode = GFX_NOT_DEFINED) override;
   void beginWrite() override;
   void endWrite() override;
   void writeCommand(uint8_t) override;
@@ -23,7 +23,6 @@ public:
   void writeC8D8(uint8_t c, uint8_t d) override;
   void writeC8D16(uint8_t c, uint16_t d) override;
   void writeC8D16D16(uint8_t c, uint16_t d1, uint16_t d2) override;
-  void writeC8D16D16Split(uint8_t c, uint16_t d1, uint16_t d2) override;
   void writeBytes(uint8_t *data, uint32_t len) override;
   void writePattern(uint8_t *data, uint8_t len, uint32_t repeat) override;
 

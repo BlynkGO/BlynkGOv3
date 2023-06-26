@@ -11,11 +11,9 @@ class Arduino_Canvas_Mono : public Arduino_GFX
 public:
   Arduino_Canvas_Mono(int16_t w, int16_t h, Arduino_G *output, int16_t output_x = 0, int16_t output_y = 0);
 
-  bool begin(int32_t speed = GFX_NOT_DEFINED) override;
+  void begin(int32_t speed = GFX_NOT_DEFINED) override;
   void writePixelPreclipped(int16_t x, int16_t y, uint16_t color) override;
   void flush(void) override;
-
-  uint8_t *getFramebuffer();
 
 protected:
   uint8_t *_framebuffer;

@@ -28,8 +28,6 @@ class BlynkGO_LCD  {
  *****************************************************/
 #include "./agfx/agfx.h"
 
-
-
 static constexpr int _TFT_BLACK       = 0x0000;      /*   0,   0,   0 */
 static constexpr int _TFT_WHITE       = 0xFFFF;      /* 255, 255, 255 */
 
@@ -66,17 +64,31 @@ class BlynkGO_LCD : public Arduino_ST7789 {
 };
 
 #elif defined(BEENEXT_4_3C) ||  defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
-// #if defined(TOUCH_GT911)
-  #include "./LoveCat/lgfx/v1/touch/TAMC_GT911/TAMC_GT911.h"
-// #endif
-class BlynkGO_LCD : public Arduino_RGB_Display {
+
+#if defined(TOUCH_GT911_TAMC)
+#include "./LoveCat/lgfx/v1/touch/TAMC_GT911/TAMC_GT911.h"
+#endif
+
+class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
   public:
+#if defined(TOUCH_GT911_TAMC)
     BlynkGO_LCD( int16_t w, int16_t h, Arduino_ESP32RGBPanel *rgbpanel, TAMC_GT911* touch=NULL) :
-      Arduino_RGB_Display(w,h,rgbpanel), _ts(touch)
-    { 
-    }
+      Arduino_RPi_DPI_RGBPanel(rgbpanel,  
+        TFT_WIDTH  /* width */ , TFT_HSYNC_POLARITY /* hsync_polarity */, TFT_HSYNC_FRONT_PORCH /* hsync_front_porch */, TFT_HSYNC_PULSE_WIDTH /* hsync_pulse_width */, TFT_HSYNC_BACK_PORCH /* hsync_back_porch */,
+        TFT_HEIGHT /* height */, TFT_VSYNC_POLARITY /* vsync_polarity */, TFT_VSYNC_FRONT_PORCH /* vsync_front_porch */, TFT_VSYNC_PULSE_WIDTH /* vsync_pulse_width */, TFT_VSYNC_BACK_PORCH /* vsync_back_porch */,
+        TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, 16000000 /* prefer_speed */, true /* auto_flush */)
+        , _ts(touch)
+    { }
+#else
+    BlynkGO_LCD( int16_t w, int16_t h, Arduino_ESP32RGBPanel *rgbpanel) :
+      Arduino_RPi_DPI_RGBPanel(rgbpanel,  
+        TFT_WIDTH  /* width */ , TFT_HSYNC_POLARITY /* hsync_polarity */, TFT_HSYNC_FRONT_PORCH /* hsync_front_porch */, TFT_HSYNC_PULSE_WIDTH /* hsync_pulse_width */, TFT_HSYNC_BACK_PORCH /* hsync_back_porch */,
+        TFT_HEIGHT /* height */, TFT_VSYNC_POLARITY /* vsync_polarity */, TFT_VSYNC_FRONT_PORCH /* vsync_front_porch */, TFT_VSYNC_PULSE_WIDTH /* vsync_pulse_width */, TFT_VSYNC_BACK_PORCH /* vsync_back_porch */,
+        TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, 16000000 /* prefer_speed */, true /* auto_flush */)
+    { }
+#endif
     void begin(){
-      Arduino_RGB_Display::begin();
+      Arduino_RPi_DPI_RGBPanel::begin();
       
       auto cfg = _light_instance.config();
         cfg.pin_bl      = TFT_BL;
@@ -85,15 +97,17 @@ class BlynkGO_LCD : public Arduino_RGB_Display {
         cfg.pwm_channel = BACKLIGHT_CHANNEL;
       _light_instance.config(cfg);
       _light_instance.init(255);
-#if defined(TOUCH_GT911)
+
+#if defined(TOUCH_GT911_TAMC)
       if(_ts==NULL) { _ts = new TAMC_GT911(TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT); }
-      if(_ts)       { _ts->begin(); _ts->setRotation(3); }
+      if(_ts)       { _ts->begin(); }
 #endif
+      this->setRotation(0);
     }
 
     inline void init()      { begin(); }
 
-#if defined(TOUCH_GT911)
+#if defined(TOUCH_GT911_TAMC)
     template <typename T>
     uint_fast8_t getTouch(T *x, T *y)
     {
@@ -101,18 +115,30 @@ class BlynkGO_LCD : public Arduino_RGB_Display {
     }
 #endif
 
+    #if defined(BEENEXT_7_0IPS)
+    void setRotation(uint8_t r){
+      Arduino_RPi_DPI_RGBPanel::setRotation(r);
+      if(_ts) { 
+        _ts->setRotation((r+1)%4);
+      }
+    }
+    #endif
+
     inline void drawString(const char* str, int16_t x, int16_t y)   { this->setCursor(x, y); this->print(str); }
     inline void wakeup()                            { _light_instance.setBrightness(_last_brightness);}
     inline void sleep()                             { _light_instance.setBrightness(0); }
     inline void setBrightness(uint8_t brightness)   { _light_instance.setBrightness(brightness); _last_brightness = brightness; }
     inline uint8_t getBrightness()                  { return _last_brightness; }
 
+#if defined(TOUCH_GT911_TAMC)
     TAMC_GT911 *_ts = NULL;
-    
+#endif
+
   private:
     lgfx::Light_PWM     _light_instance;
     uint8_t             _last_brightness=255;
 };
+
 #endif // agfx (BeeNeXT 4.3,5.0,7.0)
 
 

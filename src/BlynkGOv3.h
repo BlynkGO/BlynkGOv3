@@ -61,7 +61,7 @@
 #ifndef _BLYNKGO_V3_H__
 #define _BLYNKGO_V3_H__
 
-// #define BLYNKGO_VERSION             "3.0.0 beta8"
+// #define BLYNKGO_VERSION             "3.0.0 beta10"
 
 /** Major version number (X.x.x) */
 #define BLYNKGO_VERSION_MAJOR   3
@@ -370,7 +370,7 @@ class BlynkGOv3 {
     __attribute__ ((always_inline)) inline bool isSleep()                         { return !_is_backlight_on; }
 #endif
 
-#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
+#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_2) || defined(BEENEXT_3_2C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
     void     ledRGB(uint8_t r, uint8_t g, uint8_t b);
     float    readLDR();  // 0-100;
 #endif
