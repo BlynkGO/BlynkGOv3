@@ -1,10 +1,11 @@
 # BlynkGOv3
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)
 
-## [Version 3.0.0 beta10](https://github.com/BlynkGO/BlynkGOv3/tree/0d2651b51013df118e35f93247935113d4b2a3d0)  
+## [Version 3.0.0 beta10](https://github.com/BlynkGO/BlynkGOv3/tree/650d4bb001e28366cfebf25537cfe0bf8d48e655)  
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.10 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
  - support BeeNeXT3.2C HMI Uart IPS  
  - support BeeNeXT7.0 HMI uart ให้สามารถทำงานสัมผัสไปได้ด้วย
+ - เพิ่มคำสั่ง BlynkGO.centerpoint() จุดศูนย์กลางจอ
 
 ## Version 3.0.0 beta9 
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.9 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
