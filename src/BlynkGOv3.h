@@ -328,7 +328,7 @@ class BlynkGOv3 {
     __attribute__ ((always_inline)) inline uint16_t width()                                             { return GScreen.width();  }
     __attribute__ ((always_inline)) inline uint16_t height()                                            { return GScreen.height(); }
 
-    __attribute__ ((always_inline)) inline Point    centerpoint()                                       { return GScren.centerpoint(); }
+    __attribute__ ((always_inline)) inline Point    centerpoint()                                       { return GScreen.centerpoint(); }
  
     /*****************************************************************
      * API  font_load(String font_path) สำหรับโหลด binary font จาก SD หรือ SPIFFS
