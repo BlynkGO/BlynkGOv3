@@ -37,7 +37,7 @@ void TAMC_GT911::begin(uint8_t _addr) {
   delay(200);  // มีกันไว้
   
   reset();
-  Serial.printf("%d x %d\n", width, height);
+  // Serial.printf("%d x %d\n", width, height);
   Serial.println("[GT911] inited");
 }
 

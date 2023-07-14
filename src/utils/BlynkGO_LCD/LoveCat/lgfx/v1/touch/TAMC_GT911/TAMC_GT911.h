@@ -179,8 +179,13 @@ class TAMC_GT911 {
               // this->points[0].x, this->points[0].y,
               // this->width, this->height);
         if( ( width == 480 && height == 800) || (width==800 && height==480) ){
+#if defined(BEENEXT_4_3IPS)
+          _x = map(this->points[0].x,0,480,0,800);
+          _y = map(this->points[0].y,0,272,0,480);
+#elif defined(BEENEXT_7_0IPS)
           _x = this->points[0].x;
           _y = this->points[0].y;
+#endif
         }else{
           _x = map(this->points[0].x, this->width , 0, 0, this->width );
           _y = map(this->points[0].y, this->height, 0, 0, this->height);

@@ -140,6 +140,38 @@ class GButton : public GContainer {
     void     padding_right(uint8_t padding);
     void     padding_inner(uint8_t padding);
 
+    inline void padding(uint16_t padding_top,uint16_t padding_bottom, uint16_t padding_left,uint16_t padding_right, uint16_t padding_inner) 
+                {  
+                    this->padding_top(padding_top);
+                    this->padding_bottom(padding_bottom);
+                    this->padding_left(padding_left);
+                    this->padding_right(padding_right);
+                    this->padding_inner(padding_inner);
+                }
+    inline void padding_top_bottom(uint16_t padding)
+                {
+                    this->padding_top(padding);
+                    this->padding_bottom(padding);
+                }
+
+    inline void padding_top_bottom(uint16_t padding_top, uint16_t padding_bottom)
+                {
+                    this->padding_top(padding_top);
+                    this->padding_bottom(padding_bottom);
+                }
+
+    inline void padding_left_right(uint16_t padding)
+                {
+                    this->padding_left(padding);
+                    this->padding_right(padding);
+                }
+
+    inline void padding_left_right(uint16_t padding_left, uint16_t padding_right)
+                {
+                    this->padding_left(padding_left);
+                    this->padding_right(padding_right);
+                }
+
     void     round_design();        // ปรับให้เป็นปุ่มวงกลมสำหรับ SYMBOL_XXXX ที่จะใช้เป็นปุ่มกด
     
     

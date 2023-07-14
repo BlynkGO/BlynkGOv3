@@ -473,7 +473,7 @@
   #define TFT_CS                  15
   #define TFT_DC                  2
   #define TFT_RST                 35
-  #define TFT_BUSY                -1
+  #define TFT_BUSY                0//-1
   #define TFT_BL                  27 
   #define TFT_BL_INVERT           false
   #define TFT_INVERT              true  // กลับสี
@@ -769,6 +769,7 @@
   #define ROTATE_TYPE             0 //3
   #define OFFSET_ROTATION         0
   #define BLYNKGO_USE_SD          1
+  #define BLYNKGO_USE_AGFX        1
 
   #define RGB_DRIVER
   #define TFT_RGB_BUS
@@ -813,7 +814,8 @@
   #define SD_SCLK                 12
   #define SD_MISO                 13
 
-  #define TOUCH_GT911
+  // #define TOUCH_GT911
+  #define TOUCH_GT911_TAMC
   #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)
   #define TOUCH_I2C_ADDR          0x5D
   #define TOUCH_I2C_SDA           19
@@ -827,7 +829,7 @@
   #define ROTATE_TYPE             0 //3
   #define OFFSET_ROTATION         0
   #define BLYNKGO_USE_SD          1
-  #define BLYNKGO_USE_AGFX        0
+  #define BLYNKGO_USE_AGFX        1
 
   #define RGB_DRIVER
   #define TFT_RGB_BUS
@@ -872,7 +874,8 @@
   #define SD_SCLK                 12
   #define SD_MISO                 13
 
-  #define TOUCH_GT911
+  // #define TOUCH_GT911
+  #define TOUCH_GT911_TAMC
   #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)
   #define TOUCH_I2C_ADDR          0x5D
   #define TOUCH_I2C_SDA           19

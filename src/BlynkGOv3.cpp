@@ -399,7 +399,8 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
 
 #endif // #if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
 
-#if defined(BEENEXT_7_0IPS)
+#if defined(BEENEXT_4_3) || defined(BEENEXT_4_3C) | defined(BEENEXT_4_3IPS) || defined(BEENEXT_7_0IPS)
+  // ข้าม BeeNeXT.begin(..) ไปก่อน
 #else
 #if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
   #if defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
@@ -433,7 +434,7 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
 
 }
 
-void BlynkGOv3::update(bool beenext_loop){
+void BlynkGOv3::update(){
 #if BLYNKGO_DEV_LEVEL >= BLYNKGO_DEV_LEVEL_SUPERG
   for(int i=0; i< GUI_TASK_LOOP_NUM; i++) {
     lv_task_handler(); /* let the GUI do its work */
@@ -441,7 +442,7 @@ void BlynkGOv3::update(bool beenext_loop){
 #endif
 
 #if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
-  if(beenext_loop) BeeNeXT.update();
+  BeeNeXT.update();
 #endif
   
   Alarm.serviceAlarms();  // จัดการ Alarm

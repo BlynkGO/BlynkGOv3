@@ -115,7 +115,7 @@ class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
     }
 #endif
 
-    #if defined(BEENEXT_7_0IPS)
+    #if defined(BEENEXT_4_3IPS) || defined(BEENEXT_7_0IPS)
     void setRotation(uint8_t r){
       Arduino_RPi_DPI_RGBPanel::setRotation(r);
       if(_ts) { 
