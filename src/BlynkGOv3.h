@@ -55,6 +55,11 @@
  *     - fix BeeNeXT7.0IPS ให้ทำงานเฉพาะจออย่างเดียวไปก่อน สัมผัสยังไม่ได้ fix
  *     - fix backlight ของ BlynkGO Emma-II ให้ on off ได้ถูกต้อง
  *
+ *   [V3.0.0 beta 10]
+ *
+ *   [V3.0.0 beta 11]
+ *     - เพิ่มคำสั่ง BlynkGO.setTimestamp(time_t t) สำหรับกำหนด timestamp ปัจจุบันให้ BlynkGO
+ *
  *********************************************************************
  */
 
@@ -447,6 +452,12 @@ class BlynkGOv3 {
      *****************************************************************/
     __attribute__ ((always_inline)) inline bool    flashMem_erase(String key)                             { return NVS.erase(key); }
     bool  flashMem_eraseAll();
+
+    /*****************************************************************
+     * API setTimestamp(...) สำหรับกำหนด timestamp ปัจจุบันให้ ระบบ BlynkGO
+     *****************************************************************/
+    void setTimestamp(time_t timestamp);
+    
     
 #if BLYNKGO_USE_WIFI || BLYNKGO_USE_BLYNK
     /*****************************************************************

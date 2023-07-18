@@ -1238,6 +1238,11 @@ bool  BlynkGOv3::flashMem_eraseAll(){
   return ret;
 }
 
+void BlynkGOv3::setTimestamp(time_t timestamp) {
+  setTime(timestamp);
+}
+
+
 #if BLYNKGO_USE_WIFI || BLYNKGO_USE_BLYNK
 void BlynkGOv3::onWiFiEvent(WiFiEventCb cbEvent){
   this->wifi_event_cb = cbEvent;
