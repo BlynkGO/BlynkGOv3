@@ -56,8 +56,12 @@
  *     - fix backlight ของ BlynkGO Emma-II ให้ on off ได้ถูกต้อง
  *
  *   [V3.0.0 beta 10]
- *
- *   [V3.0.0 beta 11]
+ *     - support BeeNeXT3.2C HMI Uart IPS  
+ *     - support BeeNeXT7.0 HMI uart ให้สามารถทำงานสัมผัสไปได้ด้วย
+ *     - เพิ่มคำสั่ง BlynkGO.centerpoint() จุดศูนย์กลางจอ
+ * 
+ *   [V3.0.0 beta 11] @ 19/07/23
+ *     - support BeeNeXT4.3C , BeeNeXT4.3IPS
  *     - เพิ่มคำสั่ง BlynkGO.setTimestamp(time_t t) สำหรับกำหนด timestamp ปัจจุบันให้ BlynkGO
  *
  *********************************************************************
@@ -66,7 +70,7 @@
 #ifndef _BLYNKGO_V3_H__
 #define _BLYNKGO_V3_H__
 
-// #define BLYNKGO_VERSION             "3.0.0 beta10"
+// #define BLYNKGO_VERSION             "3.0.0 beta11"
 
 /** Major version number (X.x.x) */
 #define BLYNKGO_VERSION_MAJOR   3
@@ -457,7 +461,7 @@ class BlynkGOv3 {
      * API setTimestamp(...) สำหรับกำหนด timestamp ปัจจุบันให้ ระบบ BlynkGO
      *****************************************************************/
     void setTimestamp(time_t timestamp);
-    
+
     
 #if BLYNKGO_USE_WIFI || BLYNKGO_USE_BLYNK
     /*****************************************************************
