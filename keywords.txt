@@ -98,6 +98,7 @@ flashMem_Array	KEYWORD2
 flashMem_exists	KEYWORD2
 flashMem_erase	KEYWORD2
 flashMem_eraseAll	KEYWORD2
+setTimestamp	KEYWORD2
 oled_threshold	KEYWORD2
 
 createPage	KEYWORD2
