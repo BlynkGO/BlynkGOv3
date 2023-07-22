@@ -1,11 +1,11 @@
 # BlynkGOv3
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)
 
-## [Version 3.0.0 beta11](https://github.com/BlynkGO/BlynkGOv3/tree/23747562f63d79fbc1389488d56b401143ad703d)  
+## [Version 3.0.0 beta11](https://github.com/BlynkGO/BlynkGOv3/tree/4735e3d30016b7415a73dc35e0e3af5aaec67932)  
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.11 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
  - support BeeNeXT4.3C , BeeNeXT4.3IPS
  - เพิ่มคำสั่ง BlynkGO.setTimestamp(time_t t) สำหรับกำหนด timestamp ปัจจุบันให้ BlynkGO
- - เพิ่ม GTimer ให้ใช้คำสั่ง delay(...) แบบ ส่ง parameter เข้าไปใน timer ได้ด้วย
+ - เพิ่ม GTimer ให้ใช้คำสั่ง delay(...), setInterval(...) แบบ ส่ง parameter เข้าไปใน timer และทำงานแบบ lambda function ได้ด้วย
 
 ## [Version 3.0.0 beta10]
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.10 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
