@@ -1,22 +1,22 @@
 #include <BlynkGOv3.h>
 
 GTimer timer;
-GTimer timer_once;
-
-void my_function(){
-  static int i=0;
-  Serial.println(i++);
-}
-
-void my_function_once(){
-  Serial.println("function my_function_once() called");
-}
+GTimer timer_delay;
 
 void setup() {
   Serial.begin(115200);Serial.println();
   BlynkGO.begin();
-  timer.setInterval(1000L, my_function);  // เรียกการทำงาน my_function ทุกๆ 1 วินาที
-  timer_once.setOnce(3000L, my_function_once); // เรียกการทำงาน my_function_once ในอีก 3 วินาทีถัดไปขึ้นมาทำงาน
+
+  // ตั้งเวลา timer ทำงาน ทุกๆ 1 วินาที
+  timer.setInterval(1000, [](){
+    static int i=0;
+    Serial.println(i++);
+  });  
+
+  // ตั้งเวลา timer_delay ให้ ในอีก 3 วินาทีถัดไป ค่อยทำงาน
+  timer_delay.delay(3000, [](){
+    Serial.println("function my_function_once() called");
+  });
 }
 
 void loop() {
