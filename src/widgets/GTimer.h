@@ -54,6 +54,12 @@ class GTimer : public Ticker {
       uint32_t arg32 = (uint32_t)(arg);
       _attach_ms(milliseconds, false, reinterpret_cast<callback_with_arg_t>(callback), arg32);
     }
+    
+    // Alias for setOnce method as "delay"
+    template<typename TArg>
+    void delay(uint32_t milliseconds, void (*callback)(TArg), TArg arg) {
+      setOnce(milliseconds, callback, arg);
+    }
 
     inline void del()  { detach(); }
 };
