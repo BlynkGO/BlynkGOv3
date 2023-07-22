@@ -63,7 +63,7 @@
  *   [V3.0.0 beta 11] @ 19/07/23
  *     - support BeeNeXT4.3C , BeeNeXT4.3IPS
  *     - เพิ่มคำสั่ง BlynkGO.setTimestamp(time_t t) สำหรับกำหนด timestamp ปัจจุบันให้ BlynkGO
- *     - @22/07/23 เพิ่ม GTimer ให้ใช้คำสั่ง delay(...) แบบ ส่ง parameter เข้าไปใน timer ได้ด้วย
+ *     - @22/07/23  - เพิ่ม GTimer ให้ใช้คำสั่ง delay(...), setInterval(...) แบบ ส่ง parameter เข้าไปใน timer และทำงานแบบ lambda function ได้ด้วย
  *
  *********************************************************************
  */
