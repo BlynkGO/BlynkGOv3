@@ -215,6 +215,25 @@ void GImageButton::OFF()          { if(mode() == BUTTON_MODE_TOGGLE) this->state
 bool GImageButton::isON()         { return this->state() == TOGGLE_RELEASED;}
 bool GImageButton::isOFF()        { return this->state() != TOGGLE_RELEASED;}
 
+void GImageButton::inactive(bool enable){
+  static bool isON = false;
+
+  if(enable){
+    if(this->_type == BUTTON_SWITCH) {
+      isON = this->isON();    // จำสถานะ เปิด หรือ ปิด หากปุ่มเป็นแบบ BUTTON_SWITCH
+    }
+    this->mode(BUTTON_MODE_INACTIVE);
+  }else{
+    if(this->_type == BUTTON_PUSH ) {
+      this->mode(BUTTON_MODE_NORMAL);
+    }else
+    if(this->_type == BUTTON_SWITCH) {
+      this->mode(BUTTON_MODE_TOGGLE);
+      (isON)? this->ON() : this->OFF();
+    }
+  }
+}
+
 /* button's state : RELEASED,  PRESSED,  TOGGLE_RELEASED,  TOGGLE_PRESSED,  INACTIVE, */
 void GImageButton::state(button_state_t button_state){
   if(!this->isCreated()) create();

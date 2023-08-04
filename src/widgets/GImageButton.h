@@ -74,6 +74,11 @@ class GImageButton : public GContainer {
     bool     isON();        // is turn on?
     bool     isOFF();       // is turn off?
 
+    /* API ใช้ได้ทั้ง BUTTON_SWITCH และ BUTTON_PUSH */
+           void inactive(bool enable);                                                         // กำหนดให้ปุ่ม inactive หรือไม่
+    inline bool inactive()                  { return (this->mode() == BUTTON_MODE_INACTIVE); } // เช็คว่าปุ่ม inactive หรือไม่
+
+
                       //สวิทซ์ ปล่อย  กด       สวิทซ์ปล่อย  ในโหมด Toggle
     /* button's state : RELEASED,  PRESSED,  TOGGLE_RELEASED,  TOGGLE_PRESSED,  INACTIVE, */
     void     state(button_state_t button_state); 
