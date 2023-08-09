@@ -238,6 +238,8 @@ setToggle	KEYWORD2
 # GStyle
 grad_color	KEYWORD2
 grad_dir	KEYWORD2
+main_color_stop	KEYWORD2
+grad_color_stop	KEYWORD2
 
 # GObject
 onClicked	KEYWORD2

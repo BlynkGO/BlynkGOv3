@@ -51,6 +51,10 @@ class GStyle {
     uint16_t  grad_color();
     void      grad_dir(grad_dir_t type);
     grad_dir_t grad_dir();
+    void      main_color_stop(uint8_t stop); // 0..255
+    uint8_t   main_color_stop();
+    void      grad_color_stop(uint8_t stop);
+    uint8_t   grad_color_stop();
     void      opa(uint8_t opa);
     uint8_t   opa();
     void      radius(uint16_t r);

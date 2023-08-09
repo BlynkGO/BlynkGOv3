@@ -48,6 +48,12 @@ class GPage : public GObject {
     void        layout(layout_t layout);  // layout ของ scrl part
     layout_t    layout();
 
+    inline void layout(layout_t layout, uint16_t padding_top,uint16_t padding_bottom, uint16_t padding_left,uint16_t padding_right, uint16_t padding_inner) 
+    {
+      this->layout(layout);
+      this->padding( padding_top, padding_bottom, padding_left, padding_right, padding_inner);
+    }
+
     /* fit_t : FIT_NONE, FIT_TIGHT, FIT_FLOOD, FIT_FILL */  // fit ของ scrl part
     void        fit(fit_t fit); 
     void        fit2(fit_t horizon_fit, fit_t vertical_fit);

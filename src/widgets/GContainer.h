@@ -39,6 +39,12 @@ class GContainer : public GObject {
     void        layout(layout_t layout);
     layout_t    layout();
 
+    inline void layout(layout_t layout, uint16_t padding_top,uint16_t padding_bottom, uint16_t padding_left,uint16_t padding_right, uint16_t padding_inner) 
+    {
+      this->layout(layout);
+      this->padding( padding_top, padding_bottom, padding_left, padding_right, padding_inner);
+    }
+
     /* ใช้สำหรับปรับขนาดให้พอดี แบบต่างๆ ใช้แทน size(w,h) */
     /* fit_t : FIT_NONE, FIT_TIGHT, FIT_FLOOD, FIT_FILL */
     void        fit(fit_t fit_type); 
