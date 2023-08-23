@@ -340,6 +340,124 @@
   #define TFT_INVERT              true
 
 //------------------------------------------------
+#elif defined BEENEXT_2_4
+  #define BLYNKGO_BOARD_NAME      "BeeNeXT 2.4\" Touch (resistive)"
+  #define BLYNKGO_BASIC
+  #define BEENEXT
+
+  #define OFFSET_ROTATION         0
+  #define ROTATE_TYPE             3
+
+  // HSPI MISO12, MOSI13, SCK14, SS15;
+  // VSPI MISO19, MOSI23, SCK18, SS5;
+  #define SPI_HOST_TYPE           HSPI_HOST  // HSPI_HOST or VSPI_HOST
+  #define SPI_MISO                12
+  #define SPI_MOSI                13
+  #define SPI_SCLK                14
+
+  // TFT 2.8"
+  #define ILI9341_DRIVER      // TFT 2.8"
+  #define TFT_WIDTH               240
+  #define TFT_HEIGHT              320
+  #define TFT_SPI_HOST_TYPE       SPI_HOST_TYPE
+  #define TFT_MISO                SPI_MISO
+  #define TFT_MOSI                SPI_MOSI
+  #define TFT_SCLK                SPI_SCLK
+  #define TFT_CS                  15
+  #define TFT_DC                  2
+  #define TFT_RST                 -1
+  #define TFT_BUSY                -1
+  #define TFT_BL                  21 
+  #define TFT_BL_INVERT           false
+  #define TFT_INVERT              false
+  #define TFT_SPI_3WIRE           false
+  #define TFT_DUMMY_READ_PIXEL    8
+  #define TFT_DUMMY_READ_BITS     1
+
+  
+  #define BLYNKGO_USE_SD          1
+  #define SD_VSPI_MODE
+  #define SD_SCLK                 18
+  #define SD_MISO                 19
+  #define SD_MOSI                 23
+  #define SD_CS                   5       // SD Chip Select
+
+  #define TOUCH_XPT2046
+  #define TOUCH_HOST_TYPE         -1
+  #define TOUCH_INT               36
+  #define TOUCH_MOSI              32
+  #define TOUCH_MISO              39
+  #define TOUCH_SCLK              25
+  #define TOUCH_CS                33
+
+  #define LDR_PIN                 34
+  #define LDR_RESOLUTION          12
+  #define SPEAKER_PIN             26
+
+  #define LED_R                   4
+  #define LED_G                   16
+  #define LED_B                   17
+
+#elif defined BEENEXT_2_4C
+  #define BLYNKGO_BOARD_NAME      "BeeNeXT 2.4\" Touch (capacitive)"  // ยังไม่ได้ impliment
+  #define BLYNKGO_BASIC
+  #define OFFSET_ROTATION         0
+  #define ROTATE_TYPE             3
+  #define BEENEXT
+
+  #define OFFSET_ROTATION         0
+  #define ROTATE_TYPE             3
+
+  // HSPI MISO12, MOSI13, SCK14, SS15;
+  // VSPI MISO19, MOSI23, SCK18, SS5;
+  #define SPI_HOST_TYPE           HSPI_HOST  // HSPI_HOST or VSPI_HOST
+  #define SPI_MISO                12
+  #define SPI_MOSI                13
+  #define SPI_SCLK                14
+
+  // TFT 2.4"
+  #define ILI9341_DRIVER      // TFT 2.4"
+  #define TFT_WIDTH               240
+  #define TFT_HEIGHT              320
+  #define TFT_SPI_HOST_TYPE       SPI_HOST_TYPE
+  #define TFT_MISO                SPI_MISO
+  #define TFT_MOSI                SPI_MOSI
+  #define TFT_SCLK                SPI_SCLK
+  #define TFT_CS                  15
+  #define TFT_DC                  2
+  #define TFT_RST                 -1
+  #define TFT_BUSY                -1
+  #define TFT_BL                  27 
+  #define TFT_BL_INVERT           false
+  #define TFT_INVERT              false
+  #define TFT_SPI_3WIRE           false
+  #define TFT_DUMMY_READ_PIXEL    8
+  #define TFT_DUMMY_READ_BITS     1
+
+  
+  #define BLYNKGO_USE_SD          1
+  #define SD_VSPI_MODE
+  #define SD_SCLK                 18
+  #define SD_MISO                 19
+  #define SD_MOSI                 23
+  #define SD_CS                   5       // SD Chip Select
+
+
+  #define LED_R                   4
+  #define LED_G                   16
+  #define LED_B                   17
+
+  // capacitive touch i2c
+  #define TOUCH_CS820
+  #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)
+  #define TOUCH_I2C_ADDR          0x15
+  #define TOUCH_I2C_SDA           33
+  #define TOUCH_I2C_SCL           32
+  #define TOUCH_INT               -1    // 21 , -1 not used
+  #define TOUCH_RST               25
+  #define TOUCH_BUS_SHARED        false
+
+
 #elif defined BEENEXT_2_8
   #define BLYNKGO_BOARD_NAME      "BeeNeXT 2.8\" Touch (resistive)"
   #define BLYNKGO_BASIC
@@ -482,7 +600,7 @@
   #define TFT_DUMMY_READ_BITS     1
 
   
-  #define BLYNKGO_USE_SD          1   // conflict with TFT
+  #define BLYNKGO_USE_SD          1 
   #define SD_VSPI_MODE
   #define SD_SCLK                 18
   #define SD_MISO                 19
@@ -540,7 +658,7 @@
   #define TFT_DUMMY_READ_BITS     1
 
   
-  #define BLYNKGO_USE_SD          1   // conflict with TFT
+  #define BLYNKGO_USE_SD          1
   #define SD_VSPI_MODE
   #define SD_SCLK                 18
   #define SD_MISO                 19
@@ -601,7 +719,7 @@
   #define TFT_DUMMY_READ_PIXEL    8
   #define TFT_DUMMY_READ_BITS     1
   
-  #define BLYNKGO_USE_SD          1   // conflict with TFT
+  #define BLYNKGO_USE_SD          1
   #define SD_VSPI_MODE
   #define SD_SCLK                 18
   #define SD_MISO                 19

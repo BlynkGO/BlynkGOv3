@@ -11,6 +11,7 @@
 void setup() {
   Serial.begin(9600); Serial.println();
   BlynkGO.begin();
+  BeeNeXT.enable(true);
   GRAPHIC::design();
 }
 

@@ -1005,6 +1005,36 @@ grad_dir_t GObject::grad_dir(){
   return this->_style->grad_dir();
 }
 
+void  GObject::main_color_stop(uint8_t stop){ // 0..255
+  if(!isCreated()) create();
+  if(!this->hasLocalStyle()) createLocalStyle();
+
+  this->_style->main_color_stop(stop);
+  this->refreshStyle();
+}
+
+uint8_t GObject::main_color_stop() {
+  if(!isCreated()) create();
+  if(!this->hasLocalStyle()) createLocalStyle();
+
+  return this->_style->main_color_stop();
+}
+
+void GObject::grad_color_stop(uint8_t stop){
+  if(!isCreated()) create();
+  if(!this->hasLocalStyle()) createLocalStyle();
+
+  this->_style->grad_color_stop(stop);
+  this->refreshStyle();
+}
+
+uint8_t GObject::grad_color_stop(){
+  if(!isCreated()) create();
+  if(!this->hasLocalStyle()) createLocalStyle();
+
+  return this->_style->grad_color_stop();
+}
+
 void GObject::opa(uint8_t opa){
   if(this->_is_linkstyle) return;
 
