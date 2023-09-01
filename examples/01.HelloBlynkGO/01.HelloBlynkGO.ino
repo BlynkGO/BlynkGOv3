@@ -1,15 +1,3 @@
-/******************************************************
- * ค่า BlynkGO Serial Number (BlynkGO SN.) 
- * ที่ปรากฏบนหน้าจอ TFT หรือทาง serial monitor 
- * คัดลอก และ ชำระแจ้งลงทะเบียนไปยัง blynkgo@gmail.com
- * หรือทาง https://www.facebook.com/blynkgo.os.1
- * เพื่อรับค่า BLYNKGO_KEY
- *
- * สำหรับจอสัมผัสให้ upload Sample 02.TouchCalibrate.ino
- * เพื่อทำการ calibrate ระบบสัมผัสหน้าจอ
- *
- ******************************************************/
-
 #include <BlynkGOv3.h>
 
 GLabel label;                                 // ประกาศตัวแปรวิตเจ็ตข้อความ
