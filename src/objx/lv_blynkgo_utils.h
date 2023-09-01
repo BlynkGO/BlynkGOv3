@@ -93,7 +93,8 @@ inline color_hsv_t TFT_COLOR_TO_HSV(color_t color) {
 
 inline uint16_t TFT_COLOR_HSV_MIX( color_t color1, color_t color2, uint8_t id255 )  {  // id255 : 0..255
   color_hsv_t hsv[2] = {  TFT_COLOR_TO_HSV( color1 ),  TFT_COLOR_TO_HSV( color2 ) };
-  id255 = constrain(id255, 0, 255);
+  int _id255 = id255;
+  id255 = constrain(_id255, 0, 255);
   return TFT_COLOR_HSV( map( id255, 0, 255, hsv[0].h, hsv[1].h), 
                         map( id255, 0, 255, hsv[0].s, hsv[1].s),
                         map( id255, 0, 255, hsv[0].v, hsv[1].v) );

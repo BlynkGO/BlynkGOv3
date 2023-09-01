@@ -23,6 +23,8 @@
 #include "./lvgl-dev-7.0/lvgl.h"
 #include "./lvgl-dev-7.0/src/lv_draw/TridentUnicode.h"
 
+#define SIZE_PRINTLN(widget)    Serial.printf("[Size] %d,%d\n", widget.width(), widget.height())
+
 typedef lv_obj_t            obj_t;
 typedef lv_font_t           font_t;
 typedef lv_style_t          style_t;

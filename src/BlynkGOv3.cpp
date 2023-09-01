@@ -874,7 +874,7 @@ bool lv_obj_snapshot(lv_obj_t* obj, String file_path )
       _file_bmp = SD.open(f_path, "w");
     }
 #endif
-    if( _file_bmp == NULL) return false;
+    if( !_file_bmp ) return false;
 
 
     lgfx::bitmap_header_t bmpheader;

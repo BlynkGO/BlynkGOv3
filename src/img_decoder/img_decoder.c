@@ -60,7 +60,7 @@ static jpg_scale_t   jpg_scale = JPEG_SCALE_NONE;
  **********************/
 void free_img_dsc(lv_img_dsc_t* img_dsc){
   if(img_dsc->data != NULL) {
-    free(img_dsc->data);
+    free((void*)img_dsc->data);
     img_dsc->data = NULL;
   }
   memset(img_dsc, 0, sizeof(lv_img_dsc_t));
@@ -321,11 +321,10 @@ static uint32_t jpg_reader(JDEC *jpg_decoder, uint8_t *data, uint32_t data_len) 
       return fread(data, 1, data_len , jpg_device->file);
     } else {
       fseek(jpg_device->file, data_len, SEEK_CUR);
+      return data_len;
     }
-    return data_len;
-    
-  }else if(jpg_device->type == JDEV_TYPE_ARRAY ) {
-
+  }
+  else if(jpg_device->type == JDEV_TYPE_ARRAY ) {
     if (!jpg_device->input_data) return 0;
     if (jpg_device->input_index >= (jpg_device->input_size + 2)) return 0; // end of stream
 
@@ -344,6 +343,7 @@ static uint32_t jpg_reader(JDEC *jpg_decoder, uint8_t *data, uint32_t data_len) 
       return data_len;
     }
   }
+  return data_len;
 }
 
 static uint32_t jpg_data_draw(JDEC *jpg_decoder, void *bitmap, JRECT *rect) {
