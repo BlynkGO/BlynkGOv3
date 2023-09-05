@@ -123,21 +123,20 @@ void GImageButton::create() {
       this->signal_cb(GSignal_cb);
 
       // ขณะ ปุ่ม non-toggle แล้วกด
-      if(img_btn_pr == NULL) {
+      if(img_btn_pr == img_btn_rel) {
         this->style[PRESSED].image_color(TFT_BLACK);
         this->style[PRESSED].image_intense(128);
       }
       // ขณะ ปุ่ม toggle อยู่ แล้วกด
-      if(img_tgl_pr == NULL) {
+      if(img_tgl_pr == img_btn_rel) {
         this->style[TOGGLE_PRESSED].image_color(TFT_BLACK);
         this->style[TOGGLE_PRESSED].image_intense(128);
       }
       // ขณะ ปุ่ม toggle
-      if(img_tgl_rel == NULL) {
+      if(img_tgl_rel == img_btn_rel) {
         this->style[TOGGLE_RELEASED].image_color(TFT_BLACK);
         this->style[TOGGLE_RELEASED].image_intense(200);
       }
-
     }
   }
 }
