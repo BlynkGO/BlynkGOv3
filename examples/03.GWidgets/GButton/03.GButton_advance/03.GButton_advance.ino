@@ -36,9 +36,10 @@ void setup() {
   //-------------------------------------------------
   
   button2.mode(BUTTON_MODE_TOGGLE);   // ปุ่มกด แบบ Toggle (กดติด กดดับ)
-  button2.center(120,160);             // จัดตำแหน่งศูนย์กลางปุ่มไปยัง pixel 160,70
+  button2.center(120,160);            // จัดตำแหน่งศูนย์กลางปุ่มไปยัง pixel 160,70
   button2.size(170,70);               // กำหนด กว้างxสูง
   button2.radius(button1.height()/2); // กำหนด รัศมีความโค้ง ให้ปุ่ม
+  button2.font(prasanmit_25);
 
   /* กำหนดสีให้ button2 แบบ customize ด้วยสถานะต่างๆ */
   button2.style[RELEASED]       .color(TFT_ORANGE  , TFT_RED);        // กำหนดสี เมื่อปุ่มมีสถานะ released (ปล่อย)
@@ -46,8 +47,7 @@ void setup() {
   button2.style[TOGGLE_RELEASED].color(TFT_BLACK   , TFT_RED);        // กำหนดสี เมื่อปุ่มมีสถานะ toggle released
   button2.style[TOGGLE_PRESSED] .color(TFT_DARKRED , TFT_DARKRED);    // กำหนดสี เมื่อปุ่มมีสถานะ toggle pressed
   button2.style[INACTIVE]       .color(TFT_GRAY    , TFT_GRAY);       // กำหนดสี เมื่อปุ่มมีสถานะ inactive
-
-  button2.font(prasanmit_25);
+  button2.refreshStyle();    // หากกำหนด style แยกเอง ให้ใส่คำสั่งนี้ปิดท้ายด้วย
 
   button2.onClicked([](GWidget* widget){
     Serial.printf("Button2 : Toggle %s\n", (button2.isON())? "ON" : "OFF");
