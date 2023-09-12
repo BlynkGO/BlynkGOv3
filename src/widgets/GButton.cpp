@@ -528,6 +528,7 @@ void GButton::shadow(uint16_t width){
   for(int i= 0; i < 5; i++) {
     this->style[i].shadow(width); 
   }
+  this->refreshStyle();
 }
 
 void GButton::shadow(uint16_t width, color_t color){

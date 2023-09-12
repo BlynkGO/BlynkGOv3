@@ -94,12 +94,15 @@ class GButton : public GContainer {
     void     font(font_t &font);
     void     font(font_t &font, color_t color);
 
-    inline void font(font_t *font)                      { this->font(*font); }
+    inline void font(font_t *font)                      { this->font(*font);        }
     inline void font(font_t *font, color_t color)       { this->font(*font, color); }
 
     const font_t* font();
     void     text_color(color_t color);
     color_t  text_color();
+    
+    inline void     font_color(color_t color)           { this->text_color(color);   }
+    inline color_t  font_color()                        { return this->text_color(); }
     
     GStyle   style[5]; // RELEASED,  PRESSED,  TOGGLE_RELEASED,  TOGGLE_PRESSED,  INACTIVE,
 
