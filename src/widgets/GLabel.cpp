@@ -636,9 +636,13 @@ bool GLabel::colorful(){
 
 void GLabel::rolling(bool enable, uint16_t rolling_width , uint16_t rolling_speed) {
   if(!this->isCreated()) create();
-  lv_label_set_rolling(this->obj, enable);
-  this->rolling_width(rolling_width);
-  this->rolling_speed(rolling_speed);
+  if(enable){
+    lv_label_set_rolling(this->obj, true);
+    this->rolling_width(rolling_width);
+    this->rolling_speed(rolling_speed);
+  }else{
+    lv_label_set_rolling(this->obj, false);
+  }
 }
 
 bool GLabel::rolling(){
@@ -866,8 +870,10 @@ static lv_design_res_t lv_glabel_design(lv_obj_t * label, const lv_area_t * clip
   glabel_ext_t *ext = (glabel_ext_t *) lv_obj_get_ext_attr(label);
 
   /* หากไม่ใช่ rolling หรือ ใช่ แต่ใช้ rolling_by_long_mode ให้วาดด้วย design เดิมของ label ปกติ*/
-  if(!ext->rolling || (ext->rolling && ext->rolling_by_long_mode) ) 
+  if(!ext->rolling || (ext->rolling && ext->rolling_by_long_mode) ) {
+    lv_label_set_long_mode(label, LV_LABEL_LONG_EXPAND);
     return ancestor_label_design(label, clip_area, mode);
+  }
 
   /* วาดเฉพาะของ rolling mode */
   /* A label never covers an area */
