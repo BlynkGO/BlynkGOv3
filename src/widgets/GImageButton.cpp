@@ -222,7 +222,9 @@ void GImageButton::inactive(bool enable){
       isON = this->isON();    // จำสถานะ เปิด หรือ ปิด หากปุ่มเป็นแบบ BUTTON_SWITCH
     }
     this->mode(BUTTON_MODE_INACTIVE);
+    this->clickable(false);
   }else{
+    this->clickable(true);
     if(this->_type == BUTTON_PUSH ) {
       this->mode(BUTTON_MODE_NORMAL);
     }else
