@@ -871,7 +871,7 @@ static lv_design_res_t lv_glabel_design(lv_obj_t * label, const lv_area_t * clip
 
   /* หากไม่ใช่ rolling หรือ ใช่ แต่ใช้ rolling_by_long_mode ให้วาดด้วย design เดิมของ label ปกติ*/
   if(!ext->rolling || (ext->rolling && ext->rolling_by_long_mode) ) {
-    lv_label_set_long_mode(label, LV_LABEL_LONG_EXPAND);
+    if(!ext->rolling) lv_label_set_long_mode(label, LV_LABEL_LONG_EXPAND);
     return ancestor_label_design(label, clip_area, mode);
   }
 
