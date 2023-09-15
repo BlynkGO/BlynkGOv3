@@ -55,15 +55,15 @@ GImageButton::GImageButton( const void *src_btn_rel, const void *src_btn_pr,cons
 GContainer(&parent) { }
 
 GImageButton::GImageButton( const void *src, GWidget& parent)
-: img_btn_rel(src), img_btn_pr(src), img_tgl_rel(src),img_tgl_pr(src), img_btn_ina(src),
+: img_btn_rel(src), img_btn_pr(NULL), img_tgl_rel(NULL),img_tgl_pr(NULL), img_btn_ina(NULL),
 GContainer(&parent) { }
 
 GImageButton::GImageButton( const lv_img_dsc_t &src, GWidget& parent)
-: img_btn_rel(&src), img_btn_pr(&src), img_tgl_rel(&src),img_tgl_pr(&src), img_btn_ina(&src),
+: img_btn_rel(&src), img_btn_pr(NULL), img_tgl_rel(NULL),img_tgl_pr(NULL), img_btn_ina(NULL),
 GContainer(&parent) { }
 
 GImageButton::GImageButton( const lv_img_dsc_t &src, GWidget* parent)
-: img_btn_rel(&src), img_btn_pr(&src), img_tgl_rel(&src),img_tgl_pr(&src), img_btn_ina(&src),
+: img_btn_rel(&src), img_btn_pr(NULL), img_tgl_rel(NULL),img_tgl_pr(NULL), img_btn_ina(NULL),
 GContainer(parent) { }
 
 GImageButton::GImageButton( const lv_img_dsc_t &src_btn_rel,  const lv_img_dsc_t &src_btn_pr, const lv_img_dsc_t &src_toggle_rel, const lv_img_dsc_t &src_toggle_pr, const lv_img_dsc_t &src_btn_inactive, 
@@ -136,6 +136,12 @@ void GImageButton::create() {
       if(img_tgl_rel == img_btn_rel || img_tgl_rel == NULL) {
         this->style[TOGGLE_RELEASED].image_color(TFT_BLACK);
         this->style[TOGGLE_RELEASED].image_intense(200);
+      }
+      // ขณะ ปุ่ม inactive
+      if(img_btn_ina == img_btn_rel || img_btn_ina == NULL) {
+        Serial.println("[style] inactive");
+        this->style[INACTIVE].image_color(TFT_GRAY);
+        this->style[INACTIVE].image_intense(200);
       }
     }
   }
