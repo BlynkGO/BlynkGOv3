@@ -1,7 +1,7 @@
 # BlynkGOv3
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)
 
-## [Version 3.0.0 beta12](https://github.com/BlynkGO/BlynkGOv3/tree/35aee1ae50acdae41d0481e9e20b5d6742e99176)  
+## [Version 3.0.0 beta12](https://github.com/BlynkGO/BlynkGOv3/tree/2c94d56dc87e7ec5c5c9ba72ecf25dbd69f17d64)  
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.12 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
  - fix ให้ BeeNeXT1.9IPS, BeeNeXT5.0IPS, BlynkGO Emma-II กลับมาแสดงร่วมกันได้หมดใน version เดียว
  - เพิ่มบอร์ด BeeNeXT2.4R, BeeNeXT2.4C, BlynkGO Board 3.5 S3 Parallel
