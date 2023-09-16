@@ -1,4 +1,4 @@
-/* มีการ modified จาก  TAMC_GT911 เดิม โดย BlynkGO ให้รองรับ 7นิ้ว */
+/* มีการ modified จาก  TAMC_GT911 เดิม โดย BlynkGO */
 
 #ifndef TAMC_GT911_H
 #define TAMC_GT911_H
@@ -138,14 +138,14 @@
 class TP_Point {
   public:
     TP_Point(void);
-    TP_Point(uint8_t id, int16_t x, int16_t y, int16_t size);
+    TP_Point(uint8_t id, uint16_t x, uint16_t y, uint16_t size);
 
     bool operator==(TP_Point);
     bool operator!=(TP_Point);
 
     uint8_t id;
-    int16_t x;
-    int16_t y;
+    uint16_t x;
+    uint16_t y;
     uint8_t size;
 };
 
@@ -175,21 +175,8 @@ class TAMC_GT911 {
       T _x, _y;
       this->read();
       if (this->isTouched){
-        // Serial.printf("[getTouch] x %d ; y %d ; w %d ; h %d\n", 
-              // this->points[0].x, this->points[0].y,
-              // this->width, this->height);
-        if( ( width == 480 && height == 800) || (width==800 && height==480) ){
-#if defined(BEENEXT_4_3IPS)
-          _x = map(this->points[0].x,0,480,0,800);
-          _y = map(this->points[0].y,0,272,0,480);
-#elif defined(BEENEXT_7_0IPS)
-          _x = this->points[0].x;
-          _y = this->points[0].y;
-#endif
-        }else{
-          _x = map(this->points[0].x, this->width , 0, 0, this->width );
-          _y = map(this->points[0].y, this->height, 0, 0, this->height);
-        }
+        _x = map(this->points[0].x, this->width , 0, 0, this->width  - 1);
+        _y = map(this->points[0].y, this->height, 0, 0, this->height - 1);
         if( _x >=0 && _y >=0) {
             *x = _x;
             *y = _y;

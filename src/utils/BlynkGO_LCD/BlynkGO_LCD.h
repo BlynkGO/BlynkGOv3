@@ -1,11 +1,69 @@
+/*
+ *********************************************************************
+ * ลิขลิทธิ์ (Commercial License)
+ * 
+ *   1. โคดไฟล์ BlynkGO_LCD.h นี้เป็นไลบรารี่ลิขลิทธิ์ 
+ *   สร้างโดย BlynkGO
+ *   
+ *   2.ไม่อนุญาต ให้แจกจ่าย สำเนา หรือแก้ไข โดยไม่ได้รับอนุญาต 
+ *   
+ *   3.สำหรับผู้ได้รับ ลิขสิทธิ์ สามารถนำไปใช้สร้าง firmware/rom 
+ *   สำหรับ บอร์ด ESP32 ที่ระบุเท่านั้น เพื่อใช้ทางการค้าต่างๆได้
+ *   โดยห้ามแจกจ่าย จำหน่าย ดัดแปลง แก้ไขใดๆ ในตัว source ไลบรารี่ออกไป
+ *
+ *   4.หากมีการนำไปใช้คอมไพล์ถือว่าได้ยอมรับ ตามเงื่อนไขลิขสิทธิ์ดังกล่าว
+ *   เป็นที่เรียบร้อยแล้ว
+ * 
+ *  [History]
+ *   - Version 1.0.3 @16/09/66
+ *     รองรับ  
+ *       - BlynkGO Board v1.3
+ *       - BlynkGO Emma-II (4MB/4MB - 16MB/8MB)
+ *       - BlynkGO Enterprise 5",7"
+ *       - BeeNeXT 1.9IPS
+ *       - BeeNeXT 2.4R/C
+ *       - BeeNeXT 2.8R
+ *       - BeeNeXT 3.2IPS
+ *       - BeeNeXT 3.5R/C
+ *       - BeeNeXT 4.3R/C/IPS
+ *       - BeeNeXT 5.0IPS
+ *       - BeeNeXT 7.0IPS
+ * 
+ *********************************************************************/
+
 #ifndef __BLYNKGO_LCD_H__
 #define __BLYNKGO_LCD_H__
+
+/** Major version number (X.x.x) */
+#define BLYNKGO_LCD_VERSION_MAJOR   1
+/** Minor version number (x.X.x) */
+#define BLYNKGO_LCD_VERSION_MINOR   0
+/** Patch version number (x.x.X) */
+#define BLYNKGO_LCD_VERSION_PATCH   3
+
+#define BLYNKGO_LCD_VERSION_TEXT    (String("BlynkGO_LCD v.")+String(BLYNKGO_LCD_VERSION_MAJOR)+"."+String(BLYNKGO_LCD_VERSION_MINOR)+"."+String(BLYNKGO_LCD_VERSION_PATCH))
+
+/**
+ * Macro to convert IDF version number into an integer
+ *
+ * To be used in comparisons, such as BLYNKGO_LCD_VERSION >= BLYNKGO_LCD_VERSION_VAL(3, 0, 0)
+ */
+#define BLYNKGO_LCD_VERSION_VAL(major, minor, patch) ((major << 16) | (minor << 8) | (patch))
+
+/**
+ * Current IDF version, as an integer
+ *
+ * To be used in comparisons, such as BLYNKGO_LCD_VERSION >= BLYNKGO_LCD_VERSION_VAL(3, 0, 0)
+ */
+#define BLYNKGO_LCD_VERSION  BLYNKGO_LCD_VERSION_VAL( BLYNKGO_LCD_VERSION_MAJOR, \
+                                                      BLYNKGO_LCD_VERSION_MINOR, \
+                                                      BLYNKGO_LCD_VERSION_PATCH)
 
 
 #include <Arduino.h>
 #include <sdkconfig.h>
-// #include "../../config/blynkgo_config.h"
-#include "config/blynkgo_config.h"
+// #include "config/blynkgo_config.h"
+#include "../../config/blynkgo_config.h"
 
 #define LGFX_USE_V1
 #include "./LoveCat/lgfx/v1/platforms/esp32/Light_PWM.hpp"
@@ -34,13 +92,9 @@ static constexpr int _TFT_WHITE       = 0xFFFF;      /* 255, 255, 255 */
 #if defined(BEENEXT_1_9)
 class BlynkGO_LCD : public Arduino_ST7789 {
   public:
-    BlynkGO_LCD(Arduino_DataBus *bus, int8_t rst = GFX_NOT_DEFINED, uint8_t r = 0,
-      bool ips = false, int16_t w = ST7789_TFTWIDTH, int16_t h = ST7789_TFTHEIGHT,
-      uint8_t col_offset1 = 0, uint8_t row_offset1 = 0, uint8_t col_offset2 = 0, uint8_t row_offset2 = 0)
-    : Arduino_ST7789(bus, rst, r, ips, w, h, col_offset1, row_offset1, col_offset2, row_offset2)
-    { 
-    }
-
+    BlynkGO_LCD(): Arduino_ST7789(new Arduino_ESP32SPI(TFT_DC, TFT_CS, TFT_SCLK, TFT_MOSI, TFT_MISO), 
+        TFT_RST, OFFSET_ROTATION, true/* IPS */, TFT_HEIGHT, TFT_WIDTH, 
+        35 /* col offset 1 */, 0 /* row offset 1 */, 35 /* col offset 2 */, 0 /* row offset 2 */) {}
     void begin(){
       Arduino_ST7789::begin();
       auto cfg = _light_instance.config();
@@ -65,28 +119,23 @@ class BlynkGO_LCD : public Arduino_ST7789 {
 
 #elif defined(BEENEXT_4_3C) ||  defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
 
-#if defined(TOUCH_GT911_TAMC)
+#if defined(TOUCH_GT911_TAMC) || defined(TOUCH_GT911)
 #include "./LoveCat/lgfx/v1/touch/TAMC_GT911/TAMC_GT911.h"
 #endif
 
 class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
   public:
-#if defined(TOUCH_GT911_TAMC)
-    BlynkGO_LCD( int16_t w, int16_t h, Arduino_ESP32RGBPanel *rgbpanel, TAMC_GT911* touch=NULL) :
-      Arduino_RPi_DPI_RGBPanel(rgbpanel,  
-        TFT_WIDTH  /* width */ , TFT_HSYNC_POLARITY /* hsync_polarity */, TFT_HSYNC_FRONT_PORCH /* hsync_front_porch */, TFT_HSYNC_PULSE_WIDTH /* hsync_pulse_width */, TFT_HSYNC_BACK_PORCH /* hsync_back_porch */,
-        TFT_HEIGHT /* height */, TFT_VSYNC_POLARITY /* vsync_polarity */, TFT_VSYNC_FRONT_PORCH /* vsync_front_porch */, TFT_VSYNC_PULSE_WIDTH /* vsync_pulse_width */, TFT_VSYNC_BACK_PORCH /* vsync_back_porch */,
-        TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, 16000000 /* prefer_speed */, true /* auto_flush */)
-        , _ts(touch)
-    { }
-#else
-    BlynkGO_LCD( int16_t w, int16_t h, Arduino_ESP32RGBPanel *rgbpanel) :
-      Arduino_RPi_DPI_RGBPanel(rgbpanel,  
-        TFT_WIDTH  /* width */ , TFT_HSYNC_POLARITY /* hsync_polarity */, TFT_HSYNC_FRONT_PORCH /* hsync_front_porch */, TFT_HSYNC_PULSE_WIDTH /* hsync_pulse_width */, TFT_HSYNC_BACK_PORCH /* hsync_back_porch */,
-        TFT_HEIGHT /* height */, TFT_VSYNC_POLARITY /* vsync_polarity */, TFT_VSYNC_FRONT_PORCH /* vsync_front_porch */, TFT_VSYNC_PULSE_WIDTH /* vsync_pulse_width */, TFT_VSYNC_BACK_PORCH /* vsync_back_porch */,
-        TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, 16000000 /* prefer_speed */, true /* auto_flush */)
-    { }
-#endif
+// #if defined(BEENEXT_5_0IPS) || defined(BEENEXT_4_3C) ||  defined(BEENEXT_7_0IPS)
+    BlynkGO_LCD() : Arduino_RPi_DPI_RGBPanel( new Arduino_ESP32RGBPanel(
+        GFX_NOT_DEFINED /* CS */, GFX_NOT_DEFINED /* SCK */, GFX_NOT_DEFINED /* SDA */,
+        TFT_HENABLE /* DE */, TFT_VSYNC /* VSYNC */, TFT_HSYNC /* HSYNC */, TFT_PCLK /* PCLK */,
+        TFT_R0 /* R0 */, TFT_R1 /* R1 */, TFT_R2 /* R2 */, TFT_R3 /* R3 */, TFT_R4 /* R4 */,
+        TFT_G0 /* G0 */, TFT_G1 /* G1 */, TFT_G2 /* G2 */, TFT_G3 /* G3 */, TFT_G4 /* G4 */, TFT_G5 /* G5 */,
+        TFT_B0 /* B0 */, TFT_B1 /* B1 */, TFT_B2 /* B2 */, TFT_B3 /* B3 */, TFT_B4 /* B4 */ ),
+      TFT_WIDTH  /* width */ ,  TFT_HSYNC_POLARITY /* hsync_polarity */, TFT_HSYNC_FRONT_PORCH /* hsync_front_porch */, TFT_HSYNC_PULSE_WIDTH /* hsync_pulse_width */, TFT_HSYNC_BACK_PORCH /* hsync_back_porch */,
+      TFT_HEIGHT /* height */,  TFT_VSYNC_POLARITY /* vsync_polarity */, TFT_VSYNC_FRONT_PORCH /* vsync_front_porch */, TFT_VSYNC_PULSE_WIDTH /* vsync_pulse_width */, TFT_VSYNC_BACK_PORCH /* vsync_back_porch */,
+      TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, 16000000 /* prefer_speed */, true /* auto_flush */)  {}
+
     void begin(){
       Arduino_RPi_DPI_RGBPanel::begin();
       
@@ -98,7 +147,7 @@ class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
       _light_instance.config(cfg);
       _light_instance.init(255);
 
-#if defined(TOUCH_GT911_TAMC)
+#if defined(TOUCH_GT911_TAMC) || defined(TOUCH_GT911)
       if(_ts==NULL) { _ts = new TAMC_GT911(TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT); }
       if(_ts)       { _ts->begin(); }
 #endif
@@ -107,7 +156,7 @@ class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
 
     inline void init()      { begin(); }
 
-#if defined(TOUCH_GT911_TAMC)
+#if defined(TOUCH_GT911_TAMC) || defined(TOUCH_GT911)
     template <typename T>
     uint_fast8_t getTouch(T *x, T *y)
     {
@@ -115,7 +164,7 @@ class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
     }
 #endif
 
-    #if defined(BEENEXT_4_3IPS) || defined(BEENEXT_7_0IPS)
+    #if defined(BEENEXT_7_0IPS)
     void setRotation(uint8_t r){
       Arduino_RPi_DPI_RGBPanel::setRotation(r);
       if(_ts) { 
@@ -123,6 +172,22 @@ class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
       }
     }
     #endif
+    
+    int16_t _windows_x, _windows_y, _windows_w, _windows_h;
+    int16_t _xx,_yy, _cx, _cy;
+
+    inline void setAddrWindow(int16_t x, int16_t y, int16_t w, int16_t h)  { 
+      _windows_x  = x; _windows_y  = y; _windows_w = w; _windows_h = h; _xx=0; _yy=0; _cx = _windows_x + _xx; _cy = _windows_y + _yy;
+    }
+    void writeColor( uint16_t color, uint16_t num) {
+        if(_xx >= _windows_w -1 && _yy >= _windows_h-1) return;
+        
+        Arduino_RPi_DPI_RGBPanel::writePixel( _cx, _cy, color);
+        if( ++_xx >= _windows_w) {_xx = _xx - _windows_w; _yy++; }
+        _cx = constrain(_windows_x + _xx ,0 , width()); 
+        _cy = constrain(_windows_y + _yy ,0 , height());
+        if( num-1 > 0 ) writeColor(color, num-1);
+    }
 
     inline void drawString(const char* str, int16_t x, int16_t y)   { this->setCursor(x, y); this->print(str); }
     inline void wakeup()                            { _light_instance.setBrightness(_last_brightness);}
@@ -130,7 +195,7 @@ class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
     inline void setBrightness(uint8_t brightness)   { _light_instance.setBrightness(brightness); _last_brightness = brightness; }
     inline uint8_t getBrightness()                  { return _last_brightness; }
 
-#if defined(TOUCH_GT911_TAMC)
+#if defined(TOUCH_GT911_TAMC) || defined(TOUCH_GT911)  // สำหรับ AGFX TOUCH_GT911 จะมองเป็น TOUCH_GT911_TAMC ทั้งหมด
     TAMC_GT911 *_ts = NULL;
 #endif
 
@@ -165,6 +230,8 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
     lgfx::Panel_ST7789  _panel_instance;
 #elif defined(RGB_DRIVER) && defined (CONFIG_IDF_TARGET_ESP32S3)
     lgfx::Panel_RGB     _panel_instance;
+#elif defined(GC9A01_DRIVER)
+    lgfx::Panel_GC9A01 _panel_instance;
 #endif
 
 #if defined(TOUCH_GSL1680F)
@@ -180,7 +247,9 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
 #elif defined(TOUCH_GT911)
     lgfx::Touch_GT911   _touch_instance;
 #elif defined(TOUCH_GT911_TAMC)
-    lgfx::Touch_GT911_TAMC  _touch_instance;    
+    lgfx::Touch_GT911_TAMC  _touch_instance;  
+#elif defined(TOUCH_CST820)
+    lgfx::Touch_CST820  _touch_instance;
 #endif
 
 
@@ -244,30 +313,6 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
         bus_cfg.pin_pclk          = TFT_PCLK;
         bus_cfg.freq_write        = 16000000;
 
-        // OK===============
-        // bus_cfg.pin_d0  = GPIO_NUM_8;  // B0
-        // bus_cfg.pin_d1  = GPIO_NUM_3;  // B1
-        // bus_cfg.pin_d2  = GPIO_NUM_46; // B2
-        // bus_cfg.pin_d3  = GPIO_NUM_9;  // B3
-        // bus_cfg.pin_d4  = GPIO_NUM_1;  // B4
-        // bus_cfg.pin_d5  = GPIO_NUM_5;  // G0
-        // bus_cfg.pin_d6  = GPIO_NUM_6;  // G1
-        // bus_cfg.pin_d7  = GPIO_NUM_7;  // G2
-        // bus_cfg.pin_d8  = GPIO_NUM_15; // G3
-        // bus_cfg.pin_d9  = GPIO_NUM_16; // G4
-        // bus_cfg.pin_d10 = GPIO_NUM_4;  // G5
-        // bus_cfg.pin_d11 = GPIO_NUM_45; // R0
-        // bus_cfg.pin_d12 = GPIO_NUM_48; // R1
-        // bus_cfg.pin_d13 = GPIO_NUM_47; // R2
-        // bus_cfg.pin_d14 = GPIO_NUM_21; // R3
-        // bus_cfg.pin_d15 = GPIO_NUM_14; // R4
-
-        // bus_cfg.pin_henable = GPIO_NUM_40;
-        // bus_cfg.pin_vsync   = GPIO_NUM_41;
-        // bus_cfg.pin_hsync   = GPIO_NUM_39;
-        // bus_cfg.pin_pclk    = GPIO_NUM_42;
-        // bus_cfg.freq_write  = 16000000;
-
         bus_cfg.hsync_polarity    = TFT_HSYNC_POLARITY;//0;
         bus_cfg.hsync_front_porch = TFT_HSYNC_FRONT_PORCH;//8;
         bus_cfg.hsync_pulse_width = TFT_HSYNC_PULSE_WIDTH;//4;
@@ -288,8 +333,13 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
         auto bus_cfg = _bus_instance.config();
   #if defined(ILI9488_DRIVER)
     #if defined(TFT_PARALLEL16)
+      #if defined(BLYNKGO_BOARD_S3_PARALLEL)
+        bus_cfg.port        = 0;  // 使用するI2Sポートを選択 (0 or 1)
+        bus_cfg.freq_write  = 20000000; // 送信クロック (最大20MHz, 80MHzを整数で割った値に丸められます)
+      #else
         bus_cfg.i2s_port    = I2S_NUM_0;  // 使用するI2Sポートを選択 (0 or 1) (ESP32のI2S LCDモードを使用します)
         bus_cfg.freq_write  = 16000000; // 送信クロック (最大20MHz, 80MHzを整数で割った値に丸められます)
+      #endif
         bus_cfg.pin_wr      = TFT_PIN_WR;           // WR を接続しているピン番号
         bus_cfg.pin_rd      = TFT_PIN_RD;           // RD を接続しているピン番号
         bus_cfg.pin_rs      = TFT_PIN_RS;           // RS(D/C)を接続しているピン番号
@@ -387,6 +437,21 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
         bus_cfg.pin_mosi  = TFT_MOSI;            // SPIのMOSIピン番号を設定
         bus_cfg.pin_miso  = TFT_MISO;            // SPIのMISOピン番号を設定 (-1 = disable)
         bus_cfg.pin_dc    = TFT_DC;            // SPIのD/Cピン番号を設定  (-1 = disable)
+  #elif defined(GC9A01_DRIVER)
+        // SPIバスの設定
+        bus_cfg.spi_host    = SPI_HOST_TYPE; // 使用するSPIを選択  ESP32-S2,C3 : SPI2_HOST or SPI3_HOST / ESP32 : VSPI_HOST or HSPI_HOST
+        // ※ ESP-IDFバージョンアップに伴い、VSPI_HOST , HSPI_HOSTの記述は非推奨になるため、エラーが出る場合は代わりにSPI2_HOST , SPI3_HOSTを使用してください。
+        bus_cfg.spi_mode    = 0;                  // SPI通信モードを設定 (0 ~ 3)
+        bus_cfg.freq_write  = 80000000;         // 传输时的SPI时钟（最高80MHz，四舍五入为80MHz除以整数得到的值）
+        bus_cfg.freq_read   = 20000000;          // 接收时的SPI时钟
+        bus_cfg.spi_3wire   = true;              // 受信をMOSIピンで行う場合はtrueを設定
+        bus_cfg.use_lock    = true;               // 使用事务锁时设置为 true
+        bus_cfg.dma_channel = SPI_DMA_CH_AUTO; // 使用するDMAチャンネルを設定 (0=DMA不使用 / 1=1ch / 2=ch / SPI_DMA_CH_AUTO=自動設定)
+        // ※ ESP-IDFバージョンアップに伴い、DMAチャンネルはSPI_DMA_CH_AUTO(自動設定)が推奨になりました。1ch,2chの指定は非推奨になります。
+        bus_cfg.pin_sclk    = TFT_SCLK;            // SPIのSCLKピン番号を設定
+        bus_cfg.pin_mosi    = TFT_MOSI;            // SPIのMOSIピン番号を設定
+        bus_cfg.pin_miso    = TFT_MISO;            // SPIのMISOピン番号を設定 (-1 = disable)
+        bus_cfg.pin_dc      = TFT_DC;            // SPIのD/Cピン番号を設定  (-1 = disable)
   #endif
 
         _bus_instance.config(bus_cfg);
@@ -395,7 +460,7 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
 
       {
         auto panel_cfg = _panel_instance.config();
-  #if defined(ILI9488_DRIVER) || defined(ST7796_DRIVER) || defined(ILI9341_DRIVER) || defined(ST7789_DRIVER)
+  #if defined(ILI9488_DRIVER) || defined(ST7796_DRIVER) || defined(ILI9341_DRIVER) || defined(ST7789_DRIVER) || defined(GC9A01_DRIVER)
         panel_cfg.pin_cs           = TFT_CS; //14;
         panel_cfg.pin_rst          = TFT_RST;
         panel_cfg.pin_busy         = TFT_BUSY;
@@ -487,27 +552,48 @@ class BlynkGO_LCD : public lgfx::LGFX_Device {
         _touch_instance.config(touch_cfg);
         _panel_instance.setTouch(&_touch_instance);  // タッチスクリーンをパネルにセットします。
       }
+#elif defined(TOUCH_CST820)
+      {
+        auto touch_cfg = _touch_instance.config();
+        touch_cfg.x_min      = 0;
+        touch_cfg.x_max      = TFT_WIDTH-1;
+        touch_cfg.y_min      = 0;
+        touch_cfg.y_max      = TFT_HEIGHT-1;
+
+        touch_cfg.pin_int    = TOUCH_INT;              // INTが接続されているピン番号
+        touch_cfg.pin_rst    = TOUCH_RST;
+        touch_cfg.bus_shared = true;                   // 画面と共通のバスを使用している場合 trueを設定
+        touch_cfg.offset_rotation = 0;                 // 表示とタッチの向きのが一致しない場合の調整 0~7の値で設定
+
+        touch_cfg.i2c_port   = TOUCH_I2C_PORT;         // 使用するI2Cを選択 (0 or 1)
+        touch_cfg.i2c_addr   = TOUCH_I2C_ADDR;         // I2Cデバイスアドレス番号
+        touch_cfg.pin_sda    = TOUCH_I2C_SDA;          // SDAが接続されているピン番号
+        touch_cfg.pin_scl    = TOUCH_I2C_SCL;          // SCLが接続されているピン番号
+
+        _touch_instance.config(touch_cfg);
+        _panel_instance.setTouch(&_touch_instance);  // タッチスクリーンをパネルにセットします。
+      }
 #elif defined(TOUCH_XPT2046)
       { // タッチスクリーン制御の設定を行います。（必要なければ削除）
         auto touch_cfg = _touch_instance.config();
     #if defined (BEENEXT_4_3)
-        touch_cfg.x_min      = 100;//4000;//0;    // タッチスクリーンから得られる最小のX値(生の値)
-        touch_cfg.x_max      = 4000;//100;//TFT_HEIGHT-1;  // タッチスクリーンから得られる最大のX値(生の値)
-        touch_cfg.y_min      = 100;//0;    // タッチスクリーンから得られる最小のY値(生の値)
-        touch_cfg.y_max      = 4000; //TFT_WIDTH-1;  // タッチスクリーンから得られる最大のY値(生の値)
+        touch_cfg.x_min           = 100;//4000;//0;    // タッチスクリーンから得られる最小のX値(生の値)
+        touch_cfg.x_max           = 4000;//100;//TFT_HEIGHT-1;  // タッチスクリーンから得られる最大のX値(生の値)
+        touch_cfg.y_min           = 100;//0;    // タッチスクリーンから得られる最小のY値(生の値)
+        touch_cfg.y_max           = 4000; //TFT_WIDTH-1;  // タッチスクリーンから得られる最大のY値(生の値)
     #else
-        touch_cfg.x_min      = 0;    // タッチスクリーンから得られる最小のX値(生の値)
-        touch_cfg.x_max      = TFT_HEIGHT-1;  // タッチスクリーンから得られる最大のX値(生の値)
-        touch_cfg.y_min      = 0;    // タッチスクリーンから得られる最小のY値(生の値)
-        touch_cfg.y_max      = TFT_WIDTH-1;  // タッチスクリーンから得られる最大のY値(生の値)
+        touch_cfg.x_min           = 0;    // タッチスクリーンから得られる最小のX値(生の値)
+        touch_cfg.x_max           = TFT_HEIGHT-1;  // タッチスクリーンから得られる最大のX値(生の値)
+        touch_cfg.y_min           = 0;    // タッチスクリーンから得られる最小のY値(生の値)
+        touch_cfg.y_max           = TFT_WIDTH-1;  // タッチスクリーンから得られる最大のY値(生の値)
     #endif
         
         touch_cfg.pin_int    = TOUCH_INT;   // INTが接続されているピン番号
         touch_cfg.bus_shared = true; // 画面と共通のバスを使用している場合 trueを設定
-        touch_cfg.offset_rotation = 0;// 表示とタッチの向きのが一致しない場合の調整 0~7の値で設定
 
         // SPI接続の場合
         touch_cfg.spi_host = TOUCH_HOST_TYPE; //HSPI_HOST;// 使用するSPIを選択 (HSPI_HOST or VSPI_HOST)
+        touch_cfg.offset_rotation = 0;// 表示とタッチの向きのが一致しない場合の調整 0~7の値で設定
         touch_cfg.freq     = 1000000;     // SPIクロックを設定
         touch_cfg.pin_sclk = TOUCH_SCLK;     // SCLKが接続されているピン番号
         touch_cfg.pin_mosi = TOUCH_MOSI;     // MOSIが接続されているピン番号

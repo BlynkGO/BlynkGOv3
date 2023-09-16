@@ -65,13 +65,18 @@
  *     - เพิ่มคำสั่ง BlynkGO.setTimestamp(time_t t) สำหรับกำหนด timestamp ปัจจุบันให้ BlynkGO
  *     - @22/07/23  - เพิ่ม GTimer ให้ใช้คำสั่ง delay(...), setInterval(...) แบบ ส่ง parameter เข้าไปใน timer และทำงานแบบ lambda function ได้ด้วย
  *
+ *   [V3.0.0 beta 12] @16/09/23
+ *     - ใช้ BlynkGO LCDv1.0.3 ที่แก้ปัญหา
+ *         BeeNeXT5.0IPS ไม่ทำงาน, BlynkGO Emma-II ไม่ทำงาน ให้กลับมาทำงานได้
+ *         และเพิ่ม BeeNeXT2.4R/C และ BlynkGO Board S3 Parallel ให้ทำงานได้
+ *   
  *********************************************************************
  */
 
 #ifndef _BLYNKGO_V3_H__
 #define _BLYNKGO_V3_H__
 
-// #define BLYNKGO_VERSION             "3.0.0 beta11"
+// #define BLYNKGO_VERSION             "3.0.0 beta12"
 
 /** Major version number (X.x.x) */
 #define BLYNKGO_VERSION_MAJOR   3
@@ -381,7 +386,7 @@ class BlynkGOv3 {
     __attribute__ ((always_inline)) inline bool isSleep()                         { return !_is_backlight_on; }
 #endif
 
-#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_2) || defined(BEENEXT_3_2C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
+#if defined(BEENEXT_2_4) || defined(BEENEXT_2_4C) || defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_2) || defined(BEENEXT_3_2C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
     void     ledRGB(uint8_t r, uint8_t g, uint8_t b);
     float    readLDR();  // 0-100;
 #endif

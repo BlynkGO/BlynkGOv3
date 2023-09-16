@@ -14,6 +14,9 @@ Contributors:
  [ciniml](https://github.com/ciniml)
  [mongonta0716](https://github.com/mongonta0716)
  [tobozo](https://github.com/tobozo)
+
+ *** เพิ่ม Touch_GT911_TAMC.hpp ใน v1_init.hpp ด้วย ***
+ by BlynkGO
 /----------------------------------------------------------------------------*/
 #pragma once
 

@@ -52,47 +52,7 @@ static BlynkGOv3  *pBlynkGO=NULL;
   #endif
   uint8_t _oled_threshold=128;
 #else
-  #if defined(BLYNKGO_USE_AGFX) && (BLYNKGO_USE_AGFX==1)  // ใช้ AGFX 
-    #if defined(BEENEXT_1_9)
-      BlynkGO_LCD lcd(
-        new Arduino_ESP32SPI(TFT_DC, TFT_CS, TFT_SCLK, TFT_MOSI, TFT_MISO),
-        TFT_RST, OFFSET_ROTATION, true/* IPS */, TFT_HEIGHT, TFT_WIDTH, 
-        35 /* col offset 1 */, 0 /* row offset 1 */, 35 /* col offset 2 */, 0 /* row offset 2 */
-      );
-    #elif defined(BEENEXT_4_3C) ||  defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
-      BlynkGO_LCD lcd(TFT_WIDTH, TFT_HEIGHT,
-        new Arduino_ESP32RGBPanel(
-          GFX_NOT_DEFINED /* CS */, GFX_NOT_DEFINED /* SCK */, GFX_NOT_DEFINED /* SDA */,
-          TFT_HENABLE /* DE */, TFT_VSYNC /* VSYNC */, TFT_HSYNC /* HSYNC */, TFT_PCLK /* PCLK */,
-          TFT_R0 /* R0 */, TFT_R1 /* R1 */, TFT_R2 /* R2 */, TFT_R3 /* R3 */, TFT_R4 /* R4 */,
-          TFT_G0 /* G0 */, TFT_G1 /* G1 */, TFT_G2 /* G2 */, TFT_G3 /* G3 */, TFT_G4 /* G4 */, TFT_G5 /* G5 */,
-          TFT_B0 /* B0 */, TFT_B1 /* B1 */, TFT_B2 /* B2 */, TFT_B3 /* B3 */, TFT_B4 /* B4 */),
-#if defined(TOUCH_GT911_TAMC)
-        new TAMC_GT911( TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT)
-#else
-        NULL
-#endif
-      );
-
-//       BlynkGO_LCD lcd(TFT_WIDTH, TFT_HEIGHT, //2,
-//         new Arduino_ESP32RGBPanel(
-//           TFT_HENABLE /* DE */, TFT_VSYNC /* VSYNC */, TFT_HSYNC /* HSYNC */, TFT_PCLK /* PCLK */,
-//           TFT_R0 /* R0 */, TFT_R1 /* R1 */, TFT_R2 /* R2 */, TFT_R3 /* R3 */, TFT_R4 /* R4 */,
-//           TFT_G0 /* G0 */, TFT_G1 /* G1 */, TFT_G2 /* G2 */, TFT_G3 /* G3 */, TFT_G4 /* G4 */, TFT_G5 /* G5 */,
-//           TFT_B0 /* B0 */, TFT_B1 /* B1 */, TFT_B2 /* B2 */, TFT_B3 /* B3 */, TFT_B4 /* B4 */,
-//           TFT_HSYNC_POLARITY /* hsync_polarity */, TFT_HSYNC_FRONT_PORCH /* hsync_front_porch */, TFT_HSYNC_PULSE_WIDTH /* hsync_pulse_width */, TFT_HSYNC_BACK_PORCH /* hsync_back_porch */,
-//           TFT_VSYNC_POLARITY /* vsync_polarity */, TFT_VSYNC_FRONT_PORCH /* vsync_front_porch */, TFT_VSYNC_PULSE_WIDTH /* vsync_pulse_width */, TFT_VSYNC_BACK_PORCH /* vsync_back_porch */,
-//           TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, 16000000 /* prefer_speed */),
-// #if defined(TOUCH_GT911_TAMC)
-//           new TAMC_GT911( TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT )
-// #else
-//           NULL
-// #endif
-//       );
-    #endif
-  #else
-    BlynkGO_LCD lcd;
-  #endif
+  BlynkGO_LCD lcd;
 #endif
 
 static lv_indev_t * indev  =NULL;
@@ -199,13 +159,13 @@ typedef struct _blynkgo_alarm_t{
 
 static std::vector<blynkgo_alarm_t> blynkgo_alarms;
 
-#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_2) || defined(BEENEXT_3_2C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
+#if defined(BEENEXT_2_4) || defined(BEENEXT_2_4C) || defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_2) || defined(BEENEXT_3_2C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
 #else
 #if BLYNKGO_USE_RTC_DS323X || BLYNKGO_USE_RTC_DS1307 || BLYNKGO_USE_RTC_PCF8523 || BLYNKGO_USE_RTC_PCF8563
  // now timestamp from RTC
 time_t rtc_timestamp(){  return BlynkGO.RTC.timestamp(); }
 #endif
-#endif //#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
+#endif //#if defined(BEENEXT_2_4) || defined(BEENEXT_2_4C) || defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
 
 
 #if BLYNKGO_USE_BLYNK
@@ -353,7 +313,7 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
   WiFi.onEvent(BlynkGO_WiFiEvent);  // เรียกภายในก่อน ส่งต่อไปให้ด้วย
 #endif // BLYNKGO_USE_WIFI || BLYNKGO_USE_BLYNK
 
-#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_2) || defined(BEENEXT_3_2C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
+#if defined(BEENEXT_2_4) || defined(BEENEXT_2_4C) || defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_2) || defined(BEENEXT_3_2C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
   this->ledRGB(0,0,0); // ให้ ledทำงานแบบดับสนิท
 #else
 
@@ -797,7 +757,6 @@ void BlynkGOv3::hw_sd_init() {
     Serial.println("[SD MMC] initialization OK");
     this->_has_sd = true;
   }
-#elif defined ()
 #endif
 #endif //#if BLYNKGO_DEV_LEVEL >= BLYNKGO_DEV_LEVEL_SD
 }
@@ -1078,10 +1037,23 @@ void BlynkGOv3::blynkgo_system_init(){
 //   // lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()/ 8);
 //   lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()/ 6);
 #else
-  ESP_LOGI(TAG, "[BlynkGO] full alloc");
   size_t buf_size = sizeof(lv_color_t)* lcd.width() * lcd.height();
-  _cbuf = (lv_color_t*) esp32_malloc(buf_size);
-  lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()); // ห้ามใช้ buf_size ต้องใช้ จำนวน pixel ทั้งหมด
+  #if defined (DOUBLE_FULL_BUFFER) 
+    #if DOUBLE_FULL_BUFFER
+      ESP_LOGI(TAG, "[BlynkGO] full alloc x 2");
+      _cbuf = (lv_color_t*) esp32_malloc(buf_size);
+      _cbuf2 = (lv_color_t*) esp32_malloc(buf_size);
+      lv_disp_buf_init(&disp_buf, _cbuf, _cbuf2, lcd.width() * lcd.height()); // ห้ามใช้ buf_size ต้องใช้ จำนวน pixel ทั้งหมด
+    #else
+      ESP_LOGI(TAG, "[BlynkGO] full alloc x 1");
+      _cbuf = (lv_color_t*) esp32_malloc(buf_size);
+      lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()); // ห้ามใช้ buf_size ต้องใช้ จำนวน pixel ทั้งหมด
+    #endif
+  #else
+    ESP_LOGI(TAG, "[BlynkGO] full alloc x 1");
+    _cbuf = (lv_color_t*) esp32_malloc(buf_size);
+    lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()); // ห้ามใช้ buf_size ต้องใช้ จำนวน pixel ทั้งหมด
+  #endif
 #endif
 
   /*Initialize the display*/
@@ -1180,7 +1152,7 @@ uint8_t  BlynkGOv3::brightness(){
 }
 
 
-#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_2) || defined(BEENEXT_3_2C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
+#if defined(BEENEXT_2_4) || defined(BEENEXT_2_4C) || defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_2) || defined(BEENEXT_3_2C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
 void BlynkGOv3::ledRGB(uint8_t r, uint8_t g, uint8_t b){
   static bool _led_pwm_inited = false;
 
@@ -1209,7 +1181,7 @@ void BlynkGOv3::ledRGB(uint8_t r, uint8_t g, uint8_t b){
 float BlynkGOv3::readLDR(){
   return constrain(map_f(analogRead(LDR_PIN),0,4095, 100, 0),0.0, 100.0);
 }
-#endif // #if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
+#endif // #if defined(BEENEXT_2_4) || defined(BEENEXT_2_4C) || defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
 
 #if BLYNKGO_USE_SNAPSHOT
 bool lv_obj_snapshot(lv_obj_t* obj, String file_path );
@@ -1444,7 +1416,7 @@ static void ntp_sync_task(void* param){
   setTime( timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec, timeinfo.tm_mday, timeinfo.tm_mon+1, timeinfo.tm_year+1900-2000);
   BlynkGOv3::blynkgo_alarm_handler();
 
-#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_2) || defined(BEENEXT_3_2C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
+#if defined(BEENEXT_2_4) || defined(BEENEXT_2_4C) || defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_2) || defined(BEENEXT_3_2C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
 #else
 #if BLYNKGO_USE_RTC_DS323X || BLYNKGO_USE_RTC_DS1307 || BLYNKGO_USE_RTC_PCF8523 || BLYNKGO_USE_RTC_PCF8563
   time_t now;
@@ -1454,7 +1426,7 @@ static void ntp_sync_task(void* param){
   // setSyncProvider(pBlynkGO->RTC.get);
   Serial.printf("[RTC] auto-synced by NTP : %02d/%02d/%04d %02d:%02d:%02d\n", day(), month(),year(), hour(), minute(), second());
 #endif //#if BLYNKGO_USE_RTC_DS323X || BLYNKGO_USE_RTC_DS1307 || BLYNKGO_USE_RTC_PCF8523 || BLYNKGO_USE_RTC_PCF8563
-#endif //#if defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
+#endif //#if defined(BEENEXT_2_4) || defined(BEENEXT_2_4C) || defined(BEENEXT_2_8) || defined(BEENEXT_2_8C) || defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
 
 
 #if defined (TTGO_TWATCH)
