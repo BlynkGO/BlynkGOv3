@@ -1,7 +1,13 @@
 # BlynkGOv3
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)
 
-## [Version 3.0.0 beta11](https://github.com/BlynkGO/BlynkGOv3/tree/47847ac653b88a15f86bd547fc5a19d0e2f12739)  
+## [Version 3.0.0 beta12](https://github.com/BlynkGO/BlynkGOv3/tree/4d74a01e90d85ec0f6be3cfe94361e11f3a91549)  
+ให้ติดตั้งด้วย BlynkGO SDK version3.0.12 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
+ - fix ให้ BeeNeXT1.9IPS, BeeNeXT5.0IPS, BlynkGO Emma-II กลับมาแสดงร่วมกันได้หมดใน version เดียว
+ - เพิ่มบอร์ด BeeNeXT2.4R, BeeNeXT2.4C, BlynkGO Board 3.5 S3 Parallel
+ - fix GLabel ให้ rolling ข้อความยาวๆได้ และ false ได้
+
+## [Version 3.0.0 beta11]
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.11 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
  - support BeeNeXT4.3C , BeeNeXT4.3IPS
  - เพิ่มคำสั่ง BlynkGO.setTimestamp(time_t t) สำหรับกำหนด timestamp ปัจจุบันให้ BlynkGO
