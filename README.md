@@ -5,6 +5,7 @@
 ให้ติดตั้งด้วย BlynkGO SDK version3.0.12 for ESP32core2.0.6 (based on ESP-IDF4.4.3)  
  - fix ให้ BeeNeXT1.9IPS, BeeNeXT5.0IPS, BlynkGO Emma-II กลับมาแสดงร่วมกันได้หมดใน version เดียว
  - เพิ่มบอร์ด BeeNeXT2.4R, BeeNeXT2.4C, BlynkGO Board 3.5 S3 Parallel
+ - BlynkGO LCD อัพขึ้นเป็น 1.0.3 ให้เหลือเพียง lcd พอ โดยเลือกบอร์ดจาก ArduinoIDE ที่เมนูเลือก Board แทน
  - fix GLabel ให้ rolling ข้อความยาวๆได้ และ false ได้
 
 ## [Version 3.0.0 beta11]
