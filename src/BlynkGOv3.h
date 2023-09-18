@@ -69,14 +69,31 @@
  *     - ใช้ BlynkGO LCDv1.0.3 ที่แก้ปัญหา
  *         BeeNeXT5.0IPS ไม่ทำงาน, BlynkGO Emma-II ไม่ทำงาน ให้กลับมาทำงานได้
  *         และเพิ่ม BeeNeXT2.4R/C และ BlynkGO Board S3 Parallel ให้ทำงานได้
- *   
+ *         (BeeNeXT1.28IPS ESP32C3 ไม่สามารถรันได้บน ESP32core2.0.6)
+ *
+ *    ====> released V3.0.0
+ *   [V3.0.0] released @18/09/23
+ *     - รองรับบอร์ด 
+ *         BlynkGO Board v1.3
+ *         BlynkGO Board S3 Parallel
+ *         BlynkGO Emma-II (4MB/4MB & 16MB/8MB)
+ *         BlynkGO Enterprise 5.0
+ *         BlynkGO Enterprise 7.0
+ *         BeeNeXT1.9IPS
+ *         BeeNeXT2.4R/C
+ *         BeeNeXT2.8R
+ *         BeeNeXT3.2IPS
+ *         BeeNeXT4.3R/C/IPS
+ *         BeeNeXT5.0IPS
+ *         BeeNeXT7.0
+ *
  *********************************************************************
  */
 
 #ifndef _BLYNKGO_V3_H__
 #define _BLYNKGO_V3_H__
 
-// #define BLYNKGO_VERSION             "3.0.0 beta12"
+// #define BLYNKGO_VERSION             "3.0.0 released"
 
 /** Major version number (X.x.x) */
 #define BLYNKGO_VERSION_MAJOR   3
