@@ -1059,7 +1059,7 @@ void GWiFiSetting::save_WiFiConfig() {
 
   ESP_LOGI("GWiFiSetting", "save WiFiConfig");
   BlynkGO.flashMem("WIFICONFIG", &GWiFiSetting::wifi_config, sizeof(GWiFiSetting::wifi_config));
-  BlynkGO.flashMem("WIFICONFIG_SZ" , sizeof(GWiFiSetting::wifi_config));
+  BlynkGO.flashMem("WIFICONFIG_SZ" , (uint16_t) sizeof(GWiFiSetting::wifi_config));
 }
 
 void GWiFiSetting::save_WiFiConfig(String ssid, String pass){
@@ -1074,7 +1074,7 @@ void GWiFiSetting::save_WiFiConfig(String ssid, String pass){
   if( BlynkGO.flashMem_exists("WIFICONFIG_SZ") )    BlynkGO.flashMem_erase("WIFICONFIG_SZ");
   ESP_LOGI("GWiFiSetting", "save WiFiConfig");
   BlynkGO.flashMem("WIFICONFIG", &GWiFiSetting::wifi_config, sizeof(GWiFiSetting::wifi_config));
-  BlynkGO.flashMem("WIFICONFIG_SZ" , sizeof(GWiFiSetting::wifi_config));
+  BlynkGO.flashMem("WIFICONFIG_SZ" , (uint16_t) sizeof(GWiFiSetting::wifi_config));
 }
 
 void  GWiFiSetting::clean_WiFiConfig(){

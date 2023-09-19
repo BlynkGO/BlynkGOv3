@@ -13,6 +13,8 @@
 //        add APIs 
 //         - getObject(String key, void* blob, size_t length);  for loading struct data from NVS
 //         - setBool(...) & getBool(...)
+// V.1.4  @ 18/08/2566 Buddism Era (2023)     by TridentTD
+//         - cast bool to uint8_t in setBool(..)
 //
 
 #ifndef __TRIDENTTD_ESP32NVS_H__
@@ -66,7 +68,7 @@ public:
   bool    setString(String key, String value);
   bool    setCharArray(String key, const char* value);
   bool    setObject(String key, void* object, size_t length);
-  inline bool    setBool(String key, bool value)            { return setInt(key,value); }   // V1.3 added
+  inline bool    setBool(String key, bool value)            { return setInt(key,(uint8_t)value); }   // V1.3 added ; V1.4 fixed cast to uint8_t
 
   int64_t getInt(String key);
   float   getFloat(String key);
@@ -91,7 +93,7 @@ private:
 
   bool        commit();
   nvs_handle  get_nvs_handle();
-  String      _version = "1.3";
+  String      _version = "1.4";
 };
 
 extern TridentTD_ESP32NVS NVS;
