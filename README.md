@@ -3,8 +3,10 @@
 
 ## [Version 3.0.0 released] @18/09/66
 ดาวโหลดที่ https://github.com/BlynkGO/BlynkGOv3/releases/tag/3.0.0  
-ทำงานบน ESP32 core 2.0.6 ; BlynkGO SDK 3.0.12  (ติดต่อ Admin)  
-รองรับบอร์ด
+ทำงานบน **ESP32 core 2.0.6 ; ใช้ BlynkGO SDK 3.0.12** (ติดต่อ Admin)  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.13** (ติดต่อ Admin)   
+  
+รองรับบอร์ด  
 - BlynkGO Board v1.3
 - BlynkGO Board S3 Parallel
 - BlynkGO Emma-II (4MB/4MB & 16MB/8MB)
