@@ -50,7 +50,8 @@ BEENEXT_DATA(){
   // ตัวอย่าง MCU หลัก ส่ง ข้อมูลมาให้บันทึกผ่านทาง key "SD_DATA"
   if(key == "SD_DATA"){
     if(SD_DataLogger::open("/mydata.txt")){
-      SD_DataLogger::println(String(c++));
+      float value = BeeNeXT.toFloat();
+      SD_DataLogger::println(String(value,3));
       SD_DataLogger::close();
     }
   }
