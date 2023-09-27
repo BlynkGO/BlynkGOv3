@@ -1012,7 +1012,7 @@
   #define TFT_R3                  GPIO_NUM_21
   #define TFT_R4                  GPIO_NUM_14
 
-  #define TFT_HENABLE             0 //GPIO_NUM_40
+  #define TFT_HENABLE             GPIO_NUM_40  // 0 ไม่แสดง
   #define TFT_VSYNC               GPIO_NUM_41
   #define TFT_HSYNC               GPIO_NUM_39
   #define TFT_PCLK                GPIO_NUM_42
