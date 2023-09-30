@@ -1,0 +1,17 @@
+{
+  "name": "BlynkGOv3",
+  "keywords": "BlynkGO OS library for ESP32",
+  "description": "BlynkGO OS library for ESP32",
+  "homepage": "https://web.facebook.com/groups/1314040465469106",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BlynkGO/BlynkGOv3"
+  },
+  "version": "3.0.0",
+  "authors": {
+    "name": "Ven.PT",
+    "url": "https://web.facebook.com/groups/1314040465469106"
+  },
+  "frameworks": "arduino",
+  "platforms": "esp32"
+}
