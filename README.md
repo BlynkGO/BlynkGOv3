@@ -5,6 +5,7 @@
 ดาวโหลดที่ https://github.com/BlynkGO/BlynkGOv3/releases/tag/3.0.0  
 ทำงานบน **ESP32 core 2.0.6 ; ใช้ BlynkGO SDK 3.0.12** (ติดต่อ Admin)  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.13** (ติดต่อ Admin)   
+ทำงานบน ArduinoIDE และ Platform IO ได้  
   
 รองรับบอร์ด  
 - BlynkGO Board v1.3
