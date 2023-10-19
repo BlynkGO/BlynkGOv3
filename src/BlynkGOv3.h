@@ -87,20 +87,22 @@
  *         BeeNeXT5.0IPS
  *         BeeNeXT7.0
  *
+ *   [V3.0.1] released สำหรับ VS CODE
+ *   [V3.0.2] @19/10/23
+ *      - remove  C:> BlynkGOv3
+ *
  *********************************************************************
  */
 
 #ifndef _BLYNKGO_V3_H__
 #define _BLYNKGO_V3_H__
 
-// #define BLYNKGO_VERSION             "3.0.0 released"
-
 /** Major version number (X.x.x) */
 #define BLYNKGO_VERSION_MAJOR   3
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   0
+#define BLYNKGO_VERSION_PATCH   2
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 

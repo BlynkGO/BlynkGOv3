@@ -714,7 +714,7 @@ void BlynkGOv3::hw_lcd_init(){
 #else
     lcd.setTextColor(0xFF0000U);
 #endif
-    lcd.drawString("C:> BlynkGOv3", 30, 16);
+    // lcd.drawString("C:> BlynkGOv3", 30, 16);
   // }
 }
 #endif // #if defined(BLYNKGO_OLED)
