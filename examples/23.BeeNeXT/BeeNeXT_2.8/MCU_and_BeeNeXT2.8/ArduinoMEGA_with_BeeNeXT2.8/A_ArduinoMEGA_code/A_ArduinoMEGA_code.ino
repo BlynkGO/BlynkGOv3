@@ -2,7 +2,10 @@
  * ให้ save ออกมาเป็น project ต่างหาก เสียก่อน
  *   แล้วเลือก board ไปที่ Arduino MEGA
  *   
+ *   จอ BeeNeXT ให้ต่อเข้าที่ขา 16 (เหลือง),17 (น้ำเงิน)
+ *
  *********************************************************/
+
 #include <BeeNeXT.h>
 
 #define LED_ON    true
@@ -32,12 +35,13 @@ void setup() {
 
     Serial.println(String("[Sensor] temp ")+ String(temp,2) + String(" ; humid ") + String(humid,2));
 
-    if(!BeeNeXT.isConnected()) return;
-    BeeNeXT.send("TEMP" , String(temp ,2) );   // ส่ง ทศนิยม 2 ตำแหน่งไปด้วย key "TEMP"
-    BeeNeXT.send("HUMID", String(humid,2) );   // ส่ง ทศนิยม 2 ตำแหน่งไปด้วย key "HUMID"
+    if(!LCD.isConnected()) return;
+    MCU.send("TEMP" , String(temp ,2) );   // ฝั่ง MCU ส่ง ทศนิยม 2 ตำแหน่ง ไปยังจอ BeeNeXT ด้วย key "TEMP"
+    MCU.send("HUMID", String(humid,2) );   // ฝั่ง MCU ส่ง ทศนิยม 2 ตำแหน่ง ไปยังจอ BeeNeXT ด้วย key "HUMID"
   });
 }
 
 void loop() {
   BeeNeXT.update();
 }
+

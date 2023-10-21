@@ -13,14 +13,14 @@ BEENEXT_DISCONNECTED(){
 }
 
 // เมื่อฝั่ง MCU ส่งข้อมูลมาให้ จอ BeeNeXT ด้วย key & value
-// ให้เช็คค่า key ที่ส่งเข้ามาด้วย BeeNeXT.key()
+// ให้เช็คค่า key ที่ส่งเข้ามาด้วย MCU.key()
 // ส่วนค่า value สามารถแสดงเป็น ประเภทข้อมูลต่างได้ด้วยคำสั่ง
-// เช่น BeeNeXT.toString(), BeeNeXT.toInt(), BeeNeXT.toFloat(), BeeNeXT.toBool() ได้ตามต้องการ
-BEENEXT_DATA(){
+// เช่น MCU.toString(), MCU.toInt(), MCU.toFloat(), MCU.toBool() ได้ตามต้องการ
+MCU_DATA(){
   if(BeeNeXT.key() == "TEMP"){            // เช็คฝั่ง MCU ส่งมาด้วย key "TEMP"
-    GRAPHIC::setTemp( BeeNeXT.toFloat() ); // ค่า value จาก MCU ที่ส่งมา เปลี่ยนเป็น float แล้วใช้งานตามต้องการ
+    GRAPHIC::setTemp( MCU.toFloat() );    // ค่า value จาก MCU ที่ส่งมา เปลี่ยนเป็น float แล้วใช้งานตามต้องการ
   }else
   if(BeeNeXT.key() == "HUMID"){           // เช็คฝั่ง MCU ส่งมาด้วย key "HUMID"
-    GRAPHIC::setHumid( BeeNeXT.toFloat() ); // ค่า value จาก MCU ที่ส่งมา เปลี่ยนเป็น float แล้วใช้งานตามต้องการ
+    GRAPHIC::setHumid( MCU.toFloat() );   // ค่า value จาก MCU ที่ส่งมา เปลี่ยนเป็น float แล้วใช้งานตามต้องการ
   }
 }

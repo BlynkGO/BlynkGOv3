@@ -1,9 +1,9 @@
 SoftTimer timer_led_blinking;
 bool last_led_state = LED_OFF;
 
-// เมื่อ MCU และ จอ BeeNeXT มีการต่อสายถึงกัน 
+// เมื่อ MCU และ จอ BeeNeXT มีการต่อสายถึงกัน สื่อสารถึงกันได้
 // มีหรือไม่ก็ได้
-BEENEXT_CONNECTED(){
+BEENEXT_CONNECTED(){    // หากให้ตรงนี้ทำงาน ที่ฝั่ง จอ BeeNeXT เพิ่ม BeeNeXT.heartbeat(true); ด้วย
   Serial.println("[BeeNeXT] connected");
 
   // หยุดไฟกระพริบ
@@ -15,7 +15,7 @@ BEENEXT_CONNECTED(){
 
 // เมื่อ MCU และ จอ BeeNeXT หลุดการต่อสายถึงกัน 
 // มีหรือไม่ก็ได้
-BEENEXT_DISCONNECTED(){
+BEENEXT_DISCONNECTED(){ // หากให้ตรงนี้ทำงาน ที่ฝั่ง จอ BeeNeXT เพิ่ม BeeNeXT.heartbeat(true); ด้วย
   Serial.println("[BeeNeXT] disconnected");
 
   // จำสถานะ led สุดท้าย
@@ -27,12 +27,12 @@ BEENEXT_DISCONNECTED(){
   });
 }
 
-// เมื่อฝั่ง MCU ส่งข้อมูลมาให้ จอ BeeNeXT ด้วย key & value
-// ให้เช็คค่า key ที่ส่งเข้ามาด้วย BeeNeXT.key()
-// ส่วนค่า value สามารถแสดงเป็น ประเภทข้อมูลต่างได้ด้วยคำสั่ง
-// เช่น BeeNeXT.toString(), BeeNeXT.toInt(), BeeNeXT.toFloat(), BeeNeXT.toBool() ได้ตามต้องการ
+// เมื่อ จอ BeeNeXT ส่งข้อมูลเข้ามา ให้เช็คค่า key ด้วย BeeNeXT.key()
+// แล้วแปลง value ไปตามประเภทข้อมูลที่ต้องการ
+// เช่น BeeNeXT.toString(), BeeNeXT.toInt(), BeeNeXT.toFloat(), BeeNeXT.toBool()
 BEENEXT_DATA(){
   if(BeeNeXT.key() == "LED"){
     digitalWrite(LED, BeeNeXT.toBool()? LED_ON: LED_OFF);
   }
 }
+
