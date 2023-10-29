@@ -28,6 +28,8 @@
  *       - BeeNeXT 4.3R/C/IPS
  *       - BeeNeXT 5.0IPS
  *       - BeeNeXT 7.0IPS
+ *   - Version 1.0.4 @29/10/66
+ *       - BeeNeXT 5.0IPS ลบ noise
  * 
  *********************************************************************/
 
@@ -134,7 +136,7 @@ class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
         TFT_B0 /* B0 */, TFT_B1 /* B1 */, TFT_B2 /* B2 */, TFT_B3 /* B3 */, TFT_B4 /* B4 */ ),
       TFT_WIDTH  /* width */ ,  TFT_HSYNC_POLARITY /* hsync_polarity */, TFT_HSYNC_FRONT_PORCH /* hsync_front_porch */, TFT_HSYNC_PULSE_WIDTH /* hsync_pulse_width */, TFT_HSYNC_BACK_PORCH /* hsync_back_porch */,
       TFT_HEIGHT /* height */,  TFT_VSYNC_POLARITY /* vsync_polarity */, TFT_VSYNC_FRONT_PORCH /* vsync_front_porch */, TFT_VSYNC_PULSE_WIDTH /* vsync_pulse_width */, TFT_VSYNC_BACK_PORCH /* vsync_back_porch */,
-      TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, 16000000 /* prefer_speed */, true /* auto_flush */)  {}
+      TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, TFT_PREFER_SPEED /* prefer_speed */, true /* auto_flush */)  {}
 
     void begin(){
       Arduino_RPi_DPI_RGBPanel::begin();

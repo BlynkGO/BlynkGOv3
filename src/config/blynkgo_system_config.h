@@ -1026,6 +1026,7 @@
   #define TFT_VSYNC_PULSE_WIDTH   4
   #define TFT_VSYNC_BACK_PORCH    4
   #define TFT_PCLK_IDLE_HIGH      1
+  #define TFT_PREFER_SPEED        16000000
 
   #define SD_FSPI_MODE
   #define SD_CS                   10       // SD Chip Select
@@ -1086,6 +1087,8 @@
   #define TFT_VSYNC_PULSE_WIDTH   4
   #define TFT_VSYNC_BACK_PORCH    8
   #define TFT_PCLK_IDLE_HIGH      1
+  #define TFT_PREFER_SPEED        16000000
+
 
   #define SD_FSPI_MODE
   #define SD_CS                   10       // SD Chip Select
@@ -1110,6 +1113,7 @@
   #define BLYNKGO_USE_SD          1
   #define BLYNKGO_USE_AGFX        1
 
+  //------------------------------------------
   #define RGB_DRIVER
   #define TFT_RGB_BUS
   #define TFT_WIDTH               800
@@ -1132,29 +1136,32 @@
   #define TFT_R3                  GPIO_NUM_21
   #define TFT_R4                  GPIO_NUM_14
 
-  #define TFT_HENABLE             0 //GPIO_NUM_40   /* DE */
+  #define TFT_HENABLE             GPIO_NUM_40   /* DE */
   #define TFT_VSYNC               GPIO_NUM_41
   #define TFT_HSYNC               GPIO_NUM_39
   #define TFT_PCLK                GPIO_NUM_42
 
   #define TFT_HSYNC_POLARITY      0
-  #define TFT_HSYNC_FRONT_PORCH   8
+  #define TFT_HSYNC_FRONT_PORCH   80
   #define TFT_HSYNC_PULSE_WIDTH   4
-  #define TFT_HSYNC_BACK_PORCH    8
+  #define TFT_HSYNC_BACK_PORCH    16
   #define TFT_VSYNC_POLARITY      0
-  #define TFT_VSYNC_FRONT_PORCH   8
+  #define TFT_VSYNC_FRONT_PORCH   22
   #define TFT_VSYNC_PULSE_WIDTH   4
-  #define TFT_VSYNC_BACK_PORCH    8
-  #define TFT_PCLK_IDLE_HIGH      1
-  
+  #define TFT_VSYNC_BACK_PORCH    4
+  #define TFT_PCLK_IDLE_HIGH      1         /* PCLK_ACTIVE_NEG */
+  #define TFT_PREFER_SPEED        14000000
+
+  //------------------------------------------  
   #define SD_FSPI_MODE
   #define SD_CS                   10       // SD Chip Select
   #define SD_MOSI                 11
   #define SD_SCLK                 12
   #define SD_MISO                 13
 
+  //------------------------------------------
   #define TOUCH_GT911_TAMC
-  #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)
+  #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)  Wire1 สัมผัส
   #define TOUCH_I2C_ADDR          0x5D
   #define TOUCH_I2C_SDA           19
   #define TOUCH_I2C_SCL           20
@@ -1210,6 +1217,7 @@
   #define TFT_VSYNC_PULSE_WIDTH   13
   #define TFT_VSYNC_BACK_PORCH    10
   #define TFT_PCLK_IDLE_HIGH      1
+  #define TFT_PREFER_SPEED        16000000
   //--------------------------------------------
   
   #define SD_FSPI_MODE
