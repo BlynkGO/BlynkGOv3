@@ -655,21 +655,6 @@ void BlynkGOv3::hw_lcd_init() {
 void BlynkGOv3::hw_lcd_init(){
   lcd.init();
 
-#if (TFT_BL != -1)
-  // lcd.light()->init(255); 
-  // #if defined(BLYNKGO_BOARD_V2)
-  //   pinMode(TFT_BL, OUTPUT); digitalWrite(TFT_BL, HIGH);
-  // #endif
-  // พบแล้วหาก เปิดใช้ RTC ด้วย Wire จะไปเริ่มขา 21,22 ทำให้ชนกับ TFT_BL 21
-  if(this->flashMem_exists("BRIGHTNESS")) {
-    // this->brightness( (uint8_t) (this->flashMem_Int("BRIGHTNESS") ), false );
-    lcd.setBrightness( (uint8_t) (this->flashMem_Int("BRIGHTNESS") ) );
-  }else{
-    // this->brightness( 255, true );
-    lcd.setBrightness( 255 );
-  }
-  Serial.printf("[BRIGHTNESS] %d\n", lcd.getBrightness() );//this->brightness());
-#endif
 
 #if !defined(BLYNKGO_OLED)
   // this->flashMem_erase("TFT_ROTATE");
@@ -707,6 +692,7 @@ void BlynkGOv3::hw_lcd_init(){
   //   }
   // }else{
     // --- start logo by text ------------------
+
     lcd.fillScreen(_TFT_BLACK);
     lcd.setTextSize((std::max(lcd.width(), lcd.height()) + 255) >> 9); //>> 8);
 #if BLYNKGO_USE_AGFX
@@ -716,6 +702,23 @@ void BlynkGOv3::hw_lcd_init(){
 #endif
     // lcd.drawString("C:> BlynkGOv3", 30, 16);
   // }
+  delay(15);
+
+#if (TFT_BL != -1)
+  // lcd.light()->init(255); 
+  // #if defined(BLYNKGO_BOARD_V2)
+  //   pinMode(TFT_BL, OUTPUT); digitalWrite(TFT_BL, HIGH);
+  // #endif
+  // พบแล้วหาก เปิดใช้ RTC ด้วย Wire จะไปเริ่มขา 21,22 ทำให้ชนกับ TFT_BL 21
+  if(this->flashMem_exists("BRIGHTNESS")) {
+    // this->brightness( (uint8_t) (this->flashMem_Int("BRIGHTNESS") ), false );
+    lcd.setBrightness( (uint8_t) (this->flashMem_Int("BRIGHTNESS") ) );
+  }else{
+    // this->brightness( 255, true );
+    lcd.setBrightness( 255 );
+  }
+  Serial.printf("[BRIGHTNESS] %d\n", lcd.getBrightness() );//this->brightness());
+#endif
 }
 #endif // #if defined(BLYNKGO_OLED)
 

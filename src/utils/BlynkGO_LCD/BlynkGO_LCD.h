@@ -147,13 +147,14 @@ class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
         cfg.freq        = 12000; //44100; 
         cfg.pwm_channel = BACKLIGHT_CHANNEL;
       _light_instance.config(cfg);
-      _light_instance.init(255);
+      // _light_instance.init(255);
+      _light_instance.init(0);  // ระมัดระวังจะมองไม่เห็นได้ ให้มาเปิดตรงนี้
 
 #if defined(TOUCH_GT911_TAMC) || defined(TOUCH_GT911)
       if(_ts==NULL) { _ts = new TAMC_GT911(TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT); }
       if(_ts)       { _ts->begin(); }
 #endif
-      this->setRotation(0);
+      this->setRotation(255);
     }
 
     inline void init()      { begin(); }
