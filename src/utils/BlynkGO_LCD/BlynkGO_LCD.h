@@ -30,6 +30,8 @@
  *       - BeeNeXT 7.0IPS
  *   - Version 1.0.4 @29/10/66
  *       - BeeNeXT 5.0IPS ลบ noise
+ *   - Version 1.0.5 @04/11/66
+ *       - BeeNeXT 4.3IPS แก้ touch ให้ตรง
  * 
  *********************************************************************/
 
@@ -41,7 +43,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_LCD_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_LCD_VERSION_PATCH   3
+#define BLYNKGO_LCD_VERSION_PATCH   5
 
 #define BLYNKGO_LCD_VERSION_TEXT    (String("BlynkGO_LCD v.")+String(BLYNKGO_LCD_VERSION_MAJOR)+"."+String(BLYNKGO_LCD_VERSION_MINOR)+"."+String(BLYNKGO_LCD_VERSION_PATCH))
 
@@ -160,11 +162,23 @@ class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
     inline void init()      { begin(); }
 
 #if defined(TOUCH_GT911_TAMC) || defined(TOUCH_GT911)
+  #if defined(BEENEXT_4_3IPS) 
+    template <typename T>
+    uint_fast8_t getTouch(T *x, T *y)
+    {
+      if(_ts == NULL) return 0;
+      auto ret = _ts->getTouch(x,y);
+      *x = map( constrain(*x,0,480), 0,480,0,800);
+      *y = map( constrain(*y,0,240), 0,240,0,480);
+      return ret;
+    }
+  #else
     template <typename T>
     uint_fast8_t getTouch(T *x, T *y)
     {
       return (_ts==NULL)? 0 : _ts->getTouch(x,y);
     }
+  #endif
 #endif
 
     #if defined(BEENEXT_7_0IPS)

@@ -92,6 +92,8 @@
  *      - remove  C:> BlynkGOv3
  *   [V3.0.3] @29/10/23
  *      - แก้ BeeNeXT5.0IPS ให้ไม่มี noise
+ *   [V3.0.4] @04/11/23
+ *      - fix BeeNeXT4.3IPS ให้ touch ตรง
  *
  *********************************************************************
  */
@@ -104,7 +106,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   2
+#define BLYNKGO_VERSION_PATCH   4
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 
