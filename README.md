@@ -1,6 +1,11 @@
 # BlynkGOv3
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)
 
+## [Version 3.0.5] @09/11/66  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.14 Fix001** (ติดต่อ Admin)  
+- รองรับ ทำงานบน PlatformIO ได้  
+- จูน BeeNeXT4.3IPS, BeeNeXT5.0IPS, BeeNeXT7.0 ลด flickering  
+
 ## [Version 3.0.0 released] @18/09/66
 ดาวโหลดที่ https://github.com/BlynkGO/BlynkGOv3/releases/tag/3.0.0  
 ทำงานบน **ESP32 core 2.0.6 ; ใช้ BlynkGO SDK 3.0.12** (ติดต่อ Admin)  
