@@ -1078,16 +1078,27 @@
   #define TFT_HSYNC               GPIO_NUM_39
   #define TFT_PCLK                GPIO_NUM_42
   
+  // #define TFT_HSYNC_POLARITY      0
+  // #define TFT_HSYNC_FRONT_PORCH   8
+  // #define TFT_HSYNC_PULSE_WIDTH   4
+  // #define TFT_HSYNC_BACK_PORCH    8
+  // #define TFT_VSYNC_POLARITY      0
+  // #define TFT_VSYNC_FRONT_PORCH   8
+  // #define TFT_VSYNC_PULSE_WIDTH   4
+  // #define TFT_VSYNC_BACK_PORCH    8
+  // #define TFT_PCLK_IDLE_HIGH      1
+  // #define TFT_PREFER_SPEED        16000000
+
   #define TFT_HSYNC_POLARITY      0
-  #define TFT_HSYNC_FRONT_PORCH   8
+  #define TFT_HSYNC_FRONT_PORCH   48
   #define TFT_HSYNC_PULSE_WIDTH   4
   #define TFT_HSYNC_BACK_PORCH    8
   #define TFT_VSYNC_POLARITY      0
-  #define TFT_VSYNC_FRONT_PORCH   8
+  #define TFT_VSYNC_FRONT_PORCH   12
   #define TFT_VSYNC_PULSE_WIDTH   4
   #define TFT_VSYNC_BACK_PORCH    8
   #define TFT_PCLK_IDLE_HIGH      1
-  #define TFT_PREFER_SPEED        16000000
+  #define TFT_PREFER_SPEED        14000000
 
 
   #define SD_FSPI_MODE
@@ -1141,16 +1152,27 @@
   #define TFT_HSYNC               GPIO_NUM_39
   #define TFT_PCLK                GPIO_NUM_42
 
+  // #define TFT_HSYNC_POLARITY      0
+  // #define TFT_HSYNC_FRONT_PORCH   80
+  // #define TFT_HSYNC_PULSE_WIDTH   4
+  // #define TFT_HSYNC_BACK_PORCH    16
+  // #define TFT_VSYNC_POLARITY      0
+  // #define TFT_VSYNC_FRONT_PORCH   22
+  // #define TFT_VSYNC_PULSE_WIDTH   4
+  // #define TFT_VSYNC_BACK_PORCH    4
+  // #define TFT_PCLK_IDLE_HIGH      1         /* PCLK_ACTIVE_NEG */
+  // #define TFT_PREFER_SPEED        14000000
+
   #define TFT_HSYNC_POLARITY      0
-  #define TFT_HSYNC_FRONT_PORCH   80
+  #define TFT_HSYNC_FRONT_PORCH   8
   #define TFT_HSYNC_PULSE_WIDTH   4
-  #define TFT_HSYNC_BACK_PORCH    16
+  #define TFT_HSYNC_BACK_PORCH    8
   #define TFT_VSYNC_POLARITY      0
-  #define TFT_VSYNC_FRONT_PORCH   22
+  #define TFT_VSYNC_FRONT_PORCH   8
   #define TFT_VSYNC_PULSE_WIDTH   4
-  #define TFT_VSYNC_BACK_PORCH    4
-  #define TFT_PCLK_IDLE_HIGH      1         /* PCLK_ACTIVE_NEG */
-  #define TFT_PREFER_SPEED        14000000
+  #define TFT_VSYNC_BACK_PORCH    8
+  #define TFT_PCLK_IDLE_HIGH      1        /* PCLK_ACTIVE_NEG */
+  #define TFT_PREFER_SPEED        12000000
 
   //------------------------------------------  
   #define SD_FSPI_MODE
@@ -1217,7 +1239,8 @@
   #define TFT_VSYNC_PULSE_WIDTH   13
   #define TFT_VSYNC_BACK_PORCH    10
   #define TFT_PCLK_IDLE_HIGH      1
-  #define TFT_PREFER_SPEED        16000000
+  #define TFT_PREFER_SPEED        12000000 //-1 ? ไม่นิยาม
+  // #define TFT_PREFER_SPEED        16000000
   //--------------------------------------------
   
   #define SD_FSPI_MODE
