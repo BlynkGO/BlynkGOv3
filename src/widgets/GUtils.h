@@ -18,10 +18,12 @@ extern "C" {
 #include "../img_decoder/img_decoder.h"
 }
 
-
 #ifndef MEM_CHECK
 #define MEM_CHECK  Serial.printf("[%s][%d] heap %d  psram %d\n", __func__,  __LINE__, ESP.getFreeHeap(), ESP.getFreePsram())
+#define STR_MEM_CHECK   StringX::printf("[%s][%d] heap %d  psram %d\n", __func__,  __LINE__, ESP.getFreeHeap(), ESP.getFreePsram())
 #endif
+
+#define GWIDGET     GWidget*widget
 
 #if BLYNKGO_USE_KBD
 template<typename T, typename ...Args>
