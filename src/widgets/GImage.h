@@ -48,6 +48,16 @@ class GImage : public GObject {
     GImage& operator =(const img_t & src_img);
     GImage& operator =(String file_path);
 
+    inline bool operator ==(const img_t * src_img) {
+      if(!this->isCreated()) this->create();
+      return (src_img ==(const img_t*) this->getSource() );
+    }
+
+    inline bool operator ==(const img_t & src_img) {
+      if(!this->isCreated()) this->create();
+      return (&src_img ==(const img_t*) this->getSource() );
+    }
+    
     void        setImage(String file_path);
     void        setImage(const img_t & src_img);
     void        setImage(const img_t * src_img);
