@@ -259,12 +259,14 @@ class GObject {
 
     void        setCircle(bool enable);
     void        corner_radius(uint16_t r);
+    inline void corner_radius(uint16_t r, bool corner_mask)  { this->corner_radius(r); this->corner_mask(corner_mask); }
     uint16_t    corner_radius();
     void        corner_mask(bool enable);
     bool        corner_mask();
 
-    inline void        radius(uint16_t r)          { this->corner_radius(r); }
-    inline uint16_t    radius()                    { return this->corner_radius(); }
+    inline void        radius(uint16_t r)               { this->corner_radius(r);       }
+    inline void        radius(uint16_t r, bool mask)    { this->corner_radius(r, mask); }
+    inline uint16_t    radius()                         { return this->corner_radius(); }
 
     void        border(uint16_t width);
     void        border(uint16_t width, color_t color);
