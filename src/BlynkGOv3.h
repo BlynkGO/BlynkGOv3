@@ -96,6 +96,8 @@
  *      - fix BeeNeXT4.3IPS ให้ touch ตรง
  *   [V3.0.5] @09/11/23
  *      - จูน BeeNeXT4.3IPS, BeeNeXT5.0IPS, BeeNeXT7.0 ลดอาการ flickering
+ *   [V3.0.6] @13/11/23
+ *      - จูน BeeNeXT5.0IPS ให้รองรับ จอ 5.0IPS 1000cd/m2 4.3IPS 1600cd/m2 by Mr.Beem
  *
  *********************************************************************
  */
@@ -108,7 +110,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   4
+#define BLYNKGO_VERSION_PATCH   6
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 

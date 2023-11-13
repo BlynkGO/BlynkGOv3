@@ -1162,7 +1162,8 @@
   // #define TFT_VSYNC_BACK_PORCH    4
   // #define TFT_PCLK_IDLE_HIGH      1         /* PCLK_ACTIVE_NEG */
   // #define TFT_PREFER_SPEED        14000000
-
+  
+  // Mr.Beem Tuning : best for 5_0 1000 cd/m2 & 4_3 1600 cd/m2 too
   #define TFT_HSYNC_POLARITY      0
   #define TFT_HSYNC_FRONT_PORCH   8
   #define TFT_HSYNC_PULSE_WIDTH   4
@@ -1172,7 +1173,7 @@
   #define TFT_VSYNC_PULSE_WIDTH   4
   #define TFT_VSYNC_BACK_PORCH    8
   #define TFT_PCLK_IDLE_HIGH      1        /* PCLK_ACTIVE_NEG */
-  #define TFT_PREFER_SPEED        12000000
+  #define TFT_PREFER_SPEED        13000000
 
   //------------------------------------------  
   #define SD_FSPI_MODE
