@@ -1747,6 +1747,10 @@ c_str	KEYWORD2
 ledRGB	KEYWORD2
 readLDR	KEYWORD2
 
+sd_mount	KEYWORD2
+sd_unmount	KEYWORD2
+
+
 #######################################
 # Instances (KEYWORD2)
 #######################################

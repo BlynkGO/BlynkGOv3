@@ -723,7 +723,7 @@ void BlynkGOv3::hw_lcd_init(){
 #endif // #if defined(BLYNKGO_OLED)
 
 #if BLYNKGO_USE_SD
-void BlynkGOv3::hw_sd_init() {
+bool BlynkGOv3::hw_sd_init() {
 #if BLYNKGO_DEV_LEVEL >= BLYNKGO_DEV_LEVEL_SD
 
 #if defined (SD_VSPI_MODE) || defined(SD_FSPI_MODE)
@@ -764,7 +764,9 @@ void BlynkGOv3::hw_sd_init() {
     this->_has_sd = true;
   }
 #endif
+  return this->_has_sd;
 #endif //#if BLYNKGO_DEV_LEVEL >= BLYNKGO_DEV_LEVEL_SD
+  return false;
 }
 #endif //BLYNKGO_USE_SD
 

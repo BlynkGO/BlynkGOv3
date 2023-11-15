@@ -98,6 +98,8 @@
  *      - จูน BeeNeXT4.3IPS, BeeNeXT5.0IPS, BeeNeXT7.0 ลดอาการ flickering
  *   [V3.0.6] @13/11/23
  *      - จูน BeeNeXT5.0IPS ให้รองรับ จอ 5.0IPS 1000cd/m2 4.3IPS 1600cd/m2 by Mr.Beem
+ *   [V3.0.7] @15/11/23
+ *      - เพิ่ม sd_mount(), sd_unmount()
  *
  *********************************************************************
  */
@@ -110,7 +112,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   6
+#define BLYNKGO_VERSION_PATCH   7
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 
@@ -630,7 +632,9 @@ class BlynkGOv3 {
     static void blynkgo_alarm_handler();
     void hw_lcd_init();
 #if BLYNKGO_USE_SD
-    void hw_sd_init();
+    bool hw_sd_init();
+    inline bool sd_mount()          { return hw_sd_init();  }
+    inline void sd_unmount()        { return SD.end();      }
 #endif //BLYNKGO_USE_SD
 
   private:
