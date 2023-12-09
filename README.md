@@ -1,6 +1,14 @@
 # BlynkGOv3
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)
 
+## [Version 3.0.7] @09/11/66  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.15** (ติดต่อ Admin)  
+- เพิ่ม sd_mount(), sd_unmount()
+- PlatformIO BlynkGO SDK ปรับให้บอร์ดมี default partition ให้เลย โดยไม่ต้องกำหนด platformio.ini ก็ได้  
+  
+## [Version 3.0.6] @13/11/23
+ - จูน BeeNeXT5.0IPS ให้รองรับ จอ 5.0IPS 1000cd/m2 4.3IPS 1600cd/m2 by Mr.Beem  
+  
 ## [Version 3.0.5] @09/11/66  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.14 Fix001** (ติดต่อ Admin)  
 - รองรับ ทำงานบน PlatformIO ได้  
