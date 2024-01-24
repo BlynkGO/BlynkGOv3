@@ -411,7 +411,47 @@
 // #endif
 
 //------------------------------------------------
-#if defined BEENEXT_1_9    // 170*320(Pixel)
+#if defined BEENEXT_1_28C    // 240*240(Pixel)
+  #define BLYNKGO_BOARD_NAME      "BeeNeXT 1.28\" Capacitive ESP32C3"
+
+  #define OFFSET_ROTATION         0
+  #define ROTATE_TYPE             0
+  #define BLYNKGO_USE_SD          0
+  #define BLYNKGO_USE_AGFX        0
+
+  // TFT 1.28C
+  #define SPI_HOST_TYPE           SPI2_HOST
+  #define SPI_MISO                -1
+  #define SPI_MOSI                7
+  #define SPI_SCLK                6
+
+  #define GC9A01_DRIVER
+  #define TFT_SPI_HOST_TYPE       SPI_HOST_TYPE
+  #define TFT_WIDTH               240
+  #define TFT_HEIGHT              240
+  #define TFT_SCLK                SPI_SCLK
+  #define TFT_MOSI                SPI_MOSI
+  #define TFT_MISO                SPI_MISO
+  #define TFT_DC                  2
+  #define TFT_CS                  10
+  #define TFT_RST                 -1
+  #define TFT_BUSY                -1
+  #define TFT_BL                  3
+  #define TFT_INVERT              true
+  #define TFT_SPI_3WIRE           true
+  #define TFT_DUMMY_READ_PIXEL    8
+  #define TFT_DUMMY_READ_BITS     1
+
+  // touch
+  #define TOUCH_CST816D
+  #define TOUCH_I2C_PORT          1 
+  #define TOUCH_I2C_SDA           4
+  #define TOUCH_I2C_SCL           5
+  #define TOUCH_INT               0
+  #define TOUCH_RST               1
+
+//------------------------------------------------
+#elif defined BEENEXT_1_9    // 170*320(Pixel)
   #define BLYNKGO_BOARD_NAME      "BeeNeXT 1.9\" ESP32S3"
 
   #define ST7789_DRIVER
@@ -1261,6 +1301,69 @@
   #define TOUCH_RST               38
   #define TOUCH_BUS_SHARED        false
 
+#elif BEEWAVE_S3_RGB8048
+  #define BLYNKGO_BOARD_NAME      "BeeWave-S3 RGB8048 (800x480 capacitive)"
+  #define BEENEXT
+  #define ROTATE_TYPE             0 //3
+  #define OFFSET_ROTATION         0
+  #define BLYNKGO_USE_SD          1
+  #define BLYNKGO_USE_AGFX        1
+
+  //------------------------------------------
+  #define RGB_DRIVER
+  #define TFT_RGB_BUS
+  #define TFT_WIDTH               800
+  #define TFT_HEIGHT              480
+  #define TFT_BL                  2
+  #define TFT_B0                  GPIO_NUM_8
+  #define TFT_B1                  GPIO_NUM_3
+  #define TFT_B2                  GPIO_NUM_46
+  #define TFT_B3                  GPIO_NUM_9
+  #define TFT_B4                  GPIO_NUM_1
+  #define TFT_G0                  GPIO_NUM_5
+  #define TFT_G1                  GPIO_NUM_6
+  #define TFT_G2                  GPIO_NUM_7
+  #define TFT_G3                  GPIO_NUM_15
+  #define TFT_G4                  GPIO_NUM_16
+  #define TFT_G5                  GPIO_NUM_4
+  #define TFT_R0                  GPIO_NUM_45
+  #define TFT_R1                  GPIO_NUM_48
+  #define TFT_R2                  GPIO_NUM_47
+  #define TFT_R3                  GPIO_NUM_21
+  #define TFT_R4                  GPIO_NUM_14
+
+  #define TFT_HENABLE             GPIO_NUM_40   /* DE */
+  #define TFT_VSYNC               GPIO_NUM_41
+  #define TFT_HSYNC               GPIO_NUM_39
+  #define TFT_PCLK                GPIO_NUM_42
+
+  // Mr.Beem Tuning : best for 5_0 1000 cd/m2 & 4_3 1600 cd/m2 too
+  #define TFT_HSYNC_POLARITY      0
+  #define TFT_HSYNC_FRONT_PORCH   8
+  #define TFT_HSYNC_PULSE_WIDTH   4
+  #define TFT_HSYNC_BACK_PORCH    8
+  #define TFT_VSYNC_POLARITY      0
+  #define TFT_VSYNC_FRONT_PORCH   8
+  #define TFT_VSYNC_PULSE_WIDTH   4
+  #define TFT_VSYNC_BACK_PORCH    8
+  #define TFT_PCLK_IDLE_HIGH      1        /* PCLK_ACTIVE_NEG */
+  #define TFT_PREFER_SPEED        13000000
+
+  //------------------------------------------  
+  #define SD_FSPI_MODE
+  #define SD_CS                   10       // SD Chip Select
+  #define SD_MOSI                 11
+  #define SD_SCLK                 12
+  #define SD_MISO                 13
+
+  //------------------------------------------
+  #define TOUCH_GT911_TAMC
+  #define TOUCH_I2C_PORT          1       // 使用するI2Cを選択 (0 or 1)  Wire1 สัมผัส
+  #define TOUCH_I2C_ADDR          0x5D
+  #define TOUCH_I2C_SDA           19
+  #define TOUCH_I2C_SCL           20
+  #define TOUCH_INT               -1
+  #define TOUCH_RST               38
 
 #endif
 
