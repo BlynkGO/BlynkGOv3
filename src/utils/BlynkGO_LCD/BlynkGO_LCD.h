@@ -32,6 +32,8 @@
  *       - BeeNeXT 5.0IPS ลบ noise
  *   - Version 1.0.5 @04/11/66
  *       - BeeNeXT 4.3IPS แก้ touch ให้ตรง
+ *   - Version 1.0.6 @24/01/67
+ *       - เพิ่ม BeeWave-S3 RGB8048 (800x480 Capacitive)
  * 
  *********************************************************************/
 
@@ -43,7 +45,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_LCD_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_LCD_VERSION_PATCH   5
+#define BLYNKGO_LCD_VERSION_PATCH   6
 
 #define BLYNKGO_LCD_VERSION_TEXT    (String("BlynkGO_LCD v.")+String(BLYNKGO_LCD_VERSION_MAJOR)+"."+String(BLYNKGO_LCD_VERSION_MINOR)+"."+String(BLYNKGO_LCD_VERSION_PATCH))
 
@@ -121,7 +123,7 @@ class BlynkGO_LCD : public Arduino_ST7789 {
     uint8_t             _last_brightness=255;
 };
 
-#elif defined(BEENEXT_4_3C) ||  defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
+#elif defined(BEENEXT_4_3C) ||  defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS) ||  defined(BEEWAVE_S3_RGB8048)
 
 #if defined(TOUCH_GT911_TAMC) || defined(TOUCH_GT911)
 #include "./LoveCat/lgfx/v1/touch/TAMC_GT911/TAMC_GT911.h"

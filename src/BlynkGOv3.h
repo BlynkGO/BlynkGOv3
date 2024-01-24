@@ -100,6 +100,8 @@
  *      - จูน BeeNeXT5.0IPS ให้รองรับ จอ 5.0IPS 1000cd/m2 4.3IPS 1600cd/m2 by Mr.Beem
  *   [V3.0.7] @15/11/23
  *      - เพิ่ม sd_mount(), sd_unmount()
+ *   [V3.0.8] @24/01/24
+ *      - เพิ่ม BeeWave-S3 RGB8048
  *
  *********************************************************************
  */
@@ -112,7 +114,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   7
+#define BLYNKGO_VERSION_PATCH   8
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 
