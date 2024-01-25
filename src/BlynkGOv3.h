@@ -102,7 +102,9 @@
  *      - เพิ่ม sd_mount(), sd_unmount()
  *   [V3.0.8] @24/01/24
  *      - เพิ่ม BeeWave-S3 RGB8048
- *
+  *   [V3.0.9] @25/01/24
+ *      - ปรับให้เลข version ตรงกันกับของบน PlatformIO
+  *
  *********************************************************************
  */
 
@@ -114,7 +116,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   8
+#define BLYNKGO_VERSION_PATCH   9
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 
