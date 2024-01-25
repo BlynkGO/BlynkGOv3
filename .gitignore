@@ -2,3 +2,5 @@
 src/widgets/GWidgets_init.cpp
 src/widgets/GWidgets_init.cpp.noupload
 updater/esp32/lib/libblynkgolib.a.old
+pics/HSV.png
+
