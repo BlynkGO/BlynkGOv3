@@ -1,6 +1,10 @@
 # BlynkGOv3
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)
 
+## [Version 3.0.9] @25/01/67  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.18** (ติดต่อ Admin)  
+- ปรับ version ให้ตรงกับ version บน PlatformIO  
+  
 ## [Version 3.0.8] @24/01/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.18** (ติดต่อ Admin)  
 - เพิ่ม BeeWave-S3 RGB8048 Capactive สำหรับบอร์ด PCB 
