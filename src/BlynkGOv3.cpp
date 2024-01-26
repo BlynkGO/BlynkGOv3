@@ -391,9 +391,9 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
   if( this->flashMem_exists("BLYNKGO_VER")) {
     String _blynkgo_version = this->flashMem_String("BLYNKGO_VER");
     // Serial.print("found BLYNKGO_VER : ");
-    Serial.println(_blynkgo_version);
+    // Serial.println(_blynkgo_version);
     // Serial.print("cur verson : ");
-    Serial.println(BLYNKGO_VERSION_TEXT);
+    // Serial.println(BLYNKGO_VERSION_TEXT);
     if(_blynkgo_version != BLYNKGO_VERSION_TEXT) {
       this->touch_calibrate();
       this->flashMem_erase("BLYNKGO_VER");
