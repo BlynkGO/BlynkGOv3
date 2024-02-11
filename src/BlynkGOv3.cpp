@@ -19,7 +19,13 @@
 
 #include "BlynkGOv3.h"
 #include <Ticker.h>
+
+#if BLYNKGO_USE_LITTLEFS
+#include <LittleFS.h>
+#else
 #include <SPIFFS.h>
+#endif
+
 #include <SPI.h>
 #include <vector>
 
@@ -272,11 +278,26 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
   pBlynkGO = this;
   blynkgo_logo();
   // check file system exists
+#if BLYNKGO_USE_LITTLEFS
+  if (!LittleFS.begin()) {
+    Serial.println("Formating file system");
+    LittleFS.format();
+    LittleFS.begin();
+    Serial.println("[LittleFS] inited");
+  }else{
+    Serial.println("[LittleFS] inited");
+  }
+#else
   if (!SPIFFS.begin()) {
     Serial.println("Formating file system");
     SPIFFS.format();
     SPIFFS.begin();
+    Serial.println("[SPIFFS] inited");
+  }else{
+    Serial.println("[SPIFFS] inited");
   }
+#endif
+
   NVS.begin();
 
 #if defined(BEENEXT_3_5) || defined(BEENEXT_3_5C)
@@ -391,9 +412,9 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
   if( this->flashMem_exists("BLYNKGO_VER")) {
     String _blynkgo_version = this->flashMem_String("BLYNKGO_VER");
     // Serial.print("found BLYNKGO_VER : ");
-    // Serial.println(_blynkgo_version);
+    Serial.println(_blynkgo_version);
     // Serial.print("cur verson : ");
-    // Serial.println(BLYNKGO_VERSION_TEXT);
+    Serial.println(BLYNKGO_VERSION_TEXT);
     if(_blynkgo_version != BLYNKGO_VERSION_TEXT) {
       this->touch_calibrate();
       this->flashMem_erase("BLYNKGO_VER");
@@ -777,8 +798,11 @@ bool lv_obj_snapshot(lv_obj_t* obj, String file_path )
   if(obj == NULL || file_path == "") return false;
 
   String f_path = file_path;
+#if BLYNKGO_USE_LITTLEFS
+  bool littlefs_fs = false;
+#else
   bool spiffs_fs = false;
-
+#endif
   
 #if BLYNKGO_USE_SD
   // เปลี่ยน file_path เป็น /sd/... แทน
@@ -801,6 +825,21 @@ bool lv_obj_snapshot(lv_obj_t* obj, String file_path )
     return false;
   } else 
 #endif
+
+#if BLYNKGO_USE_LITTLEFS
+  // เปลี่ยน file_path เป็น /spiffs/... แทน
+  if( file_path.startsWith("littlefs://")  ||
+      file_path.startsWith("LITTLEFS://")  ||
+      file_path.startsWith(BLYNKGO_SPIFFS_DRIVE) )
+  {
+    littlefs_fs = true;
+    f_path.replace("littlefs://", "/");
+    f_path.replace("LITTLEFS://", "/");
+    f_path.replace(BLYNKGO_SPIFFS_DRIVE, "/");
+    // f_path = String("/littlefs") + f_path;
+  }
+  
+#else
   // เปลี่ยน file_path เป็น /spiffs/... แทน
   if( file_path.startsWith("spiffs://")  ||
       file_path.startsWith("SPIFFS://")  ||
@@ -812,7 +851,7 @@ bool lv_obj_snapshot(lv_obj_t* obj, String file_path )
     f_path.replace(BLYNKGO_SPIFFS_DRIVE, "/");
     // f_path = String("/spiffs") + f_path;
   }
-  
+#endif  
 
   if( f_path.endsWith(".bmp") ) {
     capture_type = CAPTURE_TYPE_BMP;
@@ -831,6 +870,18 @@ bool lv_obj_snapshot(lv_obj_t* obj, String file_path )
 
   if( capture_type == CAPTURE_TYPE_BMP) {
     ESP_LOGI(TAG, "[Capture] by BMP");
+#if BLYNKGO_USE_LITTLEFS
+    if(littlefs_fs){
+      ESP_LOGI(TAG, "[Capture] file open on LittleFS : %s", f_path.c_str());
+      _file_bmp = LittleFS.open(f_path, "w");
+    }
+  #if BLYNKGO_USE_SD
+    else{
+      ESP_LOGI(TAG, "[Capture] file open on SD : %s", f_path.c_str());
+      _file_bmp = SD.open(f_path, "w");
+    }
+  #endif
+#else
     if(spiffs_fs){
       ESP_LOGI(TAG, "[Capture] file open on SPIFFS : %s", f_path.c_str());
       _file_bmp = SPIFFS.open(f_path, "w");
@@ -841,6 +892,8 @@ bool lv_obj_snapshot(lv_obj_t* obj, String file_path )
       _file_bmp = SD.open(f_path, "w");
     }
 #endif
+#endif
+
     if( !_file_bmp ) return false;
 
 

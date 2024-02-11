@@ -23,11 +23,15 @@
 // เปิด/ปิด การซิงค์เวลา NTP อัตโนมัติหรือไม่
 #define BLYNKGO_USE_NTP               1       // 1 เลือกใช้ NTP Sync เวลาอัตโนมัติ ด้วย  ; 0 ไม่เลือกใช้ NTP ;   ( ถ้าใช้ NTP ให้เปิด WIFI ด้วย)
 
+
+#define BLYNKGO_USE_LITTLEFS          1       // 1 เลือกใช้ LittleFS                 ; 0 เลือกใช้ SPIFFS (default)
+
+
 // เปิด/ปิด การใช้งาน Blynk หรือไม่ (ให้ติดตั้ง BlynkBlynkGO ก่อน)
 #define BLYNKGO_USE_BLYNK             0       // 1 เลือกใช้ Blynk ด้วย               ; 0 ไม่เลือกใช้ Blynk ;  ( ถ้าใช้ Blynk ให้เปิด WIFI ด้วย)
 
 // // เปิด/ปิด การใช้งาน Line Notify แบบ Async (ไม่สะดุดรอการเชื่อมต่อ) หรือไม่
-// #define BLYNKGO_USE_LINENOTIFY        0       // 1 เลือกใช้ Line Notify ด้วย         ; 0 ไม่เลือกใช้ Line Notify ;  ( ถ้าใช้ Line Notify ให้เปิด WIFI ด้วย)
+// #define BLYNKGO_USE_LINENOTIFY     0       // 1 เลือกใช้ Line Notify ด้วย         ; 0 ไม่เลือกใช้ Line Notify ;  ( ถ้าใช้ Line Notify ให้เปิด WIFI ด้วย)
 
 // เปิด/ปิด การใช้งาน MQTT แบบ Async (ไม่สะดุดรอการเชื่อมต่อ) หรือไม่
 // สามารถเชื่อมต่อได้ทั้งแบบ TCP, SSL/TLS, WebSocket, WebSocket Secure และมี user/password ได้
