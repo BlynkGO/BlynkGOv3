@@ -1,3 +1,10 @@
+/*
+ * ให้กำหนดใน blynkgo_config.h เปิดใช้ LittleFS 
+ * โดยกำหนด
+ *    #define BLYNKGO_USE_LITTLEFS     1
+ * 
+ */
+
 #include <BlynkGOv3.h>
 #include "project.h"
 
@@ -21,3 +28,4 @@ void setup() {
 void loop() {
   BlynkGO.update();
 }
+
