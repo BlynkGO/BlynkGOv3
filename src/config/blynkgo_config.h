@@ -24,7 +24,7 @@
 #define BLYNKGO_USE_NTP               1       // 1 เลือกใช้ NTP Sync เวลาอัตโนมัติ ด้วย  ; 0 ไม่เลือกใช้ NTP ;   ( ถ้าใช้ NTP ให้เปิด WIFI ด้วย)
 
 
-#define BLYNKGO_USE_LITTLEFS          1       // 1 เลือกใช้ LittleFS                 ; 0 เลือกใช้ SPIFFS (default)
+#define BLYNKGO_USE_LITTLEFS          0       // 1 เลือกใช้ LittleFS                 ; 0 เลือกใช้ SPIFFS (default)
 
 
 // เปิด/ปิด การใช้งาน Blynk หรือไม่ (ให้ติดตั้ง BlynkBlynkGO ก่อน)
