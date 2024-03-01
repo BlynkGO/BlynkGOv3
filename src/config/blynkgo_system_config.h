@@ -954,27 +954,7 @@
   #define TFT_WIDTH               480
   #define TFT_HEIGHT              272
   #define TFT_BL                  2
-  // #define TFT_B0                  8
-  // #define TFT_B1                  3
-  // #define TFT_B2                  46
-  // #define TFT_B3                  9
-  // #define TFT_B4                  1
-  // #define TFT_G0                  5
-  // #define TFT_G1                  6
-  // #define TFT_G2                  7
-  // #define TFT_G3                  15
-  // #define TFT_G4                  16
-  // #define TFT_G5                  4
-  // #define TFT_R0                  45
-  // #define TFT_R1                  48
-  // #define TFT_R2                  47
-  // #define TFT_R3                  21
-  // #define TFT_R4                  14
-
-  // #define TFT_HENABLE             40
-  // #define TFT_VSYNC               41
-  // #define TFT_HSYNC               39
-  // #define TFT_PCLK                42
+  #define TFT_BL_PWM              1
 
   #define TFT_B0                  GPIO_NUM_8
   #define TFT_B1                  GPIO_NUM_3
@@ -999,14 +979,16 @@
   #define TFT_PCLK                GPIO_NUM_42
 
   #define TFT_HSYNC_POLARITY      0
-  #define TFT_HSYNC_FRONT_PORCH   8
+  #define TFT_HSYNC_FRONT_PORCH   8   // 8 เดิม OK ดีกว่า; 64 HA OK ภาพจะค่อยๆเลือน
   #define TFT_HSYNC_PULSE_WIDTH   4
-  #define TFT_HSYNC_BACK_PORCH    16
+  #define TFT_HSYNC_BACK_PORCH    43  // 43 เดิม OK; 32ส่ายเพิ่มมาก,40,42,44 ส่ายข้างเพิ่มขึ้นในครึ่งบน
   #define TFT_VSYNC_POLARITY      0
-  #define TFT_VSYNC_FRONT_PORCH   4
+  #define TFT_VSYNC_FRONT_PORCH   8   // 8 เดิม OK ดีกว่า; 64 HA OK ภาพจะค่อยๆเลือน
   #define TFT_VSYNC_PULSE_WIDTH   4
-  #define TFT_VSYNC_BACK_PORCH    4
+  #define TFT_VSYNC_BACK_PORCH    12
   #define TFT_PCLK_IDLE_HIGH      1
+  #define TFT_PREFER_SPEED        2100000  // 1900000 <-TRY4 OK ดีมาก  // 2100000  <-TRY3 สวยมากนิ่ง แต่ภาพเปลี่ยนมีภาพเก่าเลือนๆ // 13000000 <-TRY2 OK ; 16000000  <-TRY1 OK มีจุดปะๆเล็กน้อย; 9000000  <- HA เดิม มีริ้วๆคลื่น
+
 
   #define SD_FSPI_MODE
   #define SD_CS                   10       // SD Chip Select
@@ -1035,6 +1017,7 @@
   #define TFT_WIDTH               480
   #define TFT_HEIGHT              272
   #define TFT_BL                  2
+  #define TFT_BL_PWM              1
   #define TFT_B0                  GPIO_NUM_8
   #define TFT_B1                  GPIO_NUM_3
   #define TFT_B2                  GPIO_NUM_46
@@ -1056,17 +1039,18 @@
   #define TFT_VSYNC               GPIO_NUM_41
   #define TFT_HSYNC               GPIO_NUM_39
   #define TFT_PCLK                GPIO_NUM_42
-  
+
+
   #define TFT_HSYNC_POLARITY      0
-  #define TFT_HSYNC_FRONT_PORCH   8
+  #define TFT_HSYNC_FRONT_PORCH   8   // 8 เดิม OK ดีกว่า; 64 HA OK ภาพจะค่อยๆเลือน
   #define TFT_HSYNC_PULSE_WIDTH   4
-  #define TFT_HSYNC_BACK_PORCH    16
+  #define TFT_HSYNC_BACK_PORCH    43  // 43 เดิม OK; 32ส่ายเพิ่มมาก,40,42,44 ส่ายข้างเพิ่มขึ้นในครึ่งบน
   #define TFT_VSYNC_POLARITY      0
-  #define TFT_VSYNC_FRONT_PORCH   4
+  #define TFT_VSYNC_FRONT_PORCH   8   // 8 เดิม OK ดีกว่า; 64 HA OK ภาพจะค่อยๆเลือน
   #define TFT_VSYNC_PULSE_WIDTH   4
-  #define TFT_VSYNC_BACK_PORCH    4
+  #define TFT_VSYNC_BACK_PORCH    12
   #define TFT_PCLK_IDLE_HIGH      1
-  #define TFT_PREFER_SPEED        16000000
+  #define TFT_PREFER_SPEED        2100000  // 1900000 <-TRY4 OK ดีมาก  // 2100000  <-TRY3 สวยมากนิ่ง แต่ภาพเปลี่ยนมีภาพเก่าเลือนๆ // 13000000 <-TRY2 OK ; 16000000  <-TRY1 OK มีจุดปะๆเล็กน้อย; 9000000  <- HA เดิม มีริ้วๆคลื่น
 
   #define SD_FSPI_MODE
   #define SD_CS                   10       // SD Chip Select
@@ -1096,6 +1080,7 @@
   #define TFT_WIDTH               800
   #define TFT_HEIGHT              480
   #define TFT_BL                  2
+  #define TFT_BL_PWM              1
   #define TFT_B0                  GPIO_NUM_8
   #define TFT_B1                  GPIO_NUM_3
   #define TFT_B2                  GPIO_NUM_46
@@ -1170,6 +1155,7 @@
   #define TFT_WIDTH               800
   #define TFT_HEIGHT              480
   #define TFT_BL                  2
+  #define TFT_BL_PWM              1
   #define TFT_B0                  GPIO_NUM_8
   #define TFT_B1                  GPIO_NUM_3
   #define TFT_B2                  GPIO_NUM_46
@@ -1244,6 +1230,7 @@
   #define TFT_WIDTH               800
   #define TFT_HEIGHT              480
   #define TFT_BL                  2
+  #define TFT_BL_PWM              1
   //--------------------------------------------
   #define TFT_R0                  GPIO_NUM_14
   #define TFT_R1                  GPIO_NUM_21
@@ -1315,6 +1302,7 @@
   #define TFT_WIDTH               800
   #define TFT_HEIGHT              480
   #define TFT_BL                  2
+  #define TFT_BL_PWM              1
   #define TFT_B0                  GPIO_NUM_8
   #define TFT_B1                  GPIO_NUM_3
   #define TFT_B2                  GPIO_NUM_46

@@ -34,7 +34,9 @@
  *       - BeeNeXT 4.3IPS แก้ touch ให้ตรง
  *   - Version 1.0.6 @24/01/67
  *       - เพิ่ม BeeWave-S3 RGB8048 (800x480 Capacitive)
- * 
+ *   - Version 1.0.7 @01/03/67
+ *       - Fix BeeNeXT 4.3R/C
+ *
  *********************************************************************/
 
 #ifndef __BLYNKGO_LCD_H__
@@ -123,7 +125,7 @@ class BlynkGO_LCD : public Arduino_ST7789 {
     uint8_t             _last_brightness=255;
 };
 
-#elif defined(BEENEXT_4_3C) ||  defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS) ||  defined(BEEWAVE_S3_RGB8048)
+#elif defined(BEENEXT_4_3C) || defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS) ||  defined(BEEWAVE_S3_RGB8048)
 
 #if defined(TOUCH_GT911_TAMC) || defined(TOUCH_GT911)
 #include "./LoveCat/lgfx/v1/touch/TAMC_GT911/TAMC_GT911.h"
@@ -144,7 +146,9 @@ class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
 
     void begin(){
       Arduino_RPi_DPI_RGBPanel::begin();
-      
+
+#if TFT_BL != -1
+  #if TFT_BL_PWM == 1
       auto cfg = _light_instance.config();
         cfg.pin_bl      = TFT_BL;
         cfg.invert      = false;
@@ -153,12 +157,16 @@ class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
       _light_instance.config(cfg);
       // _light_instance.init(255);
       _light_instance.init(0);  // ระมัดระวังจะมองไม่เห็นได้ ให้มาเปิดตรงนี้
+  #else
+      pinMode(TFT_BL, OUTPUT);
+      digitalWrite(TFT_BL, HIGH);
+  #endif // TFT_BL_PWM == 1
+#endif TFT_BL != -1
 
 #if defined(TOUCH_GT911_TAMC) || defined(TOUCH_GT911)
       if(_ts==NULL) { _ts = new TAMC_GT911(TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT); }
       if(_ts)       { _ts->begin(); }
 #endif
-      this->setRotation(255);
     }
 
     inline void init()      { begin(); }
@@ -209,17 +217,34 @@ class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
     }
 
     inline void drawString(const char* str, int16_t x, int16_t y)   { this->setCursor(x, y); this->print(str); }
+
+#if TFT_BL != -1
+  #if TFT_BL_PWM == 1
     inline void wakeup()                            { _light_instance.setBrightness(_last_brightness);}
     inline void sleep()                             { _light_instance.setBrightness(0); }
     inline void setBrightness(uint8_t brightness)   { _light_instance.setBrightness(brightness); _last_brightness = brightness; }
     inline uint8_t getBrightness()                  { return _last_brightness; }
+  #else
+    inline void wakeup()                            { digitalWrite(TFT_BL, HIGH);           }
+    inline void sleep()                             { digitalWrite(TFT_BL, LOW);            }
+    inline void setBrightness(uint8_t brightness)   { digitalWrite(TFT_BL, brightness!=0 ); _last_brightness = brightness; }
+    inline uint8_t getBrightness()                  { return _last_brightness;              }
+  #endif
+#else
+    inline void wakeup()                            {  }
+    inline void sleep()                             {  }
+    inline void setBrightness(uint8_t brightness)   { _last_brightness = brightness; }
+    inline uint8_t getBrightness()                  { return _last_brightness;       }
+#endif
 
 #if defined(TOUCH_GT911_TAMC) || defined(TOUCH_GT911)  // สำหรับ AGFX TOUCH_GT911 จะมองเป็น TOUCH_GT911_TAMC ทั้งหมด
     TAMC_GT911 *_ts = NULL;
 #endif
 
   private:
+#if TFT_BL != -1 && TFT_BL_PWM == 1
     lgfx::Light_PWM     _light_instance;
+#endif
     uint8_t             _last_brightness=255;
 };
 

@@ -1196,6 +1196,8 @@ void BlynkGOv3::brightness(uint8_t level, bool save){
   #if TFT_BL != -1
     lcd.setBrightness( level);
     if(save) this->flashMem("BRIGHTNESS", lcd.getBrightness());
+  #else
+    lcd.setBrightness( level);
   #endif
 #endif
 }
@@ -1204,11 +1206,7 @@ uint8_t  BlynkGOv3::brightness(){
 #if defined(BLYNKGO_OLED)
   return this->flashMem_Int("BRIGHTNESS");
 #else
-  #if TFT_BL != -1
-    return lcd.getBrightness();
-  #else
-    return 255;
-  #endif
+  return lcd.getBrightness();
 #endif
 }
 
