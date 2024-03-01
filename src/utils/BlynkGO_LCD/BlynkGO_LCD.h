@@ -159,7 +159,8 @@ class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
       _light_instance.init(0);  // ระมัดระวังจะมองไม่เห็นได้ ให้มาเปิดตรงนี้
   #else
       pinMode(TFT_BL, OUTPUT);
-      digitalWrite(TFT_BL, HIGH);
+      // digitalWrite(TFT_BL, HIGH);
+      digitalWrite(TFT_BL, LOW);   // ระมัดระวังจะมองไม่เห็นได้ ให้มาเปิดตรงนี้
   #endif // TFT_BL_PWM == 1
 #endif TFT_BL != -1
 
