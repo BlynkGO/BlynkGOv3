@@ -2,6 +2,10 @@
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)  
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
 
+## [Version 3.0.11] @01/03/67  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.19** (ติดต่อ Admin)   
+- fix&tune BeeNeXT4.3R/C 480x272 
+  
 ## [Version 3.0.10] @11/02/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.19** (ติดต่อ Admin)   
 - รองรับ LittleFS โดยให้กำหนด BLYNKGO_USE_LITTLEFS ใน blynkgo_config.h 
