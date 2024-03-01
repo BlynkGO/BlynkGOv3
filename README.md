@@ -3,7 +3,7 @@
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
 
 ## [Version 3.0.10] @11/02/67  
-ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.18** (ติดต่อ Admin)   
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.19** (ติดต่อ Admin)   
 - รองรับ LittleFS โดยให้กำหนด BLYNKGO_USE_LITTLEFS ใน blynkgo_config.h 
   
 ## [Version 3.0.9] @25/01/67  
