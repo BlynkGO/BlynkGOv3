@@ -169,6 +169,31 @@ class TAMC_GT911 {
     // uint8_t gesture = NO_GESTURE;
     TP_Point points[5];
 
+#if defined BEENEXT_4_3IPS
+  template <typename T>
+  uint_fast8_t getTouch(T *x, T *y)
+  {
+    T _x, _y;
+    this->read();
+    if (this->isTouched)
+    {
+      _x = map(this->points[0].x, this->width, 0, 0, this->width - 1);
+      _y = map(this->points[0].y, this->height, 0, 0, this->height - 1);
+
+      if (_x >= 0 && _y >= 0 && _x <= 2000 && _y <= 2000)
+      {
+        *x = map(_x, 0, 480, 0, 800);  // X min max : 0 - 480
+        *y = map(_y, 0, 270, 0, 480);  // Y min max : 0 - 270
+        return 1;
+      }
+      return 0;
+    }
+    else
+    {
+      return 0;
+    }
+  }
+#else
     template <typename T>
     uint_fast8_t getTouch(T *x, T *y)
     {      
@@ -188,6 +213,7 @@ class TAMC_GT911 {
         return 0;
       }
     }
+#endif
 
   private:
     void calculateChecksum();

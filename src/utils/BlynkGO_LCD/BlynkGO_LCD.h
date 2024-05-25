@@ -173,23 +173,11 @@ class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
     inline void init()      { begin(); }
 
 #if defined(TOUCH_GT911_TAMC) || defined(TOUCH_GT911)
-  #if defined(BEENEXT_4_3IPS) 
-    template <typename T>
-    uint_fast8_t getTouch(T *x, T *y)
-    {
-      if(_ts == NULL) return 0;
-      auto ret = _ts->getTouch(x,y);
-      *x = map( constrain(*x,0,480), 0,480,0,800);
-      *y = map( constrain(*y,0,240), 0,240,0,480);
-      return ret;
-    }
-  #else
     template <typename T>
     uint_fast8_t getTouch(T *x, T *y)
     {
       return (_ts==NULL)? 0 : _ts->getTouch(x,y);
     }
-  #endif
 #endif
 
     #if defined(BEENEXT_7_0IPS)

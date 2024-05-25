@@ -108,7 +108,9 @@
  *      - เพิ่ม #define BLYNKGO_USE_LITTLEFS   1/0 สำหรับปรับเลือกใช้ filesystem แบบ LittleFS หรือไม่  ได้
  *   [V3.0.11] @01/03/24
  *      - Fix BeeNeXT 4.3R/C (480x272)
- *
+ *   [V3.0.12] @21/05/24
+ *      - Fix BeeNeXT 4.3IPS Touch (800x480)
+ * 
  *********************************************************************
  */
 
@@ -120,7 +122,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   9
+#define BLYNKGO_VERSION_PATCH   12
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 
