@@ -63,6 +63,12 @@
  * Version 1.0.11 @02/01/23
  *    1. wifi_manager.reset()  ทำการ reset ค่า wifi ทิ้ง พร้อมล้าง widget ข้อความต่างๆของ wifi_manager ออก
  *
+ * Version 1.0.12 @11/01/23
+ *    1. กดค้างนาน 5 วินาที    จะเข้าทำการ reset WiFi/Password แล้วค่อยเข้าไป GWiFiManager ไปตั้งค่าให้ GWiFiSetting
+ * 
+ * Version 1.0.13 @04/06/24
+ *    1. เพิ่ม onBack(..) ให้ GWiFiManager เผื่อดักทำอะไรได้
+ * 
  *********************************************************************
  */
 
@@ -392,10 +398,11 @@ void  GWiFiManager::onClicked_cb(GWidget* widget){
       GWiFiManager::WiFiSignalUpdate_Task_cb();
       GWiFiManager::WiFiSignal_Task.setInterval( WIFISIGNAL_RECHECK, GWiFiManager::WiFiSignalUpdate_Task_cb );
     }
+    if(_pWiFiManager->fn_onback != NULL) {
+      _pWiFiManager->fn_onback(_pWiFiManager);
+    }
   });
 }
-
-
 
 void gwifimanager_event_cb(lv_obj_t *obj, lv_event_t event) {
   GWiFiManager* _pWiFiManager = (GWiFiManager*) lv_obj_get_user_data(obj);

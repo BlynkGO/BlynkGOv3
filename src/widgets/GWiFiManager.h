@@ -66,7 +66,10 @@
  *
  * Version 1.0.12 @11/01/23
  *    1. กดค้างนาน 5 วินาที    จะเข้าทำการ reset WiFi/Password แล้วค่อยเข้าไป GWiFiManager ไปตั้งค่าให้ GWiFiSetting
- *    
+ * 
+ * Version 1.0.13 @04/06/24
+ *    1. เพิ่ม onBack(..) ให้ GWiFiManager เผื่อดักทำอะไรได้
+ * 
  *********************************************************************
  */
 
@@ -87,7 +90,7 @@
 #include "GList.h"
 #include "GTask.h"
 
-#define WIFI_MANAGER_VERSION       "1.0.12"
+#define WIFI_MANAGER_VERSION       "1.0.13"
 
 class GWiFiSetting;
 
@@ -145,8 +148,10 @@ class GWiFiManager : public GContainer {
     void bg_color(color_t main_color, color_t grad_color);
     color_t bg_color();
 
+    void onBack(event_handler_t fn)             { if(!this->isCreated()) this->create();  fn_onback = fn; }
 
     // inner APIs (don't call)
+    event_handler_t fn_onback = NULL;
     static  GTask   WiFiSignal_Task; 
     static  void    WiFiSignalUpdate_Task_cb(void* param=NULL);
     static  void    onWiFiConnected();      // เชื่อมเสร็จได้ จะมา run WiFiSignalUpdate_Task_cb() เป็นระยะให้อัตโนมัติ
