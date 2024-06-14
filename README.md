@@ -1,11 +1,15 @@
 # BlynkGOv3
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)  
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
-
+  
+## [Version 3.0.13] @06/06/67  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.19** (ติดต่อ Admin)   
+- GWiFiManager v1.0.13 เพิ่ม onBack(..) สำหรับดักเมื่อผู้ใช้กดตอนออกได้  
+  
 ## [Version 3.0.12] @25/05/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.19** (ติดต่อ Admin)   
 - fix touch ของ BeeNeXT4.3IPS 800x480  
-
+  
 ## [Version 3.0.11] @01/03/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.19** (ติดต่อ Admin)   
 - fix&tune BeeNeXT4.3R/C 480x272 
