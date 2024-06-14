@@ -1222,7 +1222,7 @@
   #define BEENEXT
   #define ROTATE_TYPE             0 //3
   #define OFFSET_ROTATION         0
-  #define BLYNKGO_USE_SD          0
+  #define BLYNKGO_USE_SD          1
   #define BLYNKGO_USE_AGFX        1
 
   #define RGB_DRIVER

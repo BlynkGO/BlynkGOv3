@@ -112,7 +112,9 @@
  *      - Fix BeeNeXT 4.3IPS Touch (800x480)
  *   [V3.0.13] @06/06/24
  *      - GWiFiManager v1.0.13  เพิ่ม onBack(...) ให้ GWiFiManager
- * 
+ *   [V3.0.14] @14/06/24
+ *      - BeeNeXT7" เปิดโหมดให้ SD card ทำงาน
+ *
  *********************************************************************
  */
 
@@ -124,7 +126,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   13
+#define BLYNKGO_VERSION_PATCH   14
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 
