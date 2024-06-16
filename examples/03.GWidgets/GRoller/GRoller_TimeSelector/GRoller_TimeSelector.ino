@@ -12,9 +12,9 @@ uint8_t ss = 0;
 
 
 void roller_onValueChange(GWidget *widget){
-  hh  = roller_hour   .selected().toInt();
-  mm  = roller_minute .selected().toInt();
-  ss  = roller_second .selected().toInt();
+  hh  = roller_hour   .toInt();
+  mm  = roller_minute .toInt();
+  ss  = roller_second .toInt();
 
   lbClock = StringX::printf("เวลา %02d:%02d:%02d", hh, mm, ss);
 }

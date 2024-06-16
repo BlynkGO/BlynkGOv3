@@ -19,6 +19,7 @@ void roller_onValueChange(GWidget *widget){
   dd  = roller_day.selected();
   mm   = roller_month.selected();
   yy  = roller_year.selected();
+  
   lbDate = dd + " " + mm + " " + yy;
 }
 
