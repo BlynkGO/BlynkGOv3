@@ -470,6 +470,7 @@ recolor	KEYWORD2
 
 # GTextArea
 default_keyboard	KEYWORD2
+numpad_first	KEYWORD2
 password_mode	KEYWORD2
 password_show_time	KEYWORD2
 text	KEYWORD2

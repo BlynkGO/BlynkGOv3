@@ -114,6 +114,9 @@
  *      - GWiFiManager v1.0.13  เพิ่ม onBack(...) ให้ GWiFiManager
  *   [V3.0.14] @14/06/24
  *      - BeeNeXT7" เปิดโหมดให้ SD card ทำงาน
+ *   [V3.0.15] @17/06/24
+ *      - GTextArea รองรับ คำสั่ง numpad_first(true/false);   เพื่อให้ default keyboard เริ่มมาที่ numpad แต่แรก
+ *        (ทำงานบน BlynkGO SDK 3.0.20)
  *
  *********************************************************************
  */
@@ -126,7 +129,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   14
+#define BLYNKGO_VERSION_PATCH   15
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 

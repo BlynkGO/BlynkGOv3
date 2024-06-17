@@ -40,6 +40,7 @@ void main_event_cb(lv_obj_t *obj, lv_event_t event);
 // void kbd_create(GWidget* widget);  // GWidget เป็นได้ คือ GLabel กับ GTextArea
 void kbd_create(GWidget* widget, kbd_lang_t lang2nd);
 void kbd_delete();
+void kbd_display_numpad();
 
 class GObject {
   public:

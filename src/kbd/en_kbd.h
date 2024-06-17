@@ -27,6 +27,7 @@ extern "C" {
 #endif
 
 void lv_kb_load_en_kbd(lv_obj_t* kb);
+void lv_kb_load_en_kbd_numpad(lv_obj_t* kb);
 
 #ifdef __cplusplus
 } /* extern "C" */

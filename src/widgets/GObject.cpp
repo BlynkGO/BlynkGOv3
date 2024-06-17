@@ -1892,6 +1892,12 @@ void kbd_create(GWidget* widget, kbd_lang_t lang2nd){
   // MEM_CHECK;
 }
 
+void kbd_display_numpad(){
+  if(kb != NULL){
+    lv_keyboard_display_numpad(kb);
+  }
+}
+
 void kbd_delete(){
   if(kb != NULL){
 #if BLYNKGO_DEBUG 

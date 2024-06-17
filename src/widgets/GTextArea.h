@@ -32,6 +32,7 @@ class GLabel;
 typedef struct {
   lv_ta_ext_t ta;
   bool  default_kbd;
+  bool  numpad_first;
 } GTextArea_ext_t;
 
 class GTextArea : public GObject {
@@ -52,6 +53,7 @@ class GTextArea : public GObject {
             void create(GWidget* parent);
             
     void     default_keyboard(bool enable);  // กำหนดว่าใช้ default keyboard หรือไม่ ; ค่าเริ่มต้นจะ enable true
+    void     numpad_first(bool enable);      // กำหนดว่าให้ default keyboard เริ่มมาเป็น numpad ก่อนไหม
 
     void     text(String txt);
     String   text();

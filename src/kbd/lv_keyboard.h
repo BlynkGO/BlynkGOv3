@@ -110,6 +110,8 @@ void lv_keyboard_set_apply_cb(lv_obj_t *keyboard, lv_apply_cb_t apply_cb);
 
 void lv_keyboard_set_user_data(lv_obj_t *keyboard, void* user_data);
 
+void lv_keyboard_display_numpad(lv_obj_t *keyboard);
+
 /*=====================
  * Getter functions
  *====================*/

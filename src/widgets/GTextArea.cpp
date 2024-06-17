@@ -145,6 +145,12 @@ void GTextArea::default_keyboard(bool enable){
   ext->default_kbd = !!enable;
 }
 
+void GTextArea::numpad_first(bool enable){
+  if(!this->isCreated()) create();
+  GTextArea_ext_t* ext = (GTextArea_ext_t*) this->ext_attr();
+  ext->numpad_first = !!enable;
+}
+
 void  GTextArea::cursor_pos(int16_t pos){
   if(!this->isCreated()) create();
   lv_ta_set_cursor_pos(this->obj, pos);
@@ -448,6 +454,9 @@ static void gtextarea_event_cb(obj_t *obj, event_t event){
         // lv_keyboard_set_apply_cb(kb, kbd_delete);
         // Serial.println("edit mode start");
         // MEM_CHECK;
+        if(ext->numpad_first){
+          kbd_display_numpad();
+        }
       }
 #endif //BLYNKGO_USE_KBD
 
