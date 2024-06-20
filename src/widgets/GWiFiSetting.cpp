@@ -46,7 +46,6 @@
  * Version 1.0.6
  *    1. เพิ่มให้สามารถตั้ง color(...) สีของ สัญลักษณ์ไวไฟ เมื่อ connected, disconnected, และสีไวไฟที่เป็นพื้นหลังได้
  *
- *
  * Version 1.0.7 @07/12/21
  *    1. แก้ที่แบบ fixed ip ( static ip ) แล้ว connection แสดงซ้ำ 2 รอบ
  *    2. ปรับให้ ใช้ prasanmit_40 ตั้งแต่ต้น จะได้มีขนาดใหญ่พอนิ้วจิ้มง่าย
@@ -64,6 +63,16 @@
  * Version 1.0.11 @02/01/23
  *    1. wifi_manager.reset()  ทำการ reset ค่า wifi ทิ้ง พร้อมล้าง widget ข้อความต่างๆของ wifi_manager ออก
  *
+ * Version 1.0.12 @11/01/23
+ *    1. กดค้างนาน 5 วินาที    จะเข้าทำการ reset WiFi/Password แล้วค่อยเข้าไป GWiFiManager ไปตั้งค่าให้ GWiFiSetting
+ * 
+ * Version 1.0.13 @04/06/24
+ *    1. เพิ่ม onBack(..) ให้ GWiFiManager เผื่อดักทำอะไรได้
+ * 
+ * Version 1.0.14 @20/06/24
+ *    1. เพิ่ม ssid_is_enable() และ autoip_is_enable() สำหรับเช็คสถานะ ON/OFF ของ GSWitch ssid และ autoip
+ *       ให้ GWiFiManager
+ * 
  *********************************************************************
  */
 

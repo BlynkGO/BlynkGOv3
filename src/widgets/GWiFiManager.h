@@ -70,6 +70,10 @@
  * Version 1.0.13 @04/06/24
  *    1. เพิ่ม onBack(..) ให้ GWiFiManager เผื่อดักทำอะไรได้
  * 
+ * Version 1.0.14 @20/06/24
+ *    1. เพิ่ม ssid_is_enable() และ autoip_is_enable() สำหรับเช็คสถานะ ON/OFF ของ GSWitch ssid และ autoip
+ *       ให้ GWiFiManager
+ * 
  *********************************************************************
  */
 
@@ -90,7 +94,7 @@
 #include "GList.h"
 #include "GTask.h"
 
-#define WIFI_MANAGER_VERSION       "1.0.13"
+#define WIFI_MANAGER_VERSION       "1.0.14"
 
 class GWiFiSetting;
 
@@ -130,7 +134,6 @@ class GWiFiManager : public GContainer {
             void create(GWidget& parent);
             void create(GWidget* parent);
 
-
     void  font(font_t& font);    
     void  reset();                // ล้าง config ที่บันทึกอยู่เดิมออก
     
@@ -141,6 +144,9 @@ class GWiFiManager : public GContainer {
     void  disconnectWiFi();               // สั่งตัดการเชื่อมต่อ
     String ssid();
     String password();
+
+    bool ssid_is_enable();
+    bool autoip_is_enable();
 
     void color(color_t color_wifi_connected, color_t color_wifi_disconnected=TFT_RED, color_t color_wifi_background=TFT_DARKGRAY);
 

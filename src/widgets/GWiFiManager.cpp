@@ -69,6 +69,10 @@
  * Version 1.0.13 @04/06/24
  *    1. เพิ่ม onBack(..) ให้ GWiFiManager เผื่อดักทำอะไรได้
  * 
+ * Version 1.0.14 @20/06/24
+ *    1. เพิ่ม ssid_is_enable() และ autoip_is_enable() สำหรับเช็คสถานะ ON/OFF ของ GSWitch ssid และ autoip
+ *       ให้ GWiFiManager
+ * 
  *********************************************************************
  */
 
@@ -239,6 +243,39 @@ String GWiFiManager::ssid(){
 String GWiFiManager::password(){
     return GWiFiSetting::wifi_config.password;
 }
+
+bool GWiFiManager::ssid_is_enable() {
+  if(BlynkGO.flashMem_exists("WIFICONFIG")){
+    wifimanager_config_t * blob = NULL;
+    blob = (wifimanager_config_t*) BlynkGO.flashMem_Object("WIFICONFIG", (void*)blob);
+    if(blob != NULL ) {
+      bool _ssid_enable = blob->ssid_enable;
+      free(blob); blob = NULL;
+      return _ssid_enable;
+    }else{
+      return false;
+    }
+  }else{
+    return false;
+  }
+}
+
+bool GWiFiManager::autoip_is_enable(){
+  if(BlynkGO.flashMem_exists("WIFICONFIG")){
+    wifimanager_config_t * blob = NULL;
+    blob = (wifimanager_config_t*) BlynkGO.flashMem_Object("WIFICONFIG", (void*)blob);
+    if(blob != NULL ) {
+      bool _auto_ip_enable = blob->auto_ip_enable;
+      free(blob); blob = NULL;
+      return _auto_ip_enable;
+    }else{
+      return false;
+    }
+  }else{
+    return false;
+  }
+}
+
 
 void GWiFiManager::color(color_t color_wifi_connected, color_t color_wifi_disconnected, color_t color_wifi_background){
   if (!this->isCreated()) create();

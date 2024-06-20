@@ -931,6 +931,8 @@ reset	KEYWORD2
 wifi_setting	KEYWORD2
 ssid	KEYWORD2
 password	KEYWORD2
+ssid_is_enable	KEYWORD2
+autoip_is_enable	KEYWORD2
 save	KEYWORD2
 connectWiFi	KEYWORD2
 disconnectWiFi	KEYWORD2

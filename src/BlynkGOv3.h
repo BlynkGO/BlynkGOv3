@@ -117,7 +117,9 @@
  *   [V3.0.15] @17/06/24
  *      - GTextArea รองรับ คำสั่ง numpad_first(true/false);   เพื่อให้ default keyboard เริ่มมาที่ numpad แต่แรก
  *        (ทำงานบน BlynkGO SDK 3.0.20)
- *
+ *   [V3.0.16] @20/06/24
+ *      - GWiFiManager รองรับคำสั่ง เช็คสถานะ ssid และ autoip  ( ssid_is_enable(), autoip_is_enable() )
+ * 
  *********************************************************************
  */
 
@@ -129,7 +131,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   15
+#define BLYNKGO_VERSION_PATCH   16
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 
