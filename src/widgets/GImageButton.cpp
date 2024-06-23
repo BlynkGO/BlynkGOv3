@@ -139,7 +139,7 @@ void GImageButton::create() {
       }
       // ขณะ ปุ่ม inactive
       if(img_btn_ina == img_btn_rel || img_btn_ina == NULL) {
-        Serial.println("[style] inactive");
+        // Serial.println("[style] inactive");
         this->style[INACTIVE].image_color(TFT_GRAY);
         this->style[INACTIVE].image_intense(200);
       }
@@ -197,6 +197,7 @@ void  GImageButton::mode(button_mode_t _mode){
       break;
     case BUTTON_MODE_TOGGLE:  //--> BUTTON_SWITCH
       lv_btn_set_toggle(this->obj, true);
+      this->state(this->isON()?  TOGGLE_RELEASED : BUTTON_RELEASED);
       break;
     case BUTTON_MODE_INACTIVE:
       this->state(BUTTON_INACTIVE);
@@ -226,18 +227,27 @@ void GImageButton::inactive(bool enable){
   if(enable){
     if(this->_type == BUTTON_SWITCH) {
       isON = this->isON();    // จำสถานะ เปิด หรือ ปิด หากปุ่มเป็นแบบ BUTTON_SWITCH
+      if(isON){
+        if(this->img_tgl_rel!=NULL){
+          lv_imgbtn_set_src(this->obj, LV_BTN_STATE_INA, (this->img_btn_ina!=NULL)? this->img_btn_ina : this->img_tgl_rel);
+        }
+      }else{
+        lv_imgbtn_set_src(this->obj, LV_BTN_STATE_INA, (this->img_btn_ina!=NULL)? this->img_btn_ina : this->img_btn_rel);
+      }
     }
     this->mode(BUTTON_MODE_INACTIVE);
     this->clickable(false);
+    // Serial.println("[SWITCH inactive] true");
   }else{
-    this->clickable(true);
     if(this->_type == BUTTON_PUSH ) {
       this->mode(BUTTON_MODE_NORMAL);
     }else
     if(this->_type == BUTTON_SWITCH) {
+      this->state(isON?  TOGGLE_RELEASED : BUTTON_RELEASED);
       this->mode(BUTTON_MODE_TOGGLE);
-      (isON)? this->ON() : this->OFF();
+      // Serial.println("[SWITCH inactive] false");
     }
+    this->clickable(true);
   }
 }
 
