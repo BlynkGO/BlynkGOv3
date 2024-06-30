@@ -2,6 +2,10 @@
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)  
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
   
+## [Version 3.0.17] @30/06/67  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.20** (ติดต่อ Admin)   
+- fix แป้นพิมพ์ลาว และฟอนต์ลาว ปรับสัญลักษณ์ให้แสดงที่แป้นพิมพ์ได้ถูกต้อง
+  
 ## [Version 3.0.16] @23/06/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.20** (ติดต่อ Admin)   
 - GWiFiManager เพิ่มคำสั่งเช็คสถานะ GSwitch ของ ssid และ  autoip ได้
