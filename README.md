@@ -2,6 +2,10 @@
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)  
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
   
+## [Version 3.0.19] @04/07/67  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.20** (ติดต่อ Admin)   
+- fix สำหรับ library บน PlatformIO library manager
+
 ## [Version 3.0.18] @04/07/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.20** (ติดต่อ Admin)   
 - fix ให้ default เป็นแป้นพิมพ์ไทย
