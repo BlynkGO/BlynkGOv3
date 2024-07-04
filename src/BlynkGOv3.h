@@ -121,6 +121,8 @@
  *      - GWiFiManager รองรับคำสั่ง เช็คสถานะ ssid และ autoip  ( ssid_is_enable(), autoip_is_enable() )
  *   [V3.0.17] @30/06/24
  *      - fix แป้นพิมพ์ภาษาลาว และ ฟอนต์ภาษาลาว สำหรับแป้นพิมพ์ให้แสดงสัญลักษณ์ได้ถูกต้อง
+ *   [V3.0.18] @04/07/24
+ *      - ปรับ default ให้เป็น ไทย (เดิมเป็นลาว ลืมแก้)
  * 
  *********************************************************************
  */
@@ -133,7 +135,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   16
+#define BLYNKGO_VERSION_PATCH   18
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 
