@@ -57,9 +57,17 @@ static BlynkGOv3  *pBlynkGO=NULL;
     static uint8_t* lcd_fb;
   #endif
   uint8_t _oled_threshold=128;
+#elif defined(BLYNKGO_SKIP_LCD)
+  // ไม่ต้องใช้ BlynkGO_LCD
 #else
   BlynkGO_LCD lcd;
 #endif
+
+#if defined(BLYNKGO_SKIP_LCD)
+  // ไม่ต้องใช้ BlynkGO_LCD
+  static lv_disp_buf_t disp_buf;
+  static lv_color_t _cbuf[1]; // จองแบบเพื่อให้ แกนทำงานได้เท่านั้น
+#else
 
 static lv_indev_t * indev  =NULL;
 static lv_disp_buf_t disp_buf;
@@ -90,6 +98,7 @@ static uint8_t capture_type = CAPTURE_TYPE_BMP;
 // static uint8_t *_file_line_buffer=NULL; 
 #endif //BLYNKGO_USE_SNAPSHOT
 
+#endif //#if defined(BLYNKGO_SKIP_LCD)
 
 #if defined(BLYNKGO_MINI)
   ButtonISR BTN1  = ButtonISR(BUTTON1);
@@ -310,7 +319,10 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
 
 
 #if BLYNKGO_DEV_LEVEL >= BLYNKGO_DEV_LEVEL_GFX
+#if defined(BLYNKGO_SKIP_LCD)
+#else
   hw_lcd_init();
+#endif
   this->regist(blynkgo_key);
 #endif
 
@@ -399,6 +411,8 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
 //     #endif
 //   #endif
 // #endif
+#if defined(BLYNKGO_SKIP_LCD)
+#else
 #if defined(BEENEXT)
   BeeNeXT.begin(&Serial);
   BeeNeXT.enable(false);
@@ -427,13 +441,17 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
   }
 #endif
 
+#endif // #if defined(BLYNKGO_SKIP_LCD)
+
 }
 
 void BlynkGOv3::update(){
+#if !defined(BLYNKGO_SKIP_LCD)
 #if BLYNKGO_DEV_LEVEL >= BLYNKGO_DEV_LEVEL_SUPERG
   for(int i=0; i< GUI_TASK_LOOP_NUM; i++) {
     lv_task_handler(); /* let the GUI do its work */
   }
+#endif
 #endif
 
 #if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
@@ -670,6 +688,7 @@ void BlynkGOv3::hw_lcd_init() {
   LoRa.setPins(LORA_SS, LORA_RST, LORA_DIO0);
 #endif // BLYNKGO_LORA32
 }
+#elif defined(BLYNKGO_SKIP_LCD)
 
 #else  // #if !defined(BLYNKGO_OLED)
 // สำหรับ TFT
@@ -791,7 +810,7 @@ bool BlynkGOv3::hw_sd_init() {
 }
 #endif //BLYNKGO_USE_SD
 
-#if BLYNKGO_USE_SNAPSHOT
+#if BLYNKGO_USE_SNAPSHOT && !defined(BLYNKGO_SKIP_LCD)
 //Snap function
 bool lv_obj_snapshot(lv_obj_t* obj, String file_path )
 {
@@ -971,6 +990,8 @@ void    BlynkGOv3::oled_threshold(uint8_t threshold)      { _oled_threshold = th
 uint8_t BlynkGOv3::oled_threshold()                       { return _oled_threshold; }
 #endif
 
+#if defined(BLYNKGO_SKIP_LCD)
+#else
 // สำหรับ TFT && OLED
 static void blynkgo_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
 {
@@ -986,7 +1007,7 @@ static void blynkgo_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_co
 
 #else
 
-#if defined(BLYNKGO_OLED)
+#if defined(BLYNKGO_OLED) 
 #else
   int w = (area->x2 - area->x1 + 1);
   int h = (area->y2 - area->y1 + 1);
@@ -1053,10 +1074,11 @@ static void blynkgo_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_co
 #if   defined (BLYNKGO_OLED)
 #elif defined (BEENEXT_1_9)
 // #elif defined (BEENEXT_7_0IPS) && !defined(TOUCH_GT911)
+#elif defined(BLYNKGO_SKIP_LCD)
 #else
 static bool blynkgo_touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
 {
-   int32_t touchX, touchY;
+  int32_t touchX, touchY;
   if(lcd.getTouch(&touchX, &touchY)){
     data->state = LV_INDEV_STATE_PR;
     data->point.x = touchX;
@@ -1071,90 +1093,104 @@ static bool blynkgo_touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t 
 }
 #endif
 
+#endif //#if defined(BLYNKGO_SKIP_LCD)
+
 void BlynkGOv3::blynkgo_system_init(){
   lv_init();
 
-#if defined (BLYNKGO_BASIC)
-  ESP_LOGI(TAG, "[BlynkGO] basic");
-  lv_disp_buf_init(&disp_buf, _cbuf, NULL, LV_HOR_RES_MAX * 10);
-#elif defined (BLYNKGO_ENTERPRISE)
-  ESP_LOGI(TAG, "[BlynkGO] alloc");
-  size_t buf_size = sizeof(lv_color_t)* LV_HOR_RES_MAX * 60;
-  _cbuf = (lv_color_t*) esp32_malloc(buf_size);
-  lv_disp_buf_init(&disp_buf, _cbuf, NULL, LV_HOR_RES_MAX * 60);  // 480/40 = 12 ครั้ง
-#elif defined(BEENEXT_4_3) || defined(BEENEXT_4_3C) || defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
-  ESP_LOGI(TAG, "[BlynkGO] alloc (ESP32S3)");
-  _cbuf   = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
-  // _cbuf2  = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
-  // lv_disp_buf_init(&disp_buf, _cbuf, _cbuf2, lcd.width() * lcd.height()/ 8);
-  lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()/ 8);
-// #elif defined(BEENEXT_7_0IPS)
-//   ESP_LOGI(TAG, "[BlynkGO] alloc (ESP32S3) 7inch");
-//   // _cbuf   = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
-//   // _cbuf2  = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
-//   _cbuf = (lv_color_t *)malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() /6);
+#if defined(BLYNKGO_SKIP_LCD)
+  lv_disp_buf_init(&disp_buf, _cbuf, NULL, 1);
+  lv_disp_drv_t disp_drv;
+  lv_disp_drv_init(&disp_drv);
+    disp_drv.hor_res = 320;
+    disp_drv.ver_res = 240;
+    disp_drv.flush_cb = NULL;
+    disp_drv.buffer = &disp_buf;
+  lv_disp_drv_register(&disp_drv);
 
-//   // lv_disp_buf_init(&disp_buf, _cbuf, _cbuf2, lcd.width() * lcd.height()/ 8);
-//   // lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()/ 8);
-//   lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()/ 6);
 #else
-  size_t buf_size = sizeof(lv_color_t)* lcd.width() * lcd.height();
-  #if defined (DOUBLE_FULL_BUFFER) 
-    #if DOUBLE_FULL_BUFFER
-      ESP_LOGI(TAG, "[BlynkGO] full alloc x 2");
-      _cbuf = (lv_color_t*) esp32_malloc(buf_size);
-      _cbuf2 = (lv_color_t*) esp32_malloc(buf_size);
-      lv_disp_buf_init(&disp_buf, _cbuf, _cbuf2, lcd.width() * lcd.height()); // ห้ามใช้ buf_size ต้องใช้ จำนวน pixel ทั้งหมด
+  #if defined (BLYNKGO_BASIC)
+    ESP_LOGI(TAG, "[BlynkGO] basic");
+    lv_disp_buf_init(&disp_buf, _cbuf, NULL, LV_HOR_RES_MAX * 10);
+  #elif defined (BLYNKGO_ENTERPRISE)
+    ESP_LOGI(TAG, "[BlynkGO] alloc");
+    size_t buf_size = sizeof(lv_color_t)* LV_HOR_RES_MAX * 60;
+    _cbuf = (lv_color_t*) esp32_malloc(buf_size);
+    lv_disp_buf_init(&disp_buf, _cbuf, NULL, LV_HOR_RES_MAX * 60);  // 480/40 = 12 ครั้ง
+  #elif defined(BEENEXT_4_3) || defined(BEENEXT_4_3C) || defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
+    ESP_LOGI(TAG, "[BlynkGO] alloc (ESP32S3)");
+    _cbuf   = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+    // _cbuf2  = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+    // lv_disp_buf_init(&disp_buf, _cbuf, _cbuf2, lcd.width() * lcd.height()/ 8);
+    lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()/ 8);
+  // #elif defined(BEENEXT_7_0IPS)
+  //   ESP_LOGI(TAG, "[BlynkGO] alloc (ESP32S3) 7inch");
+  //   // _cbuf   = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+  //   // _cbuf2  = (lv_color_t *)heap_caps_malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() / 8, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+  //   _cbuf = (lv_color_t *)malloc(sizeof(lv_color_t) * lcd.width() * lcd.height() /6);
+
+  //   // lv_disp_buf_init(&disp_buf, _cbuf, _cbuf2, lcd.width() * lcd.height()/ 8);
+  //   // lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()/ 8);
+  //   lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()/ 6);
+  #else
+    size_t buf_size = sizeof(lv_color_t)* lcd.width() * lcd.height();
+    #if defined (DOUBLE_FULL_BUFFER) 
+      #if DOUBLE_FULL_BUFFER
+        ESP_LOGI(TAG, "[BlynkGO] full alloc x 2");
+        _cbuf = (lv_color_t*) esp32_malloc(buf_size);
+        _cbuf2 = (lv_color_t*) esp32_malloc(buf_size);
+        lv_disp_buf_init(&disp_buf, _cbuf, _cbuf2, lcd.width() * lcd.height()); // ห้ามใช้ buf_size ต้องใช้ จำนวน pixel ทั้งหมด
+      #else
+        ESP_LOGI(TAG, "[BlynkGO] full alloc x 1");
+        _cbuf = (lv_color_t*) esp32_malloc(buf_size);
+        lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()); // ห้ามใช้ buf_size ต้องใช้ จำนวน pixel ทั้งหมด
+      #endif
     #else
       ESP_LOGI(TAG, "[BlynkGO] full alloc x 1");
       _cbuf = (lv_color_t*) esp32_malloc(buf_size);
       lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()); // ห้ามใช้ buf_size ต้องใช้ จำนวน pixel ทั้งหมด
     #endif
+  #endif
+
+    /*Initialize the display*/
+    lv_disp_drv_t disp_drv;
+      lv_disp_drv_init(&disp_drv);
+      disp_drv.hor_res  = lcd.width();
+      disp_drv.ver_res  = lcd.height();
+      disp_drv.flush_cb = blynkgo_disp_flush;
+      disp_drv.buffer   = &disp_buf;
+      lv_disp_drv_register(&disp_drv);
+
+  #if   defined (BLYNKGO_OLED)
+  #elif defined (BEENEXT_1_9)
+  // #elif defined (BEENEXT_7_0IPS) && !defined(TOUCH_GT911)
+    // Serial.println("[Touch] skip!");
   #else
-    ESP_LOGI(TAG, "[BlynkGO] full alloc x 1");
-    _cbuf = (lv_color_t*) esp32_malloc(buf_size);
-    lv_disp_buf_init(&disp_buf, _cbuf, NULL, lcd.width() * lcd.height()); // ห้ามใช้ buf_size ต้องใช้ จำนวน pixel ทั้งหมด
+    lv_indev_drv_t indev_drv;
+      lv_indev_drv_init(&indev_drv);
+      indev_drv.type    = LV_INDEV_TYPE_POINTER;
+      indev_drv.read_cb = blynkgo_touchpad_read;
+      indev = lv_indev_drv_register(&indev_drv);
+  #if defined(TOUCH_PERIOD)
+    #if (TOUCH_PERIOD> 0)
+      indev->driver.read_task->period = TOUCH_PERIOD;
+    #endif
+  #endif // #if defined(TOUCH_PERIOD)
+
+  #endif //#if defined(BLYNKGO_OLED)
+  // #endif
+    /*Initialize the graphics library's tick*/
+    static Ticker tick; /* timer for interrupt handler */
+    // tick.attach_ms(LVGL_TICK_PERIOD, lv_tick_handler);
+    tick.attach_ms(LVGL_TICK_PERIOD, [](){ lv_tick_inc(LVGL_TICK_PERIOD); });
+
+
+  #if BLYNKGO_USE_FS
+    lv_fs_esp32_if_init();    // เพิ่มระบบ filesystem สำหรับ กราฟิก  ; SD --> S:  ; SPIFFS --> F:
   #endif
-#endif
+#endif // #if defined(BLYNKGO_SKIP_LCD)
 
-  /*Initialize the display*/
-  lv_disp_drv_t disp_drv;
-    lv_disp_drv_init(&disp_drv);
-    disp_drv.hor_res  = lcd.width();
-    disp_drv.ver_res  = lcd.height();
-    disp_drv.flush_cb = blynkgo_disp_flush;
-    disp_drv.buffer   = &disp_buf;
-    lv_disp_drv_register(&disp_drv);
-
-#if   defined (BLYNKGO_OLED)
-#elif defined (BEENEXT_1_9)
-// #elif defined (BEENEXT_7_0IPS) && !defined(TOUCH_GT911)
-  // Serial.println("[Touch] skip!");
-#else
-  lv_indev_drv_t indev_drv;
-    lv_indev_drv_init(&indev_drv);
-    indev_drv.type    = LV_INDEV_TYPE_POINTER;
-    indev_drv.read_cb = blynkgo_touchpad_read;
-    indev = lv_indev_drv_register(&indev_drv);
-#if defined(TOUCH_PERIOD)
-  #if (TOUCH_PERIOD> 0)
-    indev->driver.read_task->period = TOUCH_PERIOD;
-  #endif
-#endif // #if defined(TOUCH_PERIOD)
-
-#endif //#if defined(BLYNKGO_OLED)
-// #endif
-  /*Initialize the graphics library's tick*/
-  static Ticker tick; /* timer for interrupt handler */
-  // tick.attach_ms(LVGL_TICK_PERIOD, lv_tick_handler);
-  tick.attach_ms(LVGL_TICK_PERIOD, [](){ lv_tick_inc(LVGL_TICK_PERIOD); });
-
-
-#if BLYNKGO_USE_FS
-  lv_fs_esp32_if_init();    // เพิ่มระบบ filesystem สำหรับ กราฟิก  ; SD --> S:  ; SPIFFS --> F:
-#endif
-
-  GWidgets_init();
+    GWidgets_init();
 
   // _is_blynkgo_system_inited  = true;
 
@@ -1192,6 +1228,7 @@ void BlynkGOv3::brightness(uint8_t level, bool save){
 #if defined(BLYNKGO_OLED)
   lcd.setBrightness( level);
   if(save) this->flashMem("BRIGHTNESS", level);
+#elif defined(BLYNKGO_SKIP_LCD)
 #else
   #if TFT_BL != -1
     lcd.setBrightness( level);
@@ -1205,6 +1242,8 @@ void BlynkGOv3::brightness(uint8_t level, bool save){
 uint8_t  BlynkGOv3::brightness(){
 #if defined(BLYNKGO_OLED)
   return this->flashMem_Int("BRIGHTNESS");
+#elif defined(BLYNKGO_SKIP_LCD)
+  return 255;
 #else
   return lcd.getBrightness();
 #endif

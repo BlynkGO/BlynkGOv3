@@ -125,6 +125,8 @@
  *      - ปรับ default ให้เป็น ไทย (เดิมเป็นลาว ลืมแก้)
  *   [V3.0.19] @04/07/24
  *      - fix for platformio library manager v3.0.18 fail --> republish
+ *   [V3.0.20] @10/07/24
+ *      - เพิ่ม BlynkGO ESP32 Devboard (no TFT, no oled สำหรับ MCU หลังบ้าน), BeeNeXT Esp32Cam
  * 
  *********************************************************************
  */
@@ -137,7 +139,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   19
+#define BLYNKGO_VERSION_PATCH   20
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 
@@ -199,7 +201,10 @@ FONT_DECLARE(arial_vietnam_30);
   #elif defined(BLYNKGO_OLED_SH1106)
     #include "utils/ESP32_oled/SH1106Wire.h"
   #endif
+#elif defined(BLYNKGO_SKIP_LCD)
+  // ไม่ต้องใช้ BlynkGO_LCD
 #else
+
   #include "utils/BlynkGO_LCD/BlynkGO_LCD.h"
   extern BlynkGO_LCD lcd;
 #endif
@@ -427,7 +432,7 @@ class BlynkGOv3 {
      * API backlight_on()  สำหรับเปิดไฟ led หน้าจอ กลับคืนมา
      * API backlight_off() สำหรับปิดไฟ led หน้าจอ
      *****************************************************************/
-#if !defined(BLYNKGO_OLED)
+#if !defined(BLYNKGO_OLED) && !defined(BLYNKGO_SKIP_LCD)
     // __attribute__ ((always_inline)) inline void wakeup()                          { lcd.setBrightness( this->flashMem_Int("BRIGHTNESS") ); _is_backlight_on = true;  }
     // __attribute__ ((always_inline)) inline void sleep()                           { lcd.setBrightness(0);                                  _is_backlight_on = false; }
     __attribute__ ((always_inline)) inline void wakeup()                          { lcd.wakeup(); _is_backlight_on = true;}

@@ -1564,6 +1564,11 @@
   #define ST7796_DRIVER      // TFT 4.0"
 
 //----------------------------------------------------------
+#elif defined BLYNKGO_ESP32DEVBOARD
+  #define BLYNKGO_BOARD_NAME      "BlynkGO ESP32 Devboard"
+  #define BLYNKGO_SKIP_LCD
+  #define BLYNKGO_USE_BEENEXT     1
+  
 #elif defined BLYNKGO_ESP32DEVBOARD_OLED_SSD1306
   #define BLYNKGO_BOARD_NAME      "BlynkGO ESP32 DevBoard + OLED (SSD1306)"
   #define BLYNKGO_OLED_SSD1306
@@ -3464,6 +3469,10 @@
   #define LORA_RST                14
   #define LORA_DIO0               26
 
+#elif defined(BEENEXT_ESP32CAM)
+  #define BLYNKGO_BOARD_NAME      "BeeNeXT Esp32-Cam"
+  #define BLYNKGO_USE_BEENEXT     1
+  #define BLYNKGO_SKIP_LCD
 #endif //BLYNKGO_SPEED
 
 #if defined(BLYNKGO_OLED)
