@@ -2,6 +2,11 @@
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)  
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
   
+## [Version 3.0.20] @10/07/67  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.21** (ติดต่อ Admin)   
+- เพิ่ม BlynkGO ESP32DevBoard สำหรับ MCU หลังบ้าน
+- เพิ่ม BeeNeXT Esp32Cam สำหรับ Esp32Cam สามารถเพิ่ม ข้อความในรูปทีจับภาพได้
+
 ## [Version 3.0.19] @04/07/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.20** (ติดต่อ Admin)   
 - fix สำหรับ library บน PlatformIO library manager
