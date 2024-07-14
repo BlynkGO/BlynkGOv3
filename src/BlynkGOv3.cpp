@@ -503,6 +503,10 @@ void BlynkGOv3::update(){
 
           WiFi.reconnect();
 
+#if BLYNKO_USE_ASYNC_MQTT32
+          MQTT.disconnect();
+#endif
+
           WiFiOnDisconnected();                // BlynkGO System's WiFi disconnected function ---> WIFI_CONNECTED()
           if(pBlynkGO->wifi_disconnected_cb){
             pBlynkGO->wifi_disconnected_cb();  // User's WiFi disconnected function
@@ -537,6 +541,7 @@ void BlynkGOv3::update(){
 #if BLYNKO_USE_ASYNC_MQTT32
           if(MQTT.auto_reconnect())
             timer_mqtt_connection.delay(400,[](){ MQTT.connect(); });
+          // MQTT.connect(true);
 #endif
           break;
         }

@@ -136,6 +136,7 @@ void BlynkGO_AsyncMQTT32::connect(bool auto_reconnect){
 
 void BlynkGO_AsyncMQTT32::disconnect(){
   esp_mqtt_client_disconnect(this->_client);
+  this->_stop();  // หยุด mqtt client task ; mqtt event handler จะไม่ทำงาน
 }
 
 void BlynkGO_AsyncMQTT32::reconnect(){
@@ -147,15 +148,18 @@ void BlynkGO_AsyncMQTT32::stop(){
     this->_stop();
     this->_destroy();
     this->_client_inited = false;
+    this->_client = NULL;
   }
 }
 
 void BlynkGO_AsyncMQTT32::_stop(){
-  esp_mqtt_client_stop(this->_client);
+  if(this->_client!=NULL)
+    esp_mqtt_client_stop(this->_client);
 }
 
 void BlynkGO_AsyncMQTT32::_destroy(){
-  esp_mqtt_client_destroy(this->_client);
+  if(this->_client != NULL)
+    esp_mqtt_client_destroy(this->_client);
 }
 
 int BlynkGO_AsyncMQTT32::subscribe(String topic, uint8_t qos){

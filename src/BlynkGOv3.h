@@ -127,6 +127,11 @@
  *      - fix for platformio library manager v3.0.18 fail --> republish
  *   [V3.0.20] @10/07/24
  *      - เพิ่ม BlynkGO ESP32 Devboard (no TFT, no oled สำหรับ MCU หลังบ้าน), BeeNeXT Esp32Cam
+ *   [V3.0.21] @14/07/24
+ *      - ปรับปรุง BlynkGO_AsyncMQTT32 connection 
+ *        แก้ไขปัญหา BlynkGO_AsyncMQTT32 เมื่อเชื่อมต่อได้แล้ว แต่พอเข้าไป GWiFiManager เพื่อปิด SSID 
+ *        มีอาการตาย reset ตัวเอง  และ เมื่อปิดแล้วแก้ได้แล้วแต่พอจะเปิดใหม่มีอาการหน่วงๆ  ได้แก้ทั้ง 2 issues นี้แล้ว
+ *        --> BlynkGO_AsyncMQTT32 v1.0.3
  * 
  *********************************************************************
  */
@@ -139,7 +144,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   20
+#define BLYNKGO_VERSION_PATCH   21
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 
