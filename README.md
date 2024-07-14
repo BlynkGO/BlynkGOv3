@@ -1,6 +1,11 @@
 # BlynkGOv3
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)  
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
+
+## [Version 3.0.21] @14/07/67  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.21** (ติดต่อ Admin)   
+- Fixed MQTT แบบ wss เชื่อมต่อได้แล้วแต่เข้า GWiFiManager แล้วมีเมื่อปิด SSID มีอาการตาย
+  หรือ ปิดแล้วเปิดใหม่ มีอาการหน่วง  (สำหรับจอที PSRAM เท่านั้น)
   
 ## [Version 3.0.20] @10/07/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.21** (ติดต่อ Admin)   
