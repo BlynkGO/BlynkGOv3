@@ -167,6 +167,11 @@ int BlynkGO_AsyncMQTT32::subscribe(String topic, uint8_t qos){
   snprintf(new_subscribe_topic.topic, sizeof(new_subscribe_topic.topic), "%s", (char*)topic.c_str());
   new_subscribe_topic.qos = qos;
   this->subscribe_topics.push_back( new_subscribe_topic );
+  if(this->connected() && this->_client != NULL) {
+    uint32_t id = subscribe_topics.size()-1;
+    this->subscribe_topics[id].msg_id = esp_mqtt_client_subscribe(_client, this->subscribe_topics[id].topic, this->subscribe_topics[id].qos);
+    ESP_LOGI(TAG, "subscribe successful, msg_id=%d", this->subscribe_topics[id].msg_id);    
+  }
   return subscribe_topics.size();
 //  return esp_mqtt_client_subscribe(this->_client, (const char *)topic.c_str(), qos);
 }

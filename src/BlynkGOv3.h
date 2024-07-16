@@ -128,12 +128,17 @@
  *   [V3.0.20] @10/07/24
  *      - เพิ่ม BlynkGO ESP32 Devboard (no TFT, no oled สำหรับ MCU หลังบ้าน), BeeNeXT Esp32Cam
  *   [V3.0.21] @14/07/24
- *      - ปรับปรุง BlynkGO_AsyncMQTT32 connection 
+ *      - ปรับปรุง BlynkGO_AsyncMQTT32 connection  เป็น version 1.0.3
  *        แก้ไขปัญหา BlynkGO_AsyncMQTT32 เมื่อเชื่อมต่อได้แล้ว แต่พอเข้าไป GWiFiManager เพื่อปิด SSID 
  *        มีอาการตาย reset ตัวเอง  และ เมื่อปิดแล้วแก้ได้แล้วแต่พอจะเปิดใหม่มีอาการหน่วงๆ  ได้แก้ทั้ง 2 issues นี้แล้ว
  *        --> BlynkGO_AsyncMQTT32 v1.0.3
  *   [V3.0.22] @14/07/24
  *      - platformio v3.0.21 ไม่รับ ติด catch ? อัพเป็น 3.0.22 แทน
+ *   [V3.0.23] @16/07/24
+ *      - ปรับปรุง BlynkGO_AsyncMQTT32 เป็น version 1.0.4
+ *        subscribe(...)
+ *        หากยังไม่เชื่อมต่อ จะจำไว้ใน list พอเชื่อมต่อแล้ว subscribe จริงไล่ทั้งหมดให้อัตโนมัติ
+ *        แต่หากเชื่อมต่อแล้ว เกิดมีเพิ่ม subscribe ให้ เพิ่มใน list และ ให้ subscribe จริงทันทีเลย
  *
  *********************************************************************
  */
@@ -146,7 +151,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   22
+#define BLYNKGO_VERSION_PATCH   23
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 

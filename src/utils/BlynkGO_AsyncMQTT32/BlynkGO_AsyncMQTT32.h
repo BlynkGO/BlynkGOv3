@@ -1,3 +1,33 @@
+/*
+ *********************************************************************
+ * ลิขลิทธิ์ (Commercial License)
+ * 
+ *   1. โคดไฟล์ BlynkGO_AsyncMQTT32.h นี้เป็นไลบรารี่ลิขลิทธิ์ 
+ *   สร้างโดย BlynkGO
+ *   
+ *   2.ไม่อนุญาต ให้แจกจ่าย สำเนา หรือแก้ไข โดยไม่ได้รับอนุญาต 
+ *   
+ *   3.สำหรับผู้ได้รับ ลิขสิทธิ์ สามารถนำไปใช้สร้าง firmware/rom 
+ *   สำหรับ บอร์ด ESP32 ที่ระบุเท่านั้น เพื่อใช้ทางการค้าต่างๆได้
+ *   โดยห้ามแจกจ่าย จำหน่าย ดัดแปลง แก้ไขใดๆ ในตัว source ไลบรารี่ออกไป
+ *
+ *   4.หากมีการนำไปใช้คอมไพล์ถือว่าได้ยอมรับ ตามเงื่อนไขลิขสิทธิ์ดังกล่าว
+ *   เป็นที่เรียบร้อยแล้ว
+ * 
+ * [History]
+ *   [V1.0.3] @13/07/24
+ *      - ปรับปรุง BlynkGO_AsyncMQTT32 connection 
+ *        แก้ไขปัญหา BlynkGO_AsyncMQTT32 เมื่อเชื่อมต่อได้แล้ว แต่พอเข้าไป GWiFiManager เพื่อปิด SSID 
+ *        มีอาการตาย reset ตัวเอง  และ เมื่อปิดแล้วแก้ได้แล้วแต่พอจะเปิดใหม่มีอาการหน่วงๆ  ได้แก้ทั้ง 2 issues นี้แล้ว
+ * 
+ *   [V1.0.4] @16/07/24
+ *      - ปรับปรุง subscribe(...)
+ *        หากยังไม่เชื่อมต่อ จะจำไว้ใน list พอเชื่อมต่อแล้ว subscribe จริงไล่ทั้งหมดให้อัตโนมัติ
+ *        แต่หากเชื่อมต่อแล้ว เกิดมีเพิ่ม subscribe ให้ เพิ่มใน list และ ให้ subscribe จริงทันทีเลย
+ * 
+ *********************************************************************
+ */
+
 #ifndef __BLYNKGO_ASYNCMQTT32_H__
 #define __BLYNKGO_ASYNCMQTT32_H__
 
@@ -6,7 +36,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_ASYNC_MQTT32_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_ASYNC_MQTT32_VERSION_PATCH   2
+#define BLYNKGO_ASYNC_MQTT32_VERSION_PATCH   4
 
 #define BLYNKGO_ASYNC_MQTT32_VERSION_TEXT    (String(BLYNKGO_ASYNC_MQTT32_VERSION_MAJOR)+"."+String(BLYNKGO_ASYNC_MQTT32_VERSION_MINOR)+"."+String(BLYNKGO_ASYNC_MQTT32_VERSION_PATCH))
 
@@ -122,9 +152,9 @@ class BlynkGO_AsyncMQTT32 {
     bool _auto_reconnect = true;
     bool _client_inited = false;
     
-  private:
     void _stop();
     void _destroy();
+  private:
     esp_mqtt_client_handle_t _client = NULL;
     esp_mqtt_client_config_t _mqtt_conf;
     char _host[128];
