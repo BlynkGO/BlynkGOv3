@@ -72,8 +72,9 @@ void setup() {
       }
     }
     // Serial.println(data);
+    int y = page_monitor.scroll_posY();   // จำตำแหน่ง scrollbar เดิม ก่อนเปลี่ยน data
     label_monitor = data;
-    page_monitor.scrollTop();
+    page_monitor.scroll_posY(y);          // เลื่อน scrollbar ไปยังตำแหน่งเดิม
   });
 
   static SoftTimer timer;
@@ -94,7 +95,7 @@ MQTT_CONNECTED(){
   lb_info = " MQTT Connected ";
   lb_info.show(true);
   lb_info.body_color(TFT_GREEN);
-  
+
   timer_mqtt_info.delay(3000,[](){
     lb_info.show(false);
   });
