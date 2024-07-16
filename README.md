@@ -2,6 +2,13 @@
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)  
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
   
+## [Version 3.0.23] @16/07/67  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.21** (ติดต่อ Admin)   
+- ปรับปรุง BlynkGO_AsyncMQTT32 เป็น version 1.0.4  
+  subscribe(...)  
+    หากยังไม่เชื่อมต่อ จะจำไว้ใน list พอเชื่อมต่อแล้ว subscribe จริงไล่ทั้งหมดให้อัตโนมัติ  
+    แต่หากเชื่อมต่อแล้ว เกิดมีเพิ่ม subscribe ให้ เพิ่มใน list และ ให้ subscribe จริงทันทีเลย  
+  
 ## [Version 3.0.22] @14/07/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.21** (ติดต่อ Admin)   
 - Fixed ให้ PlatformIO รองรับได้ อัพขึ้นเป็น v3.0.22 แทน
