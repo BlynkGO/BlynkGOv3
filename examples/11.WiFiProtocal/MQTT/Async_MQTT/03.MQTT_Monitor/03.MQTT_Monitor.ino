@@ -94,6 +94,7 @@ MQTT_CONNECTED(){
   lb_info = " MQTT Connected ";
   lb_info.show(true);
   lb_info.body_color(TFT_GREEN);
+  
   timer_mqtt_info.delay(3000,[](){
     lb_info.show(false);
   });
@@ -122,7 +123,6 @@ MQTT_SUBSCRIBED(){
 
 MQTT_UNSUBSCRIBED(){
   Serial.println("[MQTT] unsubscribed");
-
   lb_info = " Unsubscribed ";
   lb_info.show(true);
   lb_info.body_color(TFT_VIOLET);
