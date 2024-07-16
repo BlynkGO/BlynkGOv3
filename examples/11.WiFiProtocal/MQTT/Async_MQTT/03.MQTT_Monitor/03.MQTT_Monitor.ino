@@ -79,8 +79,7 @@ void setup() {
   static SoftTimer timer;
   timer.setInterval(1000,[](){
     if(MQTT.connected()){
-      static int c;
-      MQTT.publish(mqtt_topic, String("My Data : ")+ String(c++));
+      MQTT.publish(mqtt_topic, String("My Data : ")+ String(random(1000)));
     }
   });
 }
@@ -89,16 +88,46 @@ void loop() {
   BlynkGO.update();
 }
 
+SoftTimer timer_mqtt_info;
+
+MQTT_CONNECTED(){
+  lb_info = " MQTT Connected ";
+  lb_info.show(true);
+  lb_info.body_color(TFT_GREEN);
+  timer_mqtt_info.delay(3000,[](){
+    lb_info.show(false);
+  });
+}
+
+MQTT_DISCONNECTED(){
+  lb_info = " MQTT Disonnected ";
+  lb_info.show(true);
+  lb_info.body_color(TFT_RED);
+  
+  timer_mqtt_info.delay(3000,[](){
+    lb_info.show(false);
+  });
+}
+
 MQTT_SUBSCRIBED(){
   Serial.println("[MQTT] subscribed");
   lb_info = " Subscribed ";
   lb_info.show(true);
-  static SoftTimer timer;
-  timer.delay(3000,[](){
+  lb_info.body_color(TFT_BLUE);
+
+  timer_mqtt_info.delay(3000,[](){
     lb_info.show(false);
   });
 }
 
 MQTT_UNSUBSCRIBED(){
   Serial.println("[MQTT] unsubscribed");
+
+  lb_info = " Unsubscribed ";
+  lb_info.show(true);
+  lb_info.body_color(TFT_VIOLET);
+
+  timer_mqtt_info.delay(3000,[](){
+    lb_info.show(false);
+  });
 }
