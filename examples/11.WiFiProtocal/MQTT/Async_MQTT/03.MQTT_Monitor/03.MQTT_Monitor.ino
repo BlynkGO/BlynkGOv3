@@ -1,7 +1,6 @@
 #include <BlynkGOv3.h>
 #include <BlynkGO_CircularBuffer.h>
 
-
 GWiFiManager  wifi_manager;
 GTextArea     ta_topic;
 GButton       btn_subscribe;
@@ -11,7 +10,7 @@ GLabel        lb_info;
 
 String  mqtt_topic = "/BeeNeXT/mqtt/monitor";
 
-BlynkGO_CircularBuffer<String> cbuf(30);      // ให้มีการจำเพียง 30 message
+BlynkGO_CircularBuffer<String> message_circular_buffer(30);      // ให้มีการจำเพียง 30 message
 
 // ทดสอบส่ง ด้วย mosquitto_pub
 // > mosquitto_pub -h broker.hivemq.com -p 1883 -t "/BeeNeXT/mqtt/monitor" -m "Hello"
@@ -63,14 +62,16 @@ void setup() {
   MQTT.setServer("broker.hivemq.com");
   MQTT.subscribe(mqtt_topic);
   MQTT.onMessage([](String topic, String message){
-    cbuf.insert(message);
+    message_circular_buffer.insert(message);
     String data="";
-    for(int i=0; i< cbuf.count(); i++){
-      int id = (cbuf.cur_id()-i) % cbuf.max_size();
-      data += cbuf[id];
-      if(i < cbuf.count()- 1 ) data += "\n";
+    for(int i=0; i< message_circular_buffer.count(); i++){
+      int id = (message_circular_buffer.max_size()+message_circular_buffer.cur_id()-i) % message_circular_buffer.max_size();
+      if(id < message_circular_buffer.count()){
+        data += message_circular_buffer[id];
+        if(i < message_circular_buffer.count()- 1 ) data += "\n";
+      }
     }
-    Serial.println(data);
+    // Serial.println(data);
     label_monitor = data;
     page_monitor.scrollTop();
   });
@@ -78,7 +79,8 @@ void setup() {
   static SoftTimer timer;
   timer.setInterval(1000,[](){
     if(MQTT.connected()){
-      MQTT.publish(mqtt_topic, String("My Data : ")+ String(random(1000)));
+      static int c;
+      MQTT.publish(mqtt_topic, String("My Data : ")+ String(c++));
     }
   });
 }
