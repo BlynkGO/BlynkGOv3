@@ -15,6 +15,8 @@ BlynkGO_CircularBuffer<String> message_circular_buffer(30);      // ให้ม
 // ทดสอบส่ง ด้วย mosquitto_pub
 // > mosquitto_pub -h broker.hivemq.com -p 1883 -t "/BeeNeXT/mqtt/monitor" -m "Hello"
 
+
+
 void setup() {
   Serial.begin(9600); Serial.println();
   BlynkGO.begin();
@@ -77,12 +79,6 @@ void setup() {
     page_monitor.scroll_posY(y);          // เลื่อน scrollbar ไปยังตำแหน่งเดิม
   });
 
-  static SoftTimer timer;
-  timer.setInterval(1000,[](){
-    if(MQTT.connected()){
-      MQTT.publish(mqtt_topic, String("My Data : ")+ String(random(1000)));
-    }
-  });
 }
 
 void loop() {
@@ -120,6 +116,15 @@ MQTT_SUBSCRIBED(){
   timer_mqtt_info.delay(3000,[](){
     lb_info.show(false);
   });
+
+  // หากมี subcribe ใหม่เข้ามา ให้เริ่ม ตั้งเวลาในการจำลองการส่งใหม่ ตาม mqtt_topic ใหม่
+  // หากไม่จำลองการส่งให้ปิดส่วนนี้
+  static SoftTimer timer;
+  timer.setInterval(1000,[](){
+    if(MQTT.connected()){
+      MQTT.publish(mqtt_topic, String("My Data : ")+ String(random(1000)));
+    }
+  }); 
 }
 
 MQTT_UNSUBSCRIBED(){
