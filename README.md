@@ -2,6 +2,10 @@
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)  
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
   
+## [Version 3.1.0] @22/07/67  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.0** (ติดต่อ Admin)   
+- เพิ่ม BlynkGO_HTTPClient32 v0.5.0 สำหรับเป็นพื้นฐานในการจัดการเชื่อมต่อ HTTPClient แบบ ไม่สะดุด  
+  
 ## [Version 3.0.23] @16/07/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.0.21** (ติดต่อ Admin)   
 - ปรับปรุง BlynkGO_AsyncMQTT32 เป็น version 1.0.4  
