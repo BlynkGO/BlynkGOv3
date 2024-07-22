@@ -139,7 +139,9 @@
  *        subscribe(...)
  *        หากยังไม่เชื่อมต่อ จะจำไว้ใน list พอเชื่อมต่อแล้ว subscribe จริงไล่ทั้งหมดให้อัตโนมัติ
  *        แต่หากเชื่อมต่อแล้ว เกิดมีเพิ่ม subscribe ให้ เพิ่มใน list และ ให้ subscribe จริงทันทีเลย
- *
+ *   [V3.1.0] @22/07/24  ใช้คู่กับ SDK3.1.0
+ *      - เพิ่ม BlynkGO_HTTPClient32 v0.5.0 สำหรับเป็นพื้นฐานในการจัดการเชื่อมต่อ HTTPClient แบบ ไม่สะดุด
+ * 
  *********************************************************************
  */
 
@@ -149,9 +151,9 @@
 /** Major version number (X.x.x) */
 #define BLYNKGO_VERSION_MAJOR   3
 /** Minor version number (x.X.x) */
-#define BLYNKGO_VERSION_MINOR   0
+#define BLYNKGO_VERSION_MINOR   1
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   23
+#define BLYNKGO_VERSION_PATCH   0
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 
@@ -281,6 +283,7 @@ FONT_DECLARE(arial_vietnam_30);
   #include "WiFi.h"
   #include "utils/BlynkGO_AsyncTCP/BlynkGO_AsyncTCP.h"
   // #include "utils/AsyncHttpClient/AsyncHttpClient.h"
+  #include "utils/BlynkGO_HTTPClient32/BlynkGO_HTTPClient32.h"
 #if BLYNKGO_USE_LINENOTIFY
   #include "utils/BlynkGO_AsyncLineNotify/BlynkGO_AsyncLineNotify.h"
 #endif
