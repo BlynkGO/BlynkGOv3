@@ -41,6 +41,8 @@ class GBar : public GObject {
     void    value(int16_t val, bool anim = false);
     void    value(int16_t val_start, int16_t val_end, uint16_t anim_time);
     int16_t value();
+    inline int16_t toInt()         { return this->value();   }
+    
     int16_t value_min();
     int16_t value_max();
 

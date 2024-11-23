@@ -104,6 +104,14 @@ void TimeAlarmsClass::enable(AlarmID_t ID)
   }
 }
 
+bool TimeAlarmsClass::is_enable(AlarmID_t ID) {
+  if (isAllocated(ID) && Alarm[ID].Mode.isEnabled ) {
+    return true;
+  }else{
+    return false;
+  }
+}
+
 void TimeAlarmsClass::disable(AlarmID_t ID)
 {
   if (isAllocated(ID)) {
@@ -149,6 +157,27 @@ void TimeAlarmsClass::free(AlarmID_t ID)
     Alarm[ID].onTickHandler = NULL;
     Alarm[ID].value = 0;
     Alarm[ID].nextTrigger = 0;
+    Alarm[ID].user_data = NULL;
+  }
+}
+
+void TimeAlarmsClass::clear(){
+  for(uint8_t id = 0; id < dtNBR_ALARMS; id++) {
+    this->free(id);
+  }
+}
+
+void* TimeAlarmsClass::user_data(AlarmID_t ID){
+  if (isAllocated(ID) ){
+    return Alarm[ID].user_data;
+  }else{
+    return NULL;
+  }
+}
+
+void TimeAlarmsClass::user_data(AlarmID_t ID, void* user_data){
+  if (isAllocated(ID) ){
+    Alarm[ID].user_data = user_data;
   }
 }
 
@@ -168,7 +197,7 @@ bool TimeAlarmsClass::isAlarm(AlarmID_t ID)
   return( isAllocated(ID) && dtIsAlarm(Alarm[ID].Mode.alarmType) );
 }
 
-// returns true if this id is allocated
+
 bool TimeAlarmsClass::isAllocated(AlarmID_t ID)
 {
   return (ID < dtNBR_ALARMS && Alarm[ID].Mode.alarmType != dtNotAllocated);
@@ -227,7 +256,6 @@ bool TimeAlarmsClass::getIsServicing()
 }
 
 //***********************************************************
-//* Private Methods
 
 void TimeAlarmsClass::serviceAlarms()
 {
@@ -242,11 +270,19 @@ void TimeAlarmsClass::serviceAlarms()
           Alarm[servicedAlarmId].updateNextTrigger();
         }
         if (TickHandler != NULL) {
-          (*TickHandler)();     // call the handler
+          (*TickHandler)(servicedAlarmId, Alarm[servicedAlarmId].user_data);     // call the handler
         }
       }
     }
     isServicing = false;
+  }
+}
+
+void TimeAlarmsClass::refreshAll(){
+  for (servicedAlarmId = 0; servicedAlarmId < dtNBR_ALARMS; servicedAlarmId++) {
+    if (Alarm[servicedAlarmId].Mode.isEnabled ){
+      Alarm[servicedAlarmId].updateNextTrigger();
+    }
   }
 }
 
@@ -266,7 +302,7 @@ time_t TimeAlarmsClass::getNextTrigger()
 }
 
 // attempt to create an alarm and return true if successful
-AlarmID_t TimeAlarmsClass::create(time_t value, OnTick_t onTickHandler, uint8_t isOneShot, dtAlarmPeriod_t alarmType)
+AlarmID_t TimeAlarmsClass::create(time_t value, OnTick_t onTickHandler, uint8_t isOneShot, dtAlarmPeriod_t alarmType, void* user_data)
 {
   if ( ! ( (dtIsAlarm(alarmType) && now() < SECS_PER_YEAR) || (dtUseAbsoluteValue(alarmType) && (value == 0)) ) ) {
     // only create alarm ids if the time is at least Jan 1 1971
@@ -277,6 +313,7 @@ AlarmID_t TimeAlarmsClass::create(time_t value, OnTick_t onTickHandler, uint8_t 
         Alarm[id].Mode.isOneShot = isOneShot;
         Alarm[id].Mode.alarmType = alarmType;
         Alarm[id].value = value;
+        if(user_data !=NULL) Alarm[id].user_data = user_data;
         enable(id);
         return id;  // alarm created ok
       }

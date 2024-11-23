@@ -397,6 +397,38 @@ bool GTextArea::scroll_propagation(){
   return lv_ta_get_scroll_propagation(this->obj);
 }
 
+void GTextArea::padding_top(int16_t pad_top){
+  if(!this->isCreated()) create();
+  lv_obj_t * scrl         = lv_page_get_scrl(this->obj);
+  lv_style_copy(&this->style_scrl, lv_obj_get_style(scrl));
+
+  this->style_scrl.body.padding.top = pad_top;
+  lv_page_set_style(this->obj, LV_PAGE_STYLE_SCRL, &this->style_scrl);
+  this->refreshStyle(); 
+}
+
+int16_t GTextArea::padding_top(){
+  obj_t * scrl         = lv_page_get_scrl(this->obj);
+  const style_t* p_style_scrl = lv_obj_get_style(scrl);
+  return p_style_scrl->body.padding.top;
+}
+
+void  GTextArea::padding_left(int16_t pad_left){
+  if(!this->isCreated()) create();
+  lv_obj_t * scrl         = lv_page_get_scrl(this->obj);
+  lv_style_copy(&this->style_scrl, lv_obj_get_style(scrl));
+
+  this->style_scrl.body.padding.left = pad_left;
+  lv_page_set_style(this->obj, LV_PAGE_STYLE_SCRL, &this->style_scrl);
+  this->refreshStyle(); 
+}
+
+int16_t GTextArea::padding_left(){
+  obj_t * scrl         = lv_page_get_scrl(this->obj);
+  const style_t* p_style_scrl = lv_obj_get_style(scrl);
+  return p_style_scrl->body.padding.left;
+}
+
 GTextArea& GTextArea::operator =(String label){
   this->text(label);
   return *this;

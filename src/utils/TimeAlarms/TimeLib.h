@@ -116,6 +116,7 @@ int     month();           // the month now  (Jan is month 1)
 int     month(time_t t);   // the month for the given time
 int     year();            // the full four digit year: (2009, 2010 etc) 
 int     year(time_t t);    // the year for the given time
+// inline int  secs_of_day()       { return (hour()*60+minute())*60+second(); }
 
 // TridentTD
 inline  int mday()              { return day();         }

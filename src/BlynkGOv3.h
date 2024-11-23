@@ -141,6 +141,11 @@
  *        แต่หากเชื่อมต่อแล้ว เกิดมีเพิ่ม subscribe ให้ เพิ่มใน list และ ให้ subscribe จริงทันทีเลย
  *   [V3.1.0] @22/07/24  ใช้คู่กับ SDK3.1.0
  *      - เพิ่ม BlynkGO_HTTPClient32 v0.5.0 สำหรับเป็นพื้นฐานในการจัดการเชื่อมต่อ HTTPClient แบบ ไม่สะดุด
+ *   [V3.1.1] @23/11/24 ใช้คู่กับ SDK3.1.1
+ *      - BlynkGO_AsyncMQTT32 v1.0.5
+ *      - GBar, GKnob, GLevel, GSlider, GSliderH, GSliderV, GThermo เพิ่ม API toInt()
+ *      - GTextArea เพิ่ม padding_top(..), padding_left(..) เพื่อปรับ ให้ข้อความภายในช่อง textarea อยู่ในระดับที่ต้องการ
+ *      - GAqi สำหรับ มาตรฐาน Thai AQI ปรับตามมาตรฐานใหม่ของกรมควบคุมมลพิษ 2566 ที่มีการเปลี่ยนการตัด Thai AQI level ใหม่
  * 
  *********************************************************************
  */
@@ -153,7 +158,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   1
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   0
+#define BLYNKGO_VERSION_PATCH   1
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 

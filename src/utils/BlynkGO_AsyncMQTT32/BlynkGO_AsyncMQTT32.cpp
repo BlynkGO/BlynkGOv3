@@ -125,6 +125,7 @@ void BlynkGO_AsyncMQTT32::connect(bool auto_reconnect){
   ticker_reconnect.detach();
 
   this->stop();   // =  _stop() + _destroy()
+  this->_auto_reconnect_try = 5;
 
   if( !_client_inited ) {
     this->_client = esp_mqtt_client_init(&this->_mqtt_conf); // ภายในมี malloc ---> ใช้คู่กับ _detroy() เพื่อคืน mem
@@ -228,6 +229,7 @@ void BlynkGO_AsyncMQTT32::mqtt_event_handler(void *handler_args, esp_event_base_
       ticker_reconnect.detach();
 
       pMQTTClient32->_connected = true;
+      pMQTTClient32->_auto_reconnect_try = 5;
 
       MqttOnConnected();
       if( pMQTTClient32->_fn_onconnected != NULL) {
@@ -253,13 +255,24 @@ void BlynkGO_AsyncMQTT32::mqtt_event_handler(void *handler_args, esp_event_base_
       }
       if( pMQTTClient32->auto_reconnect() ){
         if(WiFi.isConnected()) {
-          ticker_reconnect.once_ms(5000,[]{
-            if(WiFi.isConnected()) {
-              Serial.println("[MQTT] reconnect...");
-              // _pMQTTClient32->reconnect();
-              _pMQTTClient32->connect();
-            }
-          });
+          // ticker_reconnect.once_ms(5000,[]{
+          //   if(WiFi.isConnected()) {
+          //     Serial.println("[MQTT] reconnect...");
+          //     // _pMQTTClient32->reconnect();
+          //     _pMQTTClient32->connect();
+          //   }
+          // });
+          if(pMQTTClient32->_auto_reconnect_try){
+            Serial.printf("[MQTT] reconnecting ... (%d)\n",  pMQTTClient32->_auto_reconnect_try);
+            pMQTTClient32->reconnect();
+            pMQTTClient32->_auto_reconnect_try--;
+          }else{
+            ticker_reconnect.detach();
+            ticker_reconnect.once_ms(10000,[](){
+              _pMQTTClient32->_auto_reconnect_try = 5;
+              _pMQTTClient32->reconnect();
+            });
+          }
         }else{
           ticker_reconnect.detach();
           ticker_reconnect.once_ms(500,[]{  // ถ่วงเวลาเพื่อรอให้ event_cb นี้ทำงานเรียบร้อยไปก่อนค่อย ทำลายด้วย stop()

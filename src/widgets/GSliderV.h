@@ -41,6 +41,8 @@ class GSliderV : public GObject {
     void    range(int16_t val_min, int16_t val_max);
     void    value(int16_t val);
     int16_t value();
+    inline int16_t toInt()         { return this->value();   }
+    
     void    title(const char* title);
     const char*  title();
     void    unit(const char* unit);

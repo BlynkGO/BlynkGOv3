@@ -123,6 +123,10 @@ class GTextArea : public GObject {
     void        scroll_propagation(bool enable);   // ใส่เพื่อ หาก parent เป็น page ให้ส่งต่อการ drag scroll ไปยัง parent ด้วย หลังจากที่ scroll ของตัวเองแล้ว
     bool        scroll_propagation();
 
+    void      padding_top(int16_t pad_top);
+    int16_t   padding_top();
+    void      padding_left(int16_t pad_left);
+    int16_t   padding_left();
 
     GTextArea& operator =(String label);
     GTextArea& operator =(const char* cstr);
@@ -133,6 +137,7 @@ class GTextArea : public GObject {
 #endif
 
   private:
+    style_t style_scrl;
     String _text="";
 
 };

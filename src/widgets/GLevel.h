@@ -49,6 +49,8 @@ class GLevel :public GObject {
     void    range(int16_t val_min, int16_t val_max);
     void    value(int16_t val);
     int16_t value();
+    inline int16_t toInt()         { return this->value();   }
+    
     int16_t value_min();
     int16_t value_max();
 

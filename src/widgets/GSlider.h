@@ -58,8 +58,9 @@ class GSlider : public GObject {
     void    range(int16_t val_min, int16_t val_max);    // กำหนดค่าน้อยสุด ค่ามากสุดของ GSlider ที่จะเลือกได้
     int16_t max_value();                                // คืนค่า ค่ามากสุด
     int16_t min_value();                                // คืนค่า ค่าน้อยสุด
-    void    value(int16_t val, bool anim = true);   // กำหนดค่า ให้ GSlider หรือจะใช้ operator = ในการกำหนดก็ได้
+    void    value(int16_t val, bool anim = true);       // กำหนดค่า ให้ GSlider หรือจะใช้ operator = ในการกำหนดก็ได้
     int16_t value();                                    // คืนค่า ปัจจุบันของ GSlider 
+    inline int16_t toInt()                                                  { return this->value();   }
 
     // สำหรับ slider_type : SLIDER_TYPE_RANGE
     inline void    right_value(int16_t val, bool anim = true)               { value(val, anim); }

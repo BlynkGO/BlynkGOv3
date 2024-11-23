@@ -40,6 +40,8 @@ class GThermo : public GObject {
     void    range(float val_min, float val_max);
     void    value(float val);
     int16_t value();
+    inline int16_t toInt()         { return this->value();   }
+    
     int16_t value_min();
     int16_t value_max();
     void    decimal(uint8_t float_decimal);  // 0, 1, 2 only

@@ -25,6 +25,11 @@
  *        หากยังไม่เชื่อมต่อ จะจำไว้ใน list พอเชื่อมต่อแล้ว subscribe จริงไล่ทั้งหมดให้อัตโนมัติ
  *        แต่หากเชื่อมต่อแล้ว เกิดมีเพิ่ม subscribe ให้ เพิ่มใน list และ ให้ subscribe จริงทันทีเลย
  * 
+ *   [V1.0.5] @14/08/24
+ *      - แก้ไข ส่วนเมื่อ mqtt มีสถานะ disconnect ใหม่
+ *        หากโหลด auto_reconnect ทำงาน จะใช้ MQTT.reconnect อย่างเดียว
+ *        โดยให้มีการลอง 5 ครั้งแล้ว เว้น 10วินาที ค่อยลองใหม่ 5 ครั้ง แทนของเดิมที่ใช้ ตัดไปเลยแล้ว MQTT.connect()
+ * 
  *********************************************************************
  */
 
@@ -36,7 +41,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_ASYNC_MQTT32_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_ASYNC_MQTT32_VERSION_PATCH   4
+#define BLYNKGO_ASYNC_MQTT32_VERSION_PATCH   5
 
 #define BLYNKGO_ASYNC_MQTT32_VERSION_TEXT    (String(BLYNKGO_ASYNC_MQTT32_VERSION_MAJOR)+"."+String(BLYNKGO_ASYNC_MQTT32_VERSION_MINOR)+"."+String(BLYNKGO_ASYNC_MQTT32_VERSION_PATCH))
 
@@ -150,6 +155,7 @@ class BlynkGO_AsyncMQTT32 {
     std::vector<subscribe_topic_t>  subscribe_topics;
     bool _connected = false;
     bool _auto_reconnect = true;
+    uint8_t _auto_reconnect_try = 5;
     bool _client_inited = false;
     
     void _stop();
