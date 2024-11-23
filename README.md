@@ -2,6 +2,13 @@
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)  
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
   
+## [Version 3.1.1] @23/11/67  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.1** (ติดต่อ Admin)   
+ - BlynkGO_AsyncMQTT32 v1.0.5
+ - GBar, GKnob, GLevel, GSlider, GSliderH, GSliderV, GThermo เพิ่ม API toInt()
+ - GTextArea เพิ่ม padding_top(..), padding_left(..) เพื่อปรับ ให้ข้อความภายในช่อง textarea อยู่ในระดับที่ต้องการ
+ - GAqi สำหรับ มาตรฐาน Thai AQI ปรับตามมาตรฐานใหม่ของกรมควบคุมมลพิษ 2566 ที่มีการเปลี่ยนการตัด Thai AQI level ใหม่
+  
 ## [Version 3.1.0] @22/07/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.0** (ติดต่อ Admin)   
 - เพิ่ม BlynkGO_HTTPClient32 v0.5.0 สำหรับเป็นพื้นฐานในการจัดการเชื่อมต่อ HTTPClient แบบ ไม่สะดุด  
