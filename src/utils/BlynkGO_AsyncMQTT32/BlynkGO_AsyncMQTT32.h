@@ -48,8 +48,8 @@
 
 #include "../../config/blynkgo_config.h"
 
-// #define BLYNKO_USE_ASYNC_MQTT32   1
-#if BLYNKO_USE_ASYNC_MQTT32
+// #define BLYNKGO_USE_ASYNC_MQTT32   1
+#if BLYNKGO_USE_ASYNC_MQTT32
 
 #include <Arduino.h>
 #include <WiFi.h>
@@ -78,7 +78,7 @@ typedef void(*mqtt_onsubscribe_cb)(int msg_id);
 #define AUTO_RECONNECT      true
 #define NO_AUTO_RECONNECT   false
 
-#if BLYNKO_USE_ASYNC_MQTT32
+#if BLYNKGO_USE_ASYNC_MQTT32
   
   #define MQTT_CONNECTED()    void MqttOnConnected()
   #define MQTT_DISCONNECTED() void MqttOnDisconnected()
@@ -98,7 +98,7 @@ typedef void(*mqtt_onsubscribe_cb)(int msg_id);
   #ifdef __cplusplus
   }
   #endif
-#endif // BLYNKO_USE_ASYNC_MQTT32
+#endif // BLYNKGO_USE_ASYNC_MQTT32
 
 
 class BlynkGO_AsyncMQTT32 {
@@ -171,7 +171,7 @@ class BlynkGO_AsyncMQTT32 {
 extern BlynkGO_AsyncMQTT32 MQTT;
 
 
-#endif // #if BLYNKO_USE_ASYNC_MQTT32
+#endif // #if BLYNKGO_USE_ASYNC_MQTT32
 
 #endif //__BLYNKGO_ASYNCMQTT32_H__
 

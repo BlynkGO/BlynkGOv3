@@ -146,6 +146,9 @@
  *      - GBar, GKnob, GLevel, GSlider, GSliderH, GSliderV, GThermo เพิ่ม API toInt()
  *      - GTextArea เพิ่ม padding_top(..), padding_left(..) เพื่อปรับ ให้ข้อความภายในช่อง textarea อยู่ในระดับที่ต้องการ
  *      - GAqi สำหรับ มาตรฐาน Thai AQI ปรับตามมาตรฐานใหม่ของกรมควบคุมมลพิษ 2566 ที่มีการเปลี่ยนการตัด Thai AQI level ใหม่
+ *   [V3.1.2] @17/12/24 
+ *      - แก้ typo (พิมพ์คำผิด) จาก BLYNKO_USE_ASYNC_MQTT32 เป็น BLYNKGO_USE_ASYNC_MQTT32
+ *      - BeeNeXT5.0C รุ่น 12/2024 ล่าสุด ใช้ความถี่ 13000000 ไม่ได้ ปรับเป็น 16000000
  * 
  *********************************************************************
  */
@@ -293,7 +296,7 @@ FONT_DECLARE(arial_vietnam_30);
   #include "utils/BlynkGO_AsyncLineNotify/BlynkGO_AsyncLineNotify.h"
 #endif
 
-#if BLYNKO_USE_ASYNC_MQTT32
+#if BLYNGKO_USE_ASYNC_MQTT32
   #include "utils/BlynkGO_AsyncMQTT32/BlynkGO_AsyncMQTT32.h"
 #endif
 

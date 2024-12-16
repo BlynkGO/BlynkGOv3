@@ -177,6 +177,8 @@ class GObject {
     uint16_t    height();
     uint16_t    height_fit();
 
+    inline uint16_t content_width()             { return width_fit();   }
+    inline uint16_t content_height()            { return height_fit();  }
 
     /* -------- STYLE API --------  */
     void        createLocalStyle(style_t *base_style=NULL); // for inner use.. don't call (alloc & copy)

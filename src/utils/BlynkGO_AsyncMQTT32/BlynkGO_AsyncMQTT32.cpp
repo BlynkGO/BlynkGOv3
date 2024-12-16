@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <memory>
 
-#if BLYNKO_USE_ASYNC_MQTT32
+#if BLYNKGO_USE_ASYNC_MQTT32
 
 void MQTTNoOpCbk() {}
 MQTT_CONNECTED()    __attribute__((weak, alias("MQTTNoOpCbk")));
@@ -344,4 +344,4 @@ void BlynkGO_AsyncMQTT32::mqtt_event_handler(void *handler_args, esp_event_base_
 }
 
 
-#endif // #if BLYNKO_USE_ASYNC_MQTT32
+#endif // #if BLYNKGO_USE_ASYNC_MQTT32

@@ -41,8 +41,8 @@
 
 // เปิด/ปิด การใช้งาน MQTT แบบ Async (ไม่สะดุดรอการเชื่อมต่อ) หรือไม่
 // สามารถเชื่อมต่อได้ทั้งแบบ TCP, SSL/TLS, WebSocket, WebSocket Secure และมี user/password ได้
-#ifndef BLYNKO_USE_ASYNC_MQTT32
-#define BLYNKO_USE_ASYNC_MQTT32       0       // 1 เลือกใช้ MQTT ด้วย                ; 0 ไม่เลือกใช้ MQTT ;  ( ถ้าใช้ MQTT ให้เปิด WIFI ด้วย)
+#ifndef BLYNKGO_USE_ASYNC_MQTT32
+#define BLYNKGO_USE_ASYNC_MQTT32       0       // 1 เลือกใช้ MQTT ด้วย                ; 0 ไม่เลือกใช้ MQTT ;  ( ถ้าใช้ MQTT ให้เปิด WIFI ด้วย)
 #endif
 
 // เปิด/ปิด การใช้งาน BeeNeXT ร่วมด้วย
