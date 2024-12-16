@@ -2,6 +2,11 @@
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)  
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
   
+## [Version 3.1.2] @17/12/67  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.1** (ติดต่อ Admin)   
+ - แก้ typo (พิมพ์คำผิด) จาก BLYNKO_USE_ASYNC_MQTT32 เป็น BLYNKGO_USE_ASYNC_MQTT32
+ - BeeNeXT5.0C รุ่น 12/2024 ล่าสุด ใช้ความถี่ 13000000 ไม่ได้ ปรับเป็น 16000000
+  
 ## [Version 3.1.1] @23/11/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.1** (ติดต่อ Admin)   
  - BlynkGO_AsyncMQTT32 v1.0.5
