@@ -226,6 +226,17 @@ color_t GGaugeLine::critical_color(){
 //   this->line_width(width);
 // }
 
+void GGaugeLine::angle_offset(uint16_t angle){
+  if(!this->isCreated()) this->create();
+  // lv_gauge_ext_t* ext = (lv_gauge_ext_t*)this->ext_attr();
+  lv_lmeter_set_angle_offset(this->obj, angle);
+}
+
+uint16_t  GGaugeLine::angle_offset(){
+  if(!this->isCreated()) this->create();
+  return lv_lmeter_get_angle_offset(this->obj);
+}
+
 void GGaugeLine::scale(uint16_t angle, uint8_t line_count, uint8_t label_count){
   if(!this->isCreated()) this->create();
   lv_gauge_set_scale(this->obj, angle, line_count, label_count);

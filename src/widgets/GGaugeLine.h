@@ -43,6 +43,8 @@ class GGaugeLine : public GObject {
     void      critical_color(color_t color);
     color_t   critical_color();
 
+    void      angle_offset(uint16_t angle);
+    uint16_t  angle_offset();
     void      scale(uint16_t scale_angle, uint8_t line_count, uint8_t label_count);
     uint16_t  scale_angle();
     uint8_t   line_count();
