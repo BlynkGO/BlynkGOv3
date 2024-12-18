@@ -2,6 +2,10 @@
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)  
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
   
+## [Version 3.1.3] @18/12/67  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.2** (ติดต่อ Admin)   
+ - เพิ่มคำสั่ง API ให้ GGaugeLine สามารถกำหนด angle_offset เพื่อหมุนมุมเริ่มต้นได้
+  
 ## [Version 3.1.2] @17/12/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.1** (ติดต่อ Admin)   
  - แก้ typo (พิมพ์คำผิด) จาก BLYNKO_USE_ASYNC_MQTT32 เป็น BLYNKGO_USE_ASYNC_MQTT32
