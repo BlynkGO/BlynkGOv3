@@ -169,39 +169,37 @@ class TAMC_GT911 {
     // uint8_t gesture = NO_GESTURE;
     TP_Point points[5];
 
-#if defined BEENEXT_4_3IPS
-  template <typename T>
-  uint_fast8_t getTouch(T *x, T *y)
-  {
-    T _x, _y;
-    this->read();
-    if (this->isTouched)
-    {
-      _x = map(this->points[0].x, this->width, 0, 0, this->width - 1);
-      _y = map(this->points[0].y, this->height, 0, 0, this->height - 1);
-
-      if (_x >= 0 && _y >= 0 && _x <= 2000 && _y <= 2000)
-      {
-        *x = map(_x, 0, 480, 0, 800);  // X min max : 0 - 480
-        *y = map(_y, 0, 270, 0, 480);  // Y min max : 0 - 270
-        return 1;
-      }
-      return 0;
-    }
-    else
-    {
-      return 0;
-    }
-  }
-#else
     template <typename T>
     uint_fast8_t getTouch(T *x, T *y)
     {      
       T _x, _y;
       this->read();
       if (this->isTouched){
-        _x = map(this->points[0].x, this->width , 0, 0, this->width  - 1);
-        _y = map(this->points[0].y, this->height, 0, 0, this->height - 1);
+#if defined(BEENEXT_5_0IPS) || defined(BEENEXT_7_0IPS)
+        switch(this->rotation) {
+          case 3:     // lcd's rotation = 0 <--> touch's rotation 3  (จอแนวนอน default)
+            _x = this->width - this->points[0].x;
+            _y = this->height - this->points[0].y;
+            break;
+          case 0:     // lcd's rotation = 1 <--> touch's rotation 0  (จอแนวตั้ง ตะแคงขวา)
+            _x = this->width - this->points[0].x;
+            _y = this->width - this->points[0].y;
+            break;
+          case 1:     // lcd's rotation = 2 <--> touch's rotation 1  (จอแนวนอน ตีลังกา)
+            _x = this->width - this->points[0].x;
+            _y = this->height - this->points[0].y;
+            break;
+          case 2:     // lcd's rotation = 3 <--> touch's rotation 2  (จอแนวตั้ง ตะแคงซ้าย)
+            _x = this->height - this->points[0].x;
+            _y = (this->height - this->points[0].y + 65536)%65536;
+            break;
+        }
+#else
+        _x = this->width - this->points[0].x;   // map(this->points[0].x, this->width , 0, 0, this->width  - 1);
+        _y = this->height - this->points[0].y;  // map(this->points[0].y, this->height, 0, 0, this->height - 1);
+#endif
+        // Serial.printf("[TAMC_GT911-getTouch] (touch r= %d) raw %d, %d ==> adjust(%d, %d)\n", this->rotation, this->points[0].x, this->points[0].y, _x, _y);
+
         if( _x >=0 && _y >=0) {
             *x = _x;
             *y = _y;
@@ -213,7 +211,6 @@ class TAMC_GT911 {
         return 0;
       }
     }
-#endif
 
   private:
     void calculateChecksum();

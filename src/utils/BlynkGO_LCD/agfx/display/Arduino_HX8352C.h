@@ -5,8 +5,6 @@
 #ifndef _ARDUINO_HX8352C_H_
 #define _ARDUINO_HX8352C_H_
 
-#include <Arduino.h>
-#include <Print.h>
 #include "../Arduino_GFX.h"
 #include "../Arduino_TFT.h"
 
@@ -23,7 +21,7 @@ public:
       bool ips = false, int16_t w = HX8352C_TFTWIDTH, int16_t h = HX8352C_TFTHEIGHT,
       uint8_t col_offset1 = 0, uint8_t row_offset1 = 0, uint8_t col_offset2 = 0, uint8_t row_offset2 = 0);
 
-  void begin(int32_t speed = GFX_NOT_DEFINED) override;
+  bool begin(int32_t speed = GFX_NOT_DEFINED) override;
   void writeAddrWindow(int16_t x, int16_t y, uint16_t w, uint16_t h) override;
   void setRotation(uint8_t r) override;
   void invertDisplay(bool) override;

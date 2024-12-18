@@ -20,7 +20,7 @@ public:
   // and also protected function: tftInit()
   virtual void writeAddrWindow(int16_t x, int16_t y, uint16_t w, uint16_t h) = 0;
 
-  void begin(int32_t speed = GFX_NOT_DEFINED);
+  bool begin(int32_t speed = GFX_NOT_DEFINED);
   void startWrite(void) override;
   void endWrite(void) override;
   void writePixelPreclipped(int16_t x, int16_t y, uint16_t color) override;
@@ -39,6 +39,8 @@ public:
   virtual void writeIndexedPixels(uint8_t *bitmap, uint16_t *color_index, uint32_t len);
   virtual void writeIndexedPixelsDouble(uint8_t *bitmap, uint16_t *color_index, uint32_t len);
 
+  virtual void drawYCbCrBitmap(int16_t x, int16_t y, uint8_t *yData, uint8_t *cbData, uint8_t *crData, int16_t w, int16_t h);
+
   void writeBytes(uint8_t *data, uint32_t size);
   void pushColor(uint16_t color);
 
@@ -47,11 +49,12 @@ public:
   void drawBitmap(int16_t x, int16_t y, uint8_t *bitmap, int16_t w, int16_t h, uint16_t color, uint16_t bg) override;
   void drawGrayscaleBitmap(int16_t x, int16_t y, const uint8_t bitmap[], int16_t w, int16_t h) override;
   void drawGrayscaleBitmap(int16_t x, int16_t y, uint8_t *bitmap, int16_t w, int16_t h) override;
-  void drawIndexedBitmap(int16_t x, int16_t y, uint8_t *bitmap, uint16_t *color_index, int16_t w, int16_t h) override;
-  void draw16bitRGBBitmap(int16_t x, int16_t y, uint16_t *bitmap, uint8_t *mask, int16_t w, int16_t h) override;
+  void drawIndexedBitmap(int16_t x, int16_t y, uint8_t *bitmap, uint16_t *color_index, int16_t w, int16_t h, int16_t x_skip = 0) override;
+  void draw16bitRGBBitmapWithMask(int16_t x, int16_t y, uint16_t *bitmap, uint8_t *mask, int16_t w, int16_t h) override;
   void draw16bitRGBBitmap(int16_t x, int16_t y, const uint16_t bitmap[], int16_t w, int16_t h) override;
   void draw16bitRGBBitmap(int16_t x, int16_t y, uint16_t *bitmap, int16_t w, int16_t h) override;
   void draw16bitBeRGBBitmap(int16_t x, int16_t y, uint16_t *bitmap, int16_t w, int16_t h) override;
+  void draw16bitBeRGBBitmapR1(int16_t x, int16_t y, uint16_t *bitmap, int16_t w, int16_t h) override;
   void draw24bitRGBBitmap(int16_t x, int16_t y, const uint8_t bitmap[], int16_t w, int16_t h) override;
   void draw24bitRGBBitmap(int16_t x, int16_t y, uint8_t *bitmap, int16_t w, int16_t h) override;
   void drawChar(int16_t x, int16_t y, unsigned char c, uint16_t color, uint16_t bg) override;

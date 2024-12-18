@@ -149,8 +149,11 @@
  *   [V3.1.2] @17/12/24 
  *      - แก้ typo (พิมพ์คำผิด) จาก BLYNKO_USE_ASYNC_MQTT32 เป็น BLYNKGO_USE_ASYNC_MQTT32
  *      - BeeNeXT5.0C รุ่น 12/2024 ล่าสุด ใช้ความถี่ 13000000 ไม่ได้ ปรับเป็น 16000000
- *   [V3.1.3] @17/12/24  ใช้คู่กับ SDK3.1.2
+ *   [V3.1.3] @18/12/24  ใช้คู่กับ SDK3.1.2
  *      - เพิ่มคำสั่ง API ให้ GGaugeLine สามารถกำหนด angle_offset เพื่อหมุนมุมเริ่มต้นได้
+ *   [V3.2.0] @18/12/24  ใช้คู่กับ SDK3.2.0
+ *      - BlynkGO_LCD v2.0.0 (AGFX1.5.0)
+ *      - BeeNeXT5.0IPS,BeeNeXT7.0IPS ปรับหมุนหน้าจอได้
  *
  *********************************************************************
  */
@@ -161,9 +164,9 @@
 /** Major version number (X.x.x) */
 #define BLYNKGO_VERSION_MAJOR   3
 /** Minor version number (x.X.x) */
-#define BLYNKGO_VERSION_MINOR   1
+#define BLYNKGO_VERSION_MINOR   2
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   3
+#define BLYNKGO_VERSION_PATCH   0
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 

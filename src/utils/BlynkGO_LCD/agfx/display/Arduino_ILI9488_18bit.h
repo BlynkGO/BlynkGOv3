@@ -5,8 +5,6 @@
 #ifndef _ARDUINO_ILI9488_18BIT_H_
 #define _ARDUINO_ILI9488_18BIT_H_
 
-#include <Arduino.h>
-#include <Print.h>
 #include "Arduino_ILI9488.h"
 #include "../Arduino_TFT_18bit.h"
 
@@ -15,7 +13,7 @@ class Arduino_ILI9488_18bit : public Arduino_TFT_18bit
 public:
   Arduino_ILI9488_18bit(Arduino_DataBus *bus, int8_t rst = GFX_NOT_DEFINED, uint8_t r = 0, bool ips = false);
 
-  void begin(int32_t speed = GFX_NOT_DEFINED) override;
+  bool begin(int32_t speed = GFX_NOT_DEFINED) override;
 
   void setRotation(uint8_t r) override;
 
