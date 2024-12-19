@@ -19,7 +19,7 @@ Contributors:
 
 #if defined (ESP_PLATFORM)
 
-#include "esp32/common.hpp"
+#include "esp32/esp32_common.hpp"
 
 #elif defined (ESP8266)
 

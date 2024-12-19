@@ -1,6 +1,8 @@
 #ifndef _ARDUINO_ILI9342_H_
 #define _ARDUINO_ILI9342_H_
 
+#include <Arduino.h>
+#include <Print.h>
 #include "../Arduino_GFX.h"
 #include "../Arduino_TFT.h"
 
@@ -75,34 +77,12 @@
 #define ILI9342_MADCTL_BGR 0x08 ///< Blue-Green-Red pixel order
 #define ILI9342_MADCTL_MH 0x04  ///< LCD refresh right to left
 
-static const uint8_t ili9342_init_operations[] = {
-    BEGIN_WRITE,
-    WRITE_C8_D8, ILI9342_PWCTR1, 0x23,        // Power control VRH[5:0]
-    WRITE_C8_D8, ILI9342_PWCTR2, 0x10,        // Power control SAP[2:0];BT[3:0]
-    WRITE_C8_D16, ILI9342_VMCTR1, 0x3e, 0x28, // VCM control
-    WRITE_C8_D8, ILI9342_VMCTR2, 0x86,        // VCM control2
-    WRITE_C8_D8, ILI9342_VSCRSADD, 0x00,      // Vertical scroll zero
-    WRITE_C8_D8, ILI9342_PIXFMT, 0x55,
-    WRITE_C8_D16, ILI9342_FRMCTR1, 0x00, 0x18,
-
-    WRITE_C8_BYTES, ILI9342_DFUNCTR, 3, // Display Function Control
-    0x08, 0x82, 0x27,
-
-    WRITE_COMMAND_8, ILI9342_SLPOUT, // Exit Sleep
-    END_WRITE,
-
-    DELAY, ILI9342_SLPOUT_DELAY,
-
-    BEGIN_WRITE,
-    WRITE_COMMAND_8, ILI9342_DISPON, // Display on
-    END_WRITE};
-
 class Arduino_ILI9342 : public Arduino_TFT
 {
 public:
   Arduino_ILI9342(Arduino_DataBus *bus, int8_t rst = GFX_NOT_DEFINED, uint8_t r = 0, bool ips = false);
 
-  bool begin(int32_t speed = GFX_NOT_DEFINED) override;
+  void begin(int32_t speed = GFX_NOT_DEFINED) override;
 
   void setRotation(uint8_t r) override;
 

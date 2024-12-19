@@ -39,6 +39,16 @@ extern "C" {
  *      TYPEDEFS
  **********************/
 
+// BlynkGO
+/**
+ * Direction the preloader should spin.
+ */
+enum {
+    LV_GAUGE_DIR_FORWARD,
+    LV_GAUGE_DIR_BACKWARD,
+};
+typedef uint8_t lv_gauge_dir_t;
+
 /*Data of gauge*/
 typedef struct
 {
@@ -144,6 +154,12 @@ static inline void lv_gauge_set_style(lv_obj_t * gauge, lv_gauge_style_t type, l
     (void)type; /*Unused*/
     lv_obj_set_style(gauge, style);
 }
+
+// BlynkGO
+void lv_gauge_set_angle_offset(lv_obj_t * gauge, uint16_t angle);
+
+// BlynkGO
+void lv_gauge_set_direction(lv_obj_t * gauge, lv_gauge_dir_t dir);
 
 /*=====================
  * Getter functions
@@ -254,6 +270,12 @@ static inline const lv_style_t * lv_gauge_get_style(const lv_obj_t * gauge, lv_g
     (void)type; /*Unused*/
     return lv_obj_get_style(gauge);
 }
+
+// BlynkGO
+uint16_t lv_gauge_get_angle_offset(lv_obj_t * gauge);
+
+// BlynkGO
+lv_gauge_dir_t lv_gauge_get_direction(lv_obj_t * gauge);
 
 /**********************
  *      MACROS

@@ -22,6 +22,9 @@
 
 #include "GObject.h"
 
+#define GAUGELINE_CLOCKWISE         0
+#define GAUGELINE_ANTICLOCKWISE     1
+
 class GGaugeLine : public GObject {
   public:
     GGaugeLine(GWidget& parent=GScreen);
@@ -37,6 +40,7 @@ class GGaugeLine : public GObject {
     void      value(uint8_t needle_id, int16_t value);
     // void      value(int16_t value);  // ใส่ให้ค่า needle_id = 0
     int16_t   value(uint8_t needle_id=0);
+    inline int16_t toInt(uint8_t needle_id=0)     { return value(needle_id);  }  // BlynkGO
 
     void      critical_value(int16_t value);
     int16_t   critical_value();
@@ -70,6 +74,9 @@ class GGaugeLine : public GObject {
 
     void      operator=(int16_t value);
     void      size(uint16_t w, uint16_t h);
+
+    void      direction(uint8_t dir);
+    uint8_t   direction();
 
     class needle_class{
     	public:

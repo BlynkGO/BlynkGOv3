@@ -5,6 +5,8 @@
 #ifndef _ARDUINO_ST7735_H_
 #define _ARDUINO_ST7735_H_
 
+#include <Arduino.h>
+#include <Print.h>
 #include "../Arduino_GFX.h"
 #include "../Arduino_TFT.h"
 
@@ -70,43 +72,6 @@
 #define ST7735_MADCTL_MH 0x04
 #define ST7735_MADCTL_BGR 0x08
 
-static const uint8_t st7735_init_operations[] = {
-    BEGIN_WRITE,
-    WRITE_COMMAND_8, ST7735_SLPOUT, // 2: Out of sleep mode, no args, w/delay
-    END_WRITE,
-
-    DELAY, ST7735_SLPOUT_DELAY,
-
-    BEGIN_WRITE,
-    WRITE_C8_D8, ST7735_COLMOD, 0x05, // 3: Set color mode, 16-bit color
-
-    WRITE_COMMAND_8, ST7735_GMCTRP1, // Gamma Adjustments (pos. polarity), 16 args:
-    WRITE_BYTES, 16,
-    0x09, 0x16, 0x09, 0x20, // (Not entirely necessary, but provides
-    0x21, 0x1B, 0x13, 0x19, //  accurate colors)
-    0x17, 0x15, 0x1E, 0x2B,
-    0x04, 0x05, 0x02, 0x0E,
-
-    WRITE_COMMAND_8, ST7735_GMCTRN1, // Gamma Adjustments (neg. polarity), 16 args:
-    WRITE_BYTES, 16,
-    0x0B, 0x14, 0x08, 0x1E, // (Not entirely necessary, but provides
-    0x22, 0x1D, 0x18, 0x1E, //  accurate colors)
-    0x1B, 0x1A, 0x24, 0x2B,
-    0x06, 0x06, 0x02, 0x0F,
-    END_WRITE,
-
-    DELAY, 10,
-
-    BEGIN_WRITE,
-    WRITE_COMMAND_8, ST7735_NORON, // 5: Normal display on, no args, w/delay
-    END_WRITE,
-
-    DELAY, 10,
-
-    BEGIN_WRITE,
-    WRITE_COMMAND_8, ST7735_DISPON, // 6: Main screen turn on, no args, w/delay
-    END_WRITE};
-
 class Arduino_ST7735 : public Arduino_TFT
 {
 public:
@@ -116,7 +81,7 @@ public:
       uint8_t col_offset1 = 0, uint8_t row_offset1 = 0, uint8_t col_offset2 = 0, uint8_t row_offset2 = 0,
       bool bgr = true);
 
-  bool begin(int32_t speed = GFX_NOT_DEFINED) override;
+  void begin(int32_t speed = GFX_NOT_DEFINED) override;
   void writeAddrWindow(int16_t x, int16_t y, uint16_t w, uint16_t h) override;
   void setRotation(uint8_t r) override;
   void invertDisplay(bool) override;

@@ -54,4 +54,3 @@ Contributors:
 #include "v1/touch/Touch_XPT2046.hpp"
 #include "v1/touch/Touch_XPT2046_neo.hpp"  // BlynkGO
 #include "v1/touch/Touch_CST820.hpp"       // BlynkGO
-#include "v1/touch/Touch_CST816D.hpp"      // BlynkGO

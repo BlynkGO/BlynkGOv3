@@ -10,53 +10,54 @@ public:
       int8_t dc, int8_t cs, int8_t wr, int8_t rd,
       int8_t d0, int8_t d1, int8_t d2, int8_t d3, int8_t d4, int8_t d5, int8_t d6, int8_t d7); // Constructor
 
-  bool begin(int32_t speed = GFX_NOT_DEFINED, int8_t dataMode = GFX_NOT_DEFINED) override;
+  void begin(int32_t speed = GFX_NOT_DEFINED, int8_t dataMode = GFX_NOT_DEFINED) override;
   void beginWrite() override;
   void endWrite() override;
   void writeCommand(uint8_t) override;
   void writeCommand16(uint16_t) override;
-  void writeCommandBytes(uint8_t *data, uint32_t len) override;
   void write(uint8_t) override;
   void write16(uint16_t) override;
   void writeRepeat(uint16_t p, uint32_t len) override;
-  void writeBytes(uint8_t *data, uint32_t len) override;
   void writePixels(uint16_t *data, uint32_t len) override;
 
 #if !defined(LITTLE_FOOT_PRINT)
   void writeC8D8(uint8_t c, uint8_t d) override;
   void writeC8D16(uint8_t c, uint16_t d) override;
   void writeC8D16D16(uint8_t c, uint16_t d1, uint16_t d2) override;
+  void writeBytes(uint8_t *data, uint32_t len) override;
+  void writePattern(uint8_t *data, uint8_t len, uint32_t repeat) override;
 
   void writeIndexedPixels(uint8_t *data, uint16_t *idx, uint32_t len) override;
   void writeIndexedPixelsDouble(uint8_t *data, uint16_t *idx, uint32_t len) override;
 #endif // !defined(LITTLE_FOOT_PRINT)
 
 private:
-  GFX_INLINE void WRITE(uint8_t d);
-  GFX_INLINE void WRITEREPEAT(uint16_t p, uint32_t len);
-  GFX_INLINE void DC_HIGH(void);
-  GFX_INLINE void DC_LOW(void);
-  GFX_INLINE void CS_HIGH(void);
-  GFX_INLINE void CS_LOW(void);
-  GFX_INLINE void WR_HIGH(void);
-  GFX_INLINE void WR_LOW(void);
-
-  GFX_INLINE void D0_HIGH(void);
-  GFX_INLINE void D0_LOW(void);
-  GFX_INLINE void D1_HIGH(void);
-  GFX_INLINE void D1_LOW(void);
-  GFX_INLINE void D2_HIGH(void);
-  GFX_INLINE void D2_LOW(void);
-  GFX_INLINE void D3_HIGH(void);
-  GFX_INLINE void D3_LOW(void);
-  GFX_INLINE void D4_HIGH(void);
-  GFX_INLINE void D4_LOW(void);
-  GFX_INLINE void D5_HIGH(void);
-  GFX_INLINE void D5_LOW(void);
-  GFX_INLINE void D6_HIGH(void);
-  GFX_INLINE void D6_LOW(void);
-  GFX_INLINE void D7_HIGH(void);
-  GFX_INLINE void D7_LOW(void);
+  INLINE void WRITE(uint8_t d);
+  INLINE void WRITEREPEAT(uint16_t p, uint32_t len);
+  INLINE void DC_HIGH(void);
+  INLINE void DC_LOW(void);
+  INLINE void CS_HIGH(void);
+  INLINE void CS_LOW(void);
+  INLINE void WR_HIGH(void);
+  INLINE void WR_LOW(void);
+  INLINE void RD_HIGH(void);
+  INLINE void RD_LOW(void);
+  INLINE void D0_HIGH(void);
+  INLINE void D0_LOW(void);
+  INLINE void D1_HIGH(void);
+  INLINE void D1_LOW(void);
+  INLINE void D2_HIGH(void);
+  INLINE void D2_LOW(void);
+  INLINE void D3_HIGH(void);
+  INLINE void D3_LOW(void);
+  INLINE void D4_HIGH(void);
+  INLINE void D4_LOW(void);
+  INLINE void D5_HIGH(void);
+  INLINE void D5_LOW(void);
+  INLINE void D6_HIGH(void);
+  INLINE void D6_LOW(void);
+  INLINE void D7_HIGH(void);
+  INLINE void D7_LOW(void);
 
   int8_t _dc, _cs, _wr, _rd;
   int8_t _d0, _d1, _d2, _d3, _d4, _d5, _d6, _d7;
@@ -77,6 +78,8 @@ private:
   PORTreg_t _csPortClr;
   PORTreg_t _wrPortSet;
   PORTreg_t _wrPortClr;
+  PORTreg_t _rdPortSet;
+  PORTreg_t _rdPortClr;
   PORTreg_t _d0PortSet;
   PORTreg_t _d0PortClr;
   PORTreg_t _d1PortSet;
@@ -97,7 +100,7 @@ private:
   ARDUINOGFX_PORT_t _dcPinMask;
   ARDUINOGFX_PORT_t _csPinMask;
   ARDUINOGFX_PORT_t _wrPinMask;
-
+  ARDUINOGFX_PORT_t _rdPinMask;
   ARDUINOGFX_PORT_t _d0PinMask;
   ARDUINOGFX_PORT_t _d1PinMask;
   ARDUINOGFX_PORT_t _d2PinMask;
@@ -111,7 +114,7 @@ private:
   PORTreg_t _dcPort;
   PORTreg_t _csPort;
   PORTreg_t _wrPort;
-
+  PORTreg_t _rdPort;
   PORTreg_t _d0Port;
   PORTreg_t _d1Port;
   PORTreg_t _d2Port;

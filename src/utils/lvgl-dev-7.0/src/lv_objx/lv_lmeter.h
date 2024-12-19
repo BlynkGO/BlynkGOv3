@@ -30,6 +30,16 @@ extern "C" {
 /**********************
  *      TYPEDEFS
  **********************/
+// BlynkGO
+/**
+ * Direction the preloader should spin.
+ */
+enum {
+    LV_LMETER_DIR_FORWARD,
+    LV_LMETER_DIR_BACKWARD,
+};
+typedef uint8_t lv_lmeter_dir_t;
+
 /*Data of line meter*/
 typedef struct
 {
@@ -41,6 +51,7 @@ typedef struct
     int16_t cur_value;
     int16_t min_value;
     int16_t max_value;
+    lv_lmeter_dir_t dir;   // BlynkGO
 } lv_lmeter_ext_t;
 
 /*Styles*/
@@ -108,6 +119,10 @@ static inline void lv_lmeter_set_style(lv_obj_t * lmeter, lv_lmeter_style_t type
     lv_obj_set_style(lmeter, style);
 }
 
+// BlynkGO
+void lv_lmeter_set_direction(lv_obj_t * lmeter, lv_lmeter_dir_t dir);
+
+
 /*=====================
  * Getter functions
  *====================*/
@@ -165,6 +180,10 @@ static inline const lv_style_t * lv_lmeter_get_style(const lv_obj_t * lmeter, lv
     (void)type; /*Unused*/
     return lv_obj_get_style(lmeter);
 }
+
+// BlynkGO
+lv_lmeter_dir_t lv_lmeter_get_direction(lv_obj_t * lmeter);
+
 
 /**********************
  *      MACROS

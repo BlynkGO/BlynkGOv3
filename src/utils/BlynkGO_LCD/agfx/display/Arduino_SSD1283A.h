@@ -6,6 +6,8 @@
 #ifndef _ARDUINO_SSD1283A_H_
 #define _ARDUINO_SSD1283A_H_
 
+#include <Arduino.h>
+#include <Print.h>
 #include "../Arduino_GFX.h"
 #include "../Arduino_TFT.h"
 
@@ -65,7 +67,7 @@ public:
       int16_t w = SSD1283A_TFTWIDTH, int16_t h = SSD1283A_TFTHEIGHT,
       uint8_t col_offset1 = 2, uint8_t row_offset1 = 2, uint8_t col_offset2 = 2, uint8_t row_offset2 = 2);
 
-  bool begin(int32_t speed = GFX_NOT_DEFINED) override;
+  void begin(int32_t speed = GFX_NOT_DEFINED) override;
   void writeAddrWindow(int16_t x, int16_t y, uint16_t w, uint16_t h) override;
   void setRotation(uint8_t r) override;
   void invertDisplay(bool) override;

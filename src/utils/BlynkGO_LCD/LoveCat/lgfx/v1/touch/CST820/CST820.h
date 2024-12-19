@@ -8,9 +8,8 @@
 #define I2C_ADDR_CST820 0x15
 
 //手势
-#ifndef CST_GESTURE
-#define CST_GESTURE
-enum {
+enum GESTURE
+{
   None = 0x00,       //无手势
   SlideDown = 0x01,  //向下滑动
   SlideUp = 0x02,    //向上滑动
@@ -20,7 +19,6 @@ enum {
   DoubleTap = 0x0B,  //双击
   LongPress = 0x0C   //长按
 };
-#endif
 
 /**************************************************************************/
 /*!

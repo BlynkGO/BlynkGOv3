@@ -12,12 +12,11 @@ class Arduino_SWSPI : public Arduino_DataBus
 public:
   Arduino_SWSPI(int8_t dc, int8_t cs, int8_t _sck, int8_t _mosi, int8_t _miso = GFX_NOT_DEFINED); // Constructor
 
-  bool begin(int32_t speed = GFX_NOT_DEFINED, int8_t dataMode = GFX_NOT_DEFINED) override;
+  void begin(int32_t speed = GFX_NOT_DEFINED, int8_t dataMode = GFX_NOT_DEFINED) override;
   void beginWrite() override;
   void endWrite() override;
   void writeCommand(uint8_t) override;
   void writeCommand16(uint16_t) override;
-  void writeCommandBytes(uint8_t *data, uint32_t len) override;
   void write(uint8_t) override;
   void write16(uint16_t) override;
   void writeRepeat(uint16_t p, uint32_t len) override;
@@ -25,24 +24,25 @@ public:
 
 #if !defined(LITTLE_FOOT_PRINT)
   void writeBytes(uint8_t *data, uint32_t len) override;
+  void writePattern(uint8_t *data, uint8_t len, uint32_t repeat) override;
 #endif // !defined(LITTLE_FOOT_PRINT)
 
 private:
-  GFX_INLINE void WRITE9BITCOMMAND(uint8_t c);
-  GFX_INLINE void WRITE9BITDATA(uint8_t d);
-  GFX_INLINE void WRITE(uint8_t d);
-  GFX_INLINE void WRITE16(uint16_t d);
-  GFX_INLINE void WRITE9BITREPEAT(uint16_t p, uint32_t len);
-  GFX_INLINE void WRITEREPEAT(uint16_t p, uint32_t len);
-  GFX_INLINE void DC_HIGH(void);
-  GFX_INLINE void DC_LOW(void);
-  GFX_INLINE void CS_HIGH(void);
-  GFX_INLINE void CS_LOW(void);
-  GFX_INLINE void SPI_MOSI_HIGH(void);
-  GFX_INLINE void SPI_MOSI_LOW(void);
-  GFX_INLINE void SPI_SCK_HIGH(void);
-  GFX_INLINE void SPI_SCK_LOW(void);
-  GFX_INLINE bool SPI_MISO_READ(void);
+  INLINE void WRITE9BITCOMMAND(uint8_t c);
+  INLINE void WRITE9BITDATA(uint8_t d);
+  INLINE void WRITE(uint8_t d);
+  INLINE void WRITE16(uint16_t d);
+  INLINE void WRITE9BITREPEAT(uint16_t p, uint32_t len);
+  INLINE void WRITEREPEAT(uint16_t p, uint32_t len);
+  INLINE void DC_HIGH(void);
+  INLINE void DC_LOW(void);
+  INLINE void CS_HIGH(void);
+  INLINE void CS_LOW(void);
+  INLINE void SPI_MOSI_HIGH(void);
+  INLINE void SPI_MOSI_LOW(void);
+  INLINE void SPI_SCK_HIGH(void);
+  INLINE void SPI_SCK_LOW(void);
+  INLINE bool SPI_MISO_READ(void);
 
   int8_t _dc, _cs;
   int8_t _sck, _mosi, _miso;

@@ -8,9 +8,10 @@ void setup() {
   BlynkGO.fillScreen(TFT_WHITE);
 
 //  gauge.size(240,240);                    // กำหนดขนาด
-  gauge.range(0,300);                       // กำหนด ระยะค่าของ gauge
-  gauge.scale(270, 20+1, 10+1);             // กำหนดขีดบอกระดับบน gauge ให้กินพื้นที่มุม 270 องศา โดยมีขีดเส้นบอกระดับ 20+1 ค่า (รวมค่าเริ่มต้น) มีข้อความบอกระดับ 10+1 ค่า (รวมค่าเริ่มต้น)
-  // gauge.angle_offset(360-30);            // กำหนดมุมเริ่มต้นเพิ่มเติม
+  gauge.direction(GAUGELINE_ANTICLOCKWISE); // เกจจ์แบบหมุนทวนเข็มนาฬิกา
+  gauge.range(0,200);                       // กำหนด ระยะค่าของ gauge
+  gauge.scale(210, 20+1, 10+1);             // กำหนดขีดบอกระดับบน gauge ให้กินพื้นที่มุม 270 องศา โดยมีขีดเส้นบอกระดับ 20+1 ค่า (รวมค่าเริ่มต้น) มีข้อความบอกระดับ 10+1 ค่า (รวมค่าเริ่มต้น)
+  gauge.angle_offset(360-60);               // กำหนดมุมเริ่มต้นเพิ่มเติม จะนับตามทิศ direction(..) ที่กำหนด
   gauge.scale_color(TFT_DARKGRAY, TFT_RED); // กำหนดสีของเส้นบอกระดับ
   gauge.scale_width(5);                     // ความหนาของเส้นบอกระดับ
 //  gauge.scale_length(10);                 // ความยาวของเส้นบอกระดับ
@@ -22,8 +23,7 @@ void setup() {
   gauge.circle_middle_radius(50);           // รัศมี วงกลมหมุดเข็ม ตรงกลาง
   gauge.needle_color( TFT_BLUE );           // กำหนดสีเข็ม
 
-  gauge = 210;                              // กำหนดค่าให้เข็ม
-  Serial.println( gauge.toInt() );          // แสดงค่าปัจจุบันของ gauge ออก Serial Monitor
+  gauge = 160;                              // กำหนดค่าให้เข็ม
 }
 
 void loop() {

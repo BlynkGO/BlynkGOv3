@@ -3,26 +3,20 @@
 
 #include "Arduino_DataBus.h"
 #include "databus/Arduino_AVRPAR8.h"
-#include "databus/Arduino_UNOPAR8.h"
-#include "databus/Arduino_AVRPAR16.h"
-#include "databus/Arduino_DUEPAR16.h"
 #include "databus/Arduino_ESP32LCD8.h"
 #include "databus/Arduino_ESP32LCD16.h"
 #include "databus/Arduino_ESP32PAR8.h"
 #include "databus/Arduino_ESP32PAR8Q.h"
 #include "databus/Arduino_ESP32PAR8QQ.h"
-#include "databus/Arduino_ESP32PAR8QQQ.h"
 #include "databus/Arduino_ESP32PAR16.h"
 #include "databus/Arduino_ESP32PAR16Q.h"
 #include "databus/Arduino_ESP32PAR16QQ.h"
-#include "databus/Arduino_ESP32QSPI.h"
 #include "databus/Arduino_ESP32RGBPanel.h"
 #include "databus/Arduino_ESP32S2PAR8.h"
 #include "databus/Arduino_ESP32S2PAR8Q.h"
 #include "databus/Arduino_ESP32S2PAR16.h"
 #include "databus/Arduino_ESP32S2PAR16Q.h"
 #include "databus/Arduino_ESP32SPI.h"
-#include "databus/Arduino_ESP32SPIDMA.h"
 #include "databus/Arduino_ESP8266SPI.h"
 #include "databus/Arduino_HWSPI.h"
 #include "databus/Arduino_mbedSPI.h"
@@ -33,11 +27,7 @@
 #include "databus/Arduino_RTLPAR8.h"
 #include "databus/Arduino_STM32PAR8.h"
 #include "databus/Arduino_SWPAR8.h"
-#include "databus/Arduino_SWPAR16.h"
 #include "databus/Arduino_SWSPI.h"
-#include "databus/Arduino_Wire.h"
-#include "databus/Arduino_XL9535SWSPI.h"
-#include "databus/Arduino_XCA9554SWSPI.h"
 
 #include "Arduino_GFX.h" // Core graphics library
 #if !defined(LITTLE_FOOT_PRINT)
@@ -48,17 +38,15 @@
 #include "display/Arduino_ILI9488_3bit.h"
 #endif // !defined(LITTLE_FOOT_PRINT)
 
-#include "display/Arduino_AXS15231B.h"
-#include "display/Arduino_CO5300.h"
-#include "display/Arduino_GC9A01.h"
 #include "display/Arduino_GC9106.h"
 #include "display/Arduino_GC9107.h"
+#include "display/Arduino_GC9A01.h"
+#include "display/Arduino_GC9503V_RGBPanel.h"
 #include "display/Arduino_HX8347C.h"
 #include "display/Arduino_HX8347D.h"
 #include "display/Arduino_HX8352C.h"
 #include "display/Arduino_HX8357A.h"
 #include "display/Arduino_HX8357B.h"
-#include "display/Arduino_HX8369A.h"
 #include "display/Arduino_ILI9225.h"
 #include "display/Arduino_ILI9331.h"
 #include "display/Arduino_ILI9341.h"
@@ -70,28 +58,19 @@
 #include "display/Arduino_ILI9488_18bit.h"
 #include "display/Arduino_ILI9806.h"
 #include "display/Arduino_JBT6K71.h"
-#include "display/Arduino_JD9613.h"
 #include "display/Arduino_NT35310.h"
 #include "display/Arduino_NT35510.h"
 #include "display/Arduino_NT39125.h"
-#include "display/Arduino_NV3023.h"
-#include "display/Arduino_NV3041A.h"
-#include "display/Arduino_OTM8009A.h"
 #include "display/Arduino_R61529.h"
-#include "display/Arduino_RM67162.h"
-#include "display/Arduino_RM690B0.h"
-#include "display/Arduino_RGB_Display.h"
+#include "display/Arduino_RPi_DPI_RGBPanel.h"
 #include "display/Arduino_SEPS525.h"
-#include "display/Arduino_SH1106.h"
 #include "display/Arduino_SSD1283A.h"
-#include "display/Arduino_SSD1306.h"
 #include "display/Arduino_SSD1331.h"
 #include "display/Arduino_SSD1351.h"
+#include "display/Arduino_ST7701_RGBPanel.h"
 #include "display/Arduino_ST7735.h"
 #include "display/Arduino_ST7789.h"
-#include "display/Arduino_ST77916.h"
 #include "display/Arduino_ST7796.h"
-#include "display/Arduino_WEA2012.h"
 
 #if defined(ARDUINO_ARCH_SAMD) && defined(SEEED_GROVE_UI_WIRELESS)
 #define DISPLAY_DEV_KIT
@@ -120,16 +99,6 @@
 #define DF_GFX_DC 27
 #define DF_GFX_RST 33
 #define DF_GFX_BL 32
-#elif defined(ARDUINO_M5Stack_ATOMS3)
-#define DISPLAY_DEV_KIT
-#define M5STACK_ATOMS3
-#define DF_GFX_SCK 17
-#define DF_GFX_MOSI 21
-#define DF_GFX_MISO GFX_NOT_DEFINED
-#define DF_GFX_CS 15
-#define DF_GFX_DC 33
-#define DF_GFX_RST 34
-#define DF_GFX_BL 16
 #elif defined(ARDUINO_ODROID_ESP32)
 #define DISPLAY_DEV_KIT
 #define ODROID_GO
@@ -151,18 +120,6 @@
 #define DF_GFX_DC 27
 #define DF_GFX_RST GFX_NOT_DEFINED
 #define DF_GFX_BL 12
-/* Waveshare RP2040-LCD-1.28 */
-#elif defined(ARDUINO_WAVESHARE_RP2040_LCD_1_28)
-#define DISPLAY_DEV_KIT
-#define WAVESHARE_RP2040_LCD_1_28
-#define DF_GFX_SCK 10
-#define DF_GFX_MOSI 11
-#define DF_GFX_MISO 12
-#define DF_GFX_CS 9
-#define DF_GFX_DC 8
-#define DF_GFX_RST 12
-#define DF_GFX_BL 25
-#define DF_GFX_SPI spi1
 #elif defined(ARDUINO_ARCH_NRF52840)
 #define DF_GFX_SCK 13
 #define DF_GFX_MOSI 11
@@ -188,7 +145,7 @@
 #define DF_GFX_DC 3
 #define DF_GFX_RST 2
 #define DF_GFX_BL 1
-#elif defined(TARGET_RP2040)
+#elif defined(ARDUINO_RASPBERRY_PI_PICO) || defined(ARDUINO_RASPBERRY_PI_PICO_W)
 #define DF_GFX_SCK 18
 #define DF_GFX_MOSI 19
 #define DF_GFX_MISO 16
@@ -196,7 +153,6 @@
 #define DF_GFX_DC 27
 #define DF_GFX_RST 26
 #define DF_GFX_BL 28
-#define DF_GFX_SPI spi0
 #elif defined(ESP32) && (CONFIG_IDF_TARGET_ESP32)
 #define DF_GFX_SCK 18
 #define DF_GFX_MOSI 23
@@ -210,7 +166,7 @@
 #define DF_GFX_MOSI 35
 #define DF_GFX_MISO GFX_NOT_DEFINED
 #define DF_GFX_CS 34
-#define DF_GFX_DC 38
+#define DF_GFX_DC 35
 #define DF_GFX_RST 33
 #define DF_GFX_BL 21
 #elif defined(ESP32) && (CONFIG_IDF_TARGET_ESP32S3)

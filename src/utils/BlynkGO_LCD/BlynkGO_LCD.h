@@ -28,23 +28,26 @@
  *       - BeeNeXT 4.3R/C/IPS
  *       - BeeNeXT 5.0IPS
  *       - BeeNeXT 7.0IPS
- * 
- *   - Version 2.0.0 @18/12/67
- *     เปลี่ยนจาก AGFX 1.2.8 เป็น AGFX 1.5.0 รองรับการหมุน จอ RGB
- *       - BeeNeXT 5.0IPS หมุนจอได้
- *       - BeeNeXT 7.0IPS หมุนจอได้
- * 
+ *   - Version 1.0.4 @29/10/66
+ *       - BeeNeXT 5.0IPS ลบ noise
+ *   - Version 1.0.5 @04/11/66
+ *       - BeeNeXT 4.3IPS แก้ touch ให้ตรง
+ *   - Version 1.0.6 @24/01/67
+ *       - เพิ่ม BeeWave-S3 RGB8048 (800x480 Capacitive)
+ *   - Version 1.0.7 @01/03/67
+ *       - Fix BeeNeXT 4.3R/C
+ *
  *********************************************************************/
 
 #ifndef __BLYNKGO_LCD_H__
 #define __BLYNKGO_LCD_H__
 
 /** Major version number (X.x.x) */
-#define BLYNKGO_LCD_VERSION_MAJOR   2
+#define BLYNKGO_LCD_VERSION_MAJOR   1
 /** Minor version number (x.X.x) */
 #define BLYNKGO_LCD_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_LCD_VERSION_PATCH   0
+#define BLYNKGO_LCD_VERSION_PATCH   6
 
 #define BLYNKGO_LCD_VERSION_TEXT    (String("BlynkGO_LCD v.")+String(BLYNKGO_LCD_VERSION_MAJOR)+"."+String(BLYNKGO_LCD_VERSION_MINOR)+"."+String(BLYNKGO_LCD_VERSION_PATCH))
 
@@ -122,42 +125,49 @@ class BlynkGO_LCD : public Arduino_ST7789 {
     uint8_t             _last_brightness=255;
 };
 
-#elif defined(BEENEXT_4_3C) ||  defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS)
+#elif defined(BEENEXT_4_3C) || defined(BEENEXT_4_3IPS) ||  defined(BEENEXT_5_0IPS) ||  defined(BEENEXT_7_0IPS) ||  defined(BEEWAVE_S3_RGB8048)
 
 #if defined(TOUCH_GT911_TAMC) || defined(TOUCH_GT911)
 #include "./LoveCat/lgfx/v1/touch/TAMC_GT911/TAMC_GT911.h"
 #endif
 
-class BlynkGO_LCD : public Arduino_RGB_Display {
+class BlynkGO_LCD : public Arduino_RPi_DPI_RGBPanel {
   public:
-    BlynkGO_LCD() : Arduino_RGB_Display(
-      TFT_WIDTH /* width */, TFT_HEIGHT /* height */,     
-      new Arduino_ESP32RGBPanel(
+// #if defined(BEENEXT_5_0IPS) || defined(BEENEXT_4_3C) ||  defined(BEENEXT_7_0IPS)
+    BlynkGO_LCD() : Arduino_RPi_DPI_RGBPanel( new Arduino_ESP32RGBPanel(
+        GFX_NOT_DEFINED /* CS */, GFX_NOT_DEFINED /* SCK */, GFX_NOT_DEFINED /* SDA */,
         TFT_HENABLE /* DE */, TFT_VSYNC /* VSYNC */, TFT_HSYNC /* HSYNC */, TFT_PCLK /* PCLK */,
         TFT_R0 /* R0 */, TFT_R1 /* R1 */, TFT_R2 /* R2 */, TFT_R3 /* R3 */, TFT_R4 /* R4 */,
         TFT_G0 /* G0 */, TFT_G1 /* G1 */, TFT_G2 /* G2 */, TFT_G3 /* G3 */, TFT_G4 /* G4 */, TFT_G5 /* G5 */,
-        TFT_B0 /* B0 */, TFT_B1 /* B1 */, TFT_B2 /* B2 */, TFT_B3 /* B3 */, TFT_B4 /* B4 */,
-        TFT_HSYNC_POLARITY /* hsync_polarity */, TFT_HSYNC_FRONT_PORCH /* hsync_front_porch */, TFT_HSYNC_PULSE_WIDTH /* hsync_pulse_width */, TFT_HSYNC_BACK_PORCH /* hsync_back_porch */,
-        TFT_VSYNC_POLARITY /* vsync_polarity */, TFT_VSYNC_FRONT_PORCH /* vsync_front_porch */, TFT_VSYNC_PULSE_WIDTH /* vsync_pulse_width */, TFT_VSYNC_BACK_PORCH /* vsync_back_porch */,
-        TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, TFT_PREFER_SPEED), 
-      ROTATE_TYPE /* rotation */, true /* auto_flush */) {}
+        TFT_B0 /* B0 */, TFT_B1 /* B1 */, TFT_B2 /* B2 */, TFT_B3 /* B3 */, TFT_B4 /* B4 */ ),
+      TFT_WIDTH  /* width */ ,  TFT_HSYNC_POLARITY /* hsync_polarity */, TFT_HSYNC_FRONT_PORCH /* hsync_front_porch */, TFT_HSYNC_PULSE_WIDTH /* hsync_pulse_width */, TFT_HSYNC_BACK_PORCH /* hsync_back_porch */,
+      TFT_HEIGHT /* height */,  TFT_VSYNC_POLARITY /* vsync_polarity */, TFT_VSYNC_FRONT_PORCH /* vsync_front_porch */, TFT_VSYNC_PULSE_WIDTH /* vsync_pulse_width */, TFT_VSYNC_BACK_PORCH /* vsync_back_porch */,
+      TFT_PCLK_IDLE_HIGH /* pclk_active_neg */, TFT_PREFER_SPEED /* prefer_speed */, true /* auto_flush */)  {}
 
     void begin(){
-      Arduino_RGB_Display::begin();
-      
+      Arduino_RPi_DPI_RGBPanel::begin();
+
+#if TFT_BL != -1
+  #if TFT_BL_PWM == 1
       auto cfg = _light_instance.config();
         cfg.pin_bl      = TFT_BL;
         cfg.invert      = false;
         cfg.freq        = 12000; //44100; 
         cfg.pwm_channel = BACKLIGHT_CHANNEL;
       _light_instance.config(cfg);
-      _light_instance.init(255);
+      // _light_instance.init(255);
+      _light_instance.init(0);  // ระมัดระวังจะมองไม่เห็นได้ ให้มาเปิดตรงนี้
+  #else
+      pinMode(TFT_BL, OUTPUT);
+      // digitalWrite(TFT_BL, HIGH);
+      digitalWrite(TFT_BL, LOW);   // ระมัดระวังจะมองไม่เห็นได้ ให้มาเปิดตรงนี้
+  #endif // TFT_BL_PWM == 1
+#endif TFT_BL != -1
 
 #if defined(TOUCH_GT911_TAMC) || defined(TOUCH_GT911)
       if(_ts==NULL) { _ts = new TAMC_GT911(TOUCH_I2C_SDA, TOUCH_I2C_SCL, TOUCH_INT, TOUCH_RST, TFT_WIDTH, TFT_HEIGHT); }
       if(_ts)       { _ts->begin(); }
 #endif
-      this->setRotation(0);
     }
 
     inline void init()      { begin(); }
@@ -170,9 +180,9 @@ class BlynkGO_LCD : public Arduino_RGB_Display {
     }
 #endif
 
-    #if defined(BEENEXT_4_3C) ||  defined(BEENEXT_4_3IPS) || defined(BEENEXT_5_0IPS) || defined(BEENEXT_7_0IPS)
+    #if defined(BEENEXT_7_0IPS)
     void setRotation(uint8_t r){
-      Arduino_RGB_Display::setRotation(r);
+      Arduino_RPi_DPI_RGBPanel::setRotation(r);
       if(_ts) { 
         _ts->setRotation((r+3)%4);
       }
@@ -188,7 +198,7 @@ class BlynkGO_LCD : public Arduino_RGB_Display {
     void writeColor( uint16_t color, uint16_t num) {
         if(_xx >= _windows_w -1 && _yy >= _windows_h-1) return;
         
-        Arduino_RGB_Display::writePixel( _cx, _cy, color);
+        Arduino_RPi_DPI_RGBPanel::writePixel( _cx, _cy, color);
         if( ++_xx >= _windows_w) {_xx = _xx - _windows_w; _yy++; }
         _cx = constrain(_windows_x + _xx ,0 , width()); 
         _cy = constrain(_windows_y + _yy ,0 , height());
@@ -196,17 +206,34 @@ class BlynkGO_LCD : public Arduino_RGB_Display {
     }
 
     inline void drawString(const char* str, int16_t x, int16_t y)   { this->setCursor(x, y); this->print(str); }
+
+#if TFT_BL != -1
+  #if TFT_BL_PWM == 1
     inline void wakeup()                            { _light_instance.setBrightness(_last_brightness);}
     inline void sleep()                             { _light_instance.setBrightness(0); }
     inline void setBrightness(uint8_t brightness)   { _light_instance.setBrightness(brightness); _last_brightness = brightness; }
     inline uint8_t getBrightness()                  { return _last_brightness; }
+  #else
+    inline void wakeup()                            { digitalWrite(TFT_BL, HIGH);           }
+    inline void sleep()                             { digitalWrite(TFT_BL, LOW);            }
+    inline void setBrightness(uint8_t brightness)   { digitalWrite(TFT_BL, brightness!=0 ); _last_brightness = brightness; }
+    inline uint8_t getBrightness()                  { return _last_brightness;              }
+  #endif
+#else
+    inline void wakeup()                            {  }
+    inline void sleep()                             {  }
+    inline void setBrightness(uint8_t brightness)   { _last_brightness = brightness; }
+    inline uint8_t getBrightness()                  { return _last_brightness;       }
+#endif
 
 #if defined(TOUCH_GT911_TAMC) || defined(TOUCH_GT911)  // สำหรับ AGFX TOUCH_GT911 จะมองเป็น TOUCH_GT911_TAMC ทั้งหมด
     TAMC_GT911 *_ts = NULL;
 #endif
 
   private:
+#if TFT_BL != -1 && TFT_BL_PWM == 1
     lgfx::Light_PWM     _light_instance;
+#endif
     uint8_t             _last_brightness=255;
 };
 
