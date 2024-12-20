@@ -480,7 +480,7 @@ void BlynkGOv3::update(){
     WiFiEvent_t event = _wifi_event_list[0];
     _wifi_event_list.erase(_wifi_event_list.begin());
 
-#if BLYNKO_USE_ASYNC_MQTT32
+#if BLYNKGO_USE_ASYNC_MQTT32
     static GTimer timer_mqtt_connection;
 #endif
 
@@ -503,7 +503,7 @@ void BlynkGOv3::update(){
 
           WiFi.reconnect();
 
-#if BLYNKO_USE_ASYNC_MQTT32
+#if BLYNKGO_USE_ASYNC_MQTT32
           MQTT.disconnect();
 #endif
 
@@ -538,7 +538,7 @@ void BlynkGOv3::update(){
           }
 #endif 
 
-#if BLYNKO_USE_ASYNC_MQTT32
+#if BLYNKGO_USE_ASYNC_MQTT32
           if(MQTT.auto_reconnect())
             timer_mqtt_connection.delay(400,[](){ MQTT.connect(); });
           // MQTT.connect(true);

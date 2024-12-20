@@ -154,6 +154,8 @@
  *   [V3.1.4] @19/12/24  ใช้คู่กับ SDK3.1.3
  *       - วิตเจ็ต GGaugeLine สามารถกำหนด angle_offset เพื่อหมุนมุมเริ่มต้นได้ (แก้เข็มที่ยังผิด)
  *         และ มี direction ได้ ให้หมุนทวนเข็มได้
+ *   [V3.1.5] @20/12/24  ใช้คู่กับ SDK3.1.3
+ *       - แก้ typo พิมพ์ผิด BLYNKGO_USE_ASYNC_MQTT32 (มีตกหล่น)  
  *
  *********************************************************************
  */
@@ -166,7 +168,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   1
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   4
+#define BLYNKGO_VERSION_PATCH   5
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 
@@ -301,7 +303,7 @@ FONT_DECLARE(arial_vietnam_30);
   #include "utils/BlynkGO_AsyncLineNotify/BlynkGO_AsyncLineNotify.h"
 #endif
 
-#if BLYNGKO_USE_ASYNC_MQTT32
+#if BLYNKGO_USE_ASYNC_MQTT32
   #include "utils/BlynkGO_AsyncMQTT32/BlynkGO_AsyncMQTT32.h"
 #endif
 
