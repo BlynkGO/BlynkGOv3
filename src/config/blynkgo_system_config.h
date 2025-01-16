@@ -1114,6 +1114,19 @@
   // #define TFT_PCLK_IDLE_HIGH      1
   // #define TFT_PREFER_SPEED        16000000
 
+  // สำหรับรอบก่อน 01/2025 ทำงานได้เสถียรแล้ว
+  // #define TFT_HSYNC_POLARITY      0
+  // #define TFT_HSYNC_FRONT_PORCH   48
+  // #define TFT_HSYNC_PULSE_WIDTH   4
+  // #define TFT_HSYNC_BACK_PORCH    8
+  // #define TFT_VSYNC_POLARITY      0
+  // #define TFT_VSYNC_FRONT_PORCH   12
+  // #define TFT_VSYNC_PULSE_WIDTH   4
+  // #define TFT_VSYNC_BACK_PORCH    8
+  // #define TFT_PCLK_IDLE_HIGH      1
+  // #define TFT_PREFER_SPEED        14000000
+
+  // รอบใหม่ 01/2025 ไม่สามารถใช้ 14MHz กลับไป เป็น 16MHz
   #define TFT_HSYNC_POLARITY      0
   #define TFT_HSYNC_FRONT_PORCH   48
   #define TFT_HSYNC_PULSE_WIDTH   4
@@ -1123,8 +1136,7 @@
   #define TFT_VSYNC_PULSE_WIDTH   4
   #define TFT_VSYNC_BACK_PORCH    8
   #define TFT_PCLK_IDLE_HIGH      1
-  #define TFT_PREFER_SPEED        14000000
-
+  #define TFT_PREFER_SPEED        16000000
 
   #define SD_FSPI_MODE
   #define SD_CS                   10       // SD Chip Select

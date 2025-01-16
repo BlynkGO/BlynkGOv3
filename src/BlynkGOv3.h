@@ -156,6 +156,9 @@
  *         และ มี direction ได้ ให้หมุนทวนเข็มได้
  *   [V3.1.5] @20/12/24  ใช้คู่กับ SDK3.1.3
  *       - แก้ typo พิมพ์ผิด BLYNKGO_USE_ASYNC_MQTT32 (มีตกหล่น)  
+ *   [V3.1.6] @16/01/25  ใช้คู่กับ SDK3.1.3
+ *       - BeeNeXT4.3IPS 800x480 2025  fq = 16MHz
+ *       - BeeNeXT5.0IPS 800x480 2025  fq = 16MHz
  *
  *********************************************************************
  */
@@ -168,7 +171,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   1
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   5
+#define BLYNKGO_VERSION_PATCH   6
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 
