@@ -2,6 +2,11 @@
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)  
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
   
+## [Version 3.1.6] @20/12/67  
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.3** (ติดต่อ Admin)    
+ - BeeNeXT4.3IPS 800x480 (2025)  fq = 16MHz  
+ - BeeNeXT5.0IPS 800x480 (2025)  fq = 16MHz  
+  
 ## [Version 3.1.5] @20/12/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.3** (ติดต่อ Admin)   
  - แก้ typo พิมพ์ผิด BLYNKO_USE_ASYNC_MQTT32 (มีตกหล่น)  
