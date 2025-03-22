@@ -159,6 +159,8 @@
  *   [V3.1.6] @16/01/25  ใช้คู่กับ SDK3.1.3
  *       - BeeNeXT4.3IPS 800x480 2025  fq = 16MHz
  *       - BeeNeXT5.0IPS 800x480 2025  fq = 16MHz
+ *   [V3.1.7] @22/03/25 
+ *       - ปรับปรุง MQTT32 เป็น v1.0.13 แก้ไขเรื่อง ตอนหลุดการเชื่อมต่อ แล้วกลับมาได้ไม่ตาย ฯลฯ
  *
  *********************************************************************
  */
@@ -171,7 +173,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   1
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   6
+#define BLYNKGO_VERSION_PATCH   7
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 

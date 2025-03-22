@@ -503,9 +503,9 @@ void BlynkGOv3::update(){
 
           WiFi.reconnect();
 
-#if BLYNKGO_USE_ASYNC_MQTT32
-          MQTT.disconnect();
-#endif
+// #if BLYNKGO_USE_ASYNC_MQTT32
+//           // MQTT.disconnect();  // ไม่ต้องมี เพราะ ไวไฟหลุด MQTT client จะหลุดเอง
+// #endif
 
           WiFiOnDisconnected();                // BlynkGO System's WiFi disconnected function ---> WIFI_CONNECTED()
           if(pBlynkGO->wifi_disconnected_cb){
@@ -539,9 +539,10 @@ void BlynkGOv3::update(){
 #endif 
 
 #if BLYNKGO_USE_ASYNC_MQTT32
-          if(MQTT.auto_reconnect())
-            timer_mqtt_connection.delay(400,[](){ MQTT.connect(); });
-          // MQTT.connect(true);
+          if(MQTT.auto_reconnect()){
+            // หน่วงเวลา 400ms หลัง GOT_IP แล้วให้เชื่อมต่อ MQTT
+            timer_mqtt_connection.delay(400,[](){ MQTT.connect(MQTT.clean_session()); });
+          }
 #endif
           break;
         }

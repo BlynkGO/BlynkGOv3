@@ -30,6 +30,50 @@
  *        หากโหลด auto_reconnect ทำงาน จะใช้ MQTT.reconnect อย่างเดียว
  *        โดยให้มีการลอง 5 ครั้งแล้ว เว้น 10วินาที ค่อยลองใหม่ 5 ครั้ง แทนของเดิมที่ใช้ ตัดไปเลยแล้ว MQTT.connect()
  * 
+ *   [V1.0.6] @12/02/25
+ *      - fix  ::disconnected()  เช็ค ว่า client != NULL เพิ่ม
+ * 
+ *   [V1.0.7] @01/03/25
+ *      - fix :: onMessage ที่ใช้ std::unique_ptr ทำ topic, message แล้ว เมื่อไปใส่ GLabel ข้อมูลหายแล้วค้างได้ ใช้ std::string จัดการแทน
+ * 
+ *   [V1.0.8] @06/03/25
+ *      - ปรับปรุง การเชื่อมต่อ กรณีที่ MQTT Broker ไม่มีอยู่จริง / เชื่อมต่อไม่ได้ สักพัก มีอาการ reset ตัวเอง
+ *        มีการปิด mqtt config ให้มี disable_auto_reconnect เป็น true จะได้ทำลาย _stop/_destroy ได้
+ *      - สามารถให้ โหมด auto_reconnect ได้ ซึ่งถ้าเชื่อมไม่ได้ หรือ mqtt broker ไม่มีอยู่จริง ก็จะไม่ตาย
+ *        จะมีการ try รองเชื่อม 5 รอบ แล้วหยุดไป 10 วินาที ค่อย try ใหม่อีก 5 รอบ ก็ไม่ตาย
+ *      - และหากโหมดปิด auto_reconnect ก็จะรองเชื่อม 1 รอบ (หากมีวางที่ WIFI_CONNECTED ให้ mqtt.connect() )
+ *        หากเชื่อมไม่ได้ ก็จะ mqtt ก็จะไม่เชื่อมต่ออีก (ไว้สำหรับตอน ควบคุม manual mqtt connection เอง)
+ * 
+ *   [V1.0.9] @09/03/25
+ *      - แก้ ตอน WiFi หลุดแล้ว พอต่อใหม่ MQTT ภายในทำลาย น่าจะผิดสักอย่าง เลยเกิด watchdog eror
+ *        ได้ ปิด ไม่ต้องไปเรียก MQTT.disconnect() หลัง WiFi DISCONNECTED
+ *
+ *   [V1.0.10] @14/03/25
+ *      - ยกเลิก stop() เดิม ที่เป็น _stop() + _destroy() 
+ *      - ยกเลิก disconnect() เดิม  เปลี่ยนเป็น _disconnect()
+ *      - disconnect() ใหม่ เป็น _stop() + _destroy()
+ *      - _stop() คือ esp mqtt stop จาก IDF  (ภายในเขาถ้ามีการเชื่อมต่ออยู่ จะมีการ _disconnect ภายใน ใช้หลังจาก esp mqtt start)
+ *      - _destroy() คือ esp mqtt destroy จาก IDF (ภายในเขา ไว้ทำลอย esp mqtt init คืนเม็ม)
+ *      - user บนๆ ใช้ disconnect() ใหม่ ที่เป็นการ ตัดการเชื่อมต่อ และ ทำลาย ลง เรียกว่า ล้างหมด
+ *      - ยกเลิก connect(bool auto_reconnect) เดิมออกไป
+ *        ยกเลิก connect() เดิมออกไป
+ *        เปลี่ยน เป็น connect(bool clean_session=true) แทน     หากใช้ QoS1 หรือ QoS2 อาจไม่ต้อง clean_session เกิดมีการเริ่มใหม่ได้
+ * 
+ *   [V1.0.11] @14/03/25
+ *      - onMessage(...) ย้ายไปทำงานใน loop() แทน
+ * 
+ *   [V1.0.12] @16/03/25
+ *      - กลับใช้ autoreconnect ของ mqtt idf คืนมา แล้ว ให้ _init คงไว้แต่แรก ไม่ต้อง _destroy ไปทำลาย
+ *        ควบคุมแค่ _start _stop พอ
+ *
+ *   [V1.0.13] @22/03/25
+ *      - ออกแบบใหม่ให้ event มา เก็บไว้ แล้วย้ายไปทำงานใน loop แทน ผ่าน SoftTimer
+ *        เพื่อแก้ปัญหา บางที eventถูกทำลายไปก่อนที่ graphic จะวาดจริงเสร็จ (ที่เกิดใน ตอน lv_timer_handle(..)) ทำให้กราฟิกไปค้าง
+ *      - _topic มีการเก็บ topic ย้ายออกมา
+ *      - _data มีการเก็บ data ย้ายออกมา
+ *      - _sub_msg_ids, _unsub_msq_ids, _pub_msq_ids มีการจำไว้ 
+ *      - รองรับ กำหนด client_id เองได้  client_id(...) เพื่อใช้กับ mqtt broker บางแห่ง เช่นที่ NETPIE ได้
+ *
  *********************************************************************
  */
 
@@ -41,7 +85,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_ASYNC_MQTT32_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_ASYNC_MQTT32_VERSION_PATCH   5
+#define BLYNKGO_ASYNC_MQTT32_VERSION_PATCH   13
 
 #define BLYNKGO_ASYNC_MQTT32_VERSION_TEXT    (String(BLYNKGO_ASYNC_MQTT32_VERSION_MAJOR)+"."+String(BLYNKGO_ASYNC_MQTT32_VERSION_MINOR)+"."+String(BLYNKGO_ASYNC_MQTT32_VERSION_PATCH))
 
@@ -55,6 +99,7 @@
 #include <WiFi.h>
 #include "mqtt_client.h"
 #include <vector>
+#include <BeeNeXT.h>
 
 
 enum {
@@ -111,18 +156,29 @@ class BlynkGO_AsyncMQTT32 {
     void setWebSocket( String host, uint16_t port=80, String user="", String password="");
     void setWebSocketSecure( String host, uint16_t port=443, String user="", String password="");
     void setCertPEM(const char * mqtt_cert_pem);
+    inline void client_id(String client_id)       { this->_client_id = client_id.c_str(); }
+    inline String client_id()                     { return this->_client_id.c_str();      }
+    inline void clean_session(bool enable)        { this->_clean_session = enable;        }
+    inline bool clean_session()                   { return this->_clean_session;          }
 
-   void use_global_ca_store(bool enable);
+    inline void setNetPie(String netpie_client_id, String netpie_token, String netpie_secret) {
+      this->setServer("mqtt.netpie.io", 1883, netpie_token, netpie_secret);
+      this->client_id(netpie_client_id);
+      this->unsubscribe_all();
+      this->subscribe("@msg/#");
+    }
     
-    void connect(bool auto_reconnect=true);
-    void disconnect();
-    void reconnect();
-    void stop();
+    void use_global_ca_store(bool enable);
+    
+    void connect(bool clean_session = true);      // _start() ที่ _init() ไว้
+    void disconnect();                            // _stop() + _destroy() + เรียก disconnected cb
+    void reconnect();                             // reconnect ที่ _init() ไว้
+    
+    inline bool connected()                       { return this->_connected;              }
 
-    
-    inline bool connected()                     { return this->_connected; }
-    inline void auto_reconnect(bool enable)     { this->_auto_reconnect = enable;  }
-    inline bool auto_reconnect()                { return this->_auto_reconnect;    }
+    inline void auto_reconnect(bool enable)       { this->_auto_reconnect = enable;       }
+    inline bool auto_reconnect()                  { return this->_auto_reconnect;         }
+
 
     int  publish(String topic, String message, uint8_t qos=QOS0, bool retain=false);
     int  publish(String topic, uint8_t* data, size_t data_len, uint8_t qos=QOS0, bool retain=false);
@@ -152,20 +208,43 @@ class BlynkGO_AsyncMQTT32 {
     mqtt_onsubscribe_cb _fn_onpublish       = NULL;
     
     static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data);
-    std::vector<subscribe_topic_t>  subscribe_topics;
     bool _connected = false;
     bool _auto_reconnect = true;
     uint8_t _auto_reconnect_try = 5;
     bool _client_inited = false;
-    
-    void _stop();
-    void _destroy();
-  private:
+    bool _client_started = false;
+    bool _clean_session = true;
+    std::vector<subscribe_topic_t>  _subscribe_topics;
+    std::vector<esp_mqtt_event_id_t> _event_list; // เป็น buffer เก็บ mqtt event id
+    std::string          _topic;  // เป็น buffer เก็บตอน event MQTT_EVENT_DATA เข้ามา
+    std::vector<uint8_t> _data;   // เป็น buffer เก็บตอน event MQTT_EVENT_DATA เข้ามา
+    std::vector<int>     _sub_msg_ids;   // เป็น buffer เก็บ msg_id ของ event MQTT_EVENT_SUBSCRIBED
+    std::vector<int>     _unsub_msg_ids; // เป็น buffer เก็บ msg_id ของ event MQTT_EVENT_UNSUBSCRIBED
+    std::vector<int>     _pub_msg_ids;   // เป็น buffer เก็บ msg_id ของ event MQTT_EVENT_PUBLISHED
     esp_mqtt_client_handle_t _client = NULL;
+
+    /* เริ่มต้น จองเม็ม _client มีกำหนด host, port, uri, clean_session ในนี้ แบบ idf */
+    void _init(int8_t clean_session=-1);  // 0 : ไม่ต้อง clean session ; 1 คือ clean sessoin; -1 ใช้ ที่กำหนดจาก this->_clean_session
+
+    /* เริ่มต้น เชื่อมต่อ ไปยัง host,port ที่กำหนด แบบ idf */
+    void _start();
+
+    /* ตัดการเชื่อมต่อ */
+    void _disconnect();
+
+    /* มีการตัดการเชื่อมต่อ และ หยุด mqtt task จากภายใน idf */
+    void _stop();
+
+    /* ทำลายที่จอง mem ตอน init แบบ idf*/
+    void _destroy();
+
+
+  private:
     esp_mqtt_client_config_t _mqtt_conf;
     char _host[128];
     uint16_t _port=1883;
     char _uri[512];
+    std::string _client_id;
 };
 
 extern BlynkGO_AsyncMQTT32 MQTT;
@@ -174,4 +253,3 @@ extern BlynkGO_AsyncMQTT32 MQTT;
 #endif // #if BLYNKGO_USE_ASYNC_MQTT32
 
 #endif //__BLYNKGO_ASYNCMQTT32_H__
-
