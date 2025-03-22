@@ -2,6 +2,12 @@
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)  
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
   
+## [Version 3.1.7] @22/03/68   
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.3** (ติดต่อ Admin)     
+ - ปรับปรุง BlynkGO_AsyncMQTT32 เป็น v1.0.13 การเชื่อมต่อเวลาหลุด ให้กลับมาเชื่อมต่อใหม่ได้  
+   โดย event ย้ายมาทำงานใน loop (ป้องกันกราฟิกค้างเวลา event cb สลายตัว)   
+   และ รองรับ NETPIE , รองรับ QoS, รองรับ clean session, รองรับ ตั้ง client_id ได้   
+  
 ## [Version 3.1.6] @20/12/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.3** (ติดต่อ Admin)    
  - BeeNeXT4.3IPS 800x480 (2025)  fq = 16MHz  
