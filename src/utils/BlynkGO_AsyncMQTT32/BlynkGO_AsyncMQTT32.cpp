@@ -320,13 +320,12 @@ void BlynkGO_AsyncMQTT32::_start(){
             if( _pMQTTClient32->_fn_onconnected != NULL) {
               _pMQTTClient32->_fn_onconnected();
             }
-            delay(1);
+
+            Serial.println("[MQTT32] subscribing...");
             for(int i=0; i< _pMQTTClient32->_subscribe_topics.size(); i++){
               _pMQTTClient32->_subscribe_topics[i].msg_id = esp_mqtt_client_subscribe( _pMQTTClient32->_client, _pMQTTClient32->_subscribe_topics[i].topic, _pMQTTClient32->_subscribe_topics[i].qos);
               ESP_LOGI(TAG, "subscribe successful, msg_id=%d", _pMQTTClient32->subscribe_topics[i].msg_id);
-              delay(1);
             }
-            delay(1);
             MqttOnConnected();
             break;
           }
@@ -404,7 +403,6 @@ void BlynkGO_AsyncMQTT32::_start(){
               std::string _message(reinterpret_cast<char*>(_pMQTTClient32->_data.data()), _pMQTTClient32->_data.size());
               _pMQTTClient32->_fn_onmessage(_pMQTTClient32->_topic.c_str(), _message.c_str());
             }
-            delay(1);
             if( _pMQTTClient32->_fn_ondata != NULL) {
               _pMQTTClient32->_fn_ondata(_pMQTTClient32->_topic.c_str(), (uint8_t*)_pMQTTClient32->_data.data(),  _pMQTTClient32->_data.size());
             }
