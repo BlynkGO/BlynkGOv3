@@ -6,7 +6,8 @@
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.3** (ติดต่อ Admin)     
  - ปรับปรุง BlynkGO_AsyncMQTT32 เป็น v1.0.13 การเชื่อมต่อเวลาหลุด ให้กลับมาเชื่อมต่อใหม่ได้  
    โดย event ย้ายมาทำงานใน loop (ป้องกันกราฟิกค้างเวลา event cb สลายตัว)   
-   และ รองรับ NETPIE , รองรับ QoS, รองรับ clean session, รองรับ ตั้ง client_id ได้   
+   และ รองรับ NETPIE , รองรับ QoS, รองรับ clean session, รองรับ ตั้ง client_id ได้
+ - ใช้กับ BeeNeXT3.1.6 ขึ้นไป (รองรับ BeeI2C, BeeMQTT ได้)  
   
 ## [Version 3.1.6] @20/12/67  
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.3** (ติดต่อ Admin)    
