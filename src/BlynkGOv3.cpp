@@ -414,8 +414,8 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
 #if defined(BLYNKGO_SKIP_LCD)
 #else
 #if defined(BEENEXT)
-  BeeNeXT.begin(&Serial);
-  BeeNeXT.enable(false);
+  // BeeNeXT.begin(&Serial);
+  // BeeNeXT.enable(false);
 #endif
 
 #if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
