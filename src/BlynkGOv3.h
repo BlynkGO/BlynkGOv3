@@ -161,6 +161,9 @@
  *       - BeeNeXT5.0IPS 800x480 2025  fq = 16MHz
  *   [V3.1.7] @22/03/25 
  *       - ปรับปรุง MQTT32 เป็น v1.0.13 แก้ไขเรื่อง ตอนหลุดการเชื่อมต่อ แล้วกลับมาได้ไม่ตาย ฯลฯ
+ *   [V3.1.8] @24/03/25
+ *       - ปรับปรุง MQTT32 เป็น v1.0.14 แก้ไข reconnect() ภายใน กลับมาใหม่ บางที client_id เดิม ทำให้ server ไม่เชื่อมต่อให้สมบูรณ์
+ *         ปรับแก้ไขให้ _stop+_destroy ก่อน แล้วค่อย 1 วินาที _init client_id ใหม่ + _start 
  *
  *********************************************************************
  */
@@ -173,7 +176,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   1
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   7
+#define BLYNKGO_VERSION_PATCH   8
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 

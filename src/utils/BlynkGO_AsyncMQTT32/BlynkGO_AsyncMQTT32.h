@@ -74,6 +74,28 @@
  *      - _sub_msg_ids, _unsub_msq_ids, _pub_msq_ids มีการจำไว้ 
  *      - รองรับ กำหนด client_id เองได้  client_id(...) เพื่อใช้กับ mqtt broker บางแห่ง เช่นที่ NETPIE ได้
  *
+ *   [V1.0.14] @24/03/25
+ *      - ปรับ destroy() ที่มาจาก _stop + _destroy() ให้เช็คว่าเคย connected อยู่ ถึงค่อยมี event disconnected() แค่ครั้งเดียวออกไป
+ *      - client_id เปลี่ยนทุกครั้งที่ _init ใหม่  (ยกเว้น หากมีการ กำหนด client_id เองเช่นใน netpie)
+ *      - reconnect 5 รอบแล้วไม่ได้ ให้ _stop + _destroy แล้ว 10วิ ค่อย _init ใหม่ + _start
+ *      - reconnect 5 รอบ ใช้ของภายใน แล้ว บางทีกลับเชื่อมไม่ได้อีก อาจเป็นเพราะ client_id เดิมบน server ค้างอยู่
+ *        ทำการเปลี่ยนใหม่ ให้ _stop + _destroy ทิ้ง แล้ว  1 วินาทีค่อย _init client_id ใหม่ + _start แทน reconnect ภายใน
+ *              E (259013) MQTT_CLIENT: mqtt_message_receive: transport_read() error: errno=128
+ *              E (259014) MQTT_CLIENT: mqtt_process_receive: mqtt_message_receive() returned -1
+ *        ค่อยกลับมาเชื่อมต่อใหม่ได้!!
+ *      - WiFi ไม่หลุด Net หลุด Net มาสักพัก
+ *        หรือ WiFi หลุด แล้ว WiFi มา
+ *              E (998499) TRANSPORT_BASE: poll_read select error 104, errno = Connection reset by peer, fd = 48
+ *              E (998500) MQTT_CLIENT: Poll read error: 119, aborting connection
+ *        แล้วกลับมาเชื่อมต่อใหม่ได้!!
+ *      - WiFi & Net หลุด แล้ว WiFi มา แต่ Net ไม่มา
+ *              E (1144206) esp-tls: [sock=48] select() timeout
+ *              E (1144207) TRANSPORT_BASE: Failed to open a new connection: 32774
+ *              E (1144207) MQTT_CLIENT: Error transport connect
+ *        จะเข้าสู่ reconnect 5รอบ แล้ว หลุด 10 วิ ไปเรื่อยๆ
+ *        เมื่อ Net มา ก็กลับมาเชื่อมต่อได้!!
+ *      - subscribe มี ปิด ไม่ให้ save ลง subscribe topic list แต่เป็น direct subscribe ได้ (สำหรับใช้ สั่ง subscribe เองใน MQTT_CONNECTED)
+ *
  *********************************************************************
  */
 
@@ -85,7 +107,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_ASYNC_MQTT32_VERSION_MINOR   0
 /** Patch version number (x.x.X) */
-#define BLYNKGO_ASYNC_MQTT32_VERSION_PATCH   13
+#define BLYNKGO_ASYNC_MQTT32_VERSION_PATCH   14
 
 #define BLYNKGO_ASYNC_MQTT32_VERSION_TEXT    (String(BLYNKGO_ASYNC_MQTT32_VERSION_MAJOR)+"."+String(BLYNKGO_ASYNC_MQTT32_VERSION_MINOR)+"."+String(BLYNKGO_ASYNC_MQTT32_VERSION_PATCH))
 
@@ -182,7 +204,7 @@ class BlynkGO_AsyncMQTT32 {
 
     int  publish(String topic, String message, uint8_t qos=QOS0, bool retain=false);
     int  publish(String topic, uint8_t* data, size_t data_len, uint8_t qos=QOS0, bool retain=false);
-    int  subscribe(String topic, uint8_t qos=QOS0); 
+    int  subscribe(String topic, uint8_t qos=QOS0, bool auto_subscribe=true); 
     bool unsubscribe(String topic);
     void unsubscribe_all();
 

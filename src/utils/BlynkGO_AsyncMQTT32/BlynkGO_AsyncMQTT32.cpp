@@ -69,7 +69,32 @@
  *   [V1.0.13] @22/03/25
  *      - ออกแบบใหม่ให้ event มา เก็บไว้ แล้วย้ายไปทำงานใน loop แทน ผ่าน SoftTimer
  *        เพื่อแก้ปัญหา บางที eventถูกทำลายไปก่อนที่ graphic จะวาดจริงเสร็จ (ที่เกิดใน ตอน lv_timer_handle(..)) ทำให้กราฟิกไปค้าง
- *      - buf_data, buf_data_len มีการเก็บ dataย้ายออกมา
+ *      - _topic มีการเก็บ topic ย้ายออกมา
+ *      - _data มีการเก็บ data ย้ายออกมา
+ *      - _sub_msg_ids, _unsub_msq_ids, _pub_msq_ids มีการจำไว้ 
+ *      - รองรับ กำหนด client_id เองได้  client_id(...) เพื่อใช้กับ mqtt broker บางแห่ง เช่นที่ NETPIE ได้
+ * 
+ *   [V1.0.14] @24/03/25
+ *      - ปรับ destroy() ที่มาจาก _stop + _destroy() ให้เช็คว่าเคย connected อยู่ ถึงค่อยมี event disconnected() แค่ครั้งเดียวออกไป
+ *      - client_id เปลี่ยนทุกครั้งที่ _init ใหม่  (ยกเว้น หากมีการ กำหนด client_id เองเช่นใน netpie)
+ *      - reconnect 5 รอบแล้วไม่ได้ ให้ _stop + _destroy แล้ว 10วิ ค่อย _init ใหม่ + _start
+ *      - reconnect 5 รอบ ใช้ของภายใน แล้ว บางทีกลับเชื่อมไม่ได้อีก อาจเป็นเพราะ client_id เดิมบน server ค้างอยู่
+ *        ทำการเปลี่ยนใหม่ ให้ _stop + _destroy ทิ้ง แล้ว  1 วินาทีค่อย _init client_id ใหม่ + _start แทน reconnect ภายใน
+ *              E (259013) MQTT_CLIENT: mqtt_message_receive: transport_read() error: errno=128
+ *              E (259014) MQTT_CLIENT: mqtt_process_receive: mqtt_message_receive() returned -1
+ *        ค่อยกลับมาเชื่อมต่อใหม่ได้!!
+ *      - WiFi ไม่หลุด Net หลุด Net มาสักพัก
+ *        หรือ WiFi หลุด แล้ว WiFi มา
+ *              E (998499) TRANSPORT_BASE: poll_read select error 104, errno = Connection reset by peer, fd = 48
+ *              E (998500) MQTT_CLIENT: Poll read error: 119, aborting connection
+ *        แล้วกลับมาเชื่อมต่อใหม่ได้!!
+ *      - WiFi & Net หลุด แล้ว WiFi มา แต่ Net ไม่มา
+ *              E (1144206) esp-tls: [sock=48] select() timeout
+ *              E (1144207) TRANSPORT_BASE: Failed to open a new connection: 32774
+ *              E (1144207) MQTT_CLIENT: Error transport connect
+ *        จะเข้าสู่ reconnect 5รอบ แล้ว หลุด 10 วิ ไปเรื่อยๆ
+ *        เมื่อ Net มา ก็กลับมาเชื่อมต่อได้!!
+ *      - subscribe มี ปิด ไม่ให้ save ลง subscribe topic list แต่เป็น direct subscribe ได้ (สำหรับใช้ สั่ง subscribe เองใน MQTT_CONNECTED)
  *
  *********************************************************************
  */
@@ -261,6 +286,10 @@ void BlynkGO_AsyncMQTT32::_init(int8_t clean_session){
   }
   if(this->_client_id.size() > 0) {
     this->_mqtt_conf.client_id = this->_client_id.c_str();
+  }else{
+    static char client_id[20];
+    snprintf(client_id, sizeof(client_id), "ESP32-%04X", random(0xFFFF));
+    this->_mqtt_conf.client_id = (const char*) client_id;
   }
 
   this->_client = esp_mqtt_client_init(&this->_mqtt_conf);
@@ -272,7 +301,7 @@ void BlynkGO_AsyncMQTT32::_init(int8_t clean_session){
   }
 }
 
-void BlynkGO_AsyncMQTT32::reconnect(){
+void BlynkGO_AsyncMQTT32::reconnect(){      // จะทำงานได้ ก็ต่อเมื่อ เคย _init และ ไม่ อาจจะเคย _start แล้ว มี _stop ไปแล้ว แต่ _init ยังอยู่ ค่อย reconnect นี้ได้ ?
   // esp_task_wdt_reset();
   if(!this->_client_inited ) return;
   if(!this->_client_started) return;
@@ -317,16 +346,17 @@ void BlynkGO_AsyncMQTT32::_start(){
             _pMQTTClient32->_unsub_msg_ids.clear();
             _pMQTTClient32->_pub_msg_ids.clear();
 
+            MqttOnConnected();
             if( _pMQTTClient32->_fn_onconnected != NULL) {
               _pMQTTClient32->_fn_onconnected();
             }
-
-            Serial.println("[MQTT32] subscribing...");
-            for(int i=0; i< _pMQTTClient32->_subscribe_topics.size(); i++){
-              _pMQTTClient32->_subscribe_topics[i].msg_id = esp_mqtt_client_subscribe( _pMQTTClient32->_client, _pMQTTClient32->_subscribe_topics[i].topic, _pMQTTClient32->_subscribe_topics[i].qos);
-              ESP_LOGI(TAG, "subscribe successful, msg_id=%d", _pMQTTClient32->subscribe_topics[i].msg_id);
+            if(_pMQTTClient32->_subscribe_topics.size()) {
+              Serial.println("[MQTT32] subscribing...");
+              for(int i=0; i< _pMQTTClient32->_subscribe_topics.size(); i++){
+                _pMQTTClient32->_subscribe_topics[i].msg_id = esp_mqtt_client_subscribe( _pMQTTClient32->_client, _pMQTTClient32->_subscribe_topics[i].topic, _pMQTTClient32->_subscribe_topics[i].qos);
+                ESP_LOGI(TAG, "subscribe successful, msg_id=%d", _pMQTTClient32->subscribe_topics[i].msg_id);
+              }
             }
-            MqttOnConnected();
             break;
           }
           case MQTT_EVENT_DISCONNECTED:
@@ -344,16 +374,26 @@ void BlynkGO_AsyncMQTT32::_start(){
               if(WiFi.isConnected()) {
                 if(_pMQTTClient32->_auto_reconnect_try){
                   Serial.printf("[MQTT32 reconnecting ... (%d)\n",  _pMQTTClient32->_auto_reconnect_try);
-                  _pMQTTClient32->reconnect();
-                  _pMQTTClient32->_auto_reconnect_try--;
-                }else{
+                  // _pMQTTClient32->reconnect(); // มีปัญหา _init _start เคยได้แล้วหลุด แล้ว reconnect นี้มีปัญหา
+                  _pMQTTClient32->_stop(); 
+                  _pMQTTClient32->_destroy();
+                  _timer_reconnect.delay(1000,[](){
+                    _pMQTTClient32->_init();
+                    _pMQTTClient32->_start();
+                  });
+                _pMQTTClient32->_auto_reconnect_try--;
+                }else{  // พยามจนครบ 5 ครั้งแล้ว
+                  _pMQTTClient32->_stop(); 
+                  _pMQTTClient32->_destroy();
                   _timer_reconnect.delay(10000,[](){
                     _pMQTTClient32->_auto_reconnect_try = 5;
+                    _pMQTTClient32->_init();
                     _pMQTTClient32->_start();
                   });
                 }
               }else{
-                _timer_reconnect.delay(500,[]{  // ถ่วงเวลาเพื่อรอให้ event_cb นี้ทำงานเรียบร้อยไปก่อนค่อย ทำลายด้วย stop()            
+                // กรณีไวไฟ หลุด
+                _timer_reconnect.delay(500,[]{  // ถ่วงเวลาเพื่อรอให้ event_cb นี้ทำงานเรียบร้อยไปก่อนค่อย หยุดด้วย _stop() ? 
                   _pMQTTClient32->_stop();
                 });
               }
@@ -417,7 +457,7 @@ void BlynkGO_AsyncMQTT32::_start(){
   });
 }
 
-void BlynkGO_AsyncMQTT32::_stop(){
+void BlynkGO_AsyncMQTT32::_stop(){  // ทำงานได้ก็ต่อเมื่อ เคย _init และ _start ทำงานแล้ว ถึง _stop นี้ได้   แต่ _init ยังอยู่
   // esp_task_wdt_reset();
   if(!this->_client_inited ) return;
   if(!this->_client_started) return;
@@ -428,7 +468,7 @@ void BlynkGO_AsyncMQTT32::_stop(){
   vTaskDelay(100 / portTICK_PERIOD_MS); // ป้องกัน loop เช็คเร็วเกินไป
 }
 
-void BlynkGO_AsyncMQTT32::_disconnect(){
+void BlynkGO_AsyncMQTT32::_disconnect(){  // ทำงานนี้ได้ก็ต่อเมื่อ เคย _init และเรียก _start ทำงานได้แล้ว ถึงเรียก _disconnect ได้
   // esp_task_wdt_reset();
   if(!this->_client_inited ) return;
   if(!this->_client_started) return;
@@ -437,7 +477,7 @@ void BlynkGO_AsyncMQTT32::_disconnect(){
   vTaskDelay(100 / portTICK_PERIOD_MS); // ป้องกัน loop เช็คเร็วเกินไป
 }
 
-void BlynkGO_AsyncMQTT32::_destroy(){
+void BlynkGO_AsyncMQTT32::_destroy(){   // ทำงานได้ก็ต่อเมื่อ เคย _init (แต่ไม่ควร _start ควรมี _stop ?) ถึงจะ _destroy ได้ 
   // esp_task_wdt_reset();
   if(!this->_client_inited ) return;
   esp_mqtt_client_destroy(this->_client);
@@ -448,12 +488,14 @@ void BlynkGO_AsyncMQTT32::_destroy(){
   vTaskDelay(100 / portTICK_PERIOD_MS); // ป้องกัน loop เช็คเร็วเกินไป
 }
 
-int BlynkGO_AsyncMQTT32::subscribe(String topic, uint8_t qos){
+int BlynkGO_AsyncMQTT32::subscribe(String topic, uint8_t qos, bool auto_subscribe){
   // esp_task_wdt_reset();
-  subscribe_topic_t new_subscribe_topic;
-  snprintf(new_subscribe_topic.topic, sizeof(new_subscribe_topic.topic), "%s", (char*)topic.c_str());
-  new_subscribe_topic.qos = qos;
-  this->_subscribe_topics.push_back( new_subscribe_topic );
+  if(auto_subscribe) {
+    subscribe_topic_t new_subscribe_topic;
+    snprintf(new_subscribe_topic.topic, sizeof(new_subscribe_topic.topic), "%s", (char*)topic.c_str());
+    new_subscribe_topic.qos = qos;
+    this->_subscribe_topics.push_back( new_subscribe_topic );
+  }
   if(this->connected() && this->_client != NULL) {
     uint32_t id = _subscribe_topics.size()-1;
     this->_subscribe_topics[id].msg_id = esp_mqtt_client_subscribe(_client, this->_subscribe_topics[id].topic, this->_subscribe_topics[id].qos);
