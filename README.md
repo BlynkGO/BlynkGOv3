@@ -2,6 +2,10 @@
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)  
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
   
+## [Version 3.1.9] @26/03/68   
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.3** (ติดต่อ Admin)    
+ - เอา BeeNeXT.hearbeat(..) ออกจาก BlynkGO ตาม ไล BeeNeXT3.1.6 ล่าสุด 
+  
 ## [Version 3.1.8] @24/03/68   
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.3** (ติดต่อ Admin)     
  - ปรับปรุง BlynkGO_AsyncMQTT32 เป็น v1.0.14  
