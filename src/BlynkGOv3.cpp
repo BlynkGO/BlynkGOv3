@@ -419,7 +419,7 @@ void BlynkGOv3::begin(uint64_t blynkgo_key){
 #endif
 
 #if defined(BEENEXT) || BLYNKGO_USE_BEENEXT
-  BeeNeXT.heartbeat(false);
+  // BeeNeXT.heartbeat(false);
 #endif
 
 #if defined (TOUCH_XPT2046)
