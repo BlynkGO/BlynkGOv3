@@ -164,6 +164,8 @@
  *   [V3.1.8] @24/03/25
  *       - ปรับปรุง MQTT32 เป็น v1.0.14 แก้ไข reconnect() ภายใน กลับมาใหม่ บางที client_id เดิม ทำให้ server ไม่เชื่อมต่อให้สมบูรณ์
  *         ปรับแก้ไขให้ _stop+_destroy ก่อน แล้วค่อย 1 วินาที _init client_id ใหม่ + _start 
+ *   [V3.1.9] @28/03/25
+ *       - เอา BeeNeXT.heartbeat(); ออก รองรับ BeeNeXT3.1.7 ที่มี BeeI2C และ BeeMQTT
  *
  *********************************************************************
  */
@@ -176,7 +178,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   1
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   8
+#define BLYNKGO_VERSION_PATCH   9
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 
