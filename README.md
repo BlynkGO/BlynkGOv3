@@ -2,6 +2,12 @@
  BlynkGOv3 for Arduino ESP32 core 2.0.x  (ESP32, ESP32S2, ESP32S3, ESP32C3)  
  ( **ไลบรารี่ลิขสิทธิ์** สำหรับ ผลิตภัณฑ์สินค้า ของทาง BlynkGO)  
   
+## [Version 3.1.10] @02/07/68   
+ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.3** (ติดต่อ Admin)    
+ - วิตเจ็ต GWiFiManager 1.0.5 ปรับให้เมื่อ disconnect 3 รอบติดให้ WIFI_OFF  
+   เพื่อหลุดจากจดจำจาก routerจริงๆ  
+   แล้วกลับมาเชื่อมใหม่โหมดเดิมช่วยให้ การเชื่อมต่อ WiFi เสถียรขึ้นเมื่อใช้งานระยะยาว   
+  
 ## [Version 3.1.9] @26/03/68   
 ทำงานบน **ESP32 core 2.0.13; ใช้ BlynkGO SDK 3.1.3** (ติดต่อ Admin)    
  - เอา BeeNeXT.hearbeat(..) ออกจาก BlynkGO ตาม ไล BeeNeXT3.1.9 ล่าสุด 
