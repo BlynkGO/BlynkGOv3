@@ -73,6 +73,9 @@
  *    1. เพิ่ม ssid_is_enable() และ autoip_is_enable() สำหรับเช็คสถานะ ON/OFF ของ GSWitch ssid และ autoip
  *       ให้ GWiFiManager
  * 
+ * Version 1.0.15 @02/07/25
+ *    1. GWiFiSetting ปรับให้ disconnect 3 รอบให้ OFF แล้วกลับมา mode เดิม ทำการ connect ใหม่
+ * 
  *********************************************************************
  */
 

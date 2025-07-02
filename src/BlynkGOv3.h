@@ -166,6 +166,8 @@
  *         ปรับแก้ไขให้ _stop+_destroy ก่อน แล้วค่อย 1 วินาที _init client_id ใหม่ + _start 
  *   [V3.1.9] @28/03/25
  *       - เอา BeeNeXT.heartbeat(); ออก รองรับ BeeNeXT3.1.7 ที่มี BeeI2C และ BeeMQTT
+ *   [V3.1.10] @02/07/25
+ *       - GWiFiManager v1.0.5 เพิ่มให้ disconnect 3 รอบต่อกัน ให้ ทำการ WiFi_OFF แล้ว connect ใหม่
  *
  *********************************************************************
  */
@@ -178,7 +180,7 @@
 /** Minor version number (x.X.x) */
 #define BLYNKGO_VERSION_MINOR   1
 /** Patch version number (x.x.X) */
-#define BLYNKGO_VERSION_PATCH   9
+#define BLYNKGO_VERSION_PATCH   10
 
 #define BLYNKGO_VERSION_TEXT    (String(BLYNKGO_VERSION_MAJOR)+"."+String(BLYNKGO_VERSION_MINOR)+"."+String(BLYNKGO_VERSION_PATCH))
 

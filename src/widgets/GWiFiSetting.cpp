@@ -73,6 +73,9 @@
  *    1. เพิ่ม ssid_is_enable() และ autoip_is_enable() สำหรับเช็คสถานะ ON/OFF ของ GSWitch ssid และ autoip
  *       ให้ GWiFiManager
  * 
+ * Version 1.0.15 @02/07/25
+ *    1. GWiFiSetting ปรับให้ disconnect 3 รอบให้ OFF แล้วกลับมา mode เดิม ทำการ connect ใหม่
+ * 
  *********************************************************************
  */
 
@@ -122,6 +125,8 @@ static GTask  WiFiScan_StatusCheck_Task;
 static GTimer wifisetting_timer;
 static bool   is_enterprise_size=false;
 uint32_t      wifiscan_timeout;
+static int8_t disconnect_counter=0;
+static wifi_mode_t cur_wifi_mode;
 
 ewm_state_t ewm_state=EWM_STATE_DISCONNECTED;
 
@@ -768,6 +773,8 @@ void GWiFiSetting::onWiFiConnected() {
   gwifisetting_ext_t* ext = (gwifisetting_ext_t*) _pWiFiSetting->ext_attr();
   if(ext == NULL) return;
 
+  disconnect_counter = 0; 
+
   // Serial.println("GWiFiSetting OnConnected");
 
   Serial.printf("[GWiFiSetting] WiFi Connected. IP : %s, Gateway : %s, Subnet : %s\n",
@@ -821,6 +828,21 @@ void GWiFiSetting::onWiFiDisconnected() {
       ext_wifimanager->lb_wifi_signal[1]->color(TFT_RED);
     }
   }
+
+  //--------v1.0.15-------------------------
+  if(++disconnect_counter >= 3) {
+    disconnect_counter = 0;
+    if(ext->sw_ssid_enable->isON()){
+      cur_wifi_mode = WiFi.getMode();
+      WiFi.disconnect(true);
+      WiFi.mode(WIFI_OFF);
+      wifisetting_timer.delay(1000,[](){
+        WiFi.mode(cur_wifi_mode);
+        GWiFiSetting::connect_WiFi();
+      });
+    }
+  }
+  //----------------------------------------
 
 #if BLYNKGO_USE_BLYNK
   if( Blynk.fn_user_blynk_disconnected != NULL)
