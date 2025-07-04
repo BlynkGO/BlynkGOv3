@@ -23,7 +23,9 @@ extern "C" {
 #define STR_MEM_CHECK   StringX::printf("[%s][%d] heap %d  psram %d\n", __func__,  __LINE__, ESP.getFreeHeap(), ESP.getFreePsram())
 #endif
 
-#define GWIDGET     GWidget*widget
+#define GWIDGET       GWidget*widget
+#define GWIDGET_CB    [](GWidget*widget)
+
 
 #if BLYNKGO_USE_KBD
 template<typename T, typename ...Args>
