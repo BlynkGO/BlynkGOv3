@@ -35,7 +35,7 @@ void setup(){
   expand_menu.align(ALIGN_BOTTOM_LEFT, 5, -10);
     for(int i=3; i>=0 ; i--) {
       menu_btns[i].align(expand_menu, ALIGN_CENTER);
-      menu_btns[i].toForeground();       // ย้ายไป layer ที่ 6-i
+      menu_btns[i].toForeground();       // ย้ายไป layer ที่ บนสุด
       menu_btns[i].onClicked(GWIDGET_CB{
         int menu_id = (GImageButton*)widget -&menu_btns[0];
         Serial.printf("[Menu] %d  selected\n", menu_id);
