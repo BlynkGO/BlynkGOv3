@@ -25,6 +25,9 @@ extern "C" {
 
 #define GWIDGET       GWidget*widget
 #define GWIDGET_CB    [](GWidget*widget)
+#define GANIMATION    GAnimation*a
+#define GANIMATION_CB [](GAnimation*a)
+#define GANIM_CB      [](GAnimation*a)
 
 
 #if BLYNKGO_USE_KBD
